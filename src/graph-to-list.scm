@@ -7,13 +7,14 @@
 %use (make-node/directed) "./euphrates/node-directed.scm"
 %use (make-hashmap hashmap-ref hashmap-set!) "./euphrates/ihashmap.scm"
 %use (make-box box-ref box-set!) "./euphrates/box.scm"
+%use (reference reference-id reference-label) "./reference.scm"
 
 (define (graph->list g)
   (define H (make-hashmap))
   (define counter 0)
   (define boxed
     (let loop ((g g))
-      (let ((get (hashmap-ref H (node/directed-label g) #f)))
+      (let ((get (hashmap-ref H (reference-id (node/directed-label g)) #f)))
         (if get
             (let* ((B (box-ref get))
                    (cnt (list-ref B 0))
@@ -24,21 +25,22 @@
                 ((unlab)
                  (set! counter (+ 1 counter))
                  (set! cnt counter)
-                 (box-set! get (list cnt 'lab type (vector cnt val)))))
+                 (box-set! get (list cnt 'lab type (vector cnt (reference-label val))))))
               (vector cnt))
             (begin
               (let ((B (make-box
                         (if (null? (node/directed-children g))
                             (list -1 'unlab 'leaf (node/directed-label g))
                             (list -1 'unlab 'branch (map loop (node/directed-children g)))))))
-                (hashmap-set! H (node/directed-label g) B)
+                (hashmap-set! H (reference-id (node/directed-label g)) B)
                 B))))))
 
   (let loop ((boxed boxed))
+    (debug "BOXED: ~s" boxed)
     (if (vector? boxed) boxed
         (let* ((B (box-ref boxed))
                (type (list-ref B 2))
                (val (list-ref B 3)))
           (case type
-            ((leaf) val)
+            ((leaf) (if (vector? val) val (reference-label val)))
             ((branch) (map loop val)))))))
