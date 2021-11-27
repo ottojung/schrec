@@ -19,11 +19,10 @@
               (set! counter (+ 1 counter))
               (set-rtree-ref! get counter))
             (vector get))
-          (begin
-            (let* ((leaf? (null? (node/directed-children g)))
-                   (B (rtree #f leaf?
-                             (if leaf?
-                                 (reference-label (node/directed-label g))
-                                 (map loop (node/directed-children g))))))
-              (hashmap-set! H (reference-id (node/directed-label g)) B)
-              B))))))
+          (let* ((leaf? (null? (node/directed-children g)))
+                 (B (rtree #f leaf?
+                           (if leaf?
+                               (reference-label (node/directed-label g))
+                               (map loop (node/directed-children g))))))
+            (hashmap-set! H (reference-id (node/directed-label g)) B)
+            B)))))
