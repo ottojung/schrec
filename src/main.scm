@@ -11,12 +11,12 @@
 
 (use-modules (ice-9 pretty-print))
 
-(define input
-  '(a d b c
-      (case (or ((g1 x1)    g1 (x1 + 0)       (num x1))
-                ((g2 x2 y2) g2 (x2 + (s y2))  (s (x2 + y2)))
-                ((g3 x3)    g3 (num (num x3)) (num x3)))
-        ((s 0) + ((s (s 0)) + (s 0))))))
+;; (define input
+;;   '(a d b c
+;;       (case (or ((g1 x1)    g1 (x1 + 0)       (num x1))
+;;                 ((g2 x2 y2) g2 (x2 + (s y2))  (s (x2 + y2)))
+;;                 ((g3 x3)    g3 (num (num x3)) (num x3)))
+;;         ((s 0) + ((s (s 0)) + (s 0))))))
 
 ;; (define input
 ;;   '(a d b c
@@ -27,10 +27,10 @@
 ;;                      ((z3)    x3 (num z3) (num z3))))
 ;;         ((s 0) + ((s (s 0)) + (s 0))))))
 
-;; (define input
-;;   '(a b a
-;;       (case (and ((g x) g (s x) (n x)))
-;;         (s (s 3)))))
+(define input
+  '(a b a
+      (case ((g x) g (s x) (n x))
+        (s (s 3)))))
 
 (define graph
   (list->graph input))

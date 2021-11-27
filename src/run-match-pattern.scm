@@ -12,6 +12,8 @@
 %use (node-equal?) "./node-equal-huh.scm"
 %use (associate-free-variable!) "./associate-free-variable-bang.scm"
 
+%use (debug) "./euphrates/debug.scm"
+
 (define (run-match-pattern match-node input-node)
   (let loop ((match-node match-node) (input-node input-node))
     (when (and (free-variable? input-node)
@@ -30,8 +32,6 @@
                     (ichildren (node/directed-children input-val)))
                 (associate-free-variable! match-node input-val)
                 (or (null? mchildren) ;; NOTE: because of this, we don't have a check for a node that has zero children.
-                    (= (length mchildren) (length ichildren))
-                    (list-and-map (lambda (p) (loop (car p) (cdr p)))
-                                  (map mchildren ichildren)))))
+                    (list-and-map loop mchildren ichildren))))
 
           (node-equal? match-node input-val)))))

@@ -16,11 +16,9 @@
   (define input-node (list-ref children 1))
   (define match-pattern (list-ref children 2))
   (define replace-pattern (list-ref children 3))
-  (define scope (list-drop-n children 3))
+  (define scope (list-drop-n 3 children))
 
-  ;; FIXME(infv): allow `input-node' to not to be a free variable
   ;; FIXME(fv-intersection-check): check that rules don't have common free variables?
-  (initialize-free-variable! input-node)
   (initialize-free-variable! match-pattern)
   (for-each (lambda (var) (initialize-free-variable! var)) free-list)
 

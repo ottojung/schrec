@@ -17,7 +17,7 @@
   (define input-node (list-ref children 1))
   (define match-pattern (list-ref children 2))
   (define replace-pattern (list-ref children 3))
-  (define scope (list-drop-n children 3))
+  (define scope (list-drop-n 3 children))
 
-  (and (associate-free-variable! input-node main-input) ;; FIXME(infv)
+  (and (associate-free-variable! input-node main-input) ;; FIXME(infv): allow `input-node' to be not a free variable
        (run-match-pattern match-pattern input-node)))
