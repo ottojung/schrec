@@ -10,6 +10,7 @@
 
 ;; returns either the eval node, or #f
 ;; TODO: consider using O(1) memory algorithm like the "turle and hare".
+;; FIXME: abort if graph loops into itself!
 (define (find-eval graph)
   (define H (make-hashset))
   (let loop ((parent #f) (graph graph))

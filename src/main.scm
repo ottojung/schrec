@@ -12,18 +12,32 @@
 
 (define input
   '(a d b c
-      (case (or (_ (_1 + 0) (num _1))
-                (_ (_2 + (s _3)) (s (_2 + _3)))
-                (_ (num (num _4)) (num _4)))
+      (case (or ((g1 x1)    g1 (x1 + 0)       (num x1))
+                ((g2 x2 y2) g2 (x2 + (s y2))  (s (x2 + y2)))
+                ((g3 x3)    g3 (num (num x3)) (num x3)))
         ((s 0) + ((s (s 0)) + (s 0))))))
+
+;; (define input
+;;   '(a d b c
+;;       (case (or ((g1 x1) g (x1 + 0) (num x1))
+;;                 (and ((g2 x2 y2) g2 (x2 + y2) (s (x2 + z2)))
+;;                      ((z2)       y2 (s z2)    (s z2)))
+;;                 (and ((g3 x3) g3 (num x3) (num z3))
+;;                      ((z3)    x3 (num z3) (num z3))))
+;;         ((s 0) + ((s (s 0)) + (s 0))))))
+
+;; (define input
+;;   '(a b a
+;;       (case (and ((g x) g (s x) (n x)))
+;;         (s (s 3)))))
 
 (define graph
   (list->graph input))
 
-(display "Reprinted:\n")
+(display "\nReprinted:\n")
 (pretty-print (graph->list graph))
 
-(display "Eval:\n")
+(display "\nEval:\n")
 (pretty-print (graph->list (find-eval graph)))
 
 

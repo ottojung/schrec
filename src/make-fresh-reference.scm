@@ -9,4 +9,4 @@
   (let ((counter 0))
     (lambda (label type)
       (set! counter (+ 1 counter))
-      (reference counter label type))))
+      (reference counter label type #f))))
