@@ -17,10 +17,10 @@
   (unless (free-variable? free-node)
     (raisu 'trying-to-associate-variable-that-is-not-free free-node))
 
-  (let ((current-target (cdr meta)))
-    (if current-target
-        (node-equal? current-target target-node)
-        (let* ((new-reference (reference-set-meta (cons 'free-var target-node))))
-          (set-node/directed-label! free-node new-reference)
-          #t))))
+  (if (free-variable-associated? free-node)
+      (let ((current-target (free-variable-get-association free-node)))
+        (node-equal? current-target target-node))
+      (let* ((new-reference (reference-set-meta (cons 'free-var target-node))))
+        (set-node/directed-label! free-node new-reference)
+        #t)))
 
