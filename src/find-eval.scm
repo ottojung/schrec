@@ -9,6 +9,7 @@
 %use (node-id) "./node-id.scm"
 
 ;; returns either the eval node, or #f
+;; TODO: consider using O(1) memory algorithm like the "turle and hare".
 (define (find-eval graph)
   (define H (make-hashset))
   (let loop ((parent #f) (graph graph))
