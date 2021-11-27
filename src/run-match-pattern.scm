@@ -12,8 +12,6 @@
 %use (node-equal?) "./node-equal-huh.scm"
 %use (associate-free-variable!) "./associate-free-variable-bang.scm"
 
-%use (debug) "./euphrates/debug.scm"
-
 (define (run-match-pattern match-node input-node)
   (let loop ((match-node match-node) (input-node input-node))
     (when (and (free-variable? input-node)

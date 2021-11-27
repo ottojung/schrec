@@ -50,5 +50,8 @@
 
 (debug "match-result: ~s" match-result)
 
+(display "\nReprinted 2:\n")
+(pretty-print (graph->list graph))
+
 
 
