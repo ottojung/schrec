@@ -13,8 +13,8 @@
 (define input
   '(a d b c
       (case (or (_ (_1 + 0) (num _1))
-                (_ (0 + _2) (num _2))
-                (_ ((s _3) + (s _4)) (s (s (_3 + _4)))))
+                (_ (_2 + (s _3)) (s (_2 + _3)))
+                (_ (num (num _4)) (num _4)))
         ((s 0) + ((s (s 0)) + (s 0))))))
 
 (define graph
