@@ -10,6 +10,7 @@
 %use (free-variable-get-association) "./free-variable-get-association.scm"
 %use (free-variable-associated?) "./free-variable-associated-huh.scm"
 %use (node-equal?) "./node-equal-huh.scm"
+%use (associate-free-variable!) "./associate-free-variable-bang.scm"
 
 (define (run-match-pattern match-node input-node)
   (let loop ((match-node match-node) (input-node input-node))

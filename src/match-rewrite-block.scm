@@ -9,6 +9,7 @@
 %use (initialize-free-variable!) "./initialize-free-variable-bang.scm"
 %use (reinitialize-free-variable!) "./reinitialize-free-variable-bang.scm"
 %use (uninitialize-free-variable!) "./uninitialize-free-variable-bang.scm"
+%use (run-match-pattern) "./run-match-pattern.scm"
 
 (define (match-rewrite-block block main-input)
   (define children (node/directed-children block))

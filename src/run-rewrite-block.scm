@@ -4,6 +4,9 @@
 %var run-rewrite-block
 
 %use (initialize-rewrite-block) "./initialize-rewrite-block.scm"
+%use (match-rewrite-block) "./match-rewrite-block.scm"
+
+%use (debug) "./euphrates/debug.scm"
 
 (define (run-rewrite-block block main-input)
   (initialize-rewrite-block block)

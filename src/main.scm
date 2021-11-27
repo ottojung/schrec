@@ -5,6 +5,7 @@
 %use (list->graph) "./list-to-graph.scm"
 %use (graph->list) "./graph-to-list.scm"
 %use (find-eval) "./find-eval.scm"
+%use (run-environment) "./run-environment.scm"
 
 %use (debug) "./euphrates/debug.scm"
 
@@ -37,8 +38,17 @@
 (display "\nReprinted:\n")
 (pretty-print (graph->list graph))
 
+(define eval-node
+  (find-eval graph))
+
 (display "\nEval:\n")
-(pretty-print (graph->list (find-eval graph)))
+(pretty-print (graph->list eval-node))
+
+(define match-result
+  (run-environment (cadr (node/directed-children eval-node))
+                   (caddr (node/directed-children eval-node))))
+
+(debug "match-result: ~s" match-result)
 
 
 

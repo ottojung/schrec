@@ -3,7 +3,8 @@
 
 %var free-variable-associated?
 
-%use (free-variable-get-association) "./free-variable-get-association.scm"
+%use (node/directed-label) "./euphrates/node-directed-obj.scm"
+%use (reference-meta) "./reference.scm"
 
-(define (free-variable-associated? fv)
-  (free-variable-get-association fv))
+(define (free-variable-associated? node)
+  (not (not (cdr (reference-meta (node/directed-label node))))))
