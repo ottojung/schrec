@@ -3,10 +3,7 @@
 
 %var make-fresh-wildcard-reference
 
-%use (reference) "./reference.scm"
+%use (make-fresh-reference) "./make-fresh-reference.scm"
 
-(define make-fresh-wildcard-reference
-  (let ((counter 0))
-    (lambda ()
-      (set! counter (+ 1 counter))
-      (reference (cons counter 'fresh) '_ 'wildcard))))
+(define (make-fresh-wildcard-reference)
+  (make-fresh-reference '_ 'wildcard))
