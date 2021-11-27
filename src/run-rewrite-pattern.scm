@@ -12,7 +12,7 @@
 %use (free-variable-associated?) "./free-variable-associated-huh.scm"
 %use (node-equal?) "./node-equal-huh.scm"
 %use (associate-free-variable!) "./associate-free-variable-bang.scm"
-%use (make-fresh-reference) "./make-fresh-reference.scm"
+%use (make-fresh-branch-reference) "./make-fresh-branch-reference.scm"
 
 %use (debug) "./euphrates/debug.scm"
 
@@ -26,8 +26,10 @@
               (set-node/directed-children!
                target
                (map loop (node/directed-children P)))
+              (debug "TARGET2: ~s" target)
               target)
             (make-node/directed
-             (make-fresh-reference #f 'exp)
+             (make-fresh-branch-reference)
              (map loop (node/directed-children P))))
-        P)))
+        (make-node/directed (make-fresh-branch-reference) '()))))
+        ;; P)))
