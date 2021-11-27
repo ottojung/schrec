@@ -5,7 +5,7 @@
 
 %use (node/directed-children set-node/directed-children! node/directed-label set-node/directed-label!) "./euphrates/node-directed-obj.scm"
 %use (make-hashmap hashmap-ref hashmap-set!) "./euphrates/ihashmap.scm"
-%use (rtree rtree-ref set-rtree-ref! rtree-leaf? rtree-value) "./euphrates/rtree.scm"
+%use (rtree rtree-ref set-rtree-ref! rtree-value rtree-children) "./euphrates/rtree.scm"
 %use (reference-label) "./reference.scm"
 %use (node-id) "./node-id.scm"
 
@@ -20,10 +20,9 @@
               (set! counter (+ 1 counter))
               (set-rtree-ref! get counter))
             (vector get))
-          (let* ((leaf? (null? (node/directed-children g)))
-                 (B (rtree #f leaf?
-                           (if leaf?
-                               (reference-label (node/directed-label g))
-                               (map loop (node/directed-children g))))))
+          (let* ((B (rtree
+                     #f
+                     (node/directed-label g)
+                     (map loop (node/directed-children g)))))
             (hashmap-set! H (node-id g) B)
             B)))))

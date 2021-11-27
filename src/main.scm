@@ -23,5 +23,8 @@
 (display "Reprinted:\n")
 (pretty-print (graph->list graph))
 
-(debug "Eval: ~s" (find-eval graph))
+(display "Eval:\n")
+(pretty-print (graph->list (find-eval graph)))
+
+
 
