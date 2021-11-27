@@ -4,6 +4,7 @@
 %use (node/directed-children set-node/directed-children! node/directed-label set-node/directed-label!) "./euphrates/node-directed-obj.scm"
 %use (list->graph) "./list-to-graph.scm"
 %use (graph->list) "./graph-to-list.scm"
+%use (find-eval) "./find-eval.scm"
 
 %use (debug) "./euphrates/debug.scm"
 
@@ -21,4 +22,6 @@
 
 (display "Reprinted:\n")
 (pretty-print (graph->list graph))
+
+(debug "Eval: ~s" (find-eval graph))
 
