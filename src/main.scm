@@ -7,6 +7,8 @@
 
 %use (debug) "./euphrates/debug.scm"
 
+(use-modules (ice-9 pretty-print))
+
 (define input
   '(a d b c
       (case (or (_ (_1 + 0) (num _1))
@@ -17,9 +19,6 @@
 (define graph
   (list->graph input))
 
-(debug "KEK: ~s" graph)
-
-(debug "LOL: ~s" (graph->list graph))
-
-(display "Hello\n")
+(display "Reprinted:\n")
+(pretty-print (graph->list graph))
 
