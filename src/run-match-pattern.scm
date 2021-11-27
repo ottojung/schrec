@@ -29,7 +29,7 @@
               (let ((mchildren (node/directed-children match-node))
                     (ichildren (node/directed-children input-val)))
                 (associate-free-variable! match-node input-val)
-                (or (null? mchildren) ;; NOTE: because of this, we don't have a check for a node that has zero children.
+                (or (null? mchildren) ;; NOTE(null-wildcard): because of this, we don't have a check for a node that has zero children.
                     (list-and-map loop mchildren ichildren))))
 
           (node-equal? match-node input-val)))))

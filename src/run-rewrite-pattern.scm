@@ -14,22 +14,18 @@
 %use (associate-free-variable!) "./associate-free-variable-bang.scm"
 %use (make-fresh-branch-reference) "./make-fresh-branch-reference.scm"
 
-%use (debug) "./euphrates/debug.scm"
-
 (define (run-rewrite-pattern replace-pattern0)
   (let loop ((P replace-pattern0))
-    (debug "P: ~s" P)
     (if (free-variable? P)
         (if (free-variable-associated? P)
             (let ((target (free-variable-get-association P)))
-              (debug "TARGET: ~s" target)
-              (set-node/directed-children!
-               target
-               (map loop (node/directed-children P)))
-              (debug "TARGET2: ~s" target)
+              (unless (null? (node/directed-children P))
+                ;; NOTE(null-wildcard): because of this, we don't have a check for a node that has zero children.
+                (set-node/directed-children!
+                 target
+                 (map loop (node/directed-children P))))
               target)
             (make-node/directed
              (make-fresh-branch-reference)
              (map loop (node/directed-children P))))
-        (make-node/directed (make-fresh-branch-reference) '()))))
-        ;; P)))
+        P)))

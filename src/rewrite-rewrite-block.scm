@@ -24,5 +24,6 @@
   (let ((input-val (if (free-variable? input-node)
                        (free-variable-get-association input-node)
                        input-node)))
-    (and (associate-free-variable! replace-pattern input-val)
-         (run-rewrite-pattern replace-pattern))))
+    (and
+     (associate-free-variable! replace-pattern input-val)
+     (run-rewrite-pattern replace-pattern))))
