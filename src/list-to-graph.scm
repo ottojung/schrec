@@ -8,7 +8,7 @@
 %use (make-hashmap hashmap-ref hashmap-set!) "./euphrates/ihashmap.scm"
 %use (get-atom-type) "./get-atom-type.scm"
 %use (make-fresh-branch-reference) "./make-fresh-branch-reference.scm"
-%use (make-fresh-reference) "./make-fresh-reference.scm"
+%use (make-fresh-atom-node) "./make-fresh-atom-node.scm"
 
 (define (list->graph lst)
   (define H (make-hashmap))
@@ -17,7 +17,6 @@
         (make-node/directed (make-fresh-branch-reference) (map loop lst))
         (let ((existing (hashmap-ref H lst #f)))
           (or existing
-              (let* ((type (get-atom-type lst))
-                     (new (make-node/directed (make-fresh-reference lst type) '())))
+              (let* ((new (make-fresh-atom-node lst)))
                 (hashmap-set! H lst new)
                 new))))))
