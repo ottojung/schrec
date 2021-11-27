@@ -6,4 +6,4 @@
 %use (node/directed-label) "./euphrates/node-directed-obj.scm"
 
 (define (wildcard-node? n)
-  (equal? 'wildcard (car (node/directed-label n))))
+  (equal? 'wildcard (reference-type (node/directed-label n))))

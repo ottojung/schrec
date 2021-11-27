@@ -6,4 +6,4 @@
 %use (node/directed-label) "./euphrates/node-directed-obj.scm"
 
 (define (let-node? n)
-  (equal? 'let (car (node/directed-label n))))
+  (equal? 'let (reference-type (node/directed-label n))))
