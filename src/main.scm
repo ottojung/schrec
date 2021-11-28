@@ -34,7 +34,7 @@
 
 (define input
   '(a b fv
-      (let ((fv (g x)) (k (1 fv z)) (z 5))
+      (let ((fv (g k x)) (k (1 fv z)) (z 5))
         (case (fv g (s x) (n x))
           (s (s (a z)))))))
 
