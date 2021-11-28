@@ -7,6 +7,7 @@
 %use (find-eval) "./find-eval.scm"
 %use (run-environment) "./run-environment.scm"
 %use (reduce-topdown) "./reduce-topdown.scm"
+%use (run-topdown) "./run-topdown.scm"
 
 %use (debug) "./euphrates/debug.scm"
 
@@ -33,6 +34,7 @@
 ;;       (case ((g x) g (s x) (n x))
 ;;         (s (s 3)))))
 
+;; NOTE: rewrites itself if applied to the root LOL :)
 (define input
   '(a b fv
       (let ((fv (g x)) (k (l rec z)) (rec (z k)) (l 4) (z l))
@@ -45,28 +47,36 @@
 (display "\nReprinted:\n")
 (pretty-print (graph->list graph))
 
-(define eval-node
-  (find-eval graph))
-
-(display "\nEval:\n")
-(pretty-print (graph->list eval-node))
-
-(define env0
-  (cadr (node-children eval-node)))
-
-(define match-result
-  (run-environment env0 (caddr (node-children eval-node))))
-
-(debug "\nmatch-result: ~s" match-result)
+(debug "\nrun-topdown: ~s" (run-topdown graph))
 
 (display "\nReprinted2:\n")
 (pretty-print (graph->list graph))
 
-(debug "\nenv0: ~s" (graph->list env0))
+;; (define eval-node
+;;   (find-eval graph))
 
-(debug "match-result2: " (reduce-topdown env0 graph))
-(display "\nReprinted3:\n")
-(pretty-print (graph->list graph))
+;; (display "\nEval:\n")
+;; (pretty-print (graph->list eval-node))
+
+;; (define env0
+;;   (cadr (node-children eval-node)))
+
+;; (define body0
+;;   (caddr (node-children eval-node)))
+
+;; (define match-result
+;;   (run-environment env0 body0))
+
+;; (debug "\nmatch-result: ~s" match-result)
+
+;; (display "\nReprinted2:\n")
+;; (pretty-print (graph->list graph))
+
+;; (debug "\nenv0: ~s" (graph->list env0))
+
+;; (debug "match-result2: " (reduce-topdown env0 body0))
+;; (display "\nReprinted3:\n")
+;; (pretty-print (graph->list graph))
 
 
 
