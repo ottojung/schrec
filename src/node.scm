@@ -12,11 +12,18 @@
 %use (define-type9) "./euphrates/define-type9.scm"
 
 (define-type9 <n>
-  (node label children) node?
-  (label node-label set-node-label!)
+  (node id children label type meta) node?
+  ;; reference part
+  (id node-id)
+
+  ;; children part
   (children node-children set-node-children!)
+
+  ;; meta part
+  (label node-label)
+  (type node-type)
+  (meta node-meta)
   )
 
-
-(define (make-node label children)
-  (node label children))
+(define (make-node id children label type)
+  (node id children label type #f))

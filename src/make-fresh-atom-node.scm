@@ -3,8 +3,8 @@
 
 %var make-fresh-atom-node
 
-%use (make-node) "./node.scm"
-%use (make-fresh-atom-reference) "./make-fresh-atom-reference.scm"
+%use (make-fresh-reference) "./make-fresh-reference.scm"
+%use (get-atom-type) "./get-atom-type.scm"
 
-(define (make-fresh-atom-node atom)
-  (make-node (make-fresh-atom-reference atom) '()))
+(define (make-fresh-atom-node atom children)
+  (make-fresh-node atom (get-atom-type atom) children))
