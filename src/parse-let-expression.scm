@@ -6,12 +6,8 @@
 %use (node/directed-children set-node/directed-children! node/directed-label) "./euphrates/node-directed-obj.scm"
 %use (make-node/directed) "./euphrates/node-directed.scm"
 %use (lexical-scope-ref lexical-scope-set! lexical-scope-stage! lexical-scope-unstage!) "./euphrates/lexical-scope.scm"
-%use (fn-cons) "./euphrates/fn-cons.scm"
 %use (fp) "./euphrates/fp.scm"
-%use (raisu) "./euphrates/raisu.scm"
 %use (make-fresh-regular-reference) "./make-fresh-regular-reference.scm"
-%use (let-expression?) "./let-expression-huh.scm"
-%use (check-let-syntax) "./check-let-syntax.scm"
 %use (reference-label) "./reference.scm"
 
 (define (parse-let-expression scope loop lst)
@@ -20,12 +16,10 @@
 
   (define binding-nodes
     (map
-     (lambda (lst)
-       (let* ((name (car lst))
-              (value (cadr lst)))
+     (fp (name value)
          (if (or (null? value) (pair? value))
              (list (make-node/directed (make-fresh-regular-reference name) '()) value)
-             (list name value))))
+             (list name value)))
      let-bindings))
 
   (lexical-scope-stage! scope)
