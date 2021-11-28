@@ -20,18 +20,25 @@
   (define let-body (caddr lst))
 
   (define binding-nodes
-    (map (fn-cons make-fresh-atom-node identity) let-bindings))
+    (map
+     (lambda (lst)
+       (let* ((name (car lst))
+              (value (cadr lst)))
+         (if (pair? value)
+             (list (make-node/directed (make-fresh-branch-reference) '()) value)
+             (list name value))))
+     let-bindings))
 
   (lexical-scope-stage! scope)
 
   (for-each
-   (fp (binding-node value)
+   (fp (name value)
        (if (pair? value)
            (lexical-scope-set!
-            scope (reference-label (node/directed-label binding-node))
-            binding-node)
+            scope (reference-label (node/directed-label name))
+            name)
            (lexical-scope-set!
-            scope (reference-label (node/directed-label binding-node))
+            scope name
             (loop value))))
    binding-nodes)
 
