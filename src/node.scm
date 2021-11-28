@@ -11,11 +11,13 @@
 %var node-type
 %var node-meta
 %var set-node-meta!
+%var node-visited?
+%var set-node-visited?!
 
 %use (define-type9) "./euphrates/define-type9.scm"
 
 (define-type9 <n>
-  (node id children label type meta) node?
+  (node id children label type meta visited?) node?
   ;; reference part
   (id node-id)
 
@@ -26,7 +28,8 @@
   (label node-label)
   (type node-type)
   (meta node-meta set-node-meta!)
+  (visited? node-visited? set-node-visited?!)
   )
 
 (define (make-node id children label type)
-  (node id children label type #f))
+  (node id children label type #f #f))
