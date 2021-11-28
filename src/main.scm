@@ -8,6 +8,7 @@
 %use (run-environment) "./run-environment.scm"
 %use (reduce-topdown) "./reduce-topdown.scm"
 %use (run-topdown) "./run-topdown.scm"
+%use (run-topdown-loop) "./run-topdown-loop.scm"
 
 %use (debug) "./euphrates/debug.scm"
 
@@ -50,6 +51,11 @@
 (debug "\nrun-topdown: ~s" (run-topdown graph))
 
 (display "\nReprinted2:\n")
+(pretty-print (graph->list graph))
+
+(debug "\nrun-topdown: ~s" (run-topdown graph))
+
+(display "\nReprinted3:\n")
 (pretty-print (graph->list graph))
 
 ;; (define eval-node
