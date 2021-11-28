@@ -1,7 +1,7 @@
 
 %run guile
 
-%use (node/directed-children set-node/directed-children! node/directed-label set-node/directed-label!) "./euphrates/node-directed-obj.scm"
+%use (node-children set-node-children! node-label set-node-label!) "./node.scm"
 %use (list->graph) "./list-to-graph.scm"
 %use (graph->list) "./graph-to-list.scm"
 %use (find-eval) "./find-eval.scm"
@@ -51,8 +51,8 @@
 (pretty-print (graph->list eval-node))
 
 (define match-result
-  (run-environment (cadr (node/directed-children eval-node))
-                   (caddr (node/directed-children eval-node))))
+  (run-environment (cadr (node-children eval-node))
+                   (caddr (node-children eval-node))))
 
 (debug "match-result: ~s" match-result)
 

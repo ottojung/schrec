@@ -3,8 +3,8 @@
 
 %var let-node?
 
-%use (node/directed-label) "./euphrates/node-directed-obj.scm"
+%use (node-label) "./node.scm"
 %use (reference-type) "./reference.scm"
 
 (define (let-node? n)
-  (equal? 'tlet (reference-type (node/directed-label n))))
+  (equal? 'tlet (reference-type (node-label n))))

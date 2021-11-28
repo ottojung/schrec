@@ -3,7 +3,7 @@
 
 %var rewrite-rewrite-block
 
-%use (node/directed-children set-node/directed-children! node/directed-label set-node/directed-label!) "./euphrates/node-directed-obj.scm"
+%use (node-children set-node-children! node-label set-node-label!) "./node.scm"
 %use (list-drop-n) "./euphrates/list-drop-n.scm"
 %use (associate-free-variable!) "./associate-free-variable-bang.scm"
 %use (initialize-free-variable!) "./initialize-free-variable-bang.scm"
@@ -14,8 +14,8 @@
 %use (free-variable-get-association) "./free-variable-get-association.scm"
 
 (define (rewrite-rewrite-block block)
-  (define children (node/directed-children block))
-  (define free-list (node/directed-children (list-ref children 0)))
+  (define children (node-children block))
+  (define free-list (node-children (list-ref children 0)))
   (define input-node (list-ref children 1))
   (define match-pattern (list-ref children 2))
   (define replace-pattern (list-ref children 3))

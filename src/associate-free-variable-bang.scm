@@ -3,7 +3,7 @@
 
 %var associate-free-variable!
 
-%use (node/directed-children set-node/directed-children! node/directed-label set-node/directed-label!) "./euphrates/node-directed-obj.scm"
+%use (node-children set-node-children! node-label set-node-label!) "./node.scm"
 %use (raisu) "./euphrates/raisu.scm"
 %use (reference-meta) "./reference.scm"
 %use (reference-set-meta) "./reference-set-meta.scm"
@@ -14,7 +14,7 @@
 
 ;; returns #t on success, #f on failure
 (define (associate-free-variable! free-node target-node)
-  (define ref (node/directed-label free-node))
+  (define ref (node-label free-node))
   (define meta (reference-meta ref))
 
   (unless (free-variable? free-node)
@@ -24,6 +24,6 @@
       (let ((current-target (free-variable-get-association free-node)))
         (node-equal? current-target target-node))
       (let* ((new-reference (reference-set-meta ref (cons 'free-var target-node))))
-        (set-node/directed-label! free-node new-reference)
+        (set-node-label! free-node new-reference)
         #t)))
 

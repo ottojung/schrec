@@ -4,7 +4,7 @@
 %var find-eval
 
 %use (make-hashset hashset-ref hashset-add!) "./euphrates/ihashset.scm"
-%use (node/directed-children) "./euphrates/node-directed-obj.scm"
+%use (node-children) "./node.scm"
 %use (eval-node?) "./eval-node-huh.scm"
 %use (node-id) "./node-id.scm"
 
@@ -18,7 +18,7 @@
         (begin
           (hashset-add! H (node-id graph))
           (if (eval-node? graph) parent
-              (let cloop ((cs (node/directed-children graph)))
+              (let cloop ((cs (node-children graph)))
                 (if (null? cs) #f
                     (or (loop graph (car cs))
                         (cloop (cdr cs))))))))))

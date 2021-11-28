@@ -3,7 +3,7 @@
 
 %var list->graph
 
-%use (make-node/directed) "./euphrates/node-directed.scm"
+%use (make-node) "./node.scm"
 %use (lexical-scope-make lexical-scope-ref lexical-scope-set!) "./euphrates/lexical-scope.scm"
 %use (raisu) "./euphrates/raisu.scm"
 %use (make-fresh-branch-reference) "./make-fresh-branch-reference.scm"
@@ -20,7 +20,7 @@
             (begin
               (check-let-syntax lst)
               (parse-let-expression scope loop lst))
-            (make-node/directed (make-fresh-branch-reference) (map loop lst)))
+            (make-node (make-fresh-branch-reference) (map loop lst)))
         (let ((existing (lexical-scope-ref scope lst #f)))
           (or existing
               (let* ((new (make-fresh-atom-node lst)))

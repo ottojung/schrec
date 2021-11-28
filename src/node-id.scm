@@ -3,8 +3,8 @@
 
 %var node-id
 
-%use (node/directed-label) "./euphrates/node-directed-obj.scm"
+%use (node-label) "./node.scm"
 %use (reference-id) "./reference.scm"
 
 (define node-id
-  (compose reference-id node/directed-label))
+  (compose reference-id node-label))

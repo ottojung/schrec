@@ -3,8 +3,7 @@
 
 %var parse-let-expression
 
-%use (node/directed-children set-node/directed-children! node/directed-label) "./euphrates/node-directed-obj.scm"
-%use (make-node/directed) "./euphrates/node-directed.scm"
+%use (make-node node-children set-node-children! node-label) "./node.scm"
 %use (lexical-scope-ref lexical-scope-set! lexical-scope-stage! lexical-scope-unstage!) "./euphrates/lexical-scope.scm"
 %use (fp) "./euphrates/fp.scm"
 %use (make-fresh-regular-reference) "./make-fresh-regular-reference.scm"
@@ -18,7 +17,7 @@
     (map
      (fp (name value)
          (if (or (null? value) (pair? value))
-             (list (make-node/directed (make-fresh-regular-reference name) '()) value)
+             (list (make-node (make-fresh-regular-reference name) '()) value)
              (list name value)))
      let-bindings))
 
@@ -28,7 +27,7 @@
    (fp (name value)
        (if (or (null? value) (pair? value))
            (lexical-scope-set!
-            scope (reference-label (node/directed-label name))
+            scope (reference-label (node-label name))
             name)
            (lexical-scope-set!
             scope name
@@ -38,7 +37,7 @@
   (for-each
    (fp (binding-node value)
        (when (pair? value)
-         (set-node/directed-children! binding-node (map loop value))))
+         (set-node-children! binding-node (map loop value))))
    binding-nodes)
 
   (let ((result (loop let-body)))

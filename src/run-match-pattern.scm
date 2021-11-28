@@ -3,7 +3,7 @@
 
 %var run-match-pattern
 
-%use (node/directed-children) "./euphrates/node-directed-obj.scm"
+%use (node-children) "./node.scm"
 %use (list-and-map) "./euphrates/list-and-map.scm"
 %use (raisu) "./euphrates/raisu.scm"
 %use (free-variable?) "./free-variable-huh.scm"
@@ -26,8 +26,8 @@
               (let ((match-val (free-variable-get-association match-node)))
                 (node-equal? match-val input-val))
 
-              (let ((mchildren (node/directed-children match-node))
-                    (ichildren (node/directed-children input-val)))
+              (let ((mchildren (node-children match-node))
+                    (ichildren (node-children input-val)))
                 (associate-free-variable! match-node input-val)
                 (or (null? mchildren) ;; NOTE(null-wildcard): because of this, we don't have a check for a node that has zero children.
                     (list-and-map loop mchildren ichildren))))

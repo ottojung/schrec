@@ -3,7 +3,7 @@
 
 %var rtree->list
 
-%use (node/directed? node/directed-children set-node/directed-children! node/directed-label set-node/directed-label!) "./euphrates/node-directed-obj.scm"
+%use (node? node-children set-node-children! node-label set-node-label!) "./node.scm"
 %use (rtree rtree? rtree-ref set-rtree-ref! rtree-value rtree-children) "./euphrates/rtree.scm"
 %use (make-hashmap hashmap-ref hashmap-set! hashmap->alist) "./euphrates/ihashmap.scm"
 %use (cons!) "./euphrates/cons-bang.scm"
