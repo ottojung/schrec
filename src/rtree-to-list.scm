@@ -16,10 +16,12 @@
   (define all-references
     (let loop ((tree tree))
       (if (rtree? tree)
-          (cons
-           (cons (rtree-value tree)
-                 (cons (rtree-ref tree) (rtree-children tree)))
-           (apply append (map loop (rtree-children tree))))
+          (if (or (rtree-ref tree) (null? (rtree-children tree)))
+              (cons
+               (cons (rtree-value tree)
+                     (cons (rtree-ref tree) (rtree-children tree)))
+               (apply append (map loop (rtree-children tree))))
+              (apply append (map loop (rtree-children tree))))
           '())))
 
   (define (dereference T)
