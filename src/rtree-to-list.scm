@@ -8,6 +8,7 @@
 %use (make-hashmap hashmap-set! hashmap->alist) "./euphrates/ihashmap.scm"
 %use (raisu) "./euphrates/raisu.scm"
 %use (reference-label) "./reference.scm"
+%use (keyword-let) "./keyword-let.scm"
 
 (define (rtree->list tree)
   (define H (make-hashmap))
@@ -38,4 +39,4 @@
     (define value (cdr ref))
     (list (reference-label key) (map dereference value)))
 
-  (cons 'let (cons (map tuple-to-binding all-references) (list (dereference tree)))))
+  (cons keyword-let (cons (map tuple-to-binding all-references) (list (dereference tree)))))

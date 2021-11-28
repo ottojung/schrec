@@ -7,4 +7,4 @@
 %use (reference-type) "./reference.scm"
 
 (define (eval-node? n)
-  (equal? 'eval (reference-type (node/directed-label n))))
+  (equal? 'teval (reference-type (node/directed-label n))))

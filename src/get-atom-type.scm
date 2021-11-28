@@ -3,8 +3,11 @@
 
 %var get-atom-type
 
+%use (keyword-eval) "./keyword-eval.scm"
+%use (keyword-let) "./keyword-let.scm"
+
 (define (get-atom-type atom)
-  (case atom
-    ((case) 'eval)
-    ((let) 'let)
-    (else 'regular)))
+  (cond
+   ((eq? keyword-eval atom) 'teval)
+   ((eq? keyword-let) 'tlet)
+   (else 'regular)))

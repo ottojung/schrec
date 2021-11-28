@@ -7,4 +7,4 @@
 %use (reference-type) "./reference.scm"
 
 (define (let-node? n)
-  (equal? 'let (reference-type (node/directed-label n))))
+  (equal? 'tlet (reference-type (node/directed-label n))))
