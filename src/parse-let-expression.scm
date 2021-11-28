@@ -19,7 +19,6 @@
   (define let-bindings (cadr lst))
   (define let-body (caddr lst))
 
-  ;; TODO(let-aliasing): support let aliases, like `(let ((x 3)) ...)`
   (define binding-nodes
     (map (fn-cons make-fresh-atom-node identity) let-bindings))
 
