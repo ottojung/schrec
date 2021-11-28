@@ -2,7 +2,6 @@
 %run guile
 
 %var make-node
-%var node
 %var node?
 %var node-children
 %var set-node-children!
@@ -17,7 +16,7 @@
 %use (define-type9) "./euphrates/define-type9.scm"
 
 (define-type9 <n>
-  (node id children label type meta visited?) node?
+  (node-ctor id children label type meta visited?) node?
   ;; reference part
   (id node-id)
 
@@ -32,4 +31,4 @@
   )
 
 (define (make-node id children label type)
-  (node id children label type #f #f))
+  (node-ctor id children label type #f #f))
