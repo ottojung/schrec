@@ -36,7 +36,7 @@
   '(a b fv
       (let ((fv (g x)) (k (l rec z)) (rec (z k)) (l 4) (z l))
         (case (fv g (s x) (n x))
-          (s (s (rec a z)))))))
+          (s (s (rec fv a z)))))))
 
 (define graph
   (list->graph input))
