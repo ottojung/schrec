@@ -62,6 +62,8 @@
 (display "\nReprinted2:\n")
 (pretty-print (graph->list graph))
 
+(debug "\nenv0: ~s" (graph->list env0))
+
 (debug "match-result2: " (reduce-topdown env0 graph))
 (display "\nReprinted3:\n")
 (pretty-print (graph->list graph))
