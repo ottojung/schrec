@@ -26,18 +26,19 @@
 
   (for-each
    (fp (binding-node value)
-       (lexical-scope-set!
-        scope (reference-label (node/directed-label binding-node))
-        binding-node))
+       (if (pair? value)
+           (lexical-scope-set!
+            scope (reference-label (node/directed-label binding-node))
+            binding-node)
+           (lexical-scope-set!
+            scope (reference-label (node/directed-label binding-node))
+            (loop value))))
    binding-nodes)
 
   (for-each
    (fp (binding-node value)
-       (if (pair? value)
-           (set-node/directed-children! binding-node (map loop value))
-           (lexical-scope-set!
-            scope (reference-label (node/directed-label binding-node))
-            (loop value))))
+       (when (pair? value)
+         (set-node/directed-children! binding-node (map loop value))))
    binding-nodes)
 
   (let ((result (loop let-body)))
