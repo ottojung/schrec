@@ -7,5 +7,6 @@
 %use (reference-id) "./reference.scm"
 
 (define (node-equal? a b)
-  (eq? (reference-id (node/directed-label a))
-       (reference-id (node/directed-label b))))
+  ;; TODO: can get away with just (eq? a b) ???
+  (eqv? (reference-id (node/directed-label a))
+        (reference-id (node/directed-label b))))
