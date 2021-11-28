@@ -23,7 +23,7 @@
      (lambda (lst)
        (let* ((name (car lst))
               (value (cadr lst)))
-         (if (pair? value)
+         (if (or (null? value) (pair? value))
              (list (make-node/directed (make-fresh-regular-reference name) '()) value)
              (list name value))))
      let-bindings))
@@ -32,7 +32,7 @@
 
   (for-each
    (fp (name value)
-       (if (pair? value)
+       (if (or (null? value) (pair? value))
            (lexical-scope-set!
             scope (reference-label (node/directed-label name))
             name)
