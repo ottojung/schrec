@@ -6,6 +6,7 @@
 %use (graph->list) "./graph-to-list.scm"
 %use (find-eval) "./find-eval.scm"
 %use (run-environment) "./run-environment.scm"
+%use (reduce-topdown) "./reduce-topdown.scm"
 
 %use (debug) "./euphrates/debug.scm"
 
@@ -50,13 +51,19 @@
 (display "\nEval:\n")
 (pretty-print (graph->list eval-node))
 
-(define match-result
-  (run-environment (cadr (node-children eval-node))
-                   (caddr (node-children eval-node))))
+(define env0
+  (cadr (node-children eval-node)))
 
-(debug "match-result: ~s" match-result)
+(define match-result
+  (run-environment env0 (caddr (node-children eval-node))))
+
+(debug "\nmatch-result: ~s" match-result)
 
 (display "\nReprinted2:\n")
+(pretty-print (graph->list graph))
+
+(debug "match-result2: " (reduce-topdown env0 graph))
+(display "\nReprinted3:\n")
 (pretty-print (graph->list graph))
 
 
