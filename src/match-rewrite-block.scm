@@ -10,6 +10,7 @@
 %use (reinitialize-free-variable!) "./reinitialize-free-variable-bang.scm"
 %use (uninitialize-free-variable!) "./uninitialize-free-variable-bang.scm"
 %use (run-match-pattern) "./run-match-pattern.scm"
+%use (free-variable?) "./free-variable-huh.scm"
 
 (define (match-rewrite-block block main-input)
   (define children (node/directed-children block))
@@ -19,5 +20,7 @@
   (define replace-pattern (list-ref children 3))
   (define scope (list-drop-n 3 children))
 
-  (and (associate-free-variable! input-node main-input) ;; FIXME(infv): allow `input-node' to be not a free variable
-       (run-match-pattern match-pattern input-node)))
+  (when (free-variable? input-node)
+    (associate-free-variable! input-node main-input))
+
+  (run-match-pattern match-pattern input-node))

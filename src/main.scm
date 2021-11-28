@@ -27,10 +27,16 @@
 ;;                      ((z3)    x3 (num z3) (num z3))))
 ;;         ((s 0) + ((s (s 0)) + (s 0))))))
 
+;; (define input
+;;   '(a b a
+;;       (case ((g x) g (s x) (n x))
+;;         (s (s 3)))))
+
 (define input
   '(a b a
-      (case ((g x) g (s x) (n x))
-        (s (s 3)))))
+      (let ((fv (g x)))
+        (case (fv g (s x) (n x))
+          (s (s 3))))))
 
 (define graph
   (list->graph input))
