@@ -33,10 +33,10 @@
 ;;         (s (s 3)))))
 
 (define input
-  '(a b a
-      (let ((fv (g x)))
+  '(a b a fv
+      (let ((fv (g x)) (k (1 fv z)) (z 5))
         (case (fv g (s x) (n x))
-          (s (s 3))))))
+          (s (s z))))))
 
 (define graph
   (list->graph input))
@@ -56,7 +56,7 @@
 
 (debug "match-result: ~s" match-result)
 
-(display "\nReprinted 2:\n")
+(display "\nReprinted2:\n")
 (pretty-print (graph->list graph))
 
 

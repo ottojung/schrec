@@ -9,5 +9,5 @@
 (define (get-atom-type atom)
   (cond
    ((eq? keyword-eval atom) 'teval)
-   ((eq? keyword-let) 'tlet)
+   ((eq? keyword-let atom) 'tlet)
    (else 'regular)))
