@@ -33,10 +33,10 @@
 ;;         (s (s 3)))))
 
 (define input
-  '(a b a fv
+  '(a b fv
       (let ((fv (g x)) (k (1 fv z)) (z 5))
         (case (fv g (s x) (n x))
-          (s (s z))))))
+          (s (s (a z)))))))
 
 (define graph
   (list->graph input))

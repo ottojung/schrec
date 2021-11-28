@@ -9,8 +9,7 @@
 %use (fn-cons) "./euphrates/fn-cons.scm"
 %use (fp) "./euphrates/fp.scm"
 %use (raisu) "./euphrates/raisu.scm"
-%use (make-fresh-branch-reference) "./make-fresh-branch-reference.scm"
-%use (make-fresh-atom-node) "./make-fresh-atom-node.scm"
+%use (make-fresh-regular-reference) "./make-fresh-regular-reference.scm"
 %use (let-expression?) "./let-expression-huh.scm"
 %use (check-let-syntax) "./check-let-syntax.scm"
 %use (reference-label) "./reference.scm"
@@ -25,7 +24,7 @@
        (let* ((name (car lst))
               (value (cadr lst)))
          (if (pair? value)
-             (list (make-node/directed (make-fresh-branch-reference) '()) value)
+             (list (make-node/directed (make-fresh-regular-reference name) '()) value)
              (list name value))))
      let-bindings))
 
