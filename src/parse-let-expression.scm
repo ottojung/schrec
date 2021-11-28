@@ -6,8 +6,7 @@
 %use (make-node node-children set-node-children! node-label) "./node.scm"
 %use (lexical-scope-ref lexical-scope-set! lexical-scope-stage! lexical-scope-unstage!) "./euphrates/lexical-scope.scm"
 %use (fp) "./euphrates/fp.scm"
-%use (make-fresh-regular-reference) "./make-fresh-regular-reference.scm"
-%use (reference-label) "./reference.scm"
+%use (make-fresh-regular-node) "./make-fresh-regular-node.scm"
 
 (define (parse-let-expression scope loop lst)
   (define let-bindings (cadr lst))
@@ -17,7 +16,7 @@
     (map
      (fp (name value)
          (if (or (null? value) (pair? value))
-             (list (make-node (make-fresh-regular-reference name) '()) value)
+             (list (make-fresh-regular-node name '()) value)
              (list name value)))
      let-bindings))
 
@@ -27,7 +26,7 @@
    (fp (name value)
        (if (or (null? value) (pair? value))
            (lexical-scope-set!
-            scope (reference-label (node-label name))
+            scope (node-label name)
             name)
            (lexical-scope-set!
             scope name

@@ -3,7 +3,7 @@
 
 %var match-rewrite-block
 
-%use (node-children set-node-children! node-label set-node-label!) "./node.scm"
+%use (node-children set-node-children! node-label) "./node.scm"
 %use (list-drop-n) "./euphrates/list-drop-n.scm"
 %use (associate-free-variable!) "./associate-free-variable-bang.scm"
 %use (initialize-free-variable!) "./initialize-free-variable-bang.scm"

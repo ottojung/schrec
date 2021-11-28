@@ -3,10 +3,8 @@
 
 %var uninitialize-free-variable!
 
-%use (node-children set-node-children! node-label set-node-label!) "./node.scm"
+%use (node-children node-meta set-node-meta! set-node-children! node-label) "./node.scm"
 %use (raisu) "./euphrates/raisu.scm"
-%use (reference-meta) "./reference.scm"
-%use (reference-set-meta) "./reference-set-meta.scm"
 %use (free-variable?) "./free-variable-huh.scm"
 
 ;; returns #t on success, #f on failure
@@ -14,7 +12,4 @@
   (unless (free-variable? free-node)
     (raisu 'trying-to-deinitialize-variable-that-is-not-free free-node))
 
-  (let* ((ref (node-label free-node))
-         (new-reference (reference-set-meta ref #f)))
-    (set-node-label! free-node new-reference)
-    #t))
+  (set-node-meta! free-node #f))

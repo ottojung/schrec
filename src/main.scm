@@ -1,7 +1,7 @@
 
 %run guile
 
-%use (node-children set-node-children! node-label set-node-label!) "./node.scm"
+%use (node-children set-node-children! node-label) "./node.scm"
 %use (list->graph) "./list-to-graph.scm"
 %use (graph->list) "./graph-to-list.scm"
 %use (find-eval) "./find-eval.scm"

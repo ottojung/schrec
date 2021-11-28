@@ -6,8 +6,11 @@
 %var node?
 %var node-children
 %var set-node-children!
+%var node-id
 %var node-label
-%var set-node-label!
+%var node-type
+%var node-meta
+%var set-node-meta!
 
 %use (define-type9) "./euphrates/define-type9.scm"
 
@@ -22,7 +25,7 @@
   ;; meta part
   (label node-label)
   (type node-type)
-  (meta node-meta)
+  (meta node-meta set-node-meta!)
   )
 
 (define (make-node id children label type)

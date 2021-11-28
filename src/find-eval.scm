@@ -4,9 +4,8 @@
 %var find-eval
 
 %use (make-hashset hashset-ref hashset-add!) "./euphrates/ihashset.scm"
-%use (node-children) "./node.scm"
+%use (node-id node-children) "./node.scm"
 %use (eval-node?) "./eval-node-huh.scm"
-%use (node-id) "./node-id.scm"
 
 ;; returns either the eval node, or #f
 ;; TODO: consider using O(1) memory algorithm like the "turle and hare".

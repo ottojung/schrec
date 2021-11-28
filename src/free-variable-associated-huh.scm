@@ -3,8 +3,7 @@
 
 %var free-variable-associated?
 
-%use (node-label) "./node.scm"
-%use (reference-meta) "./reference.scm"
+%use (node-label node-meta) "./node.scm"
 
 (define (free-variable-associated? node)
-  (not (not (cdr (reference-meta (node-label node))))))
+  (not (not (cdr (node-meta node)))))

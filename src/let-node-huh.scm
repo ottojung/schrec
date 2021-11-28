@@ -3,8 +3,7 @@
 
 %var let-node?
 
-%use (node-label) "./node.scm"
-%use (reference-type) "./reference.scm"
+%use (node-type) "./node.scm"
 
 (define (let-node? n)
-  (equal? 'tlet (reference-type (node-label n))))
+  (equal? 'tlet (node-type n)))

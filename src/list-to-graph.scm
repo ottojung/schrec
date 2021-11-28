@@ -6,7 +6,7 @@
 %use (make-node) "./node.scm"
 %use (lexical-scope-make lexical-scope-ref lexical-scope-set!) "./euphrates/lexical-scope.scm"
 %use (raisu) "./euphrates/raisu.scm"
-%use (make-fresh-branch-reference) "./make-fresh-branch-reference.scm"
+%use (make-fresh-branch-node) "./make-fresh-branch-node.scm"
 %use (make-fresh-atom-node) "./make-fresh-atom-node.scm"
 %use (let-expression?) "./let-expression-huh.scm"
 %use (check-let-syntax) "./check-let-syntax.scm"
@@ -20,7 +20,7 @@
             (begin
               (check-let-syntax lst)
               (parse-let-expression scope loop lst))
-            (make-node (make-fresh-branch-reference) (map loop lst)))
+            (make-fresh-branch-node (map loop lst)))
         (let ((existing (lexical-scope-ref scope lst #f)))
           (or existing
               (let* ((new (make-fresh-atom-node lst)))

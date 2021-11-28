@@ -3,13 +3,12 @@
 
 %var rtree->list
 
-%use (node? node-children set-node-children! node-label set-node-label!) "./node.scm"
+%use (node? node-id node-children set-node-children! node-label) "./node.scm"
 %use (rtree rtree? rtree-ref set-rtree-ref! rtree-value rtree-children) "./euphrates/rtree.scm"
 %use (make-hashmap hashmap-ref hashmap-set! hashmap->alist) "./euphrates/ihashmap.scm"
 %use (cons!) "./euphrates/cons-bang.scm"
 %use (raisu) "./euphrates/raisu.scm"
 %use (fp) "./euphrates/fp.scm"
-%use (reference-label reference-id) "./reference.scm"
 %use (keyword-let) "./keyword-let.scm"
 
 (define (rtree->list tree)
@@ -41,29 +40,29 @@
     (define value (cddr ref))
     (list (get-label key) (map dereference value)))
 
-  (define ref->name-map (make-hashmap))
-  (define name->ref-map (make-hashmap))
+  (define node->name-map (make-hashmap))
+  (define name->node-map (make-hashmap))
 
-  (define (get-label ref)
-    (cdr (hashmap-ref ref->name-map (reference-id ref) 'label-not-found)))
+  (define (get-label node)
+    (cdr (hashmap-ref node->name-map (node-id node) 'label-not-found)))
 
   (for-each
    (lambda (p)
-     (define ref (car p))
-     (define existing (hashmap-ref name->ref-map (reference-label ref) #f))
+     (define node (car p))
+     (define existing (hashmap-ref name->node-map (node-label node) #f))
 
      (define name-info
        (if existing
-           (unless (eqv? existing (reference-id ref))
-             (let* ((name-info (hashmap-ref ref->name-map existing #f))
+           (unless (eqv? existing (node-id node))
+             (let* ((name-info (hashmap-ref node->name-map existing #f))
                     (counter (car name-info))
                     (self-counter (+ 1 counter))
-                    (new-name (string->symbol (string-append (symbol->string (reference-label ref)) "." (number->string self-counter)))))
+                    (new-name (string->symbol (string-append (symbol->string (node-label node)) "." (number->string self-counter)))))
                (cons self-counter new-name)))
-           (cons 1 (reference-label ref))))
+           (cons 1 (node-label node))))
 
-     (hashmap-set! name->ref-map (cdr name-info) (reference-id ref))
-     (hashmap-set! ref->name-map (reference-id ref) name-info))
+     (hashmap-set! name->node-map (cdr name-info) (node-id node))
+     (hashmap-set! node->name-map (node-id node) name-info))
    all-references)
 
   (define useful-refs

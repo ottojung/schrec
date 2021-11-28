@@ -3,10 +3,9 @@
 
 %var node-equal?
 
-%use (node-children set-node-children! node-label set-node-label!) "./node.scm"
-%use (reference-id) "./reference.scm"
+%use (node-id) "./node.scm"
 
 (define (node-equal? a b)
   ;; TODO: can get away with just (eq? a b) ???
-  (eqv? (reference-id (node-label a))
-        (reference-id (node-label b))))
+  (eqv? (node-id a)
+        (node-id b)))

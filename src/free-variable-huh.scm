@@ -3,10 +3,8 @@
 
 %var free-variable?
 
-%use (node-label) "./node.scm"
-%use (reference-meta) "./reference.scm"
+%use (node-label node-meta) "./node.scm"
 
 (define (free-variable? node)
-  (define ref (node-label node))
-  (define meta (reference-meta ref))
+  (define meta (node-meta node))
   (and (pair? meta) (eq? 'free-var (car meta))))

@@ -3,11 +3,9 @@
 
 %var graph->rtree
 
-%use (node-children set-node-children! node-label set-node-label!) "./node.scm"
+%use (node-children node-id set-node-children! node-label) "./node.scm"
 %use (make-hashmap hashmap-ref hashmap-set!) "./euphrates/ihashmap.scm"
 %use (rtree rtree-ref set-rtree-ref! rtree-value rtree-children set-rtree-children!) "./euphrates/rtree.scm"
-%use (reference-label) "./reference.scm"
-%use (node-id) "./node-id.scm"
 
 (define (graph->rtree g)
   (define H (make-hashmap))
@@ -20,10 +18,7 @@
               (set! counter (+ 1 counter))
               (set-rtree-ref! get counter))
             (vector get))
-          (let* ((B (rtree
-                     #f
-                     (node-label g)
-                     #f)))
+          (let* ((B (rtree #f g #f)))
             (hashmap-set! H (node-id g) B)
             (set-rtree-children! B (map loop (node-children g)))
             B)))))

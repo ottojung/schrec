@@ -11,7 +11,7 @@
 %use (free-variable-associated?) "./free-variable-associated-huh.scm"
 %use (node-equal?) "./node-equal-huh.scm"
 %use (associate-free-variable!) "./associate-free-variable-bang.scm"
-%use (make-fresh-branch-reference) "./make-fresh-branch-reference.scm"
+%use (make-fresh-branch-node) "./make-fresh-branch-node.scm"
 
 (define (run-rewrite-pattern replace-pattern0)
   (let loop ((P replace-pattern0))
@@ -24,7 +24,6 @@
                  target
                  (map loop (node-children P))))
               target)
-            (make-node
-             (make-fresh-branch-reference)
+            (make-fresh-branch-node
              (map loop (node-children P))))
         P)))
