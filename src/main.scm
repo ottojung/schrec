@@ -39,8 +39,9 @@
 (define input
   '(a b fv
       (let ((fv (g x)) (k (l rec z)) (rec (z k)) (l 4) (z l))
-        (case (fv g (s x) (n x))
-          (s (s (rec fv a z)))))))
+        (case (or (fv g (s x) (n x))
+                  (fv g (m x) (n x)))
+          (m (s (rec fv a z)))))))
 
 (define graph
   (list->graph input))

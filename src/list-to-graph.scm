@@ -11,11 +11,10 @@
 %use (let-expression?) "./let-expression-huh.scm"
 %use (check-let-syntax) "./check-let-syntax.scm"
 %use (parse-let-expression) "./parse-let-expression.scm"
-%use (make-root-namespace) "./make-root-namespace.scm"
+%use (root-namespace) "./root-namespace.scm"
 
 (define (list->graph lst)
-  (define root-namespace (make-root-namespace))
-  (define scope (lexical-scope-make (make-root-namespace)))
+  (define scope (lexical-scope-make root-namespace))
   (let loop ((lst lst))
     (if (pair? lst)
         (if (let-expression? lst)

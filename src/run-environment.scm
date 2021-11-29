@@ -6,5 +6,6 @@
 %use (run-rewrite-block) "./run-rewrite-block.scm"
 
 (define (run-environment env main-input)
-  ;; TODO(or-and-rules): implement AND and OR connectives.
+  (cond
+   ((equal? keyword-or env)
   (run-rewrite-block env main-input))
