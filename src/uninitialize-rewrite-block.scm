@@ -18,8 +18,6 @@
   (define match-pattern (list-ref children 2))
   (define replace-pattern (list-ref children 3))
 
-  (when (free-variable? match-pattern)
-    (uninitialize-free-variable! match-pattern))
   (when (free-variable? replace-pattern)
     (uninitialize-free-variable! replace-pattern))
   (for-each (lambda (var) (uninitialize-free-variable! var)) free-list)

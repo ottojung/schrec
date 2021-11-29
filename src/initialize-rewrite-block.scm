@@ -23,7 +23,6 @@
     (raisu 'too-many-nodes-on-rewrite-block-top-level block))
 
   ;; FIXME(fv-intersection-check): check that rules don't have common free variables?
-  (initialize-free-variable! match-pattern)
   (initialize-free-variable! replace-pattern)
   (for-each (lambda (var) (initialize-free-variable! var)) free-list)
   (set-node-meta! block 'initialized)
