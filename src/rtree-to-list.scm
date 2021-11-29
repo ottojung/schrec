@@ -76,4 +76,9 @@
                      (not (null? children))))
             all-references))
 
-  (cons keyword-let (cons (map tuple-to-binding useful-refs) (list (dereference tree)))))
+  (define body
+    (dereference tree))
+
+  (if (null? useful-refs)
+      body
+      (cons keyword-let (cons (map tuple-to-binding useful-refs) (list body)))))
