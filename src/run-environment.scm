@@ -5,7 +5,6 @@
 
 %use (list-or-map) "./euphrates/list-or-map.scm"
 %use (list-and-map) "./euphrates/list-and-map.scm"
-%use (run-rewrite-block) "./run-rewrite-block.scm"
 %use (or-expression?) "./or-expression-huh.scm"
 %use (and-expression?) "./and-expression-huh.scm"
 %use (check-or-expression-syntax) "./check-or-expression-syntax.scm"
