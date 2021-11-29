@@ -9,6 +9,7 @@
 %use (cons!) "./euphrates/cons-bang.scm"
 %use (raisu) "./euphrates/raisu.scm"
 %use (fp) "./euphrates/fp.scm"
+%use (~a) "./euphrates/tilda-a.scm"
 %use (keyword-let) "./keyword-let.scm"
 
 (define (rtree->list tree)
@@ -44,24 +45,21 @@
   (define name->node-map (make-hashmap))
 
   (define (get-label node)
-    (cdr (hashmap-ref node->name-map (node-id node) 'label-not-found)))
+    (hashmap-ref node->name-map (node-id node) 'label-not-found))
 
   (for-each
    (lambda (p)
      (define node (car p))
-     (define existing (hashmap-ref name->node-map (node-label node) #f))
+     (define existing (hashmap-ref name->node-map (car (node-label node)) #f))
 
      (define name-info
        (if existing
-           (unless (eqv? existing (node-id node))
-             (let* ((name-info (hashmap-ref node->name-map existing #f))
-                    (counter (car name-info))
-                    (self-counter (+ 1 counter))
-                    (new-name (string->symbol (string-append (symbol->string (node-label node)) "." (number->string self-counter)))))
-               (cons self-counter new-name)))
-           (cons 1 (node-label node))))
+           (string->symbol
+            (string-append
+             (symbol->string (car (node-label node))) "." (~a (cdr (node-label node)))))
+           (car (node-label node))))
 
-     (hashmap-set! name->node-map (cdr name-info) (node-id node))
+     (hashmap-set! name->node-map name-info (node-id node))
      (hashmap-set! node->name-map (node-id node) name-info))
    all-references)
 

@@ -4,10 +4,13 @@
 %var get-atom-type
 
 %use (keyword-eval) "./keyword-eval.scm"
-%use (keyword-let) "./keyword-let.scm"
+%use (make-root-namespace) "./make-root-namespace.scm"
 
-(define (get-atom-type atom)
-  (cond
-   ((eq? keyword-eval atom) 'teval)
-   ((eq? keyword-let atom) 'tlet)
-   (else 'regular)))
+(define get-atom-type
+  (let ((root-namespace (make-root-namespace)))
+    (lambda (atom)
+      (cond
+       ((and (equal? keyword-eval (car atom))
+             (equal? root-namespace (cdr atom)))
+        'teval)
+       (else 'regular)))))

@@ -3,8 +3,8 @@
 
 %var let-expression?
 
-%use (get-atom-type) "./get-atom-type.scm"
+%use (keyword-let) "./keyword-let.scm"
 
 (define (let-expression? lst)
   (if (pair? lst)
-      (eq? 'tlet (get-atom-type (car lst)))))
+      (eq? keyword-let (car lst))))
