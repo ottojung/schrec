@@ -60,60 +60,50 @@
 ;;                      ((z3)    x3 (num z3) (num z3))))
 ;;         ((s 0) + ((s (s 0)) + (s 0))))))
 
-;; ;; FIXME: investigate why fails with `unexpected-uninitialized-input-node!'
-;; (define input
-;;   '(a d b c
-;;       (case (or ((g1 x1) g (x1 + 0) (num x1))
-;;                 ((g2 x2 y2) g2 (x2 + y2) (s (x2 + z2))))
-;;         ((s 0) + ((s (s 0)) + (s 0))))))
-
 (define input
   '(a d b c
-      (case (or ((g1 x1) g (x1 + 0) (num x1))
-                ((g2 x2 y2) g2 (x2 + y2) (s (x2 + z2))))
+      (case (or (let ((g ()) (x ()) (y ()) (m ())
+                      (fv (g x y m))
+                      (m (num y))
+                      (p (x + m))
+                      (r (x + y))
+                      )
+                  (fv g p r))
+                (let ((g ()) (x ()) (y ()) (m ())
+                      (fv (g x y m))
+                      (m (num y))
+                      (p (s m))
+                      (r (s y))
+                      )
+                  (fv g p r))
+                (let ((fv (g x)) (g ()) (x ()))
+                  (fv g (x + 0) (num x)))
+                (let ((g ()) (x ()) (y ()) (z ()) (w ())
+                      (fv (g x y z w))
+                      (y (s z))
+                      (w (x + z))
+                      (p (x + y))
+                      (r (s w))
+                      )
+                  (fv g p r)))
         ((s 0) + ((s (s 0)) + (s 0))))))
 
 (define graph
   (list->graph input))
 
-(display "\nReprinted:\n")
+(define (step)
+  (debug "\nrun-topdown: ~s" (run-topdown graph))
+  (display "Result:\n")
+  (pretty-print (graph->list graph)))
+
+(display "\nOriginal:\n")
 (pretty-print (graph->list graph))
 
-(debug "\nrun-topdown: ~s" (run-topdown graph))
-
-(display "\nReprinted2:\n")
-(pretty-print (graph->list graph))
-
-(debug "\nrun-topdown: ~s" (run-topdown graph))
-
-(display "\nReprinted3:\n")
-(pretty-print (graph->list graph))
-
-;; (define eval-node
-;;   (find-eval graph))
-
-;; (display "\nEval:\n")
-;; (pretty-print (graph->list eval-node))
-
-;; (define env0
-;;   (cadr (node-children eval-node)))
-
-;; (define body0
-;;   (caddr (node-children eval-node)))
-
-;; (define match-result
-;;   (run-environment env0 body0))
-
-;; (debug "\nmatch-result: ~s" match-result)
-
-;; (display "\nReprinted2:\n")
-;; (pretty-print (graph->list graph))
-
-;; (debug "\nenv0: ~s" (graph->list env0))
-
-;; (debug "match-result2: " (reduce-topdown env0 body0))
-;; (display "\nReprinted3:\n")
-;; (pretty-print (graph->list graph))
-
-
-
+(step)
+(step)
+(step)
+(step)
+(step)
+(step)
+(step)
+(step)
