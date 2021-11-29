@@ -13,7 +13,7 @@
 %use (free-variable?) "./free-variable-huh.scm"
 %use (free-variable-get-association) "./free-variable-get-association.scm"
 
-(define (rewrite-rewrite-block block)
+(define (rewrite-rewrite-block block main-input)
   (define children (node-children block))
   (define free-list (node-children (list-ref children 0)))
   (define input-node (list-ref children 1))

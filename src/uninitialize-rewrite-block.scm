@@ -11,7 +11,7 @@
 %use (uninitialize-free-variable!) "./uninitialize-free-variable-bang.scm"
 %use (free-variable?) "./free-variable-huh.scm"
 
-(define (uninitialize-rewrite-block block)
+(define (uninitialize-rewrite-block block main-input)
   (define children (node-children block))
   (define free-list (node-children (list-ref children 0)))
   (define input-node (list-ref children 1))
