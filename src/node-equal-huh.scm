@@ -7,5 +7,5 @@
 
 (define (node-equal? a b)
   ;; TODO: can get away with just (eq? a b) ???
-  (eqv? (node-id a)
-        (node-id b)))
+  (= (node-id a)
+     (node-id b)))
