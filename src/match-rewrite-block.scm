@@ -23,4 +23,4 @@
   (when (free-variable? input-node)
     (associate-free-variable! input-node main-input))
 
-  (run-match-pattern match-pattern main-input))
+  (run-match-pattern match-pattern input-node))
