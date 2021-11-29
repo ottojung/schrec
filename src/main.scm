@@ -42,13 +42,36 @@
 ;;         (case (fv g (s x) (n x))
 ;;           (m (s (rec fv a z)))))))
 
-;; NOTE: rewrites itself if applied to the root LOL :)
+;; ;; NOTE: rewrites itself if applied to the root LOL :)
+;; (define input
+;;   '(a b fv
+;;       (let ((fv (g x)) (k (l rec z)) (rec (z k)) (l 4) (z l))
+;;         (case (or (fv g (s x) (n x))
+;;                   ((h y) h (m y) (n y)))
+;;           (m (s (rec fv a z)))))))
+
+;; ;; FIXME: investigate why ".EXP" comes up
+;; (define input
+;;   '(a d b c
+;;       (case (or ((g1 x1) g (x1 + 0) (num x1))
+;;                 (and ((g2 x2 y2) g2 (x2 + y2) (s (x2 + z2)))
+;;                      ((z2)       y2 (s z2)    (s z2)))
+;;                 (and ((g3 x3) g3 (num x3) (num z3))
+;;                      ((z3)    x3 (num z3) (num z3))))
+;;         ((s 0) + ((s (s 0)) + (s 0))))))
+
+;; ;; FIXME: investigate why fails with `unexpected-uninitialized-input-node!'
+;; (define input
+;;   '(a d b c
+;;       (case (or ((g1 x1) g (x1 + 0) (num x1))
+;;                 ((g2 x2 y2) g2 (x2 + y2) (s (x2 + z2))))
+;;         ((s 0) + ((s (s 0)) + (s 0))))))
+
 (define input
-  '(a b fv
-      (let ((fv (g x)) (k (l rec z)) (rec (z k)) (l 4) (z l))
-        (case (or (fv g (s x) (n x))
-                  ((h y) h (m y) (n y)))
-          (m (s (rec fv a z)))))))
+  '(a d b c
+      (case (or ((g1 x1) g (x1 + 0) (num x1))
+                ((g2 x2 y2) g2 (x2 + y2) (s (x2 + z2))))
+        ((s 0) + ((s (s 0)) + (s 0))))))
 
 (define graph
   (list->graph input))

@@ -14,11 +14,8 @@
 
 (define (run-match-pattern match-node input-node)
   (let loop ((match-node match-node) (input-node input-node))
-    (when (and (free-variable? input-node)
-               (not (free-variable-associated? input-node)))
-      (raisu 'unexpected-uninitialized-input-node! input-node))
-
-    (let ((input-val (if (free-variable? input-node)
+    (let ((input-val (if (and (free-variable? input-node)
+                              (free-variable-associated? input-node)) ;; NOTE(input-variable): this check is wierd, I know. It seems that this only happens when we have free variable on the right hand side. The only logical thing to do is to treat it as a regular node.
                          (free-variable-get-association input-node)
                          input-node)))
       (if (free-variable? match-node)
