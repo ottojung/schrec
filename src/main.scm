@@ -35,6 +35,13 @@
 ;;       (case ((g x) g (s x) (n x))
 ;;         (s (s 3)))))
 
+;; ;; NOTE: rewrites itself if applied to the root LOL :)
+;; (define input
+;;   '(a b fv
+;;       (let ((fv (g x)) (k (l rec z)) (rec (z k)) (l 4) (z l))
+;;         (case (fv g (s x) (n x))
+;;           (m (s (rec fv a z)))))))
+
 ;; NOTE: rewrites itself if applied to the root LOL :)
 (define input
   '(a b fv
