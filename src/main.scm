@@ -17,14 +17,14 @@
 
 ;; (define input
 ;;   '(a d b c
-;;       (case (or ((g1 x1)    g1 (x1 + 0)       (num x1))
+;;       (do (or ((g1 x1)    g1 (x1 + 0)       (num x1))
 ;;                 ((g2 x2 y2) g2 (x2 + (s y2))  (s (x2 + y2)))
 ;;                 ((g3 x3)    g3 (num (num x3)) (num x3)))
 ;;         ((s 0) + ((s (s 0)) + (s 0))))))
 
 ;; (define input
 ;;   '(a d b c
-;;       (case (or ((g1 x1) g (x1 + 0) (num x1))
+;;       (do (or ((g1 x1) g (x1 + 0) (num x1))
 ;;                 (and ((g2 x2 y2) g2 (x2 + y2) (s (x2 + z2)))
 ;;                      ((z2)       y2 (s z2)    (s z2)))
 ;;                 (and ((g3 x3) g3 (num x3) (num z3))
@@ -33,28 +33,28 @@
 
 ;; (define input
 ;;   '(a b a
-;;       (case ((g x) g (s x) (n x))
+;;       (do ((g x) g (s x) (n x))
 ;;         (s (s 3)))))
 
 ;; ;; NOTE: rewrites itself if applied to the root LOL :)
 ;; (define input
 ;;   '(a b fv
 ;;       (let ((fv (g x)) (k (l rec z)) (rec (z k)) (l 4) (z l))
-;;         (case (fv g (s x) (n x))
+;;         (do (fv g (s x) (n x))
 ;;           (m (s (rec fv a z)))))))
 
 ;; ;; NOTE: rewrites itself if applied to the root LOL :)
 ;; (define input
 ;;   '(a b fv
 ;;       (let ((fv (g x)) (k (l rec z)) (rec (z k)) (l 4) (z l))
-;;         (case (or (fv g (s x) (n x))
+;;         (do (or (fv g (s x) (n x))
 ;;                   ((h y) h (m y) (n y)))
 ;;           (m (s (rec fv a z)))))))
 
 ;; ;; FIXME: investigate why ".EXP" comes up
 ;; (define input
 ;;   '(a d b c
-;;       (case (or ((g1 x1) g (x1 + 0) (num x1))
+;;       (do (or ((g1 x1) g (x1 + 0) (num x1))
 ;;                 (and ((g2 x2 y2) g2 (x2 + y2) (s (x2 + z2)))
 ;;                      ((z2)       y2 (s z2)    (s z2)))
 ;;                 (and ((g3 x3) g3 (num x3) (num z3))
@@ -63,7 +63,7 @@
 
 ;; (define input
 ;;   '(a d b c
-;;       (case (or (let ((g ()) (x ()) (y ()) (m ())
+;;       (do (or (let ((g ()) (x ()) (y ()) (m ())
 ;;                       (fv (g x y m p))
 ;;                       (m (num y))
 ;;                       (p (x + m))
@@ -115,33 +115,33 @@
                        (w (x + z))
                        (p (x + y))
                        (r (s w)))
+                   (fv g p r))))
+            (multiplication
+             (or (let ((g ()) (x ()) (y ()) (m ())
+                       (fv (g x y m p))
+                       (m (num y))
+                       (p (x * m))
+                       (r (x * y)))
+                   (fv g p r))
+                 (let ((g ()) (x ())
+                       (fv (g x p))
+                       (p (x * 0))
+                       (r (num 0)))
+                   (fv g p r))
+                 (let ((g ()) (x ())
+                       (fv (g x p))
+                       (p (x * 1))
+                       (r (num x)))
+                   (fv g p r))
+                 (let ((g ()) (x ()) (y ()) (z ()) (w ())
+                       (fv (g x y z w p))
+                       (y (s z))
+                       (w (x * z))
+                       (p (x * y))
+                       (r (x + w)))
                    (fv g p r)))))
-        (let ((multiplication
-               (or (let ((g ()) (x ()) (y ()) (m ())
-                         (fv (g x y m p))
-                         (m (num y))
-                         (p (x * m))
-                         (r (x * y)))
-                     (fv g p r))
-                   (let ((g ()) (x ())
-                         (fv (g x p))
-                         (p (x * 0))
-                         (r (num 0)))
-                     (fv g p r))
-                   (let ((g ()) (x ())
-                         (fv (g x p))
-                         (p (x * 1))
-                         (r (num x)))
-                     (fv g p r))
-                   (let ((g ()) (x ()) (y ()) (z ()) (w ())
-                         (fv (g x y z w p))
-                         (y (s z))
-                         (w (x * z))
-                         (p (x * y))
-                         (r (x + w)))
-                     (fv g p r)))))
-          (case (or addition multiplication)
-            ((s (s (s 0))) * ((s 0) + ((s (s 0)) + (s 0)))))))))
+        (do (or addition multiplication)
+            ((s (s (s 0))) * ((s 0) + ((s (s 0)) + (s 0))))))))
 
 (define graph
   (list->graph input))

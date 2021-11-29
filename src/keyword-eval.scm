@@ -3,4 +3,4 @@
 
 %var keyword-eval
 
-(define keyword-eval 'case)
+(define keyword-eval 'do)
