@@ -3,7 +3,7 @@
 
 %var initialize-rewrite-block
 
-%use (node-children set-node-children! node-label) "./node.scm"
+%use (node-children set-node-children! node-label set-node-meta!) "./node.scm"
 %use (list-drop-n) "./euphrates/list-drop-n.scm"
 %use (raisu) "./euphrates/raisu.scm"
 %use (associate-free-variable!) "./associate-free-variable-bang.scm"
@@ -26,5 +26,6 @@
   (initialize-free-variable! match-pattern)
   (initialize-free-variable! replace-pattern)
   (for-each (lambda (var) (initialize-free-variable! var)) free-list)
+  (set-node-meta! block 'initialized)
 
   #t)

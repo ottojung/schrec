@@ -3,7 +3,7 @@
 
 %var match-rewrite-block
 
-%use (node-children set-node-children! node-label) "./node.scm"
+%use (node-children set-node-children! node-label set-node-meta!) "./node.scm"
 %use (list-drop-n) "./euphrates/list-drop-n.scm"
 %use (associate-free-variable!) "./associate-free-variable-bang.scm"
 %use (initialize-free-variable!) "./initialize-free-variable-bang.scm"
@@ -18,9 +18,10 @@
   (define input-node (list-ref children 1))
   (define match-pattern (list-ref children 2))
   (define replace-pattern (list-ref children 3))
-  (define scope (list-drop-n 3 children))
 
   (when (free-variable? input-node)
     (associate-free-variable! input-node main-input))
 
-  (run-match-pattern match-pattern input-node))
+  (let ((result (run-match-pattern match-pattern input-node)))
+    (set-node-meta! block (if result 'matched 'not-matched))
+    result))

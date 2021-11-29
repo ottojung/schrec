@@ -47,7 +47,7 @@
   '(a b fv
       (let ((fv (g x)) (k (l rec z)) (rec (z k)) (l 4) (z l))
         (case (or (fv g (s x) (n x))
-                  (fv g (m x) (n x)))
+                  ((h y) h (m y) (n y)))
           (m (s (rec fv a z)))))))
 
 (define graph

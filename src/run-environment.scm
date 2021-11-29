@@ -29,10 +29,22 @@
        (else
         (fn env main-input)))))
 
-  (define run-result
-    (and (expr-map initialize-rewrite-block)
-         (expr-map match-rewrite-block)
-         (expr-map rewrite-rewrite-block)))
+  (define (expr-for-each fn)
+    (let loop ((env env))
+      (cond
+       ((or-expression? env)
+        (check-or-expression-syntax env)
+        (for-each loop (cdr (node-children env))))
+       ((and-expression? env)
+        (check-and-expression-syntax env)
+        (for-each loop (cdr (node-children env))))
+       (else
+        (fn env main-input)))))
 
-  (and (expr-map uninitialize-rewrite-block)
+  (define run-result
+    (and (expr-for-each initialize-rewrite-block)
+         (expr-map match-rewrite-block)
+         (expr-for-each rewrite-rewrite-block)))
+
+  (and (expr-for-each uninitialize-rewrite-block)
        run-result))
