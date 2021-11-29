@@ -13,14 +13,8 @@
 %use (associate-free-variable!) "./associate-free-variable-bang.scm"
 %use (make-fresh-branch-node) "./make-fresh-branch-node.scm"
 
-%use (debug) "./euphrates/debug.scm"
-%use (graph->list) "./graph-to-list.scm"
-
 (define (run-rewrite-pattern replace-pattern0)
   (let loop ((P replace-pattern0))
-
-    (debug "REWRITING ~s" (graph->list P))
-
     (if (free-variable? P)
         (if (free-variable-associated? P)
             (let ((target (free-variable-get-association P)))

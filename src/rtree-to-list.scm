@@ -11,6 +11,7 @@
 %use (fp) "./euphrates/fp.scm"
 %use (~a) "./euphrates/tilda-a.scm"
 %use (keyword-let) "./keyword-let.scm"
+%use (exp-node?) "./exp-node-huh.scm"
 
 (define (rtree->list tree)
   (define all-references
@@ -47,6 +48,8 @@
   (define (get-label node)
     (hashmap-ref node->name-map (node-id node) 'label-not-found))
 
+  (define counter 0)
+
   (for-each
    (lambda (p)
      (define node (car p))
@@ -57,7 +60,11 @@
            (string->symbol
             (string-append
              (symbol->string (car (node-label node))) "." (~a (cdr (node-label node)))))
-           (car (node-label node))))
+           (if (exp-node? node)
+               (begin
+                 (set! counter (+ 1 counter))
+                 (string->symbol (string-append "$" (~a counter))))
+               (car (node-label node)))))
 
      (hashmap-set! name->node-map name-info (node-id node))
      (hashmap-set! node->name-map (node-id node) name-info))
