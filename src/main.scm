@@ -5,7 +5,6 @@
 %use (node-children set-node-children! node-label) "./node.scm"
 %use (list->graph) "./list-to-graph.scm"
 %use (graph->list) "./graph-to-list.scm"
-%use (find-eval) "./find-eval.scm"
 %use (run-environment) "./run-environment.scm"
 %use (reduce-topdown) "./reduce-topdown.scm"
 %use (run-topdown) "./run-topdown.scm"

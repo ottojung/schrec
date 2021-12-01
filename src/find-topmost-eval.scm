@@ -1,14 +1,14 @@
 
 %run guile
 
-%var find-eval
+%var find-topmost-eval
 
 %use (node-id node-children node-visited? set-node-visited?!) "./node.scm"
 %use (eval-node?) "./eval-node-huh.scm"
 
 ;; returns either the eval node, or #f
 ;; FIXME: abort if graph loops into itself!
-(define (find-eval graph)
+(define (find-topmost-eval graph)
   (let loop ((parent #f) (graph graph))
     (if (node-visited? graph) #f
         (begin
