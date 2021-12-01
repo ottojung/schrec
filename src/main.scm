@@ -10,6 +10,7 @@
 %use (run-topdown) "./run-topdown.scm"
 %use (run-topdown-loop) "./run-topdown-loop.scm"
 %use (run-topdown-ordered) "./run-topdown-ordered.scm"
+%use (reduce-hook) "./reduce-hook.scm"
 
 %use (debug) "./euphrates/debug.scm"
 
@@ -212,13 +213,8 @@
 (define graph
   (list->graph input))
 
-(define (step)
-  ;; (debug "\nrun-topdown: ~s" (run-topdown graph))
-  (debug "\nrun-topdown: ~s" (run-topdown-ordered graph))
-  (display "Result:\n")
-  (pretty-print (graph->list graph)))
-
+(reduce-hook (lambda (g) (display "\nStep:\n") (pretty-print (graph->list graph))))
 (display "\nOriginal:\n")
 (pretty-print (graph->list graph))
-
-(for-each (lambda _ (step)) (range 100))
+(display "\nLook at me go!\n")
+(run-topdown-ordered graph)
