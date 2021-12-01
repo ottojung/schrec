@@ -8,8 +8,8 @@
 %use (fp) "./euphrates/fp.scm"
 %use (make-fresh-regular-node) "./make-fresh-regular-node.scm"
 %use (make-fresh-namespace) "./make-fresh-namespace.scm"
-
-%use (debug) "./euphrates/debug.scm"
+%use (get-let-bindings) "./get-let-bindings.scm"
+%use (get-let-body) "./get-let-body.scm"
 
 (define (parse-let-expression scope loop lst)
   (define let-bindings (cadr lst))
