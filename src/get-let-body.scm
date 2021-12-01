@@ -12,4 +12,4 @@
           (raisu 'let-does-not-have-bindings let-list)
           (if (null? (cddr let-list))
               (raisu 'let-does-not-have-a-body let-list)
-              (cadr (caddr let-list))))))
+              (caddr let-list)))))

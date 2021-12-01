@@ -12,8 +12,8 @@
 %use (get-let-body) "./get-let-body.scm"
 
 (define (parse-let-expression scope loop lst)
-  (define let-bindings (cadr lst))
-  (define let-body (caddr lst))
+  (define let-bindings (get-let-bindings lst))
+  (define let-body (get-let-body lst))
   (define namespace (make-fresh-namespace))
 
   (define binding-nodes
