@@ -6,8 +6,10 @@
 %use (list-or-map) "./euphrates/list-or-map.scm"
 %use (run-environment) "./run-environment.scm"
 %use (node-children node-visited? set-node-visited?!) "./node.scm"
+%use (check-environment) "./check-environment.scm"
 
 (define (reduce-topdown env g)
+  (check-environment env)
   (let loop ((g g))
     (if (node-visited? g) #f
         (begin
