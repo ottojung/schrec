@@ -1,5 +1,5 @@
 
 test:
-	czempak run src/main.scm
+	czempak run test/test.scm
 
 .PHONY: test
