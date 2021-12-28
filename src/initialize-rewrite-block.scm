@@ -6,25 +6,20 @@
 %use (node-children set-node-children! node-label set-node-meta!) "./node.scm"
 %use (list-drop-n) "./euphrates/list-drop-n.scm"
 %use (raisu) "./euphrates/raisu.scm"
-%use (associate-free-variable!) "./associate-free-variable-bang.scm"
-%use (initialize-free-variable!) "./initialize-free-variable-bang.scm"
-%use (reinitialize-free-variable!) "./reinitialize-free-variable-bang.scm"
-%use (uninitialize-free-variable!) "./uninitialize-free-variable-bang.scm"
+%use (soft-initialize-capture-variable!) "./soft-initialize-capture-variable-bang.scm"
 
-(define (initialize-rewrite-block block main-input)
+(define (initialize-rewrite-block free-stack block main-input)
   (define children (node-children block))
-  (define free-list (node-children (list-ref children 0)))
+  (define capture-list (node-children (list-ref children 0)))
   (define input-node (list-ref children 1))
   (define match-pattern (list-ref children 2))
   (define replace-pattern (list-ref children 3))
-  (define scope (list-drop-n 4 children))
+  (define left-overs (list-drop-n 4 children))
 
-  (unless (null? scope)
+  (unless (null? left-overs)
     (raisu 'too-many-nodes-on-rewrite-block-top-level block))
 
-  ;; FIXME(fv-intersection-check): check that rules don't have common free variables?
-  (initialize-free-variable! replace-pattern)
-  (for-each (lambda (var) (initialize-free-variable! var)) free-list)
+  (for-each (lambda (var) (soft-initialize-capture-variable! var)) capture-list)
   (set-node-meta! block 'initialized)
 
   #t)

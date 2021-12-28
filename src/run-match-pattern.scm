@@ -12,7 +12,7 @@
 %use (node-equal?) "./node-equal-huh.scm"
 %use (associate-free-variable!) "./associate-free-variable-bang.scm"
 
-(define (run-match-pattern match-node input-node)
+(define (run-match-pattern free-stack match-node input-node)
   (let loop ((match-node match-node) (input-node input-node))
     (let ((input-val (if (and (free-variable? input-node)
                               (free-variable-associated? input-node)) ;; NOTE(input-variable): this check is wierd, I know. It seems that this only happens when we have free variable on the right hand side. The only logical thing to do is to treat it as a regular node.
@@ -25,7 +25,7 @@
 
               (let ((mchildren (node-children match-node))
                     (ichildren (node-children input-val)))
-                (associate-free-variable! match-node input-val)
+                (associate-free-variable! free-stack match-node input-val)
                 (or (null? mchildren) ;; NOTE(null-wildcard): because of this, we don't have a check for a node that has zero children.
                     (list-and-map loop mchildren ichildren))))
 

@@ -11,19 +11,19 @@
 %use (uninitialize-free-variable!) "./uninitialize-free-variable-bang.scm"
 %use (run-rewrite-pattern) "./run-rewrite-pattern.scm"
 %use (free-variable?) "./free-variable-huh.scm"
-%use (free-variable-get-association) "./free-variable-get-association.scm"
+%use (free-variable-get-association-or-false) "./free-variable-get-association-or-false.scm"
 
-(define (rewrite-rewrite-block block main-input)
+(define (rewrite-rewrite-block free-stack block main-input)
   (define children (node-children block))
-  (define free-list (node-children (list-ref children 0)))
+  (define capture-list (node-children (list-ref children 0)))
   (define input-node (list-ref children 1))
   (define match-pattern (list-ref children 2))
   (define replace-pattern (list-ref children 3))
 
-  (or (not (equal? 'matched (node-meta block)))
+  (or (equal? 'not-matched (node-meta block))
       (let ((input-val (if (free-variable? input-node)
-                           (free-variable-get-association input-node)
+                           (free-variable-get-association-or-false input-node)
                            input-node)))
         (and
-         (associate-free-variable! replace-pattern input-val)
+         (associate-free-variable! free-stack replace-pattern input-val)
          (run-rewrite-pattern replace-pattern)))))

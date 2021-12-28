@@ -6,4 +6,6 @@
 %use (node-label node-meta) "./node.scm"
 
 (define (free-variable-associated? node)
-  (not (not (cdr (node-meta node)))))
+  (define meta (node-meta node))
+  (and (pair? meta)
+       (not (not (cdr meta)))))
