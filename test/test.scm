@@ -239,19 +239,19 @@
       ;;               (r (s w)))
       ;;           (fv g p r)))
       (do (or
-           (let ((g ()) (x ()) (y ()))
+           (let (g x y)
              ((+ num) g
               (x + (num y))
               (x + y)))
-           (let ((g ()) (x ()))
+           (let (g x)
              ((s num) g
               (s (num x))
               (s x)))
-           (let ((g ()) (x ()) (y ()))
+           (let (g x y)
              ((+ s num) g
               (x + (s y))
               (s (x + y))))
-           (let ((g ()) (x ()) (y ()))
+           (let (g x)
              ((+ 0 num) g
               (x + 0)
               (num x))))

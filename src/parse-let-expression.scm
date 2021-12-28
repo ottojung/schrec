@@ -10,9 +10,11 @@
 %use (make-fresh-namespace) "./make-fresh-namespace.scm"
 %use (get-let-bindings) "./get-let-bindings.scm"
 %use (get-let-body) "./get-let-body.scm"
+%use (transform-let-bindings) "./transform-let-bindings.scm"
 
 (define (parse-let-expression scope loop lst)
-  (define let-bindings (get-let-bindings lst))
+  (define let-bindings-0 (get-let-bindings lst))
+  (define let-bindings (transform-let-bindings let-bindings-0))
   (define let-body (get-let-body lst))
   (define namespace (make-fresh-namespace))
 
