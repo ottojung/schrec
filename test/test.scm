@@ -239,26 +239,22 @@
       ;;               (r (s w)))
       ;;           (fv g p r)))
       (do (or
-           (let ((g ()) (x ()) (y ())
-                 (cv (+ num))
-                 (p (x + (num y)))
-                 (r (x + y)))
-             (cv g p r))
-           (let ((g ()) (x ()) (y ())
-                 (cv (+ s num))
-                 (p (x + (s y)))
-                 (r (s (x + y))))
-             (cv g p r))
-           (let ((g ()) (x ())
-                 (cv (s num))
-                 (p (s (num x)))
-                 (r (s x)))
-             (cv g p r))
-           (let ((g ()) (x ()) (y ())
-                 (cv (+ 0 5 num))
-                 (p (x + 0))
-                 (r (num x)))
-             (cv g p r)))
+           (let ((g ()) (x ()) (y ()))
+             ((+ num) g
+              (x + (num y))
+              (x + y)))
+           (let ((g ()) (x ()))
+             ((s num) g
+              (s (num x))
+              (s x)))
+           (let ((g ()) (x ()) (y ()))
+             ((+ s num) g
+              (x + (s y))
+              (s (x + y))))
+           (let ((g ()) (x ()) (y ()))
+             ((+ 0 num) g
+              (x + 0)
+              (num x))))
           ((s (s (s 0))) + ((s 0) + ((s (s 0)) + (s 0)))))))
 
 (define graph
