@@ -50,25 +50,26 @@
 
   (define counter 0)
 
-  (for-each
-   (lambda (p)
-     (define node (car p))
-     (define existing (hashmap-ref name->node-map (car (node-label node)) #f))
+  (define _0
+    (for-each
+     (lambda (p)
+       (define node (car p))
+       (define existing (hashmap-ref name->node-map (car (node-label node)) #f))
 
-     (define name-info
-       (if existing
-           (string->symbol
-            (string-append
-             (symbol->string (car (node-label node))) "." (~a (cdr (node-label node)))))
-           (if (exp-node? node)
-               (begin
-                 (set! counter (+ 1 counter))
-                 (string->symbol (string-append "$" (~a counter))))
-               (car (node-label node)))))
+       (define name-info
+         (if existing
+             (string->symbol
+              (string-append
+               (symbol->string (car (node-label node))) "." (~a (cdr (node-label node)))))
+             (if (exp-node? node)
+                 (begin
+                   (set! counter (+ 1 counter))
+                   (string->symbol (string-append "$" (~a counter))))
+                 (car (node-label node)))))
 
-     (hashmap-set! name->node-map name-info (node-id node))
-     (hashmap-set! node->name-map (node-id node) name-info))
-   all-references)
+       (hashmap-set! name->node-map name-info (node-id node))
+       (hashmap-set! node->name-map (node-id node) name-info))
+     all-references))
 
   (define useful-refs
     (filter (fp (ref referenced? . children)
