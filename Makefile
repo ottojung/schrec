@@ -1,8 +1,10 @@
 
 SUBMODULES = deps/euphrates/.git deps/czempak/.git
 
+CZEMPAK = CZEMPAK_ROOT=.czempak-root ./build/czempak
+
 test: build/czempak
-	build/czempak run test/test.scm
+	$(CZEMPAK) run test/test.scm
 
 build/czempak: $(SUBMODULES)
 	cd deps/czempak && $(MAKE) PREFIXBIN=$(PWD)/build
