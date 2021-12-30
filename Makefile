@@ -13,4 +13,8 @@ deps/czempak/.git:
 deps/euphrates/.git:
 	git submodule update --init
 
-.PHONY: test
+clean:
+	git clean -dfx
+	git submodule foreach "$(MAKE) clean"
+
+.PHONY: test clean
