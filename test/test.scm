@@ -12,6 +12,7 @@
 %use (run-topdown) "./src/run-topdown.scm"
 %use (run-topdown-loop) "./src/run-topdown-loop.scm"
 %use (run-topdown-ordered) "./src/run-topdown-ordered.scm"
+%use (run-topdown-correct) "./src/run-topdown-correct.scm"
 %use (reduce-hook) "./src/reduce-hook.scm"
 
 %use (debug) "./src/euphrates/debug.scm"
@@ -264,4 +265,5 @@
 (display "\nOriginal:\n")
 (pretty-print (graph->list graph))
 (display "\nLook at me go!\n")
-(run-topdown-ordered graph)
+;; (run-topdown-ordered graph)
+(run-topdown-correct graph)

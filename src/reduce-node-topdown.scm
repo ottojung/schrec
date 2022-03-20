@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2021, 2022  Otto Jung
+;;;; Copyright (C) 2022  Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -14,14 +14,13 @@
 
 %run guile
 
-%var run-topdown-correct
+%var reduce-node-topdown
 
-%use (list-find-first) "./euphrates/list-find-first.scm"
-%use (find-sorted-evals) "./find-sorted-evals.scm"
-%use (reduce-node-topdown) "./reduce-node-topdown.scm"
+%use (reduce-topdown) "./reduce-topdown.scm"
+%use (get-eval-body) "./get-eval-body.scm"
+%use (get-eval-env) "./get-eval-env.scm"
 
-(define (run-topdown-correct graph)
-  (let oloop ()
-    (define evals (find-sorted-evals graph))
-    (when (list-find-first reduce-node-topdown #f evals)
-      (oloop))))
+(define (reduce-node-topdown eval-node)
+  (define env (get-eval-env eval-node)) ;; TODO(eval-syntax): check syntax
+  (define body (get-eval-body eval-node))
+  (reduce-topdown env body))
