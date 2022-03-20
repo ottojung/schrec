@@ -33,16 +33,28 @@
   (define free-stack (stack-make))
 
   (define (expr-map fn)
-    (list-and-map
-     (lambda (node)
-       (fn free-stack node main-input))
-     (node-children env)))
+    (let loop ((env env))
+      (cond
+       ((or-expression? env)
+        (check-or-expression-syntax env)
+        (list-or-map loop (cdr (node-children env))))
+       ((and-expression? env)
+        (check-and-expression-syntax env)
+        (list-and-map loop (cdr (node-children env))))
+       (else
+        (fn free-stack env main-input)))))
 
   (define (expr-for-each fn)
-    (for-each
-     (lambda (node)
-       (fn free-stack node main-input))
-     (node-children env)))
+    (let loop ((env env))
+      (cond
+       ((or-expression? env)
+        (check-or-expression-syntax env)
+        (for-each loop (cdr (node-children env))))
+       ((and-expression? env)
+        (check-and-expression-syntax env)
+        (for-each loop (cdr (node-children env))))
+       (else
+        (fn free-stack env main-input)))))
 
   (define run-result
     (and (expr-for-each initialize-rewrite-block)

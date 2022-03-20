@@ -213,50 +213,58 @@
 ;;                   (fv g p r))
 ;;                 ((s (s (s 0))) * ((s 0) - ((s (s 0)) - (s 0)))))))))
 
+;; (define input
+;;   '(a d b c
+;;       ;; (do (or (let ((g ()) (x ()) (y ()) (m ())
+;;       ;;               (fv (g x y m p))
+;;       ;;               (m (num y))
+;;       ;;               (p (x + m))
+;;       ;;               (r (x + y)))
+;;       ;;           (fv g p r))
+;;       ;;         (let ((g ()) (x ()) (y ()) (m ())
+;;       ;;               (fv (g x y m p))
+;;       ;;               (m (num y))
+;;       ;;               (p (s m))
+;;       ;;               (r (s y)))
+;;       ;;           (fv g p r))
+;;       ;;         (let ((g ()) (x ())
+;;       ;;               (fv (g x p))
+;;       ;;               (p (x + 0))
+;;       ;;               (r (num x)))
+;;       ;;           (fv g p r))
+;;       ;;         (let ((g ()) (x ()) (y ()) (z ()) (w ())
+;;       ;;               (fv (g x y z w p))
+;;       ;;               (y (s z))
+;;       ;;               (w (x + z))
+;;       ;;               (p (x + y))
+;;       ;;               (r (s w)))
+;;       ;;           (fv g p r)))
+;;       (do (or
+;;            (let (g x y)
+;;              ((+ num) g
+;;               (x + (num y))
+;;               (x + y)))
+;;            (let (g x)
+;;              ((s num) g
+;;               (s (num x))
+;;               (s x)))
+;;            (let (g x y)
+;;              ((+ s num) g
+;;               (x + (s y))
+;;               (s (x + y))))
+;;            (let (g x)
+;;              ((+ 0 num) g
+;;               (x + 0)
+;;               (num x))))
+;;           ((s (s (s 0))) + ((s 0) + ((s (s 0)) + (s 0)))))))
+
 (define input
-  '(a d b c
-      ;; (do (or (let ((g ()) (x ()) (y ()) (m ())
-      ;;               (fv (g x y m p))
-      ;;               (m (num y))
-      ;;               (p (x + m))
-      ;;               (r (x + y)))
-      ;;           (fv g p r))
-      ;;         (let ((g ()) (x ()) (y ()) (m ())
-      ;;               (fv (g x y m p))
-      ;;               (m (num y))
-      ;;               (p (s m))
-      ;;               (r (s y)))
-      ;;           (fv g p r))
-      ;;         (let ((g ()) (x ())
-      ;;               (fv (g x p))
-      ;;               (p (x + 0))
-      ;;               (r (num x)))
-      ;;           (fv g p r))
-      ;;         (let ((g ()) (x ()) (y ()) (z ()) (w ())
-      ;;               (fv (g x y z w p))
-      ;;               (y (s z))
-      ;;               (w (x + z))
-      ;;               (p (x + y))
-      ;;               (r (s w)))
-      ;;           (fv g p r)))
-      (do (or
-           (let (g x y)
-             ((+ num) g
-              (x + (num y))
-              (x + y)))
-           (let (g x)
-             ((s num) g
-              (s (num x))
-              (s x)))
-           (let (g x y)
-             ((+ s num) g
-              (x + (s y))
-              (s (x + y))))
-           (let (g x)
-             ((+ 0 num) g
-              (x + 0)
-              (num x))))
-          ((s (s (s 0))) + ((s 0) + ((s (s 0)) + (s 0)))))))
+  '(a d
+      (let (g x y)
+        (do (((+ -) g
+              (x + y)
+              (- x y)))
+            (1 + (2 + 3))))))
 
 (define graph
   (list->graph input))

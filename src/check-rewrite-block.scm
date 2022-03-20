@@ -21,7 +21,4 @@
 
 (define (check-rewrite-block block)
   (define children (node-children block))
-  (unless (= 4 (length children))
-    (raisu 'rewrite-block-has-bad-arity block))
-
-  #t)
+  (= 4 (length children)))
