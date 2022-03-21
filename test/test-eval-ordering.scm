@@ -22,4 +22,33 @@
 
 (use-modules (ice-9 pretty-print))
 
-(display "Done.\n")
+;; test eval ordering
+(let ()
+  (define instance
+    '(a b c
+        (x x (do e1 b1))
+        (y y (do e6 (do e7 b7)))
+        (do e2
+            (d e (do e3
+                     (f g
+                        (k l (do e4 (i o)))))
+               (p x (y n (do e5 z)))))))
+  (define graph
+    (list->graph instance))
+
+  (define found
+    (find-partially-sorted-evals graph))
+
+  (define mapped
+    (let loop ((x found))
+      (cond
+       ((node? x)
+        ;; x)
+        (cadr (get-head 2 x)))
+        ;; (list->vector (get-head 2 x)))
+       ((pair? x) (map loop x))
+       (else x))))
+
+  ;; (display "Partially sorted:\n")
+  ;; (pretty-print mapped)
+  (assert= '((e5 e4 e7 e1) (e3 e6) (e2)) mapped))

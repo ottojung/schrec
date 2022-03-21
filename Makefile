@@ -6,6 +6,12 @@ CZEMPAK = CZEMPAK_ROOT=$(PWD)/.czempak-root ./build/czempak
 test: build/czempak
 	$(CZEMPAK) run test/test.scm
 
+test-all: build/czempak
+	@ for FILE in test/test*.scm ; do $(MAKE) test-f "TESTFILE=$$FILE" ; done
+
+test-f:
+	$(CZEMPAK) run $(TESTFILE)
+
 build/czempak: $(SUBMODULES)
 	cd deps/czempak && $(MAKE) PREFIXBIN=$(PWD)/build
 
