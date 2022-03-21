@@ -6,6 +6,9 @@ CZEMPAK = CZEMPAK_ROOT=$(PWD)/.czempak-root ./build/czempak
 test: build/czempak
 	$(CZEMPAK) run test/test.scm
 
+example: build/czempak
+	$(MAKE) test-f "TESTFILE=test/example.scm"
+
 test-all: build/czempak
 	@ for FILE in test/test*.scm ; do $(MAKE) test-f "TESTFILE=$$FILE" ; done
 
