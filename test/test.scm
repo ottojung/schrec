@@ -14,10 +14,15 @@
 %use (run-topdown-ordered) "./src/run-topdown-ordered.scm"
 %use (run-topdown-correct) "./src/run-topdown-correct.scm"
 %use (reduce-hook) "./src/reduce-hook.scm"
+%use (get-head) "./src/get-head.scm"
 
 %use (debug) "./src/euphrates/debug.scm"
 
 (use-modules (ice-9 pretty-print))
+
+;; ;; test eval ordering
+;; (let ()
+;;   (0))
 
 ;; (define input
 ;;   '(a d b c
@@ -337,6 +342,8 @@
   (list->graph input))
 
 (reduce-hook (lambda (g) (display "\nStep:\n") (pretty-print (graph->list graph))))
+(display "\nHead:\n")
+(pretty-print (get-head 5 graph))
 (display "\nOriginal:\n")
 (pretty-print (graph->list graph))
 (display "\nLook at me go!\n")
