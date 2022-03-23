@@ -14,13 +14,13 @@
 
 %run guile
 
-%var run-topdown-loop
+%var reduce/det-topdown/loop
 
 %use (eval/det-topdown/node/loop) "./eval-det-topdown-node-loop.scm"
 %use (find-bottommost-eval) "./find-bottommost-eval.scm"
 
 ;; NOTE: not semantically correct
-(define (run-topdown-loop g)
+(define (reduce/det-topdown/loop g)
   (let ((eval-node (find-bottommost-eval g)))
     (and eval-node
          (eval/det-topdown/node/loop eval-node))))
