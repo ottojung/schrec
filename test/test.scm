@@ -13,7 +13,7 @@
 %use (run-topdown-loop) "./src/run-topdown-loop.scm"
 %use (run-topdown-ordered) "./src/run-topdown-ordered.scm"
 %use (run-topdown-correct) "./src/run-topdown-correct.scm"
-%use (reduce-hook) "./src/reduce-hook.scm"
+%use (eval-hook) "./src/eval-hook.scm"
 %use (get-head) "./src/get-head.scm"
 %use (find-partially-sorted-evals) "./src/find-partially-sorted-evals.scm"
 

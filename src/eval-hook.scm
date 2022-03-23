@@ -14,6 +14,6 @@
 
 %run guile
 
-%var reduce-hook
+%var eval-hook
 
-(define reduce-hook (make-parameter #f))
+(define eval-hook (make-parameter #f))

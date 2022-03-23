@@ -19,7 +19,7 @@
 %use (run-environment) "./run-environment.scm"
 %use (node-children node-visited? set-node-visited?!) "./node.scm"
 %use (check-environment) "./check-environment.scm"
-%use (reduce-hook) "./reduce-hook.scm"
+%use (eval-hook) "./eval-hook.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 %use (engine-fork) "./engine-fork.scm"
 
@@ -36,7 +36,7 @@
                       (cons
                        (engine-fork
                         (if (run-environment env g)
-                            (let ((hook (reduce-hook)))
+                            (let ((hook (eval-hook)))
                               (when hook (hook body))
                               (list (get-current-thread)))
                             '()))

@@ -23,7 +23,7 @@
 %use (run-topdown) "./run-topdown.scm"
 %use (run-topdown-loop) "./run-topdown-loop.scm"
 %use (run-topdown-ordered) "./run-topdown-ordered.scm"
-%use (reduce-hook) "./reduce-hook.scm"
+%use (eval-hook) "./eval-hook.scm"
 
 (use-modules (ice-9 pretty-print))
 
