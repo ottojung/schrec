@@ -17,7 +17,7 @@
 %var find-topmost-eval
 
 %use (node-id node-children node-visited? set-node-visited?!) "./node.scm"
-%use (eval-node?) "./eval-node-huh.scm"
+%use (eval-form?) "./eval-form-huh.scm"
 
 ;; returns either the eval node, or #f
 ;; FIXME: abort if graph loops into itself!
@@ -27,7 +27,7 @@
         (begin
           (set-node-visited?! graph #t)
           (let ((ret
-                 (if (eval-node? graph) parent
+                 (if (eval-form? parent) parent
                      (let cloop ((cs (node-children graph)))
                        (if (null? cs) #f
                            (or (loop graph (car cs))

@@ -20,10 +20,7 @@
 %use (list-and-map) "./euphrates/list-and-map.scm"
 
 %use (node-children node-visited? set-node-visited?!) "./node.scm"
-%use (eval-node?) "./eval-node-huh.scm"
 %use (eval-form?) "./eval-form-huh.scm"
-
-%use (debugv) "./euphrates/debugv.scm"
 
 (define (find-partially-sorted-evals root)
   (define sequences '())
