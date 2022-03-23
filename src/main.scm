@@ -29,10 +29,8 @@
 %use (reduce/nondet) "./reduce-nondet.scm"
 %use (current-thread/p) "./current-thread-p.scm"
 %use (get-current-thread) "./get-current-thread.scm"
-
-%for (COMPILER "guile")
-(use-modules (ice-9 pretty-print))
-%end
+%use (pretty-print-graph) "./pretty-print-graph.scm"
+%use (default-eval-hook) "./default-eval-hook.scm"
 
 (define (fatal fmt . args)
   (parameterize ((current-output-port (current-error-port)))
@@ -69,13 +67,9 @@
             (graph (list->graph parsed)))
 
        (when --trace
-         (eval-hook
-          (lambda (g)
-            (display "\nStep:\n")
-            (pretty-print (graph->list graph))))
-
+         (eval-hook (default-eval-hook graph))
          (display "Original:\n")
-         (pretty-print (graph->list graph)))
+         (pretty-print-graph graph))
 
        (let ((thread-ids
               (if --deterministic
@@ -86,7 +80,7 @@
            (for-each
             (lambda (thread)
               (parameterize ((current-thread/p thread))
-                (pretty-print (graph->list graph))))
+                (pretty-print-graph graph)))
             thread-ids)))))))
 
 (main)
