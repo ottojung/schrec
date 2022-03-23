@@ -33,6 +33,6 @@
                                      (list-or-map loop (node-children g)))))
                         (set-node-visited?! g #f)
                         ret))))))
-         (when (reduce-hook)
+         (when (and result (reduce-hook))
            ((reduce-hook) result))
          result)))
