@@ -28,8 +28,6 @@
 %use (reduce/det-topdown/loop) "./reduce-det-topdown-loop.scm"
 %use (reduce/nondet) "./reduce-nondet.scm"
 
-%use (debugv) "./euphrates/debugv.scm"
-
 %for (COMPILER "guile")
 (use-modules (ice-9 pretty-print))
 %end
@@ -56,20 +54,21 @@
      (unless (file-or-directory-exists? <filename>)
        (fatal "Given file does not exist: ~a" <filename>))
 
-     (eval-hook
-      (lambda (g)
-        (display "\nStep:\n") (pretty-print (graph->list g))))
-
      (let* ((file-port (open-file-port <filename> "r"))
             (parsed (car (read-list file-port)))
             (do (close-port file-port))
-            (do (debugv parsed))
             (graph (list->graph parsed)))
+
+       (eval-hook
+        (lambda (g)
+          (display "\nStep:\n")
+          (pretty-print (graph->list graph))))
+
+       (display "Original:\n")
+       (pretty-print (graph->list graph))
 
        (if --deterministic
            (reduce/det-topdown/loop graph)
-           (reduce/nondet graph))
-
-       ((eval-hook) graph)))))
+           (reduce/nondet graph))))))
 
 (main)

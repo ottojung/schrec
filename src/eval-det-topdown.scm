@@ -34,5 +34,5 @@
                         (set-node-visited?! g #f)
                         ret))))))
          (when (and result (eval-hook))
-           ((eval-hook) result))
+           ((eval-hook) g))
          result)))
