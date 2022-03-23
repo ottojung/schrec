@@ -349,8 +349,3 @@
 ;; (run-topdown-ordered graph)
 ;; (run-topdown-correct graph)
 (run-nondet graph)
-
-%use (current-thread/p) "./src/current-thread-p.scm"
-(display "\nLAST:\n")
-(parameterize ((current-thread/p '(1)))
-  (pretty-print (graph->list graph)))
