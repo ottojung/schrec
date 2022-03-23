@@ -11,7 +11,6 @@
 %use (eval/det-topdown) "./src/eval-det-topdown.scm"
 %use (reduce/det-topdown) "./src/reduce-det-topdown.scm"
 %use (reduce/det-topdown/loop) "./src/reduce-det-topdown-loop.scm"
-%use (run-topdown-ordered) "./src/run-topdown-ordered.scm"
 %use (eval-hook) "./src/eval-hook.scm"
 %use (get-head) "./src/get-head.scm"
 %use (find-partially-sorted-evals) "./src/find-partially-sorted-evals.scm"
@@ -345,6 +344,5 @@
 (display "\nOriginal:\n")
 (pretty-print (graph->list graph))
 (display "\nLook at me go!\n")
-;; (run-topdown-ordered graph)
-;; (run-topdown-correct graph)
-(run-nondet graph)
+(reduce/det-topdown/loop graph)
+;; (run-nondet graph)
