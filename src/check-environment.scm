@@ -23,4 +23,6 @@
 
 ;; returns #f or success
 (define (check-environment env)
-  (list-and-map check-rewrite-block (node-children env)))
+  (define children (node-children env))
+  (and (<= 1 (length children))
+       (list-and-map check-rewrite-block children)))
