@@ -1,10 +1,26 @@
 
+PREFIX = $(HOME)/.local
+PREFIX_BIN = $(PREFIX)/bin
+
 SUBMODULES = deps/euphrates/.git deps/czempak/.git
 
 CZEMPAK = CZEMPAK_ROOT=$(PWD)/.czempak-root ./build/czempak
 
 test: build/czempak
 	$(CZEMPAK) run test/test.scm
+
+build: build/schrec
+
+build/schrec: build/czempak src/*.scm
+	$(CZEMPAK) install $(PWD)/src/main.scm $(PWD)/build/schrec
+
+install: $(PREFIX_BIN)/schrec
+
+$(PREFIX_BIN)/schrec: build/schrec $(PREFIX_BIN)
+	cp $(PWD)/build/schrec $(PREFIX_BIN)/
+
+$(PREFIX_BIN):
+	make -p "$@"
 
 example: build/czempak
 	$(MAKE) test-f "TESTFILE=test/example.scm"
@@ -28,4 +44,4 @@ clean:
 	git clean -dfx
 	git submodule foreach "$(MAKE) clean"
 
-.PHONY: test clean
+.PHONY: test clean build install all
