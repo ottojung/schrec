@@ -68,6 +68,8 @@
 
        (if --deterministic
            (reduce/det-topdown/loop graph)
-           (reduce/nondet graph))))))
+           (reduce/nondet graph))
+
+       ((eval-hook) graph)))))
 
 (main)
