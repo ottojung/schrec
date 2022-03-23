@@ -47,7 +47,7 @@
                 (loop (cdr evals))
                 successful-thread-ids)))))
 
-  (let oloop ((threads (list (make-thread-id))))
+  (let oloop ((threads (eval-fun)))
     (unless (null? threads)
       (oloop
        (apply

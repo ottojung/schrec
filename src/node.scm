@@ -27,6 +27,10 @@
 %var set-node-visited?!
 
 %use (define-type9) "./euphrates/define-type9.scm"
+%use (make-prefixtree prefixtree-set! prefixtree-ref-furthest) "./euphrates/prefixtree.scm"
+%use (raisu) "./euphrates/raisu.scm"
+
+%use (get-current-thread) "./get-current-thread.scm"
 
 (define-type9 <n>
   (node-ctor id children label type meta visited?) node?
@@ -34,7 +38,7 @@
   (id node-id)
 
   ;; children part
-  (children node-children set-node-children!)
+  (children node-children/raw set-node-children/raw!)
 
   ;; meta part
   (label node-label)
@@ -44,4 +48,16 @@
   )
 
 (define (make-node id children label type)
-  (node-ctor id children label type #f #f))
+  (define pt (make-prefixtree children))
+  (node-ctor id pt label type #f #f))
+
+(define (node-children node)
+  (define thread (get-current-thread))
+  (define pt (node-children/raw node))
+  (define ret (prefixtree-ref-furthest pt (reverse thread)))
+  ret)
+
+(define (set-node-children! node children)
+  (define thread (get-current-thread))
+  (define pt (node-children/raw node))
+  (prefixtree-set! pt (reverse thread) children))

@@ -14,12 +14,9 @@
 
 %run guile
 
-%var make-thread-id
+%var get-current-thread
 
-%use (get-current-thread) "./get-current-thread.scm"
+%use (current-thread/p) "./current-thread-p.scm"
 
-(define make-thread-id
-  (let ((counter 0))
-    (lambda ()
-      (set! counter (+ 1 counter))
-      (cons counter (get-current-thread)))))
+(define (get-current-thread)
+  (or (current-thread/p) '()))

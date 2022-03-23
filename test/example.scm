@@ -291,51 +291,51 @@
 ;;            (- x y))))
 ;;        (1 + (2 + 3))))
 
-;; (define input
-;;   '(let ((body
-;;           ((s (s 0)) + (s (0 + (s ((s 0) + 0)))))))
-;;      (fork
-;;       (do (((+ s 0)     ;; constants
-;;             g           ;; input
-;;             ((s x) + 0) ;; match pattern
-;;             (s x)))     ;; replace pattern
-;;           body)
-;;       (do (((+ s 0)     ;; constants
-;;             g           ;; input
-;;             ((0 + 0) + x) ;; match pattern
-;;             (0 + x)))     ;; replace pattern
-;;           body)
-;;       (do (((+ s 0)     ;; constants
-;;             g           ;; input
-;;             (x + (0 + 0)) ;; match pattern
-;;             (x + 0)))     ;; replace pattern
-;;           body)
-;;       (do (((+ s 0)     ;; constants
-;;             g           ;; input
-;;             (s (0 + 0)) ;; match pattern
-;;             (s 0)))     ;; replace pattern
-;;           body)
-;;       (do (((+ s 0)     ;; constants
-;;             g           ;; input
-;;             (0 + (s x)) ;; match pattern
-;;             (s x)))     ;; replace pattern
-;;           body)
-;;       (do (((+ s 0)     ;; constants
-;;             g           ;; input
-;;             (x + (s y)) ;; match pattern
-;;             (s (x + y))))     ;; replace pattern
-;;           body))))
-
-;; const input test 1
 (define input
-  '(let ((switch (off)))
-     (do ((() g
-           (x)
-           (x (x)))
-          ((switch off on) switch
-           (off)
-           (on)))
-         (body))))
+  '(let ((body
+          ((s (s 0)) + (s (0 + (s ((s 0) + 0)))))))
+     (fork
+      (do (((+ s 0)     ;; constants
+            g           ;; input
+            ((s x) + 0) ;; match pattern
+            (s x)))     ;; replace pattern
+          body)
+      (do (((+ s 0)     ;; constants
+            g           ;; input
+            ((0 + 0) + x) ;; match pattern
+            (0 + x)))     ;; replace pattern
+          body)
+      (do (((+ s 0)     ;; constants
+            g           ;; input
+            (x + (0 + 0)) ;; match pattern
+            (x + 0)))     ;; replace pattern
+          body)
+      (do (((+ s 0)     ;; constants
+            g           ;; input
+            (s (0 + 0)) ;; match pattern
+            (s 0)))     ;; replace pattern
+          body)
+      (do (((+ s 0)     ;; constants
+            g           ;; input
+            (0 + (s x)) ;; match pattern
+            (s x)))     ;; replace pattern
+          body)
+      (do (((+ s 0)     ;; constants
+            g           ;; input
+            (x + (s y)) ;; match pattern
+            (s (x + y))))     ;; replace pattern
+          body))))
+
+;; ;; const input test 1
+;; (define input
+;;   '(let ((switch (off)))
+;;      (do ((() g
+;;            (x)
+;;            (x (x)))
+;;           ((switch off on) switch
+;;            (off)
+;;            (on)))
+;;          (body))))
 
 (define graph
   (list->graph input))
@@ -349,3 +349,8 @@
 ;; (run-topdown-ordered graph)
 ;; (run-topdown-correct graph)
 (run-nondet graph)
+
+%use (current-thread/p) "./src/current-thread-p.scm"
+(display "\nLAST:\n")
+(parameterize ((current-thread/p '(1)))
+  (pretty-print (graph->list graph)))

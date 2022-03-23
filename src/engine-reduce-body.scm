@@ -20,32 +20,29 @@
 %use (node-children node-visited? set-node-visited?!) "./node.scm"
 %use (check-environment) "./check-environment.scm"
 %use (reduce-hook) "./reduce-hook.scm"
-%use (current-thread/p) "./current-thread-p.scm"
+%use (get-current-thread) "./get-current-thread.scm"
 %use (engine-fork) "./engine-fork.scm"
 
 ;; returns a list of new thread ids
 (define (engine-reduce-body env body)
   (if (check-environment env)
-      (let ()
-        (define result
-          (let loop ((g body))
-            (if (node-visited? g) '()
-                (let ()
-                  (set-node-visited?! g #t)
-                  (define ret
-                    (apply
-                     append
-                     (cons
-                      (engine-fork
-                       (lambda _
-                         (if (run-environment env g)
-                             (begin
-                               (when (reduce-hook)
-                                 ((reduce-hook) g))
-                               (list (current-thread/p)))
-                             '())))
-                      (map loop (node-children g)))))
-                  (set-node-visited?! g #f)
-                  ret))))
-        result)
+      (let loop ((g body))
+        (if (node-visited? g) '()
+            (begin
+              (set-node-visited?! g #t)
+              (let ((ret
+                     (apply
+                      append
+                      (cons
+                       (engine-fork
+                        (lambda _
+                          (if (run-environment env g)
+                              (begin
+                                (when (reduce-hook)
+                                  ((reduce-hook) body))
+                                (list (get-current-thread)))
+                              '())))
+                       (map loop (node-children g))))))
+                (set-node-visited?! g #f)
+                ret))))
       '()))
