@@ -27,6 +27,8 @@
 %use (list->graph) "./list-to-graph.scm"
 %use (reduce/det-topdown/loop) "./reduce-det-topdown-loop.scm"
 %use (reduce/nondet) "./reduce-nondet.scm"
+%use (current-thread/p) "./current-thread-p.scm"
+%use (get-current-thread) "./get-current-thread.scm"
 
 %for (COMPILER "guile")
 (use-modules (ice-9 pretty-print))
@@ -75,11 +77,16 @@
          (display "Original:\n")
          (pretty-print (graph->list graph)))
 
-       (if --deterministic
-           (reduce/det-topdown/loop graph)
-           (reduce/nondet graph))
+       (let ((thread-ids
+              (if --deterministic
+                  (begin (reduce/det-topdown/loop graph) (list (get-current-thread)))
+                  (reduce/nondet graph))))
 
-       (unless --trace
-         (pretty-print (graph->list graph)))))))
+         (unless --trace
+           (for-each
+            (lambda (thread)
+              (parameterize ((current-thread/p thread))
+                (pretty-print (graph->list graph))))
+            thread-ids)))))))
 
 (main)
