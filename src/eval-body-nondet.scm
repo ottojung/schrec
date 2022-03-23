@@ -14,7 +14,7 @@
 
 %run guile
 
-%var engine-reduce-body
+%var eval-body/nondet
 
 %use (run-environment) "./run-environment.scm"
 %use (node-children node-visited? set-node-visited?!) "./node.scm"
@@ -24,7 +24,7 @@
 %use (engine-fork) "./engine-fork.scm"
 
 ;; returns a list of new thread ids
-(define (engine-reduce-body env body)
+(define (eval-body/nondet env body)
   (if (check-environment env)
       (let loop ((g body))
         (if (node-visited? g) '()
