@@ -22,16 +22,23 @@
 %use (eval/nondet) "./eval-nondet.scm"
 %use (make-thread-id) "./make-thread-id.scm"
 %use (current-thread/p) "./current-thread-p.scm"
+%use (get-current-thread) "./get-current-thread.scm"
 %use (node-children) "./node.scm"
 
+;; Returns list of thread its that were the finishers
 (define (reduce/nondet graph)
+  (define result '())
+
   (define (eval-fun)
     ;; These evals are grouped such that
     ;; in each group every element can be run first
     (define evals (find-partially-sorted-evals graph))
 
     (let loop ((evals evals))
-      (if (null? evals) '()
+      (if (null? evals)
+          (begin
+            (set! result (cons (get-current-thread) result))
+            '())
           (let* ((group (car evals))
                  (successful-thread-ids
                   (apply
@@ -56,4 +63,6 @@
          (lambda (thread)
            (parameterize ((current-thread/p thread))
              (eval-fun)))
-         threads))))))
+         threads)))))
+
+  result)
