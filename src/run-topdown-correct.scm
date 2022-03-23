@@ -18,10 +18,10 @@
 
 %use (list-find-first) "./euphrates/list-find-first.scm"
 %use (find-sorted-evals) "./find-sorted-evals.scm"
-%use (reduce-node-topdown) "./reduce-node-topdown.scm"
+%use (eval/det-topdown/node) "./eval-det-topdown-node.scm"
 
 (define (run-topdown-correct graph)
   (let oloop ()
     (define evals (find-sorted-evals graph))
-    (when (list-find-first reduce-node-topdown #f evals)
+    (when (list-find-first eval/det-topdown/node #f evals)
       (oloop))))
