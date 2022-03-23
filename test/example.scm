@@ -12,7 +12,6 @@
 %use (reduce/det-topdown) "./src/reduce-det-topdown.scm"
 %use (reduce/det-topdown/loop) "./src/reduce-det-topdown-loop.scm"
 %use (run-topdown-ordered) "./src/run-topdown-ordered.scm"
-%use (run-topdown-correct) "./src/run-topdown-correct.scm"
 %use (eval-hook) "./src/eval-hook.scm"
 %use (get-head) "./src/get-head.scm"
 %use (find-partially-sorted-evals) "./src/find-partially-sorted-evals.scm"

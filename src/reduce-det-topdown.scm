@@ -16,15 +16,13 @@
 
 %var reduce/det-topdown
 
-%use (eval/det-topdown) "./eval-det-topdown.scm"
-%use (find-bottommost-eval) "./find-bottommost-eval.scm"
-%use (node-children) "./node.scm"
-%use (get-eval-body) "./get-eval-body.scm"
-%use (get-eval-env) "./get-eval-env.scm"
+%use (list-find-first) "./euphrates/list-find-first.scm"
+
+%use (eval/det-topdown/node) "./eval-det-topdown-node.scm"
+%use (find-sorted-evals) "./find-sorted-evals.scm"
 
 (define (reduce/det-topdown g)
-  (let ((eval-node (find-bottommost-eval g)))
-    (and eval-node
-         (let ((env (get-eval-env eval-node)) ;; TODO(eval-syntax): check syntax
-               (body (get-eval-body eval-node)))
-           (eval/det-topdown env body)))))
+  (let oloop ()
+    (define evals (find-sorted-evals g))
+    (when (list-find-first eval/det-topdown/node #f evals)
+      (oloop))))
