@@ -35,13 +35,12 @@
                       append
                       (cons
                        (engine-fork
-                        (lambda _
-                          (if (run-environment env g)
-                              (begin
-                                (when (reduce-hook)
-                                  ((reduce-hook) body))
-                                (list (get-current-thread)))
-                              '())))
+                        (if (run-environment env g)
+                            (begin
+                              (when (reduce-hook)
+                                ((reduce-hook) body))
+                              (list (get-current-thread)))
+                            '()))
                        (map loop (node-children g))))))
                 (set-node-visited?! g #f)
                 ret))))

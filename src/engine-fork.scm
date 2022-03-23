@@ -19,7 +19,7 @@
 %use (make-thread-id) "./make-thread-id.scm"
 %use (current-thread/p) "./current-thread-p.scm"
 
-(define (engine-fork thunk)
-  (define new-thread-id (make-thread-id))
-  (parameterize ((current-thread/p new-thread-id))
-    (thunk)))
+(define-syntax engine-fork
+  (syntax-rules ()
+    ((_ . args)
+     (parameterize ((current-thread/p (make-thread-id))) . args))))
