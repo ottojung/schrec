@@ -19,7 +19,7 @@
 %use (list-or-map) "./euphrates/list-or-map.scm"
 
 %use (find-partially-sorted-evals) "./find-partially-sorted-evals.scm"
-%use (eval-body/nondet) "./eval-body-nondet.scm"
+%use (eval/nondet) "./eval-nondet.scm"
 %use (make-thread-id) "./make-thread-id.scm"
 %use (current-thread/p) "./current-thread-p.scm"
 %use (node-children) "./node.scm"
@@ -41,7 +41,7 @@
                       (define children (node-children eval-form))
                       (define env (list-ref children 1))
                       (define body (list-ref children 2))
-                      (eval-body/nondet env body))
+                      (eval/nondet env body))
                     group))))
             (if (null? successful-thread-ids)
                 (loop (cdr evals))
