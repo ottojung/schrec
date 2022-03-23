@@ -14,7 +14,7 @@
 
 %run guile
 
-%var run-nondet
+%var reduce/nondet
 
 %use (list-or-map) "./euphrates/list-or-map.scm"
 
@@ -24,7 +24,7 @@
 %use (current-thread/p) "./current-thread-p.scm"
 %use (node-children) "./node.scm"
 
-(define (run-nondet graph)
+(define (reduce/nondet graph)
   (define (eval-fun)
     ;; These evals are grouped such that
     ;; in each group every element can be run first

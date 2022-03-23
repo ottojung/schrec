@@ -14,7 +14,7 @@
 %use (eval-hook) "./src/eval-hook.scm"
 %use (get-head) "./src/get-head.scm"
 %use (find-partially-sorted-evals) "./src/find-partially-sorted-evals.scm"
-%use (run-nondet) "./src/run-nondet.scm"
+%use (reduce/nondet) "./src/reduce-nondet.scm"
 
 %use (debug) "./src/euphrates/debug.scm"
 %use (debugv) "./src/euphrates/debugv.scm"
@@ -345,4 +345,4 @@
 (pretty-print (graph->list graph))
 (display "\nLook at me go!\n")
 (reduce/det-topdown/loop graph)
-;; (run-nondet graph)
+;; (reduce/nondet graph)
