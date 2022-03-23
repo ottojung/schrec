@@ -2,12 +2,18 @@
 PREFIX = $(HOME)/.local
 PREFIX_BIN = $(PREFIX)/bin
 
+RUN_TARGET =
+SCHREC_OPTS = --deterministic
+
 SUBMODULES = deps/euphrates/.git deps/czempak/.git
 
 CZEMPAK = CZEMPAK_ROOT=$(PWD)/.czempak-root ./build/czempak
 
 test: build/schrec
 	build/schrec --deterministic example/state.lisp
+
+run: build/schrec
+	build/schrec $(SCHREC_OPTS) $(RUN_TARGET)
 
 build: build/schrec
 
@@ -22,8 +28,8 @@ $(PREFIX_BIN)/schrec: build/schrec $(PREFIX_BIN)
 $(PREFIX_BIN):
 	make -p "$@"
 
-example: build/czempak
-	$(MAKE) test-f "TESTFILE=test/example.scm"
+examples: build/schrec
+	@ for FILE in example/* ; do $(MAKE) run "RUN_TARGET=$$FILE" ; done
 
 test-all: build/czempak
 	@ for FILE in test/test*.scm ; do $(MAKE) test-f "TESTFILE=$$FILE" ; done
@@ -44,4 +50,4 @@ clean:
 	git clean -dfx
 	git submodule foreach "$(MAKE) clean"
 
-.PHONY: test clean build install all
+.PHONY: test clean build install all examples
