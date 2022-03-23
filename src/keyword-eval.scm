@@ -16,4 +16,4 @@
 
 %var keyword-eval
 
-(define keyword-eval 'do)
+(define keyword-eval 'eval)
