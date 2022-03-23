@@ -9,7 +9,7 @@
 %use (graph->list) "./src/graph-to-list.scm"
 %use (run-environment) "./src/run-environment.scm"
 %use (eval/det-topdown) "./src/eval-det-topdown.scm"
-%use (run-topdown) "./src/run-topdown.scm"
+%use (reduce/det-topdown) "./src/reduce-det-topdown.scm"
 %use (run-topdown-loop) "./src/run-topdown-loop.scm"
 %use (run-topdown-ordered) "./src/run-topdown-ordered.scm"
 %use (run-topdown-correct) "./src/run-topdown-correct.scm"

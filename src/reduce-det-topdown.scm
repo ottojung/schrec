@@ -14,7 +14,7 @@
 
 %run guile
 
-%var run-topdown
+%var reduce/det-topdown
 
 %use (eval/det-topdown) "./eval-det-topdown.scm"
 %use (find-bottommost-eval) "./find-bottommost-eval.scm"
@@ -22,7 +22,7 @@
 %use (get-eval-body) "./get-eval-body.scm"
 %use (get-eval-env) "./get-eval-env.scm"
 
-(define (run-topdown g)
+(define (reduce/det-topdown g)
   (let ((eval-node (find-bottommost-eval g)))
     (and eval-node
          (let ((env (get-eval-env eval-node)) ;; TODO(eval-syntax): check syntax
