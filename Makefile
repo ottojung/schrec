@@ -6,8 +6,8 @@ SUBMODULES = deps/euphrates/.git deps/czempak/.git
 
 CZEMPAK = CZEMPAK_ROOT=$(PWD)/.czempak-root ./build/czempak
 
-test: build/czempak
-	$(CZEMPAK) run test/test.scm
+test: build/schrec
+	build/schrec --deterministic example/state.lisp
 
 build: build/schrec
 
