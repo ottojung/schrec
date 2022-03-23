@@ -16,11 +16,11 @@
 
 %var run-topdown-loop
 
-%use (reduce-loop) "./reduce-loop.scm"
+%use (eval/det-topdown/node/loop) "./eval-det-topdown-node-loop.scm"
 %use (find-bottommost-eval) "./find-bottommost-eval.scm"
 
 ;; NOTE: not semantically correct
 (define (run-topdown-loop g)
   (let ((eval-node (find-bottommost-eval g)))
     (and eval-node
-         (reduce-loop eval-node))))
+         (eval/det-topdown/node/loop eval-node))))
