@@ -42,11 +42,18 @@
     (with-cli
      (MAIN
       MAIN : OPT* <filename>
-      OPT : --deterministic / --nondeterministic / --help
+      OPT : --deterministic
+      /     --nondeterministic
+      /     --trace
+      /     --no-trace
+      /     --help
       )
 
      :default (--deterministic #t)
      :exclusive (--deterministic --nondeterministic)
+
+     :default (--trace #t)
+     :exclusive (--trace --no-trace)
 
      (when --help
        (define-cli:show-help))
@@ -59,16 +66,20 @@
             (do (close-port file-port))
             (graph (list->graph parsed)))
 
-       (eval-hook
-        (lambda (g)
-          (display "\nStep:\n")
-          (pretty-print (graph->list graph))))
+       (when --trace
+         (eval-hook
+          (lambda (g)
+            (display "\nStep:\n")
+            (pretty-print (graph->list graph))))
 
-       (display "Original:\n")
-       (pretty-print (graph->list graph))
+         (display "Original:\n")
+         (pretty-print (graph->list graph)))
 
        (if --deterministic
            (reduce/det-topdown/loop graph)
-           (reduce/nondet graph))))))
+           (reduce/nondet graph))
+
+       (unless --trace
+         (pretty-print (graph->list graph)))))))
 
 (main)
