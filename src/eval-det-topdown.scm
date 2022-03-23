@@ -14,7 +14,7 @@
 
 %run guile
 
-%var reduce-topdown
+%var eval/det-topdown
 
 %use (list-or-map) "./euphrates/list-or-map.scm"
 %use (run-environment) "./run-environment.scm"
@@ -22,7 +22,7 @@
 %use (check-environment) "./check-environment.scm"
 %use (reduce-hook) "./reduce-hook.scm"
 
-(define (reduce-topdown env g)
+(define (eval/det-topdown env g)
   (and (check-environment env)
        (let ((result
               (let loop ((g g))

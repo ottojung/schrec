@@ -8,7 +8,7 @@
 %use (list->graph) "./src/list-to-graph.scm"
 %use (graph->list) "./src/graph-to-list.scm"
 %use (run-environment) "./src/run-environment.scm"
-%use (reduce-topdown) "./src/reduce-topdown.scm"
+%use (eval/det-topdown) "./src/eval-det-topdown.scm"
 %use (run-topdown) "./src/run-topdown.scm"
 %use (run-topdown-loop) "./src/run-topdown-loop.scm"
 %use (run-topdown-ordered) "./src/run-topdown-ordered.scm"

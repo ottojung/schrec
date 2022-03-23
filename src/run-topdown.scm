@@ -16,7 +16,7 @@
 
 %var run-topdown
 
-%use (reduce-topdown) "./reduce-topdown.scm"
+%use (eval/det-topdown) "./eval-det-topdown.scm"
 %use (find-bottommost-eval) "./find-bottommost-eval.scm"
 %use (node-children) "./node.scm"
 %use (get-eval-body) "./get-eval-body.scm"
@@ -27,4 +27,4 @@
     (and eval-node
          (let ((env (get-eval-env eval-node)) ;; TODO(eval-syntax): check syntax
                (body (get-eval-body eval-node)))
-           (reduce-topdown env body)))))
+           (eval/det-topdown env body)))))

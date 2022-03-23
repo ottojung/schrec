@@ -16,11 +16,11 @@
 
 %var reduce-node-topdown
 
-%use (reduce-topdown) "./reduce-topdown.scm"
+%use (eval/det-topdown) "./eval-det-topdown.scm"
 %use (get-eval-body) "./get-eval-body.scm"
 %use (get-eval-env) "./get-eval-env.scm"
 
 (define (reduce-node-topdown eval-node)
   (define env (get-eval-env eval-node)) ;; TODO(eval-syntax): check syntax
   (define body (get-eval-body eval-node))
-  (reduce-topdown env body))
+  (eval/det-topdown env body))
