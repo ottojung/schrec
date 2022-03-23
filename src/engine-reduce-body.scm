@@ -36,9 +36,8 @@
                       (cons
                        (engine-fork
                         (if (run-environment env g)
-                            (begin
-                              (when (reduce-hook)
-                                ((reduce-hook) body))
+                            (let ((hook (reduce-hook)))
+                              (when hook (hook body))
                               (list (get-current-thread)))
                             '()))
                        (map loop (node-children g))))))
