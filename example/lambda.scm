@@ -32,4 +32,13 @@
                                    (app y b)
                                    (app y arg)))
                                  input)
+                           (eval ((const
+                                   got
+                                   (b arg)
+                                   (b arg))
+                                  (const
+                                   g
+                                   (abs b)
+                                   (abs arg)))
+                                 input)
                            ))))))
