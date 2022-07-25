@@ -5,9 +5,9 @@ PREFIX_BIN = $(PREFIX)/bin
 RUN_TARGET =
 SCHREC_OPTS = --deterministic
 
-SUBMODULES = deps/euphrates/.git deps/czempak/.git
+SUBMODULES = deps/euphrates/.git
 
-CZEMPAK = CZEMPAK_ROOT=$(PWD)/.czempak-root ./build/czempak
+CZEMPAK = CZEMPAK_ROOT=$(PWD)/.czempak-root guile -s ./deps/czempak.scm
 
 test: build/schrec
 	build/schrec $(SCHREC_OPTS) example/state.scm
@@ -17,7 +17,8 @@ run: build/schrec
 
 build: build/schrec
 
-build/schrec: build/czempak src/*.scm
+build/schrec: src/*.scm
+	mkdir build/
 	$(CZEMPAK) install $(PWD)/src/main.scm $(PWD)/build/schrec
 
 install: $(PREFIX_BIN)/schrec
@@ -31,17 +32,11 @@ $(PREFIX_BIN):
 examples: build/schrec
 	@ for FILE in example/* ; do $(MAKE) run "RUN_TARGET=$$FILE" ; done
 
-test-all: build/czempak
+test-all:
 	@ for FILE in test/test*.scm ; do $(MAKE) test-f "TESTFILE=$$FILE" ; done
 
 test-f:
 	$(CZEMPAK) run $(TESTFILE)
-
-build/czempak: $(SUBMODULES)
-	cd deps/czempak && $(MAKE) PREFIXBIN=$(PWD)/build
-
-deps/czempak/.git:
-	git submodule update --init
 
 deps/euphrates/.git:
 	git submodule update --init
