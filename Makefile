@@ -9,27 +9,29 @@ SUBMODULES = deps/euphrates/.git
 
 CZEMPAK = CZEMPAK_ROOT=$(PWD)/.czempak-root guile -s ./deps/czempak.scm
 
-test: build/schrec
-	build/schrec $(SCHREC_OPTS) example/state.scm
+test: dist/schrec
+	dist/schrec $(SCHREC_OPTS) example/state.scm
 
-run: build/schrec
-	build/schrec $(SCHREC_OPTS) $(RUN_TARGET)
+run: dist/schrec
+	dist/schrec $(SCHREC_OPTS) $(RUN_TARGET)
 
-build: build/schrec
+build: dist/schrec
 
-build/schrec: src/*.scm
-	mkdir build/
-	$(CZEMPAK) install $(PWD)/src/main.scm $(PWD)/build/schrec
+dist/schrec: src/*.scm dist
+	$(CZEMPAK) install $(PWD)/src/main.scm $(PWD)/dist/schrec
+
+dist:
+	mkdir -p dist
 
 install: $(PREFIX_BIN)/schrec
 
-$(PREFIX_BIN)/schrec: build/schrec $(PREFIX_BIN)
-	cp $(PWD)/build/schrec $(PREFIX_BIN)/
+$(PREFIX_BIN)/schrec: dist/schrec $(PREFIX_BIN)
+	cp $(PWD)/dist/schrec $(PREFIX_BIN)/
 
 $(PREFIX_BIN):
-	make -p "$@"
+	mkdir -p "$@"
 
-examples: build/schrec
+examples: dist/schrec
 	@ for FILE in example/* ; do $(MAKE) run "RUN_TARGET=$$FILE" ; done
 
 test-all:
