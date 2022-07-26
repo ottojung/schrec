@@ -60,10 +60,10 @@
 (define (node-children node)
   (define thread (get-current-thread))
   (define pt (node-children/raw node))
-  (define ret (prefixtree-ref-furthest pt (reverse thread)))
+  (define ret (prefixtree-ref-furthest pt thread))
   ret)
 
 (define (set-node-children! node children)
   (define thread (get-current-thread))
   (define pt (node-children/raw node))
-  (prefixtree-set! pt (reverse thread) children))
+  (prefixtree-set! pt thread children))

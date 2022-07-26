@@ -22,4 +22,4 @@
   (let ((counter 0))
     (lambda ()
       (set! counter (+ 1 counter))
-      (cons counter (get-current-thread)))))
+      (append (get-current-thread) (list counter)))))
