@@ -41,12 +41,12 @@
   (parameterize ((current-program-path/p "tegfs"))
     (with-cli
      (MAIN
-      MAIN : OPT* <filename>
+      MAIN : --help
+      /      OPT* <filename>
       OPT : --deterministic
       /     --nondeterministic
       /     --trace
       /     --no-trace
-      /     --help
       )
 
      :default (--deterministic #t)
