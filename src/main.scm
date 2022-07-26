@@ -62,7 +62,7 @@
        (fatal "Given file does not exist: ~a" <filename>))
 
      (let* ((file-port (open-file-port <filename> "r"))
-            (parsed (car (read-list file-port)))
+            (parsed (read-list file-port))
             (do (close-port file-port))
             (graph (list->graph parsed)))
 
