@@ -22,4 +22,5 @@
 
 (define (and-expression? node)
   (define children (node-children node))
-  (and-node? (car children)))
+  (and (not (null? children))
+       (and-node? (car children))))
