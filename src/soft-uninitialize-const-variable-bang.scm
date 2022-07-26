@@ -14,14 +14,12 @@
 
 %run guile
 
-%var initialize-capture-variable!
+%var soft-uninitialize-const-variable!
 
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
-%use (raisu) "./euphrates/raisu.scm"
+%use (uninitialize-const-variable!) "./uninitialize-const-variable-bang.scm"
+%use (const-variable?) "./const-variable-huh.scm"
 
-(define (initialize-capture-variable! node)
-  (when (node-bindtype node)
-    (raisu 'unexpected-initialized-capture-variable! node))
-
-  (set-node-bindtype! node 'capture-var)
-  #t)
+(define (soft-uninitialize-const-variable! node)
+  (when (const-variable? node)
+    (uninitialize-const-variable! node)))

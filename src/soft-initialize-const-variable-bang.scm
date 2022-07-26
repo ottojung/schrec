@@ -14,12 +14,11 @@
 
 %run guile
 
-%var soft-uninitialize-capture-variable!
+%var soft-initialize-const-variable!
 
-%use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
-%use (uninitialize-capture-variable!) "./uninitialize-capture-variable-bang.scm"
-%use (capture-variable?) "./capture-variable-huh.scm"
+%use (const-variable?) "./const-variable-huh.scm"
+%use (initialize-const-variable!) "./initialize-const-variable-bang.scm"
 
-(define (soft-uninitialize-capture-variable! node)
-  (when (capture-variable? node)
-    (uninitialize-capture-variable! node)))
+(define (soft-initialize-const-variable! node)
+  (or (const-variable? node)
+      (initialize-const-variable! node)))

@@ -16,7 +16,7 @@
 
 %var free-variable?
 
-%use (capture-variable?) "./capture-variable-huh.scm"
+%use (const-variable?) "./const-variable-huh.scm"
 
 (define (free-variable? node)
-  (not (capture-variable? node)))
+  (not (const-variable? node)))

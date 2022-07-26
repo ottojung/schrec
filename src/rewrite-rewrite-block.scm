@@ -26,7 +26,7 @@
 
 (define (rewrite-rewrite-block free-stack block main-input)
   (define children (node-children block))
-  (define capture-list (node-children (list-ref children 0)))
+  (define const-list (node-children (list-ref children 0)))
   (define input-node (list-ref children 1))
   (define match-pattern (list-ref children 2))
   (define replace-pattern (list-ref children 3))

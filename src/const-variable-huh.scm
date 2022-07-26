@@ -14,16 +14,9 @@
 
 %run guile
 
-%var uninitialize-capture-variable!
+%var const-variable?
 
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
-%use (raisu) "./euphrates/raisu.scm"
-%use (capture-variable?) "./capture-variable-huh.scm"
 
-(define (uninitialize-capture-variable! node)
-  (unless (capture-variable? node)
-    (raisu 'trying-to-deinitialize-variable-that-is-not-capture node))
-
-  (set-node-bindtype! node #f)
-  (set-node-binding! node #f)
-  )
+(define (const-variable? node)
+  (equal? 'const-var (node-bindtype node)))
