@@ -25,7 +25,7 @@
 %use (get-current-thread) "./get-current-thread.scm"
 %use (node-children) "./node.scm"
 
-;; Returns list of thread its that were the finishers
+;; Returns list of thread IDs that were the finishers
 (define (reduce/nondet graph)
   (define result '())
 
