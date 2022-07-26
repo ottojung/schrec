@@ -27,6 +27,6 @@
           (if (rtree-ref tree)
               (vector (rtree-ref tree) recur)
               (if (null? recur)
-                  (cons (node-label (rtree-value tree)) ;; FIXME: use an actual constructor?
+                  (cons (node-label (rtree-value tree))
                         (node-namespace (rtree-value tree)))
                   recur))))))
