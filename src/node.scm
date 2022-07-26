@@ -39,10 +39,8 @@
 
 (define-type9 <n>
   (node-ctor id children label namespace type bindtype binding status visited?) node?
-  ;; reference part
+  ;; semantic part
   (id node-id)
-
-  ;; children part
   (children node-children/raw set-node-children/raw!)
 
   ;; meta part
