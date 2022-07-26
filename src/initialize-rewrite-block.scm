@@ -16,7 +16,7 @@
 
 %var initialize-rewrite-block
 
-%use (node-children set-node-children! node-label set-node-meta!) "./node.scm"
+%use (make-node node? node-children set-node-children! node-id node-label node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
 %use (list-drop-n) "./euphrates/list-drop-n.scm"
 %use (raisu) "./euphrates/raisu.scm"
 %use (soft-initialize-capture-variable!) "./soft-initialize-capture-variable-bang.scm"
@@ -29,10 +29,10 @@
   (define replace-pattern (list-ref children 3))
   (define left-overs (list-drop-n 4 children))
 
-  (unless (null? left-overs)
+  (unless (null? left-overs) ;; NOTE: this check diverges from specification
     (raisu 'too-many-nodes-on-rewrite-block-top-level block))
 
   (for-each (lambda (var) (soft-initialize-capture-variable! var)) capture-list)
-  (set-node-meta! block 'initialized)
+  (set-node-status! block 'initialized)
 
   #t)

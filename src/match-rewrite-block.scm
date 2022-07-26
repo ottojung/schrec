@@ -16,8 +16,9 @@
 
 %var match-rewrite-block
 
-%use (node-children set-node-children! node-label set-node-meta! node-meta) "./node.scm"
 %use (list-drop-n) "./euphrates/list-drop-n.scm"
+
+%use (make-node node? node-children set-node-children! node-id node-label node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
 %use (associate-free-variable!) "./associate-free-variable-bang.scm"
 %use (initialize-free-variable!) "./initialize-free-variable-bang.scm"
 %use (reinitialize-free-variable!) "./reinitialize-free-variable-bang.scm"
@@ -38,7 +39,7 @@
     (associate-free-variable! free-stack input-node main-input))
 
   (let ((result (run-match-pattern free-stack match-pattern input-node)))
-    (set-node-meta! block (if result 'matched 'not-matched))
+    (set-node-status! block (if result 'matched 'not-matched))
     ;; (when result
     ;;   (debug "MATCHED ~s WITH ~s" match-pattern free-stack))
     result))

@@ -16,8 +16,7 @@
 
 %var capture-variable?
 
-%use (node-meta) "./node.scm"
+%use (make-node node? node-children set-node-children! node-id node-label node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
 
 (define (capture-variable? node)
-  (define meta (node-meta node))
-  (equal? 'capture-var meta))
+  (equal? 'capture-var (node-bindtype node)))

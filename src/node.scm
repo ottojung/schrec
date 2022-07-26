@@ -21,8 +21,12 @@
 %var node-id
 %var node-label
 %var node-type
-%var node-meta
-%var set-node-meta!
+%var node-bindtype
+%var set-node-bindtype!
+%var node-binding
+%var set-node-binding!
+%var node-status
+%var set-node-status!
 %var node-visited?
 %var set-node-visited?!
 
@@ -33,7 +37,7 @@
 %use (get-current-thread) "./get-current-thread.scm"
 
 (define-type9 <n>
-  (node-ctor id children label type meta visited?) node?
+  (node-ctor id children label type bindtype binding status visited?) node?
   ;; reference part
   (id node-id)
 
@@ -43,13 +47,15 @@
   ;; meta part
   (label node-label)
   (type node-type)
-  (meta node-meta set-node-meta!)
+  (bindtype node-bindtype set-node-bindtype!)
+  (binding node-binding set-node-binding!)
+  (status node-status set-node-status!)
   (visited? node-visited? set-node-visited?!)
   )
 
 (define (make-node id children label type)
   (define pt (make-prefixtree children))
-  (node-ctor id pt label type #f #f))
+  (node-ctor id pt label type #f #f #f #f))
 
 (define (node-children node)
   (define thread (get-current-thread))

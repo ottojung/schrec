@@ -18,7 +18,7 @@
 
 %use (raisu) "./euphrates/raisu.scm"
 %use (stack-push!) "./euphrates/stack.scm"
-%use (node-children node-meta set-node-meta! set-node-children! node-label) "./node.scm"
+%use (make-node node? node-children set-node-children! node-id node-label node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
 %use (free-variable?) "./free-variable-huh.scm"
 %use (free-variable-associated?) "./free-variable-associated-huh.scm"
 %use (free-variable-get-association) "./free-variable-get-association.scm"
@@ -26,8 +26,6 @@
 
 ;; returns #t on success, #f on failure
 (define (associate-free-variable! free-stack free-node target-node)
-  (define meta (node-meta free-node))
-
   (unless (free-variable? free-node)
     (raisu 'trying-to-associate-variable-that-is-not-free free-node))
 
@@ -35,7 +33,8 @@
       (let ((current-target (free-variable-get-association free-node)))
         (node-equal? current-target target-node))
       (begin
-        (set-node-meta! free-node (cons 'free-var target-node))
+        (set-node-bindtype! free-node 'free-var)
+        (set-node-binding! free-node target-node)
         (stack-push! free-stack free-node)
         #t)))
 

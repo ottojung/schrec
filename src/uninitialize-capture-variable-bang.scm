@@ -16,13 +16,14 @@
 
 %var uninitialize-capture-variable!
 
-%use (node-children node-meta set-node-meta! set-node-children! node-label) "./node.scm"
+%use (make-node node? node-children set-node-children! node-id node-label node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
 %use (raisu) "./euphrates/raisu.scm"
 %use (capture-variable?) "./capture-variable-huh.scm"
 
-;; returns #t on success, #f on failure
 (define (uninitialize-capture-variable! node)
   (unless (capture-variable? node)
     (raisu 'trying-to-deinitialize-variable-that-is-not-capture node))
 
-  (set-node-meta! node #f))
+  (set-node-bindtype! node #f)
+  (set-node-binding! node #f)
+  )

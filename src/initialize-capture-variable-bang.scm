@@ -16,13 +16,12 @@
 
 %var initialize-capture-variable!
 
-%use (node-children node-meta set-node-meta! set-node-children! node-label) "./node.scm"
+%use (make-node node? node-children set-node-children! node-id node-label node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
 %use (raisu) "./euphrates/raisu.scm"
 
 (define (initialize-capture-variable! node)
-  (define meta (node-meta node))
+  (when (node-bindtype node)
+    (raisu 'unexpected-initialized-capture-variable! node))
 
-  (if meta (raisu 'unexpected-initialized-capture-variable! node)
-      (begin
-        (set-node-meta! node 'capture-var)
-        #t)))
+  (set-node-bindtype! node 'capture-var)
+  #t)

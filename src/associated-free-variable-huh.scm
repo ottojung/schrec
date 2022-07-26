@@ -16,10 +16,8 @@
 
 %var associated-free-variable?
 
-%use (node-meta) "./node.scm"
+%use (make-node node? node-children set-node-children! node-id node-label node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
 
 (define (associated-free-variable? node)
-  (define meta (node-meta node))
-  (and (pair? meta)
-       (equal? 'free-var (car meta))
-       (cdr meta)))
+  (and (equal? 'free-var (node-bindtype node))
+       (node-binding node)))

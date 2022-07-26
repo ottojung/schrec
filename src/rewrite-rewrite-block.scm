@@ -16,7 +16,7 @@
 
 %var rewrite-rewrite-block
 
-%use (node-children set-node-children! node-label node-meta) "./node.scm"
+%use (make-node node? node-children set-node-children! node-id node-label node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
 %use (initialize-free-variable!) "./initialize-free-variable-bang.scm"
 %use (reinitialize-free-variable!) "./reinitialize-free-variable-bang.scm"
 %use (uninitialize-free-variable!) "./uninitialize-free-variable-bang.scm"
@@ -31,7 +31,7 @@
   (define match-pattern (list-ref children 2))
   (define replace-pattern (list-ref children 3))
 
-  (or (not (equal? 'matched (node-meta block)))
+  (or (not (equal? 'matched (node-status block)))
       (let ((input-val (if (free-variable? input-node)
                            (free-variable-get-association input-node)
                            input-node)))

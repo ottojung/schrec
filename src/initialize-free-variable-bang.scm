@@ -16,14 +16,14 @@
 
 %var initialize-free-variable!
 
-%use (node-children node-meta set-node-meta! set-node-children! node-label) "./node.scm"
+%use (make-node node? node-children set-node-children! node-id node-label node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
 %use (raisu) "./euphrates/raisu.scm"
 
 ;; returns #t on success, #f on failure
 (define (initialize-free-variable! free-node)
-  (define meta (node-meta free-node))
+  (when (node-bindtype free-node)
+    (raisu 'unexpected-initialized-free-variable! free-node))
 
-  (if meta (raisu 'unexpected-initialized-free-variable! free-node)
-      (begin
-        (set-node-meta! free-node (cons 'free-var #f))
-        #t)))
+  (set-node-bindtype! free-node 'free-var)
+  (set-node-binding! free-node #f)
+  #t)
