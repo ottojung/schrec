@@ -38,7 +38,7 @@
   (exit 1))
 
 (define (main)
-  (parameterize ((current-program-path/p "tegfs"))
+  (parameterize ((current-program-path/p "schrec"))
     (with-cli
      (MAIN
       MAIN : --help
