@@ -16,7 +16,7 @@
 
 %var rewrite-rewrite-block
 
-%use (make-node node? node-children set-node-children! node-id node-label node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
+%use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
 %use (initialize-free-variable!) "./initialize-free-variable-bang.scm"
 %use (reinitialize-free-variable!) "./reinitialize-free-variable-bang.scm"
 %use (uninitialize-free-variable!) "./uninitialize-free-variable-bang.scm"

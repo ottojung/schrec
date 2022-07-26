@@ -16,7 +16,7 @@
 
 %var uninitialize-rewrite-block
 
-%use (make-node node? node-children set-node-children! node-id node-label node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
+%use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
 %use (list-drop-n) "./euphrates/list-drop-n.scm"
 %use (stack->list) "./euphrates/stack.scm"
 %use (associate-free-variable!) "./associate-free-variable-bang.scm"

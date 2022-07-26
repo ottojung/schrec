@@ -16,13 +16,13 @@
 
 %var get-head
 
-%use (node-children node-label) "./node.scm"
+%use (node-children node-label node-namespace) "./node.scm"
 %use (branch-node-label) "./branch-node-label.scm"
 
 (define (get-head n node)
   (let loop ((n n) (node node))
     (if (<= n 0) '?
-        (let* ((label (car (node-label node)))
+        (let* ((label (node-label node))
                (rec (map (lambda (node) (loop (- n 1) node))
                          (node-children node))))
           (if (equal? label branch-node-label)

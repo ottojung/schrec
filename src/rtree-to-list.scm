@@ -16,7 +16,7 @@
 
 %var rtree->list
 
-%use (node? node-id node-children set-node-children! node-label) "./node.scm"
+%use (node? node-id node-children set-node-children! node-label node-namespace) "./node.scm"
 %use (rtree rtree? rtree-ref set-rtree-ref! rtree-value rtree-children) "./euphrates/rtree.scm"
 %use (make-hashmap hashmap-ref hashmap-set! hashmap->alist) "./euphrates/ihashmap.scm"
 %use (cons!) "./euphrates/cons-bang.scm"
@@ -67,18 +67,18 @@
     (for-each
      (lambda (p)
        (define node (car p))
-       (define existing (hashmap-ref name->node-map (car (node-label node)) #f))
+       (define existing (hashmap-ref name->node-map (node-label node) #f))
 
        (define name-info
          (if existing
              (string->symbol
               (string-append
-               (symbol->string (car (node-label node))) "." (~a (cdr (node-label node)))))
+               (symbol->string (node-label node)) "." (~a (node-namespace node))))
              (if (exp-node? node)
                  (begin
                    (set! counter (+ 1 counter))
                    (string->symbol (string-append "$" (~a counter))))
-                 (car (node-label node)))))
+                 (node-label node))))
 
        (hashmap-set! name->node-map name-info (node-id node))
        (hashmap-set! node->name-map (node-id node) name-info))

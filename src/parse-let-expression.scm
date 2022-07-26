@@ -16,7 +16,7 @@
 
 %var parse-let-expression
 
-%use (make-node node-children set-node-children! node-label) "./node.scm"
+%use (make-node node-children set-node-children! node-label node-namespace) "./node.scm"
 %use (lexical-scope-ref lexical-scope-set! lexical-scope-stage! lexical-scope-unstage! lexical-scope-namespace) "./euphrates/lexical-scope.scm"
 %use (fp) "./euphrates/fp.scm"
 %use (make-fresh-regular-node) "./make-fresh-regular-node.scm"
@@ -35,7 +35,7 @@
     (map
      (fp (name value)
          (if (or (null? value) (pair? value))
-             (list (make-fresh-regular-node (cons name namespace) '()) value) ;; TODO: maybe branch node?
+             (list (make-fresh-regular-node name namespace '()) value) ;; TODO: maybe branch node?
              (list name value)))
      let-bindings))
 
@@ -45,7 +45,7 @@
    (fp (name value)
        (if (or (null? value) (pair? value))
            (lexical-scope-set!
-            scope (car (node-label name))
+            scope (node-label name)
             name)
            (lexical-scope-set!
             scope name

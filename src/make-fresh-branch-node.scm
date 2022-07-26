@@ -22,4 +22,4 @@
 %use (exp-node-type) "./exp-node-type.scm"
 
 (define (make-fresh-branch-node children)
-  (make-fresh-node (cons branch-node-label root-namespace) exp-node-type children))
+  (make-fresh-node branch-node-label root-namespace exp-node-type children))

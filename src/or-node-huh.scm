@@ -17,10 +17,9 @@
 %var or-node?
 
 %use (keyword-or) "./keyword-or.scm"
-%use (node-label) "./node.scm"
+%use (node-label node-namespace) "./node.scm"
 %use (root-namespace) "./root-namespace.scm"
 
 (define (or-node? node)
-  (define head (node-label node))
-  (and (equal? root-namespace (cdr head))
-       (equal? keyword-or (car head))))
+  (and (equal? root-namespace (node-namespace node))
+       (equal? keyword-or (node-label node))))

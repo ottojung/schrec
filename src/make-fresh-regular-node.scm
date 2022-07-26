@@ -18,5 +18,5 @@
 
 %use (make-fresh-node) "./make-fresh-node.scm"
 
-(define (make-fresh-regular-node label children)
-  (make-fresh-node label 'regular children))
+(define (make-fresh-regular-node label namespace children)
+  (make-fresh-node label namespace 'regular children))

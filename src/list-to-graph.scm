@@ -37,6 +37,6 @@
             (make-fresh-branch-node (map loop lst)))
         (let ((existing (lexical-scope-ref scope lst #f)))
           (or existing
-              (let* ((new (make-fresh-atom-node (cons lst root-namespace))))
+              (let ((new (make-fresh-atom-node lst root-namespace)))
                 (lexical-scope-set! scope root-namespace lst new)
                 new))))))

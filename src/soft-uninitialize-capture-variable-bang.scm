@@ -16,7 +16,7 @@
 
 %var soft-uninitialize-capture-variable!
 
-%use (make-node node? node-children set-node-children! node-id node-label node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
+%use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
 %use (uninitialize-capture-variable!) "./uninitialize-capture-variable-bang.scm"
 %use (capture-variable?) "./capture-variable-huh.scm"
 

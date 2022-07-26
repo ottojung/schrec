@@ -19,5 +19,5 @@
 %use (make-fresh-node) "./make-fresh-node.scm"
 %use (get-atom-type) "./get-atom-type.scm"
 
-(define (make-fresh-atom-node atom)
-  (make-fresh-node atom (get-atom-type atom) '()))
+(define (make-fresh-atom-node atom namespace)
+  (make-fresh-node atom namespace (get-atom-type atom namespace) '()))

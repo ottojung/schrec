@@ -19,9 +19,9 @@
 %use (keyword-eval) "./keyword-eval.scm"
 %use (root-namespace) "./root-namespace.scm"
 
-(define (get-atom-type atom)
+(define (get-atom-type atom namespace)
   (cond
-   ((and (equal? keyword-eval (car atom))
-         (equal? root-namespace (cdr atom)))
+   ((and (equal? keyword-eval atom)
+         (equal? root-namespace namespace))
     'teval)
    (else 'regular)))
