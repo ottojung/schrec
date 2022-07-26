@@ -17,4 +17,4 @@
 %var root-namespace?
 
 (define (root-namespace? ns)
-  (= ns 0))
+  (equal? 0 ns))
