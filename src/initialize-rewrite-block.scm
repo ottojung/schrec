@@ -33,7 +33,7 @@
   (unless (null? left-overs) ;; NOTE: this check diverges from specification
     (raisu 'too-many-nodes-on-rewrite-block-top-level block))
 
-  (for-each (lambda (var) (soft-initialize-const-variable! var)) const-list)
+  (for-each soft-initialize-const-variable! const-list)
   (set-node-status! block 'initialized)
 
   #t)

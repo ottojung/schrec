@@ -27,8 +27,8 @@
   (define match-pattern (list-ref children 2))
   (define replace-pattern (list-ref children 3))
 
-  (for-each (lambda (var) (soft-uninitialize-variable! var)) const-list)
-  (for-each (lambda (var) (soft-uninitialize-variable! var)) (stack->list free-stack))
+  (for-each soft-uninitialize-variable! const-list)
+  (for-each soft-uninitialize-variable! (stack->list free-stack))
   (set-node-status! block #f)
 
   #t)
