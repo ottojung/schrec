@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2021, 2022  Otto Jung
+;;;; Copyright (C) 2022  Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -14,21 +14,11 @@
 
 %run guile
 
-%var uninitialize-rewrite-block
+%var soft-uninitialize-variable!
 
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
-%use (stack->list) "./euphrates/stack.scm"
-%use (soft-uninitialize-variable!) "./soft-uninitialize-variable-bang.scm"
 
-(define (uninitialize-rewrite-block free-stack block main-input)
-  (define children (node-children block))
-  (define const-list (node-children (list-ref children 0)))
-  (define input-node (list-ref children 1))
-  (define match-pattern (list-ref children 2))
-  (define replace-pattern (list-ref children 3))
-
-  (for-each (lambda (var) (soft-uninitialize-variable! var)) const-list)
-  (for-each (lambda (var) (soft-uninitialize-variable! var)) (stack->list free-stack))
-  (set-node-status! block #f)
-
-  #t)
+(define (soft-uninitialize-variable! node)
+  (set-node-bindtype! node #f)
+  (set-node-binding! node #f)
+  )
