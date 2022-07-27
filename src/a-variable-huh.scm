@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2021, 2022  Otto Jung
+;;;; Copyright (C) 2022  Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -14,19 +14,11 @@
 
 %run guile
 
-%var run-rewrite-pattern
+%var a-variable?
 
-%use (set-node-children! node-children) "./node.scm"
-%use (make-fresh-branch-node) "./make-fresh-branch-node.scm"
-%use (variable-get-association-or) "./variable-get-association-or.scm"
+%use (node-bindtype) "./node.scm"
 
-(define (run-rewrite-pattern input-node replace-pattern0)
-  (define (loop P)
-    (or (variable-get-association-or P #f)
-        (make-fresh-branch-node
-         (map loop (node-children P)))))
-
-  (define new-children
-    (map loop (node-children replace-pattern0)))
-
-  (set-node-children! input-node new-children))
+(define (a-variable? node)
+  (define type (node-bindtype node))
+  (or (equal? 'free-var type)
+      (equal? 'const-var type)))
