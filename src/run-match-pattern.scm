@@ -18,7 +18,6 @@
 
 %use (node-children) "./node.scm"
 %use (list-and-map) "./euphrates/list-and-map.scm"
-%use (raisu) "./euphrates/raisu.scm"
 %use (free-variable?) "./free-variable-huh.scm"
 %use (node-equal?) "./node-equal-huh.scm"
 %use (associate-free-variable!) "./associate-free-variable-bang.scm"
