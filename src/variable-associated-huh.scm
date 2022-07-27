@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2021, 2022  Otto Jung
+;;;; Copyright (C) 2022  Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -14,15 +14,9 @@
 
 %run guile
 
-%var initialize-const-variable!
+%var variable-associated?
 
-%use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
-%use (raisu) "./euphrates/raisu.scm"
+%use (node-binding) "./node.scm"
 
-(define (initialize-const-variable! node)
-  (when (node-bindtype node)
-    (raisu 'unexpected-initialized-const-variable! node))
-
-  (set-node-bindtype! node 'const-var)
-  (set-node-binding! node node)
-  #t)
+(define (variable-associated? node)
+  (not (not (node-binding node))))
