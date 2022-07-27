@@ -23,11 +23,12 @@
 
 (define (initialize-rewrite-block free-stack block main-input)
   (define children (node-children block))
-  (define const-list (node-children (list-ref children 0)))
+  (define const-node (list-ref children 0))
   (define input-node (list-ref children 1))
   (define match-pattern (list-ref children 2))
   (define replace-pattern (list-ref children 3))
   (define left-overs (list-drop-n 4 children))
+  (define const-list (node-children const-node))
 
   (unless (null? left-overs) ;; NOTE: this check diverges from specification
     (raisu 'too-many-nodes-on-rewrite-block-top-level block))

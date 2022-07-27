@@ -26,10 +26,11 @@
 
 (define (rewrite-rewrite-block free-stack block main-input)
   (define children (node-children block))
-  (define const-list (node-children (list-ref children 0)))
+  (define const-node (list-ref children 0))
   (define input-node (list-ref children 1))
   (define match-pattern (list-ref children 2))
   (define replace-pattern (list-ref children 3))
+  (define const-list (node-children const-node))
 
   (or (not (equal? 'matched (node-status block)))
       (let ((input-val (if (free-variable? input-node)
