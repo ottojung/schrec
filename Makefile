@@ -34,11 +34,14 @@ $(PREFIX_BIN):
 examples: dist/schrec
 	@ for FILE in example/* ; do $(MAKE) run "RUN_TARGET=$$FILE" ; done
 
-test-all:
-	@ for FILE in test/test*.scm ; do $(MAKE) test-f "TESTFILE=$$FILE" ; done
+test-all: dist/schrec
+	@ for FILE in test/test*.scm ; do $(MAKE) test-scm "TESTFILE=$$FILE" ; done
+	@ for FILE in test/test*.sh ; do $(MAKE) test-sh "TESTFILE=$$FILE" ; done
 
-test-f:
+test-scm:
 	$(CZEMPAK) run $(TESTFILE)
+test-sh:
+	sh $(TESTFILE)
 
 deps/euphrates/.git:
 	git submodule update --init
