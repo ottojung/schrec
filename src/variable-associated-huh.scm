@@ -16,7 +16,7 @@
 
 %var variable-associated?
 
-%use (node-binding) "./node.scm"
+%use (variable-get-association-or) "./variable-get-association-or.scm"
 
 (define (variable-associated? node)
-  (not (not (node-binding node))))
+  (not (not (variable-get-association-or node #f))))

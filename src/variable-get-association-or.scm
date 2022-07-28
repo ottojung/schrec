@@ -17,8 +17,9 @@
 %var variable-get-association-or
 
 %use (node-binding) "./node.scm"
+%use (const-variable?) "./const-variable-huh.scm"
 
 (define (variable-get-association-or node default)
-  (or (node-binding node)
-      default))
-
+  (if (const-variable? node) node
+      (or (node-binding node)
+          default)))
