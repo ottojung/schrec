@@ -40,8 +40,9 @@ mkdir -p dist/test/examples/nondet/
 echo "$DET" | while IFS= read -r FILE
 do
 	test -z "$FILE" && continue
-	"$SCHREC" --trace --deterministic "example/$FILE" \
-			  > "dist/test/examples/det/$FILE"
+	CMD="$SCHREC --trace --deterministic example/$FILE"
+	echo "> $CMD"
+	$CMD > "dist/test/examples/det/$FILE"
 
 	diff "test/expected-example-outputs/det/$FILE" \
 		 "dist/test/examples/det/$FILE"
@@ -50,8 +51,9 @@ done
 echo "$NONDET" | while IFS= read -r FILE
 do
 	test -z "$FILE" && continue
-	"$SCHREC" --trace --nondeterministic "example/$FILE" \
-			  > "dist/test/examples/nondet/$FILE"
+	CMD="$SCHREC --trace --nondeterministic example/$FILE"
+	echo "> $CMD"
+	$CMD > "dist/test/examples/nondet/$FILE"
 
 	diff "test/expected-example-outputs/nondet/$FILE" \
 		 "dist/test/examples/nondet/$FILE"
