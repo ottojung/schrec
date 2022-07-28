@@ -1,6 +1,6 @@
 
-(eval ((let (g x y)
-         ((+ -) g
-          (x + y)
-          (- x y))))
-      (1 + (2 + 3)))
+;; removes first argument
+(eval ((() g
+        (x y)
+        (y)))
+      (1 2))

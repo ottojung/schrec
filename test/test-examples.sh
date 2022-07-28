@@ -6,6 +6,7 @@ SCHREC="dist/schrec"
 DET="
 addition-fork.scm
 addition-serial.scm
+const.scm
 eval-in-pattern.scm
 lambda.scm
 loop-1.scm
@@ -25,6 +26,7 @@ stupid-synthetic-example.scm
 NONDET="
 addition-fork.scm
 addition-serial.scm
+const.scm
 eval-in-pattern.scm
 loop-1.scm
 loop-2.scm
