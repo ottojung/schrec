@@ -18,7 +18,7 @@
 
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
 %use (stack->list) "./euphrates/stack.scm"
-%use (soft-uninitialize-variable!) "./soft-uninitialize-variable-bang.scm"
+%use (uninitialize-const-variable!) "./uninitialize-const-variable-bang.scm"
 
 (define (uninitialize-rewrite-block free-stack block main-input)
   (define children (node-children block))
@@ -27,8 +27,6 @@
   (define match-pattern (list-ref children 2))
   (define replace-pattern (list-ref children 3))
 
-  (for-each soft-uninitialize-variable! const-list)
-  (for-each soft-uninitialize-variable! (stack->list free-stack))
-  (set-node-status! block #f)
+  (for-each uninitialize-const-variable! const-list)
 
   #t)

@@ -18,7 +18,8 @@
 
 %use (list-or-map) "./euphrates/list-or-map.scm"
 %use (list-and-map) "./euphrates/list-and-map.scm"
-%use (stack-make) "./euphrates/stack.scm"
+%use (stack-make stack->list) "./euphrates/stack.scm"
+
 %use (or-expression?) "./or-expression-huh.scm"
 %use (and-expression?) "./and-expression-huh.scm"
 %use (check-or-expression-syntax) "./check-or-expression-syntax.scm"
@@ -28,26 +29,28 @@
 %use (match-rewrite-block) "./match-rewrite-block.scm"
 %use (rewrite-rewrite-block) "./rewrite-rewrite-block.scm"
 %use (uninitialize-rewrite-block) "./uninitialize-rewrite-block.scm"
+%use (uninitialize-variable!) "./uninitialize-variable-bang.scm"
+%use (check-rewrite-block) "./check-rewrite-block.scm"
 
 (define (run-environment env main-input)
   (define free-stack (stack-make))
+  (define blocks (node-children env))
 
-  (define (expr-map fn)
-    (list-and-map
-     (lambda (node)
-       (fn free-stack node main-input))
-     (node-children env)))
+  (define (with-initialization fn)
+    (lambda (block)
+      (and
+       (initialize-rewrite-block free-stack block main-input)
+       (let ((ret (fn free-stack block main-input)))
+         (uninitialize-rewrite-block free-stack block main-input)
+         ret))))
 
-  (define (expr-for-each fn)
-    (for-each
-     (lambda (node)
-       (fn free-stack node main-input))
-     (node-children env)))
+  (define result
+    (and
+     (list-and-map check-rewrite-block blocks)
+     (list-and-map (with-initialization match-rewrite-block) blocks)
+     (for-each (with-initialization rewrite-rewrite-block) blocks)))
 
-  (define run-result
-    (and (expr-for-each initialize-rewrite-block)
-         (expr-map match-rewrite-block)
-         (expr-for-each rewrite-rewrite-block)))
+  (for-each uninitialize-variable!
+            (stack->list free-stack))
 
-  (and (expr-for-each uninitialize-rewrite-block)
-       run-result))
+  result)

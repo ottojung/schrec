@@ -14,15 +14,18 @@
 
 %run guile
 
-%var uninitialize-const-variable!
+%var uninitialize-variable!
+
+%use (raisu) "./euphrates/raisu.scm"
 
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
-%use (raisu) "./euphrates/raisu.scm"
-%use (const-variable?) "./const-variable-huh.scm"
+%use (variable-associated?) "./variable-associated-huh.scm"
 
-(define (uninitialize-const-variable! node)
-  (unless (const-variable? node)
-    (raisu 'trying-to-deinitialize-variable-that-is-not-const node))
+(define (uninitialize-variable! node)
+  ;; (unless (variable-associated? node)
+  (unless (node-binding node)
+    (raisu 'variable-not-associated node))
 
+  (set-node-binding! node #f)
   (set-node-bindtype! node #f)
   )

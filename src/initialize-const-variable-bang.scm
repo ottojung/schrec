@@ -21,8 +21,7 @@
 
 (define (initialize-const-variable! node)
   (when (node-bindtype node)
-    (raisu 'unexpected-initialized-const-variable! node))
+    (raisu 'unexpected-initialized-variable! node))
 
   (set-node-bindtype! node 'const-var)
-  (set-node-binding! node node)
   #t)

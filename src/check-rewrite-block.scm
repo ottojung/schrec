@@ -16,7 +16,6 @@
 
 %var check-rewrite-block
 
-%use (raisu) "./euphrates/raisu.scm"
 %use (node-children) "./node.scm"
 
 (define (check-rewrite-block block)
