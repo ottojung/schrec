@@ -16,6 +16,9 @@ primitive.scm
 simple-let-example.scm
 simple-non-confluent.scm
 state.scm
+state-with-double-bind.scm
+state-with-noop.scm
+state-without-local.scm
 stupid-synthetic-example.scm
 "
 
@@ -31,6 +34,9 @@ primitive.scm
 simple-let-example.scm
 simple-non-confluent.scm
 state.scm
+state-with-double-bind.scm
+state-with-noop.scm
+state-without-local.scm
 stupid-synthetic-example.scm
 "
 
