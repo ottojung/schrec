@@ -28,4 +28,7 @@
   (define replace-pattern (list-ref children 3))
   (define const-list (node-children const-node))
 
-  (run-rewrite-pattern input-node replace-pattern main-input))
+  (define input-val
+    (variable-get-association-or input-node main-input))
+
+  (run-rewrite-pattern input-node replace-pattern input-val))

@@ -16,14 +16,9 @@
 
 %var match-rewrite-block
 
-%use (list-drop-n) "./euphrates/list-drop-n.scm"
-
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
-%use (associate-variable!) "./associate-variable-bang.scm"
 %use (run-match-pattern) "./run-match-pattern.scm"
 %use (variable-get-association-or) "./variable-get-association-or.scm"
-
-%use (debug) "./euphrates/debug.scm"
 
 (define (match-rewrite-block free-stack block main-input)
   (define children (node-children block))
@@ -35,8 +30,4 @@
   (define input-val
     (variable-get-association-or input-node main-input))
 
-  (let ((result (run-match-pattern free-stack match-pattern input-val)))
-    (set-node-status! block (if result 'matched 'not-matched))
-    ;; (when result
-    ;;   (debug "MATCHED ~s WITH ~s" match-pattern free-stack))
-    result))
+  (run-match-pattern free-stack match-pattern input-val))
