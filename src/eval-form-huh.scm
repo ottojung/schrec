@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2021, 2022  Otto Jung
+;;;; Copyright (C) 2022  Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -14,18 +14,14 @@
 
 %run guile
 
-%var get-atom-type
+%var eval-form?
 
-%use (keyword-eval-single) "./keyword-eval-single.scm"
-%use (keyword-eval) "./keyword-eval.scm"
-%use (root-namespace) "./root-namespace.scm"
+%use (list-length=) "./euphrates/list-length-eq.scm"
 
-(define (get-atom-type atom namespace)
-  (cond
-   ((and (equal? keyword-eval atom)
-         (equal? root-namespace namespace))
-    'teval)
-   ((and (equal? keyword-eval-single atom)
-         (equal? root-namespace namespace))
-    'teval-single)
-   (else 'regular)))
+%use (eval-node?) "./eval-node-huh.scm"
+%use (node-children) "./node.scm"
+
+(define (eval-form? node)
+  (define children (node-children node))
+  (and (list-length= 3 children)
+       (eval-node? (car children))))

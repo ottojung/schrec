@@ -14,18 +14,9 @@
 
 %run guile
 
-%var get-atom-type
+%var eval-node?
 
-%use (keyword-eval-single) "./keyword-eval-single.scm"
-%use (keyword-eval) "./keyword-eval.scm"
-%use (root-namespace) "./root-namespace.scm"
+%use (node-type) "./node.scm"
 
-(define (get-atom-type atom namespace)
-  (cond
-   ((and (equal? keyword-eval atom)
-         (equal? root-namespace namespace))
-    'teval)
-   ((and (equal? keyword-eval-single atom)
-         (equal? root-namespace namespace))
-    'teval-single)
-   (else 'regular)))
+(define (eval-node? n)
+  (equal? 'teval (node-type n)))
