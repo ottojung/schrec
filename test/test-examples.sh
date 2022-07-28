@@ -11,6 +11,7 @@ eval-in-pattern.scm
 lambda.scm
 loop-1.scm
 loop-2.scm
+loop-pattern.scm
 non-determinism-example-1.scm
 non-determinism-example-2.scm
 primitive.scm
@@ -30,6 +31,7 @@ const.scm
 eval-in-pattern.scm
 loop-1.scm
 loop-2.scm
+loop-pattern.scm
 non-determinism-example-1.scm
 non-determinism-example-2.scm
 primitive.scm
