@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2021, 2022  Otto Jung
+;;;; Copyright (C) 2022  Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -14,10 +14,17 @@
 
 %run guile
 
-%var associated-free-variable?
+%var associate-variable!
 
-%use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
+%use (raisu) "./euphrates/raisu.scm"
+%use (stack-push!) "./euphrates/stack.scm"
 
-(define (associated-free-variable? node)
-  (and (equal? 'free-var (node-bindtype node))
-       (node-binding node)))
+%use (set-node-binding!) "./node.scm"
+%use (variable-associated?) "./variable-associated-huh.scm"
+
+(define (associate-variable! free-stack node target-node)
+  (if (variable-associated? node)
+      (raisu 'already-associated node target-node)
+      (begin
+        (stack-push! free-stack node)
+        (set-node-binding! node target-node))))

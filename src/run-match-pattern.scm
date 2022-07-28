@@ -19,7 +19,7 @@
 %use (node-children) "./node.scm"
 %use (list-and-map) "./euphrates/list-and-map.scm"
 %use (node-equal?) "./node-equal-huh.scm"
-%use (associate-free-variable!) "./associate-free-variable-bang.scm"
+%use (associate-variable!) "./associate-variable-bang.scm"
 %use (variable-get-association-or) "./variable-get-association-or.scm"
 
 (define (run-match-pattern free-stack match-node input-node)
@@ -32,6 +32,6 @@
           (node-equal? match-val input-val)
           (let ((mchildren (node-children match-node))
                 (ichildren (node-children input-val)))
-            (associate-free-variable! free-stack match-node input-val)
+            (associate-variable! free-stack match-node input-val)
             (or (null? mchildren) ;; NOTE(null-wildcard): because of this, we don't have a check for a node that has zero children.
                 (list-and-map loop mchildren ichildren)))))))

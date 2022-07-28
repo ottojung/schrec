@@ -19,10 +19,7 @@
 %use (list-drop-n) "./euphrates/list-drop-n.scm"
 
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
-%use (associate-free-variable!) "./associate-free-variable-bang.scm"
-%use (initialize-free-variable!) "./initialize-free-variable-bang.scm"
-%use (reinitialize-free-variable!) "./reinitialize-free-variable-bang.scm"
-%use (uninitialize-free-variable!) "./uninitialize-free-variable-bang.scm"
+%use (associate-variable!) "./associate-variable-bang.scm"
 %use (run-match-pattern) "./run-match-pattern.scm"
 %use (const-variable?) "./const-variable-huh.scm"
 
@@ -36,7 +33,7 @@
   (define replace-pattern (list-ref children 3))
 
   (unless (const-variable? input-node)
-    (associate-free-variable! free-stack input-node main-input))
+    (associate-variable! free-stack input-node main-input))
 
   (let ((result (run-match-pattern free-stack match-pattern input-node)))
     (set-node-status! block (if result 'matched 'not-matched))
