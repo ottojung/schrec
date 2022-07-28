@@ -16,9 +16,9 @@
 
 %var a-variable?
 
-%use (node-bindtype) "./node.scm"
+%use (node-constant?) "./node.scm"
 
 (define (a-variable? node)
-  (define type (node-bindtype node))
+  (define type (node-constant? node))
   (or (equal? 'free-var type)
       (equal? 'const-var type)))

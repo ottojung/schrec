@@ -22,8 +22,8 @@
 %var node-label
 %var node-namespace
 %var node-type
-%var node-bindtype
-%var set-node-bindtype!
+%var node-constant?
+%var set-node-constant?!
 %var node-binding
 %var set-node-binding!
 %var node-status
@@ -38,7 +38,7 @@
 %use (thread-obj-lst) "./thread-obj.scm"
 
 (define-type9 <n>
-  (node-ctor id children label namespace type bindtype binding status visited?) node?
+  (node-ctor id children label namespace type constant? binding status visited?) node?
   ;; semantic part
   (id node-id)
   (children node-children/raw set-node-children/raw!)
@@ -47,7 +47,7 @@
   (label node-label)
   (namespace node-namespace)
   (type node-type)
-  (bindtype node-bindtype set-node-bindtype!)
+  (constant? node-constant? set-node-constant?!)
   (binding node-binding set-node-binding!)
   (status node-status set-node-status!)
   (visited? node-visited? set-node-visited?!)

@@ -16,7 +16,7 @@
 
 %var rewrite-rewrite-block
 
-%use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
+%use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-constant? set-node-constant?! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
 %use (run-rewrite-pattern) "./run-rewrite-pattern.scm"
 %use (variable-get-association-or) "./variable-get-association-or.scm"
 

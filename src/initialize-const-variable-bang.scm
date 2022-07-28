@@ -16,12 +16,12 @@
 
 %var initialize-const-variable!
 
-%use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
+%use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-constant? set-node-constant?! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
 %use (raisu) "./euphrates/raisu.scm"
 
 (define (initialize-const-variable! node)
-  (when (node-bindtype node)
+  (when (node-constant? node)
     (raisu 'unexpected-initialized-variable! node))
 
-  (set-node-bindtype! node 'const-var)
+  (set-node-constant?! node #t)
   #t)
