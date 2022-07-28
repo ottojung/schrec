@@ -24,7 +24,7 @@
 
 (define (default-eval-hook original-graph)
   (lambda (g)
-    (display "\nStep:\n" (current-error-port))
+    (display "\nStep:\n")
     (pretty-print-graph original-graph)))
 
 
