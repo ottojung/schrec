@@ -28,6 +28,4 @@
   (define replace-pattern (list-ref children 3))
   (define const-list (node-children const-node))
 
-  (let ((input-val
-         (variable-get-association-or input-node input-node)))
-    (run-rewrite-pattern input-val replace-pattern)))
+  (run-rewrite-pattern input-node replace-pattern main-input))

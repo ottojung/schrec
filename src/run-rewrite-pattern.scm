@@ -22,11 +22,14 @@
 
 %use (debugv) "./euphrates/debugv.scm"
 
-(define (run-rewrite-pattern input-node replace-pattern)
+(define (run-rewrite-pattern input-node replace-pattern main-input)
   (define (loop P)
     (or (variable-get-association-or P #f)
         (make-fresh-branch-node
          (map loop (node-children P)))))
+
+  (define input-val
+    (variable-get-association-or input-node main-input))
 
   (unless (null? (node-children replace-pattern))
     (let* ((replace-pattern-val
@@ -34,4 +37,4 @@
              replace-pattern replace-pattern))
            (new-children
             (map loop (node-children replace-pattern-val))))
-      (set-node-children! input-node new-children))))
+      (set-node-children! input-val new-children))))
