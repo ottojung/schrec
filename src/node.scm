@@ -33,7 +33,6 @@
 
 %use (define-type9) "./euphrates/define-type9.scm"
 %use (make-prefixtree prefixtree-set! prefixtree-ref-furthest) "./euphrates/prefixtree.scm"
-%use (raisu) "./euphrates/raisu.scm"
 
 %use (get-current-thread) "./get-current-thread.scm"
 %use (thread-obj-lst) "./thread-obj.scm"
