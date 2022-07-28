@@ -20,13 +20,18 @@
 %use (make-fresh-branch-node) "./make-fresh-branch-node.scm"
 %use (variable-get-association-or) "./variable-get-association-or.scm"
 
-(define (run-rewrite-pattern input-node replace-pattern0)
+%use (debugv) "./euphrates/debugv.scm"
+
+(define (run-rewrite-pattern input-node replace-pattern)
   (define (loop P)
     (or (variable-get-association-or P #f)
         (make-fresh-branch-node
          (map loop (node-children P)))))
 
-  (define new-children
-    (map loop (node-children replace-pattern0)))
-
-  (set-node-children! input-node new-children))
+  (unless (null? (node-children replace-pattern))
+    (let* ((replace-pattern-val
+            (variable-get-association-or
+             replace-pattern replace-pattern))
+           (new-children
+            (map loop (node-children replace-pattern-val))))
+      (set-node-children! input-node new-children))))
