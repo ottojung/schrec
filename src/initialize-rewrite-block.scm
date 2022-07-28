@@ -19,7 +19,7 @@
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-bindtype set-node-bindtype! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
 %use (list-drop-n) "./euphrates/list-drop-n.scm"
 %use (raisu) "./euphrates/raisu.scm"
-%use (initialize-const-variable!) "./initialize-const-variable-bang.scm"
+%use (soft-initialize-const-variable!) "./soft-initialize-const-variable-bang.scm"
 
 (define (initialize-rewrite-block free-stack block main-input)
   (define children (node-children block))
@@ -29,6 +29,6 @@
   (define replace-pattern (list-ref children 3))
   (define const-list (node-children const-node))
 
-  (for-each initialize-const-variable! const-list)
+  (for-each soft-initialize-const-variable! const-list)
 
   #t)
