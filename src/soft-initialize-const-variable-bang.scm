@@ -20,5 +20,5 @@
 %use (initialize-const-variable!) "./initialize-const-variable-bang.scm"
 
 (define (soft-initialize-const-variable! node)
-  (or (const-variable? node)
-      (initialize-const-variable! node)))
+  (unless (const-variable? node)
+    (initialize-const-variable! node)))
