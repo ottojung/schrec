@@ -21,13 +21,13 @@
 (let ()
   (define instance
     '(a b c
-        (x x (do e1 b1))
-        (y y (do e6 (do e7 b7)))
-        (do e2
-            (d e (do e3
+        (x x (eval e1 b1))
+        (y y (eval e6 (eval e7 b7)))
+        (eval e2
+            (d e (eval e3
                      (f g
-                        (k l (do e4 (i o)))))
-               (p x (y n (do e5 z)))))))
+                        (k l (eval e4 (i o)))))
+               (p x (y n (eval e5 z)))))))
   (define graph
     (list->graph instance))
 
