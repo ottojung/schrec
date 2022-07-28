@@ -16,10 +16,9 @@
 
 %var eval/nondet
 
-%use (run-environment) "./run-environment.scm"
+%use (run-environment/nondet) "./run-environment-nondet.scm"
 %use (node-children node-visited? set-node-visited?!) "./node.scm"
 %use (check-environment) "./check-environment.scm"
-%use (eval-hook) "./eval-hook.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 %use (engine-fork) "./engine-fork.scm"
 
@@ -35,11 +34,7 @@
                       append
                       (cons
                        (engine-fork
-                        (if (run-environment env g)
-                            (let ((hook (eval-hook)))
-                              (when hook (hook body))
-                              (list (get-current-thread)))
-                            '()))
+                        (run-environment/nondet env g body))
                        (map loop (node-children g))))))
                 (set-node-visited?! g #f)
                 ret))))
