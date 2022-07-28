@@ -21,8 +21,7 @@
 %use (reinitialize-free-variable!) "./reinitialize-free-variable-bang.scm"
 %use (uninitialize-free-variable!) "./uninitialize-free-variable-bang.scm"
 %use (run-rewrite-pattern) "./run-rewrite-pattern.scm"
-%use (free-variable?) "./free-variable-huh.scm"
-%use (free-variable-get-association) "./free-variable-get-association.scm"
+%use (variable-get-association-or) "./variable-get-association-or.scm"
 
 (define (rewrite-rewrite-block free-stack block main-input)
   (define children (node-children block))
@@ -33,7 +32,6 @@
   (define const-list (node-children const-node))
 
   (or (not (equal? 'matched (node-status block)))
-      (let ((input-val (if (free-variable? input-node)
-                           (free-variable-get-association input-node)
-                           input-node)))
+      (let ((input-val
+             (variable-get-association-or input-node input-node)))
         (run-rewrite-pattern input-val replace-pattern))))

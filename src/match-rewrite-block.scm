@@ -24,7 +24,7 @@
 %use (reinitialize-free-variable!) "./reinitialize-free-variable-bang.scm"
 %use (uninitialize-free-variable!) "./uninitialize-free-variable-bang.scm"
 %use (run-match-pattern) "./run-match-pattern.scm"
-%use (free-variable?) "./free-variable-huh.scm"
+%use (const-variable?) "./const-variable-huh.scm"
 
 %use (debug) "./euphrates/debug.scm"
 
@@ -35,7 +35,7 @@
   (define match-pattern (list-ref children 2))
   (define replace-pattern (list-ref children 3))
 
-  (when (free-variable? input-node)
+  (unless (const-variable? input-node)
     (associate-free-variable! free-stack input-node main-input))
 
   (let ((result (run-match-pattern free-stack match-pattern input-node)))
