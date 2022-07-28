@@ -36,6 +36,7 @@
 %use (raisu) "./euphrates/raisu.scm"
 
 %use (get-current-thread) "./get-current-thread.scm"
+%use (thread-obj-lst) "./thread-obj.scm"
 
 (define-type9 <n>
   (node-ctor id children label namespace type bindtype binding status visited?) node?
@@ -59,11 +60,13 @@
 
 (define (node-children node)
   (define thread (get-current-thread))
+  (define lst (thread-obj-lst thread))
   (define pt (node-children/raw node))
-  (define ret (prefixtree-ref-furthest pt thread))
+  (define ret (prefixtree-ref-furthest pt lst))
   ret)
 
 (define (set-node-children! node children)
   (define thread (get-current-thread))
+  (define lst (thread-obj-lst thread))
   (define pt (node-children/raw node))
-  (prefixtree-set! pt thread children))
+  (prefixtree-set! pt lst children))

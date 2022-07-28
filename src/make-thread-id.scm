@@ -17,9 +17,13 @@
 %var make-thread-id
 
 %use (get-current-thread) "./get-current-thread.scm"
+%use (thread-obj-ctr thread-obj-lst) "./thread-obj.scm"
 
 (define make-thread-id
   (let ((counter 0))
     (lambda ()
       (set! counter (+ 1 counter))
-      (append (get-current-thread) (list counter)))))
+      (let* ((current (get-current-thread))
+             (lst (thread-obj-lst current)))
+        (thread-obj-ctr
+         (append lst (list counter)))))))

@@ -14,14 +14,13 @@
 
 %run guile
 
-%var get-current-thread
+%var thread-obj-ctr
+%var thread-obj-lst
+%var thread-obj?
 
-%use (current-thread/p) "./current-thread-p.scm"
+%use (define-type9) "./euphrates/define-type9.scm"
 
-%use (thread-obj-ctr) "./thread-obj.scm"
-
-(define root-thread
-  (thread-obj-ctr '()))
-
-(define (get-current-thread)
-  (or (current-thread/p) root-thread))
+(define-type9 <th>
+  (thread-obj-ctr lst) thread-obj?
+  (lst thread-obj-lst)
+  )
