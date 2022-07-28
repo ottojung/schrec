@@ -14,6 +14,9 @@
 
 %run guile
 
-%var keyword-eval
+%var eval-single-node?
 
-(define keyword-eval 'eval)
+%use (node-type) "./node.scm"
+
+(define (eval-single-node? n)
+  (equal? 'teval-single (node-type n)))

@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2022  Otto Jung
+;;;; Copyright (C) 2021, 2022  Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -14,14 +14,6 @@
 
 %run guile
 
-%var eval-form?
+%var keyword-eval-single
 
-%use (list-length=) "./euphrates/list-length-eq.scm"
-
-%use (eval-node?) "./eval-node-huh.scm"
-%use (node-children) "./node.scm"
-
-(define (eval-form? node)
-  (define children (node-children node))
-  (and (list-length= 3 children)
-       (eval-node? (car children))))
+(define keyword-eval-single 'eval)

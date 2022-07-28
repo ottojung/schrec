@@ -20,18 +20,18 @@
 %use (list-and-map) "./euphrates/list-and-map.scm"
 
 %use (node-children node-visited? set-node-visited?!) "./node.scm"
-%use (eval-form?) "./eval-form-huh.scm"
+%use (eval-single-form?) "./eval-single-form-huh.scm"
 
 (define (find-partially-sorted-evals root)
   (define sequences '())
   (let loop ((parents '()) (graph root))
     (unless (node-visited? graph)
       (set-node-visited?! graph #t)
-      (let* ((new-parents (if (eval-form? graph) (cons graph parents) parents)))
+      (let* ((new-parents (if (eval-single-form? graph) (cons graph parents) parents)))
         (for-each (comp (loop new-parents))
                   (node-children graph))
         (set-node-visited?! graph #f)
-        (when (eval-form? graph)
+        (when (eval-single-form? graph)
           (set! sequences (cons (cons graph parents) sequences))))))
 
   (let loop ((sequences sequences))

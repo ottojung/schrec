@@ -16,12 +16,12 @@
 
 %var get-atom-type
 
-%use (keyword-eval) "./keyword-eval.scm"
+%use (keyword-eval-single) "./keyword-eval-single.scm"
 %use (root-namespace) "./root-namespace.scm"
 
 (define (get-atom-type atom namespace)
   (cond
-   ((and (equal? keyword-eval atom)
+   ((and (equal? keyword-eval-single atom)
          (equal? root-namespace namespace))
-    'teval)
+    'teval-single)
    (else 'regular)))
