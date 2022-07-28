@@ -31,4 +31,4 @@
   (define input-val
     (variable-get-association-or input-node main-input))
 
-  (run-rewrite-pattern input-node replace-pattern input-val))
+  (run-rewrite-pattern replace-pattern input-val))

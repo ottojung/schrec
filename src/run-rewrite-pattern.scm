@@ -22,7 +22,7 @@
 
 %use (debugv) "./euphrates/debugv.scm"
 
-(define (run-rewrite-pattern input-node replace-pattern main-input)
+(define (run-rewrite-pattern replace-pattern main-input)
   (define (loop P)
     (or (variable-get-association-or P #f)
         (make-fresh-branch-node
