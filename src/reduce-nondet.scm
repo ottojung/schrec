@@ -21,7 +21,7 @@
 %use (find-partially-sorted-evals) "./find-partially-sorted-evals.scm"
 %use (eval/nondet) "./eval-nondet.scm"
 %use (make-thread-id) "./make-thread-id.scm"
-%use (current-thread/p) "./current-thread-p.scm"
+%use (thread-relative) "./thread-relative.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 %use (node-children) "./node.scm"
 
@@ -59,10 +59,6 @@
       (oloop
        (apply
         append
-        (map
-         (lambda (thread)
-           (parameterize ((current-thread/p thread))
-             (eval-fun)))
-         threads)))))
+        (map (thread-relative (eval-fun)) threads)))))
 
   result)

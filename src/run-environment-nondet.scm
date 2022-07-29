@@ -18,16 +18,22 @@
 
 %use (list-and-map) "./euphrates/list-and-map.scm"
 %use (stack-make stack->list) "./euphrates/stack.scm"
+%use (list-map/flatten) "./euphrates/list-map-flatten.scm"
 
 %use (node-children) "./node.scm"
 %use (initialize-rewrite-block) "./initialize-rewrite-block.scm"
-%use (match-rewrite-block) "./match-rewrite-block.scm"
-%use (rewrite-rewrite-block) "./rewrite-rewrite-block.scm"
+%use (match-rewrite-block/nondet) "./match-rewrite-block-nondet.scm"
+%use (rewrite-rewrite-block/nondet) "./rewrite-rewrite-block-nondet.scm"
 %use (uninitialize-rewrite-block) "./uninitialize-rewrite-block.scm"
-%use (uninitialize-variable!) "./uninitialize-variable-bang.scm"
+%use (soft-uninitialize-variable!) "./soft-uninitialize-variable-bang.scm"
 %use (check-rewrite-block) "./check-rewrite-block.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 %use (eval-hook) "./eval-hook.scm"
+%use (thread-relative) "./thread-relative.scm"
+
+%use (debugv) "./euphrates/debugv.scm"
+%use (debug) "./euphrates/debug.scm"
+%use (get-head) "./get-head.scm"
 
 (define (run-environment/nondet env main-input body)
   (define free-stack (stack-make))
@@ -44,14 +50,30 @@
   (define result
     (and
      (list-and-map check-rewrite-block blocks)
-     (list-and-map (with-initialization match-rewrite-block) blocks)
-     (for-each (with-initialization rewrite-rewrite-block) blocks)))
+     (let ((re-threads
+            (let loop ((threads (list (get-current-thread)))
+                       (blocks blocks))
+              (if (null? blocks) threads
+                  (let ((cur (car blocks)))
+                    (define new-threads
+                      (list-map/flatten
+                       (thread-relative
+                        ((with-initialization match-rewrite-block/nondet) cur))
+                       threads))
+                    (loop new-threads (cdr blocks)))))))
+       (for-each
+        (thread-relative
+         (for-each (with-initialization rewrite-rewrite-block/nondet) blocks))
+        re-threads)
+       re-threads)))
 
-  (for-each uninitialize-variable!
+  (debugv (length result))
+
+  (for-each soft-uninitialize-variable!
             (stack->list free-stack))
 
-  (if result
+  (if (null? result) '()
       (let ((hook (eval-hook)))
-        (when hook (hook body))
-        (list (get-current-thread)))
-      '()))
+        (when hook
+          (for-each (thread-relative (hook body)) result))
+        result)))

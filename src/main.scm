@@ -22,12 +22,14 @@
 %use (open-file-port) "./euphrates/open-file-port.scm"
 %use (read-list) "./euphrates/read-list.scm"
 
+;; %use () "./run-environment-nondet.scm"
+
 %use (eval-hook) "./eval-hook.scm"
 %use (graph->list) "./graph-to-list.scm"
 %use (list->graph) "./list-to-graph.scm"
 %use (reduce/det-topdown/loop) "./reduce-det-topdown-loop.scm"
 %use (reduce/nondet) "./reduce-nondet.scm"
-%use (current-thread/p) "./current-thread-p.scm"
+%use (thread-relative) "./thread-relative.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 %use (pretty-print-graph) "./pretty-print-graph.scm"
 %use (default-eval-hook) "./default-eval-hook.scm"
@@ -78,9 +80,8 @@
 
          (unless --trace
            (for-each
-            (lambda (thread)
-              (parameterize ((current-thread/p thread))
-                (pretty-print-graph graph)))
+            (thread-relative
+             (pretty-print-graph graph))
             thread-ids)))))))
 
 (main)

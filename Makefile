@@ -3,14 +3,14 @@ PREFIX = $(HOME)/.local
 PREFIX_BIN = $(PREFIX)/bin
 
 RUN_TARGET =
-SCHREC_OPTS = --deterministic
+SCHREC_OPTS = --nondeterministic
 
 SUBMODULES = deps/euphrates/.git
 
 CZEMPAK = CZEMPAK_ROOT=$(PWD)/.czempak-root guile -s ./deps/czempak.scm
 
 test: dist/schrec
-	dist/schrec $(SCHREC_OPTS) example/state.scm
+	dist/schrec $(SCHREC_OPTS) example/primitive-multi.scm
 
 run: dist/schrec
 	dist/schrec $(SCHREC_OPTS) $(RUN_TARGET)
