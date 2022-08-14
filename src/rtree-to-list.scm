@@ -25,6 +25,7 @@
 %use (~a) "./euphrates/tilda-a.scm"
 %use (keyword-let) "./keyword-let.scm"
 %use (exp-node?) "./exp-node-huh.scm"
+%use (branch-node-label) "./branch-node-label.scm"
 
 (define (rtree->list tree)
   (define all-references
@@ -44,7 +45,9 @@
        ((vector? T)
         (get-label (rtree-value (vector-ref T 0))))
        ((rtree? T)
-        (if (or (rtree-ref T) (null? (rtree-children T)))
+        (if (or (rtree-ref T)
+                (and (null? (rtree-children T))
+                     (not (equal? branch-node-label (node-label (rtree-value T))))))
             (get-label (rtree-value T))
             (map loop (rtree-children T))))
        (else (raisu 'Unknown-type-in-dereference T)))))

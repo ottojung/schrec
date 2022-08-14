@@ -3,4 +3,4 @@ Original:
 
 Step:
 ((s (eval (((i z b) g (i x) (b u x i)))
-          (b $1 (a k) i))))
+          (b () (a k) i))))
