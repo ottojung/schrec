@@ -54,6 +54,14 @@
                    threads)))
             (loop (cdr taken) new-threads))))))
 
+(define (debug-log-bind current taken result)
+  (let* ((cur1 (get-head 4 current))
+         ;; (taken1 (list->vector (map (lambda (x) (get-head 4 x)) taken)))
+         (taken1
+          (let ((ass (variable-get-association-or/nondet current #f)))
+            (list->vector (map (lambda (n) (get-head 4 n)) ass)))))
+    (debug "Bind ~s to ~s -> ~s    [~s]" cur1 taken1 result (get-current-thread))))
+
 (define (match-current free-stack match-nodes input-nodes)
   (define current (car match-nodes))
   (define rest (cdr match-nodes))
@@ -74,9 +82,19 @@
       ;;        (get (and get0 (map (lambda (g) (get-head 4 g)) get0))))
       ;;   (debugv get))
 
+      ;; (let ((cur1 (get-head 4 current)))
+      ;;   (debugv cur1))
+      ;; (let ((taken1 (list->vector (map (lambda (x) (get-head 4 x)) taken))))
+      ;;   (debugv taken1))
+      ;; (let ((left1 (list->vector (map (lambda (x) (get-head 4 x)) left))))
+      ;;   (debugv left1))
+
       (associate-variable!/nondet free-stack current taken)
 
       (let ((threads (main-loop* free-stack rest left)))
+
+        ;; (debug-log-bind current taken (if (null? threads) 'FAIL 'OK))
+
         (list-map/flatten
          (recur-on-children free-stack current-children taken)
          threads))))
@@ -88,16 +106,22 @@
   (define input-heads
     (map (lambda (n) (get-head 5 n)) input-nodes))
 
+  ;; (debugv (get-current-thread))
   ;; (debugv match-heads)
   ;; (debugv input-heads)
+
+  (define ret
+    (if (null? match-nodes)
+        (if (null? input-nodes)
+            (list (get-current-thread))
+            '())
+        (match-current free-stack match-nodes input-nodes)))
+
   ;; (debugv (length match-nodes))
   ;; (debugv (length input-nodes))
+  ;; (debugv ret)
 
-  (if (null? match-nodes)
-      (if (null? input-nodes)
-          (list (get-current-thread))
-          '())
-      (match-current free-stack match-nodes input-nodes)))
+  ret)
 
 (define (main-loop free-stack match-val input-val)
   (define match-nodes (node-children match-val))
@@ -105,8 +129,12 @@
 
   (main-loop* free-stack match-nodes input-nodes))
 
+(define match-root #f)
+
 (define (run-match-pattern/nondet free-stack match-node input-val)
   (define match-val
     (variable-get-association-or/nondet match-node (list match-node)))
+
+  (set! match-root match-node)
 
   (main-loop* free-stack match-val (list input-val)))

@@ -10,7 +10,7 @@ SUBMODULES = deps/euphrates/.git
 CZEMPAK = CZEMPAK_ROOT=$(PWD)/.czempak-root guile -s ./deps/czempak.scm
 
 test: dist/schrec
-	dist/schrec $(SCHREC_OPTS) example/primitive-multi.scm
+	dist/schrec $(SCHREC_OPTS) example/primitive-multi-2.scm
 
 run: dist/schrec
 	dist/schrec $(SCHREC_OPTS) $(RUN_TARGET)

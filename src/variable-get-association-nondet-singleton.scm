@@ -29,13 +29,13 @@
 
 (define (variable-get-association-nondet-singleton node default default-if-not-singleton)
   (if (const-variable? node) node
-      (or (let* ((thread (get-current-thread))
-                 (lst (thread-obj-lst thread))
-                 (pt (node-binding node))
-                 (ret (and pt (prefixtree-ref-furthest pt lst))))
-            (and ret
-                 (not (equal? ret 'uninitialized-prefixtree-from-associate-variable!))
-                 (if (list-singleton? ret)
-                     (car ret)
-                     default-if-not-singleton)))
-          default)))
+      (let* ((thread (get-current-thread))
+             (lst (thread-obj-lst thread))
+             (pt (node-binding node))
+             (ret (and pt (prefixtree-ref-furthest pt lst))))
+        (if (and ret
+                 (not (equal? ret 'uninitialized-prefixtree-from-associate-variable!)))
+            (if (list-singleton? ret)
+                (car ret)
+                default-if-not-singleton)
+            default))))

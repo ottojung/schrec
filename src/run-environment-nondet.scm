@@ -33,11 +33,16 @@
 
 %use (debugv) "./euphrates/debugv.scm"
 %use (debug) "./euphrates/debug.scm"
+%use (debug-show-variable-bindings) "./debug-show-variable-bindings.scm"
 %use (get-head) "./get-head.scm"
 
 (define (run-environment/nondet env main-input body)
   (define free-stack (stack-make))
   (define blocks (node-children env))
+
+  (debug "")
+  (debug "-------------------------")
+  (debug "GOT: ~a" (get-head 100 body))
 
   (define (with-initialization fn)
     (lambda (block)
@@ -48,26 +53,30 @@
          ret))))
 
   (define result
-    (and
-     (list-and-map check-rewrite-block blocks)
-     (let ((re-threads
-            (let loop ((threads (list (get-current-thread)))
-                       (blocks blocks))
-              (if (null? blocks) threads
-                  (let ((cur (car blocks)))
-                    (define new-threads
-                      (list-map/flatten
-                       (thread-relative
-                        ((with-initialization match-rewrite-block/nondet) cur))
-                       threads))
-                    (loop new-threads (cdr blocks)))))))
-       (for-each
-        (thread-relative
-         (for-each (with-initialization rewrite-rewrite-block/nondet) blocks))
-        re-threads)
-       re-threads)))
+    (if (not (list-and-map check-rewrite-block blocks)) '()
+        (let ((re-threads
+               (let loop ((threads (list (get-current-thread)))
+                          (blocks blocks))
+                 (if (null? blocks) threads
+                     (let ((cur (car blocks)))
+                       (define new-threads
+                         (list-map/flatten
+                          (thread-relative
+                           ((with-initialization match-rewrite-block/nondet) cur))
+                          threads))
+                       (loop new-threads (cdr blocks)))))))
 
-  (debugv (length result))
+          (debug-show-variable-bindings free-stack re-threads)
+
+          (for-each
+           (thread-relative
+            (for-each (with-initialization rewrite-rewrite-block/nondet) blocks))
+           re-threads)
+          re-threads)))
+
+  ;; (debugv (length result))
+
+  ;; (debug-show-variable-bindings free-stack result)
 
   (for-each soft-uninitialize-variable!
             (stack->list free-stack))
@@ -76,4 +85,5 @@
       (let ((hook (eval-hook)))
         (when hook
           (for-each (thread-relative (hook body)) result))
+        (debug "END: ~s matches" (length result))
         result)))

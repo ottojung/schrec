@@ -25,10 +25,11 @@
 
 (define (variable-get-association-or/nondet node default)
   (if (const-variable? node) (list node)
-      (or (let* ((thread (get-current-thread))
-                 (lst (thread-obj-lst thread))
-                 (pt (node-binding node))
-                 (ret (and pt (prefixtree-ref-furthest pt lst))))
-            (and (not (equal? ret 'uninitialized-prefixtree-from-associate-variable!))
-                 ret))
-          default)))
+      (let* ((thread (get-current-thread))
+             (lst (thread-obj-lst thread))
+             (pt (node-binding node))
+             (ret (and pt (prefixtree-ref-furthest pt lst))))
+        (if (or (equal? ret 'uninitialized-prefixtree-from-associate-variable!)
+                (not ret))
+            default
+            ret))))
