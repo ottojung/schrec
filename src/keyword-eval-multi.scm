@@ -14,6 +14,6 @@
 
 %run guile
 
-%var keyword-eval
+%var keyword-eval-multi
 
-(define keyword-eval 'eval*)
+(define keyword-eval-multi 'eval*)
