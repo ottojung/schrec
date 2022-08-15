@@ -18,20 +18,24 @@
 
 %use (comp) "./euphrates/comp.scm"
 %use (list-and-map) "./euphrates/list-and-map.scm"
+%use (list-or-map) "./euphrates/list-or-map.scm"
 
 %use (node-children node-visited? set-node-visited?!) "./node.scm"
 %use (eval-like?) "./eval-like-huh.scm"
 
-(define (find-partially-sorted-eval-likes name root)
+(define (find-partially-sorted-eval-likes names root)
   (define sequences '())
   (let loop ((parents '()) (graph root))
     (unless (node-visited? graph)
       (set-node-visited?! graph #t)
-      (let* ((new-parents (if (eval-like? name graph) (cons graph parents) parents)))
+      (let* ((like? (list-or-map
+                     (lambda (name) (eval-like? name graph))
+                     names))
+             (new-parents (if like? (cons graph parents) parents)))
         (for-each (comp (loop new-parents))
                   (node-children graph))
         (set-node-visited?! graph #f)
-        (when (eval-like? name graph)
+        (when like?
           (set! sequences (cons (cons graph parents) sequences))))))
 
   (let loop ((sequences sequences))

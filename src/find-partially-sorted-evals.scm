@@ -20,4 +20,6 @@
 %use (find-partially-sorted-eval-likes) "./find-partially-sorted-eval-likes.scm"
 
 (define (find-partially-sorted-evals root)
-  (find-partially-sorted-eval-likes keyword-eval-single root))
+  (find-partially-sorted-eval-likes
+   (list keyword-eval-single)
+   root))
