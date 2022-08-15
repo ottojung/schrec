@@ -16,7 +16,7 @@
 
 %var uninitialize-rewrite-block
 
-%use (make-node node? node-children set-node-children! node-id node-label node-namespace node-constant? set-node-constant?! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
+%use (make-node node? node-children set-node-children! node-id node-label node-namespace node-constant? set-node-constant?! node-binding set-node-binding! node-visited? set-node-visited?!) "./node.scm"
 %use (stack->list) "./euphrates/stack.scm"
 %use (soft-uninitialize-const-variable!) "./soft-uninitialize-const-variable-bang.scm"
 

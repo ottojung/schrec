@@ -25,8 +25,6 @@
 %var set-node-constant?!
 %var node-binding
 %var set-node-binding!
-%var node-status
-%var set-node-status!
 %var node-visited?
 %var set-node-visited?!
 
@@ -37,7 +35,7 @@
 %use (thread-obj-lst) "./thread-obj.scm"
 
 (define-type9 <n>
-  (node-ctor id children label namespace constant? binding status visited?) node?
+  (node-ctor id children label namespace constant? binding visited?) node?
   ;; semantic part
   (id node-id)
   (children node-children/raw set-node-children/raw!)
@@ -47,13 +45,12 @@
   (namespace node-namespace)
   (constant? node-constant? set-node-constant?!)
   (binding node-binding set-node-binding!)
-  (status node-status set-node-status!)
   (visited? node-visited? set-node-visited?!)
   )
 
 (define (make-node id children label namespace)
   (define pt (make-prefixtree children))
-  (node-ctor id pt label namespace #f #f #f #f))
+  (node-ctor id pt label namespace #f #f #f))
 
 (define (node-children node)
   (define thread (get-current-thread))
