@@ -20,6 +20,8 @@ simple-non-confluent.scm
 state.scm
 state-with-double-bind.scm
 state-with-noop.scm
+state-with-noop-2.scm
+state-with-noop-3.scm
 state-without-local.scm
 stupid-synthetic-example.scm
 "
@@ -40,6 +42,8 @@ simple-non-confluent.scm
 state.scm
 state-with-double-bind.scm
 state-with-noop.scm
+state-with-noop-2.scm
+state-with-noop-3.scm
 state-without-local.scm
 stupid-synthetic-example.scm
 "
