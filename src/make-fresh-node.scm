@@ -24,4 +24,4 @@
   (let ((counter 0))
     (lambda (label namespace children)
       (set! counter (+ 1 counter))
-      (make-node counter children label namespace 'DEBUG:false-type))))
+      (make-node counter children label namespace))))
