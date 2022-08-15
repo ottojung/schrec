@@ -24,10 +24,13 @@
 %use (variable-associated?/nondet) "./variable-associated-huh-nondet.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 %use (thread-obj-lst) "./thread-obj.scm"
+%use (const-variable?) "./const-variable-huh.scm"
 
 (define (associate-variable!/nondet free-stack node vals)
   (if (variable-associated?/nondet node)
-      (raisu 'already-associated node vals)
+      (if (const-variable? node)
+          (raisu 'trying-to-associate-a-constant node vals)
+          (raisu 'already-associated node vals))
       (let* ((thread (get-current-thread))
              (lst (thread-obj-lst thread))
              (pt (or (node-binding node)

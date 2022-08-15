@@ -21,10 +21,13 @@
 
 %use (set-node-binding!) "./node.scm"
 %use (variable-associated?) "./variable-associated-huh.scm"
+%use (const-variable?) "./const-variable-huh.scm"
 
 (define (associate-variable! free-stack node target-node)
   (if (variable-associated? node)
-      (raisu 'already-associated node target-node)
+      (if (const-variable? node)
+          (raisu 'trying-to-associate-a-constant node target-node)
+          (raisu 'already-associated node target-node))
       (begin
         (stack-push! free-stack node)
         (set-node-binding! node target-node))))
