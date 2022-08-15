@@ -16,9 +16,9 @@
 
 %var exp-node?
 
-%use (node? node-type) "./node.scm"
-%use (exp-node-type) "./exp-node-type.scm"
+%use (node? node-label) "./node.scm"
+%use (branch-node-label) "./branch-node-label.scm"
 
 (define (exp-node? node)
   (and (node? node)
-       (equal? exp-node-type (node-type node))))
+       (equal? branch-node-label (node-label node))))

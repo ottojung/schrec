@@ -16,7 +16,10 @@
 
 %var eval-node?
 
-%use (node-type) "./node.scm"
+%use (node-label node-namespace) "./node.scm"
+%use (keyword-eval) "./keyword-eval.scm"
+%use (root-namespace) "./root-namespace.scm"
 
 (define (eval-node? n)
-  (equal? 'teval (node-type n)))
+  (and (equal? keyword-eval (node-label n))
+       (equal? root-namespace (node-namespace n))))

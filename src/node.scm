@@ -21,7 +21,6 @@
 %var node-id
 %var node-label
 %var node-namespace
-%var node-type
 %var node-constant?
 %var set-node-constant?!
 %var node-binding

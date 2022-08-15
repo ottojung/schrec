@@ -16,7 +16,7 @@
 
 %var soft-uninitialize-variable!
 
-%use (make-node node? node-children set-node-children! node-id node-label node-namespace node-type node-constant? set-node-constant?! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
+%use (make-node node? node-children set-node-children! node-id node-label node-namespace node-constant? set-node-constant?! node-binding set-node-binding! node-status set-node-status! node-visited? set-node-visited?!) "./node.scm"
 
 (define (soft-uninitialize-variable! node)
   (set-node-constant?! node #f)
