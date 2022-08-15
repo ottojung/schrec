@@ -56,7 +56,7 @@ do
 	test -z "$FILE" && continue
 	CMD="$SCHREC --trace --deterministic example/$FILE"
 	echo "> $CMD"
-	$CMD > "dist/test/examples/det/$FILE"
+	$CMD | head -n 10000 > "dist/test/examples/det/$FILE"
 
 	diff "test/expected-example-outputs/det/$FILE" \
 		 "dist/test/examples/det/$FILE"
@@ -67,7 +67,7 @@ do
 	test -z "$FILE" && continue
 	CMD="$SCHREC --trace --nondeterministic example/$FILE"
 	echo "> $CMD"
-	$CMD > "dist/test/examples/nondet/$FILE"
+	$CMD | head -n 10000 > "dist/test/examples/nondet/$FILE"
 
 	diff "test/expected-example-outputs/nondet/$FILE" \
 		 "dist/test/examples/nondet/$FILE"
