@@ -28,10 +28,11 @@
         (make-fresh-branch-node
          (map loop (node-children P)))))
 
-  (unless (null? (node-children replace-pattern))
-    (let* ((replace-pattern-val
-            (variable-get-association-or
-             replace-pattern replace-pattern))
-           (new-children
-            (map loop (node-children replace-pattern-val))))
-      (set-node-children! main-input new-children))))
+  (let ((replace-pattern-val
+         (variable-get-association-or
+          replace-pattern replace-pattern)))
+    (unless (eq? (node-children main-input)
+                 (node-children replace-pattern-val))
+      (let ((new-children
+             (map loop (node-children replace-pattern-val))))
+        (set-node-children! main-input new-children)))))
