@@ -18,6 +18,7 @@
 
 %use (variable-get-association-or/nondet) "./variable-get-association-or-nondet.scm"
 %use (words->string) "./euphrates/words-to-string.scm"
+%use (list-intersperse) "./euphrates/list-intersperse.scm"
 %use (debugv) "./euphrates/debugv.scm"
 %use (debug) "./euphrates/debug.scm"
 %use (~s) "./euphrates/tilda-s.scm"
@@ -40,8 +41,11 @@
      (lambda (var)
        (define ass (variable-get-association-or/nondet var #f))
        (when ass
-         (debug "~s -> ~s"
+         (debug "~s -> ~a"
                 (get-head 4 var)
-                (list->vector (map (lambda (n) (get-head 4 n)) ass)))))
+                (apply
+                 string-append
+                 (list-intersperse
+                  ", " (map (lambda (n) (~s (get-head 4 n))) ass))))))
      vars))
    result))

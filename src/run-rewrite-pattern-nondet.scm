@@ -17,8 +17,10 @@
 %var run-rewrite-pattern/nondet
 
 %use (raisu) "./euphrates/raisu.scm"
+%use (list-map/flatten) "./euphrates/list-map-flatten.scm"
 
 %use (set-node-children! node-children) "./node.scm"
+%use (node-equal?) "./node-equal-huh.scm"
 %use (make-fresh-branch-node) "./make-fresh-branch-node.scm"
 %use (variable-get-association-or/nondet) "./variable-get-association-or-nondet.scm"
 %use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
@@ -29,17 +31,14 @@
   (define (loop P)
     (or (variable-get-association-or/nondet P #f)
         (list (make-fresh-branch-node
-               (apply
-                append
-                (map loop (node-children P)))))))
+               (list-map/flatten loop (node-children P))))))
 
-  (unless (null? (node-children replace-pattern))
-    (let* ((replace-pattern-val
-            (or
-             (variable-get-association-nondet-singleton replace-pattern replace-pattern #f)
-             (raisu 'expected-singleton-match replace-pattern)))
-           (new-children
-            (apply
-             append
-             (map loop (node-children replace-pattern-val)))))
-      (set-node-children! main-input new-children))))
+  (let ((replace-pattern-val
+         (or
+          (variable-get-association-nondet-singleton replace-pattern replace-pattern #f)
+          (raisu 'expected-singleton-match replace-pattern))))
+    (unless (node-equal? main-input replace-pattern-val)
+      (let ((new-children
+             (list-map/flatten
+              loop (node-children replace-pattern-val))))
+        (set-node-children! main-input new-children)))))
