@@ -24,14 +24,11 @@
 
 (define (run-match-pattern free-stack match-node input-node)
   (let loop ((match-node match-node) (input-node input-node))
-    (define input-val
-      (variable-get-association-or input-node input-node))
-
     (let ((match-val (variable-get-association-or match-node #f)))
       (if match-val
-          (node-equal? match-val input-val)
+          (node-equal? match-val input-node)
           (let ((mchildren (node-children match-node))
-                (ichildren (node-children input-val)))
-            (associate-variable! free-stack match-node input-val)
+                (ichildren (node-children input-node)))
+            (associate-variable! free-stack match-node input-node)
             (or (null? mchildren) ;; NOTE(null-wildcard): because of this, we don't have a check for a node that has zero children.
                 (list-and-map loop mchildren ichildren)))))))
