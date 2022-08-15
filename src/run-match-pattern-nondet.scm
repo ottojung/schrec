@@ -27,6 +27,7 @@
 %use (thread-relative) "./thread-relative.scm"
 %use (variable-get-association-or/nondet) "./variable-get-association-or-nondet.scm"
 %use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
+%use (variable-associated?/nondet) "./variable-associated-huh-nondet.scm"
 %use (associate-variable!/nondet) "./associate-variable-bang-nondet.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 %use (engine-fork) "./engine-fork.scm"
@@ -35,10 +36,19 @@
 %use (debugv) "./euphrates/debugv.scm"
 %use (get-head) "./get-head.scm"
 
-(define (node-lists-equal? a b)
+(define (node-lists-equal?/no-deref a b)
   (and
    (= (length a) (length b))
    (list-and-map node-equal? a b)))
+
+(define (node-matches? pattern-node input-node-list)
+  (define (deref x)
+    (or (variable-get-association-or/nondet x #f)
+        (list x)))
+
+  (node-lists-equal?/no-deref
+   (deref pattern-node)
+   input-node-list))
 
 (define (recur-on-children free-stack current-children taken)
   (lambda (thread)
@@ -75,29 +85,34 @@
      (define taken (list-take-n i input-nodes))
      (define left  (list-drop-n i input-nodes))
 
-     (engine-fork
-      ;; (let ((th (get-current-thread)))
-      ;;   (debugv th))
-      ;; (let* ((get0 (variable-get-association-or/nondet current #f))
-      ;;        (get (and get0 (map (lambda (g) (get-head 4 g)) get0))))
-      ;;   (debugv get))
+     (define (continue)
+       (main-loop* free-stack rest left))
 
-      ;; (let ((cur1 (get-head 4 current)))
-      ;;   (debugv cur1))
-      ;; (let ((taken1 (list->vector (map (lambda (x) (get-head 4 x)) taken))))
-      ;;   (debugv taken1))
-      ;; (let ((left1 (list->vector (map (lambda (x) (get-head 4 x)) left))))
-      ;;   (debugv left1))
+     (if (variable-associated?/nondet current)
+         (if (node-matches? current taken)
+             (continue)
+             '())
+         (engine-fork
+          ;; (let ((th (get-current-thread)))
+          ;;   (debugv th))
+          ;; (let* ((get0 (variable-get-association-or/nondet current #f))
+          ;;        (get (and get0 (map (lambda (g) (get-head 4 g)) get0))))
+          ;;   (debugv get))
 
-      (associate-variable!/nondet free-stack current taken)
+          ;; (let ((cur1 (get-head 4 current)))
+          ;;   (debugv cur1))
+          ;; (let ((taken1 (list->vector (map (lambda (x) (get-head 4 x)) taken))))
+          ;;   (debugv taken1))
+          ;; (let ((left1 (list->vector (map (lambda (x) (get-head 4 x)) left))))
+          ;;   (debugv left1))
 
-      (let ((threads (main-loop* free-stack rest left)))
-
-        ;; (debug-log-bind current taken (if (null? threads) 'FAIL 'OK))
-
-        (list-map/flatten
-         (recur-on-children free-stack current-children taken)
-         threads))))
+          (associate-variable!/nondet free-stack current taken)
+          (let ((threads (continue)))
+            ;; (debug-log-bind current taken (if (null? threads) 'FAIL 'OK))
+            (if (null? current-children) threads
+                (list-map/flatten
+                 (recur-on-children free-stack current-children taken)
+                 threads))))))
    (range (+ 1 (length input-nodes)))))
 
 (define (main-loop* free-stack match-nodes input-nodes)

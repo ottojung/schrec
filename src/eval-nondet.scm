@@ -35,8 +35,7 @@
                       (cons
                        (engine-fork
                         (run-environment/nondet env g body))
-                       '())))) ;; DEBUG
-                       ;; (map loop (node-children g))))))
+                       (map loop (node-children g))))))
                 (set-node-visited?! g #f)
                 ret))))
       '()))
