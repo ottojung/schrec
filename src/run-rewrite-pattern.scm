@@ -19,6 +19,7 @@
 %use (set-node-children! node-children) "./node.scm"
 %use (make-fresh-branch-node) "./make-fresh-branch-node.scm"
 %use (variable-get-association-or) "./variable-get-association-or.scm"
+%use (node-equal?) "./node-equal-huh.scm"
 
 %use (debugv) "./euphrates/debugv.scm"
 
@@ -31,8 +32,7 @@
   (let ((replace-pattern-val
          (variable-get-association-or
           replace-pattern replace-pattern)))
-    (unless (eq? (node-children main-input)
-                 (node-children replace-pattern-val))
+    (unless (node-equal? replace-pattern-val main-input)
       (let ((new-children
              (map loop (node-children replace-pattern-val))))
         (set-node-children! main-input new-children)))))
