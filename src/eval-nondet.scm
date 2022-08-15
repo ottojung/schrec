@@ -25,22 +25,20 @@
 
 ;; returns a list of new thread ids
 (define (eval/nondet env body)
-  (if (check-environment env)
-      (let loop ((g body))
-        (if (node-visited? g) '()
-            (begin
-              (set-node-visited?! g #t)
-              (let ((ret
-                     (apply
-                      append
-                      (cons
-                       (engine-fork
-                        (if (run-environment env g)
-                            (let ((hook (eval-hook)))
-                              (when hook (hook body))
-                              (list (get-current-thread)))
-                            '()))
-                       (map loop (node-children g))))))
-                (set-node-visited?! g #f)
-                ret))))
-      '()))
+  (let loop ((g body))
+    (if (node-visited? g) '()
+        (begin
+          (set-node-visited?! g #t)
+          (let ((ret
+                 (apply
+                  append
+                  (cons
+                   (engine-fork
+                    (if (run-environment env g)
+                        (let ((hook (eval-hook)))
+                          (when hook (hook body))
+                          (list (get-current-thread)))
+                        '()))
+                   (map loop (node-children g))))))
+            (set-node-visited?! g #f)
+            ret)))))

@@ -16,37 +16,8 @@
 
 %var find-partially-sorted-evals
 
-%use (comp) "./euphrates/comp.scm"
-%use (list-and-map) "./euphrates/list-and-map.scm"
-
-%use (node-children node-visited? set-node-visited?!) "./node.scm"
-%use (eval-single-form?) "./eval-single-form-huh.scm"
+%use (keyword-eval-single) "./keyword-eval-single.scm"
+%use (find-partially-sorted-eval-likes) "./find-partially-sorted-eval-likes.scm"
 
 (define (find-partially-sorted-evals root)
-  (define sequences '())
-  (let loop ((parents '()) (graph root))
-    (unless (node-visited? graph)
-      (set-node-visited?! graph #t)
-      (let* ((new-parents (if (eval-single-form? graph) (cons graph parents) parents)))
-        (for-each (comp (loop new-parents))
-                  (node-children graph))
-        (set-node-visited?! graph #f)
-        (when (eval-single-form? graph)
-          (set! sequences (cons (cons graph parents) sequences))))))
-
-  (let loop ((sequences sequences))
-    (if (null? sequences) '()
-        (let* ((cars (map car sequences))
-               (new-seq
-                (filter (negate null?)
-                        (map cdr sequences)))
-               (filtered-cars
-                (filter
-                 (lambda (x)
-                   (list-and-map
-                    (lambda (s)
-                      (not (memq x s)))
-                    new-seq))
-                 cars)))
-          (cons filtered-cars (loop new-seq))))))
-
+  (find-partially-sorted-eval-likes keyword-eval-single root))

@@ -14,16 +14,17 @@
 
 %run guile
 
-%var eval-single-form?
+%var eval/nondet/node
 
-%use (list-length=) "./euphrates/list-length-eq.scm"
+%use (eval/nondet) "./eval-nondet.scm"
+%use (get-eval-body) "./get-eval-body.scm"
+%use (get-eval-env) "./get-eval-env.scm"
+%use (eval-single-form?) "./eval-single-form-huh.scm"
 
-%use (eval-single-node?) "./eval-single-node-huh.scm"
-%use (node-children) "./node.scm"
-%use (check-environment) "./check-environment.scm"
-
-(define (eval-single-form? node)
-  (define children (node-children node))
-  (and (list-length= 3 children)
-       (eval-single-node? (car children))
-       (check-environment (list-ref children 1))))
+(define (eval/nondet/node eval-node)
+  (cond
+   ((eval-single-form? eval-node)
+    (let ((env (get-eval-env eval-node))
+          (body (get-eval-body eval-node)))
+      (eval/nondet env body)))
+   (else '())))
