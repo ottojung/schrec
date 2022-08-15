@@ -19,11 +19,15 @@
 %use (eval/det-topdown) "./eval-det-topdown.scm"
 %use (get-eval-body) "./get-eval-body.scm"
 %use (get-eval-env) "./get-eval-env.scm"
+%use (eval-single-form?) "./eval-single-form-huh.scm"
 
 (define (eval/det-topdown/node/loop eval-node)
-  (define env (get-eval-env eval-node)) ;; TODO(eval-syntax): check syntax
-  (define body (get-eval-body eval-node))
-  (let loop ((evaled? #f))
-    (if (eval/det-topdown env body)
-        (loop #t)
-        evaled?)))
+  (cond
+   ((eval-single-form? eval-node)
+    (let ((env (get-eval-env eval-node))
+          (body (get-eval-body eval-node)))
+      (let loop ((evaled? #f))
+        (if (eval/det-topdown env body)
+            (loop #t)
+            evaled?))))
+   (else #f)))

@@ -18,19 +18,9 @@
 
 %use (comp) "./euphrates/comp.scm"
 
-%use (node-children node-visited? set-node-visited?!) "./node.scm"
-%use (eval-single-form?) "./eval-single-form-huh.scm"
+%use (keyword-eval-single) "./keyword-eval-single.scm"
+%use (find-sorted-eval-likes) "./find-sorted-eval-likes.scm"
 
 ;; returns all eval nodes in a bottommost-to-topmost order
 (define (find-sorted-evals graph)
-  (reverse
-   (let loop ((parent #f) (graph graph))
-     (if (node-visited? graph) '()
-         (begin
-           (set-node-visited?! graph #t)
-           (let* ((recur (map (comp (loop graph)) (node-children graph)))
-                  (ret (apply append recur)))
-             (set-node-visited?! graph #f)
-             (if (and parent (eval-single-form? parent))
-                 (cons parent ret)
-                 ret)))))))
+  (find-sorted-eval-likes keyword-eval-single graph))
