@@ -24,13 +24,13 @@
 
 %use (node-children) "./node.scm"
 %use (node-equal?) "./node-equal-huh.scm"
-%use (thread-relative) "./thread-relative.scm"
+%use (match-thread-relative) "./match-thread-relative.scm"
 %use (variable-get-association-or/nondet) "./variable-get-association-or-nondet.scm"
 %use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
 %use (variable-associated?/nondet) "./variable-associated-huh-nondet.scm"
 %use (associate-variable!/nondet) "./associate-variable-bang-nondet.scm"
-%use (get-current-thread) "./get-current-thread.scm"
-%use (thread-fork) "./thread-fork.scm"
+%use (get-current-match-thread) "./get-current-match-thread.scm"
+%use (match-thread-fork) "./match-thread-fork.scm"
 
 %use (debug) "./euphrates/debug.scm"
 %use (debugv) "./euphrates/debugv.scm"
@@ -51,18 +51,18 @@
    input-node-list))
 
 (define (recur-on-children free-stack current-children taken)
-  (lambda (thread)
+  (lambda (match-thread)
     (let loop ((taken taken)
-               (threads (list thread)))
-      (if (null? taken) threads
+               (match-threads (list match-thread)))
+      (if (null? taken) match-threads
           (let* ((taken-node (car taken))
                  (other-children (node-children taken-node))
-                 (new-threads
+                 (new-match-threads
                   (list-map/flatten
-                   (thread-relative
+                   (match-thread-relative
                     (main-loop* free-stack current-children other-children))
-                   threads)))
-            (loop (cdr taken) new-threads))))))
+                   match-threads)))
+            (loop (cdr taken) new-match-threads))))))
 
 (define (debug-log-bind current taken result)
   (let* ((cur1 (get-head 4 current))
@@ -70,7 +70,7 @@
          (taken1
           (let ((ass (variable-get-association-or/nondet current #f)))
             (list->vector (map (lambda (n) (get-head 4 n)) ass)))))
-    (debug "Bind ~s to ~s -> ~s    [~s]" cur1 taken1 result (get-current-thread))))
+    (debug "Bind ~s to ~s -> ~s    [~s]" cur1 taken1 result (get-current-match-thread))))
 
 (define (match-current free-stack match-nodes input-nodes)
   (define current (car match-nodes))
@@ -92,8 +92,8 @@
          (if (node-matches? current taken)
              (continue)
              '())
-         (thread-fork
-          ;; (let ((th (get-current-thread)))
+         (match-thread-fork
+          ;; (let ((th (get-current-match-thread)))
           ;;   (debugv th))
           ;; (let* ((get0 (variable-get-association-or/nondet current #f))
           ;;        (get (and get0 (map (lambda (g) (get-head 4 g)) get0))))
@@ -107,12 +107,12 @@
           ;;   (debugv left1))
 
           (associate-variable!/nondet free-stack current taken)
-          (let ((threads (continue)))
-            ;; (debug-log-bind current taken (if (null? threads) 'FAIL 'OK))
-            (if (null? current-children) threads
+          (let ((match-threads (continue)))
+            ;; (debug-log-bind current taken (if (null? match-threads) 'FAIL 'OK))
+            (if (null? current-children) match-threads
                 (list-map/flatten
                  (recur-on-children free-stack current-children taken)
-                 threads))))))
+                 match-threads))))))
    (range (+ 1 (length input-nodes)))))
 
 (define (main-loop* free-stack match-nodes input-nodes)
@@ -121,14 +121,14 @@
   (define input-heads
     (map (lambda (n) (get-head 5 n)) input-nodes))
 
-  ;; (debugv (get-current-thread))
+  ;; (debugv (get-current-match-thread))
   ;; (debugv match-heads)
   ;; (debugv input-heads)
 
   (define ret
     (if (null? match-nodes)
         (if (null? input-nodes)
-            (list (get-current-thread))
+            (list (get-current-match-thread))
             '())
         (match-current free-stack match-nodes input-nodes)))
 

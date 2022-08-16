@@ -22,7 +22,7 @@
 
 %use (node-binding set-node-binding!) "./node.scm"
 %use (variable-associated?/nondet) "./variable-associated-huh-nondet.scm"
-%use (get-current-thread) "./get-current-thread.scm"
+%use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (thread-obj-lst) "./thread-obj.scm"
 %use (const-variable?) "./const-variable-huh.scm"
 
@@ -31,8 +31,8 @@
       (if (const-variable? node)
           (raisu 'trying-to-associate-a-constant node vals)
           (raisu 'already-associated node vals))
-      (let* ((thread (get-current-thread))
-             (lst (thread-obj-lst thread))
+      (let* ((match-thread (get-current-match-thread))
+             (lst (thread-obj-lst match-thread))
              (pt (or (node-binding node)
                      (let ((new (make-prefixtree 'uninitialized-prefixtree-from-associate-variable!)))
                        (set-node-binding! node new)

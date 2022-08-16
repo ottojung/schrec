@@ -20,7 +20,7 @@
 
 %use (node-binding) "./node.scm"
 %use (const-variable?) "./const-variable-huh.scm"
-%use (get-current-thread) "./get-current-thread.scm"
+%use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (thread-obj-lst) "./thread-obj.scm"
 
 (define (list-singleton? L)
@@ -29,8 +29,8 @@
 
 (define (variable-get-association-nondet-singleton node default default-if-not-singleton)
   (if (const-variable? node) node
-      (let* ((thread (get-current-thread))
-             (lst (thread-obj-lst thread))
+      (let* ((match-thread (get-current-match-thread))
+             (lst (thread-obj-lst match-thread))
              (pt (node-binding node))
              (ret (and pt (prefixtree-ref-furthest pt lst))))
         (if (and ret

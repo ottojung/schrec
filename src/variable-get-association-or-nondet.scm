@@ -20,13 +20,13 @@
 
 %use (node-binding) "./node.scm"
 %use (const-variable?) "./const-variable-huh.scm"
-%use (get-current-thread) "./get-current-thread.scm"
+%use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (thread-obj-lst) "./thread-obj.scm"
 
 (define (variable-get-association-or/nondet node default)
   (if (const-variable? node) (list node)
-      (let* ((thread (get-current-thread))
-             (lst (thread-obj-lst thread))
+      (let* ((match-thread (get-current-match-thread))
+             (lst (thread-obj-lst match-thread))
              (pt (node-binding node))
              (ret (and pt (prefixtree-ref-furthest pt lst))))
         (if (or (equal? ret 'uninitialized-prefixtree-from-associate-variable!)

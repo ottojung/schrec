@@ -25,8 +25,8 @@
 %use (stack-make stack->list) "./euphrates/stack.scm"
 %use (list-deduplicate/reverse) "./euphrates/list-deduplicate.scm"
 
-%use (thread-relative) "./thread-relative.scm"
-%use (get-current-thread) "./get-current-thread.scm"
+%use (match-thread-relative) "./match-thread-relative.scm"
+%use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (get-head) "./get-head.scm"
 
 (define (debug-show-variable-bindings free-stack result)
@@ -35,8 +35,8 @@
      (stack->list free-stack)))
 
   (for-each
-   (thread-relative
-    (debug "\nTH: ~s" (get-current-thread))
+   (match-thread-relative
+    (debug "\nTH: ~s" (get-current-match-thread))
     (for-each
      (lambda (var)
        (define ass (variable-get-association-or/nondet var #f))

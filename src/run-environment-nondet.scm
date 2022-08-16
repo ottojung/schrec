@@ -27,9 +27,11 @@
 %use (uninitialize-rewrite-block) "./uninitialize-rewrite-block.scm"
 %use (soft-uninitialize-variable!) "./soft-uninitialize-variable-bang.scm"
 %use (check-rewrite-block) "./check-rewrite-block.scm"
-%use (get-current-thread) "./get-current-thread.scm"
+%use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (eval-hook) "./eval-hook.scm"
-%use (thread-relative) "./thread-relative.scm"
+%use (match-thread-relative) "./match-thread-relative.scm"
+%use (thread-fork) "./thread-fork.scm"
+%use (get-current-thread) "./get-current-thread.scm"
 
 %use (debugv) "./euphrates/debugv.scm"
 %use (debug) "./euphrates/debug.scm"
@@ -54,24 +56,28 @@
 
   (define result
     (if (not (list-and-map check-rewrite-block blocks)) '()
-        (let ((re-threads
-               (let loop ((threads (list (get-current-thread)))
+        (let ((re-match-threads
+               (let loop ((match-threads (list (get-current-match-thread)))
                           (blocks blocks))
-                 (if (null? blocks) threads
+                 (if (null? blocks) match-threads
                      (let ((cur (car blocks)))
-                       (define new-threads
+                       (define new-match-threads
                          (list-map/flatten
-                          (thread-relative
+                          (match-thread-relative
                            ((with-initialization match-rewrite-block/nondet) cur))
-                          threads))
-                       (loop new-threads (cdr blocks)))))))
+                          match-threads))
+                       (loop new-match-threads (cdr blocks)))))))
 
-          (debug-show-variable-bindings free-stack re-threads)
+          (debug-show-variable-bindings free-stack re-match-threads)
 
-          (for-each
-           (thread-relative
-            (for-each (with-initialization rewrite-rewrite-block/nondet) blocks))
-           re-threads)
+          (define re-threads
+            (map
+             (match-thread-relative
+              (thread-fork
+               (for-each (with-initialization rewrite-rewrite-block/nondet) blocks)
+               (get-current-thread)))
+             re-match-threads))
+
           re-threads)))
 
   ;; (debugv (length result))
@@ -84,6 +90,6 @@
   (if (null? result) '()
       (let ((hook (eval-hook)))
         (when hook
-          (for-each (thread-relative (hook body)) result))
+          (for-each (match-thread-relative (hook body)) result))
         (debug "END: ~s matches" (length result))
         result)))
