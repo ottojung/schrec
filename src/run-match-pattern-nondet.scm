@@ -38,6 +38,7 @@
    (list-and-map node-equal? a b)))
 
 (define (node-matches? pattern-node input-node-list)
+  ;; TODO(style): inline
   (define (deref x)
     (or (variable-get-association-or/nondet x #f)
         (list x)))
@@ -67,6 +68,7 @@
 
   (list-map/flatten
    (lambda (i)
+     ;; TODO(speed): improve below by removing the `car' from `left' on each iteration and adding it to `taken'
      (define taken (list-take-n i input-nodes))
      (define left  (list-drop-n i input-nodes))
 
