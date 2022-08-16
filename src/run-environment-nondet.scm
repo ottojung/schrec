@@ -30,24 +30,13 @@
 %use (block-fn) "./block-fn.scm"
 %use (match-blocks/nondet) "./match-blocks-nondet.scm"
 
-%use (debugv) "./euphrates/debugv.scm"
-%use (debug) "./euphrates/debug.scm"
-%use (debug-show-variable-bindings) "./debug-show-variable-bindings.scm"
-%use (get-head) "./get-head.scm"
-
 (define (run-environment/nondet env main-input body)
   (define free-stack (stack-make))
   (define blocks (node-children env))
 
-  (debug "")
-  (debug "-------------------------")
-  (debug "GOT: ~a" (get-head 100 body))
-
   (define result
     (let ((re-match-threads
            (match-blocks/nondet free-stack main-input blocks)))
-      (debug-show-variable-bindings free-stack re-match-threads)
-
       (define re-threads
         (map
          (match-thread-relative
@@ -58,10 +47,6 @@
 
       re-threads))
 
-  ;; (debugv (length result))
-
-  ;; (debug-show-variable-bindings free-stack result)
-
   (for-each soft-uninitialize-variable!
             (stack->list free-stack))
 
@@ -69,5 +54,4 @@
       (let ((hook (eval-hook)))
         (when hook
           (for-each (match-thread-relative (hook body)) result))
-        (debug "END: ~s matches" (length result))
         result)))

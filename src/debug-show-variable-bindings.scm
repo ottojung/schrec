@@ -19,8 +19,7 @@
 %use (variable-get-association-or/nondet) "./variable-get-association-or-nondet.scm"
 %use (words->string) "./euphrates/words-to-string.scm"
 %use (list-intersperse) "./euphrates/list-intersperse.scm"
-%use (debugv) "./euphrates/debugv.scm"
-%use (debug) "./euphrates/debug.scm"
+%use (dprintln) "./euphrates/dprintln.scm"
 %use (~s) "./euphrates/tilda-s.scm"
 %use (stack-make stack->list) "./euphrates/stack.scm"
 %use (list-deduplicate/reverse) "./euphrates/list-deduplicate.scm"
@@ -36,16 +35,17 @@
 
   (for-each
    (match-thread-relative
-    (debug "\nTH: ~s" (get-current-match-thread))
+    (dprintln "\nTH: ~s" (get-current-match-thread))
     (for-each
      (lambda (var)
        (define ass (variable-get-association-or/nondet var #f))
        (when ass
-         (debug "~s -> ~a"
-                (get-head 4 var)
-                (apply
-                 string-append
-                 (list-intersperse
-                  ", " (map (lambda (n) (~s (get-head 4 n))) ass))))))
+         (dprintln
+          "~s -> ~a"
+          (get-head 4 var)
+          (apply
+           string-append
+           (list-intersperse
+            ", " (map (lambda (n) (~s (get-head 4 n))) ass))))))
      vars))
    result))

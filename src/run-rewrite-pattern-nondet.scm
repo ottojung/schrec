@@ -25,8 +25,6 @@
 %use (variable-get-association-or/nondet) "./variable-get-association-or-nondet.scm"
 %use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
 
-%use (debugv) "./euphrates/debugv.scm"
-
 (define (run-rewrite-pattern/nondet replace-pattern main-input)
   (define (loop P)
     (or (variable-get-association-or/nondet P #f)

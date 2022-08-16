@@ -65,9 +65,6 @@
   (define rest (cdr match-nodes))
   (define current-children (node-children current))
 
-  ;; (let ((current-head (get-head 4 current)))
-  ;;   (debugv current-head))
-
   (list-map/flatten
    (lambda (i)
      (define taken (list-take-n i input-nodes))
@@ -81,22 +78,8 @@
              (continue)
              '())
          (match-thread-fork
-          ;; (let ((th (get-current-match-thread)))
-          ;;   (debugv th))
-          ;; (let* ((get0 (variable-get-association-or/nondet current #f))
-          ;;        (get (and get0 (map (lambda (g) (get-head 4 g)) get0))))
-          ;;   (debugv get))
-
-          ;; (let ((cur1 (get-head 4 current)))
-          ;;   (debugv cur1))
-          ;; (let ((taken1 (list->vector (map (lambda (x) (get-head 4 x)) taken))))
-          ;;   (debugv taken1))
-          ;; (let ((left1 (list->vector (map (lambda (x) (get-head 4 x)) left))))
-          ;;   (debugv left1))
-
           (associate-variable!/nondet free-stack current taken)
           (let ((match-threads (continue)))
-            ;; (debug-log-bind current taken (if (null? match-threads) 'FAIL 'OK))
             (if (null? current-children) match-threads
                 (list-map/flatten
                  (recur-on-children free-stack current-children taken)
@@ -104,40 +87,14 @@
    (range (+ 1 (length input-nodes)))))
 
 (define (main-loop* free-stack match-nodes input-nodes)
-  (define match-heads
-    (map (lambda (n) (get-head 5 n)) match-nodes))
-  (define input-heads
-    (map (lambda (n) (get-head 5 n)) input-nodes))
-
-  ;; (debugv (get-current-match-thread))
-  ;; (debugv match-heads)
-  ;; (debugv input-heads)
-
-  (define ret
-    (if (null? match-nodes)
-        (if (null? input-nodes)
-            (list (get-current-match-thread))
-            '())
-        (match-current free-stack match-nodes input-nodes)))
-
-  ;; (debugv (length match-nodes))
-  ;; (debugv (length input-nodes))
-  ;; (debugv ret)
-
-  ret)
-
-(define (main-loop free-stack match-val input-val)
-  (define match-nodes (node-children match-val))
-  (define input-nodes (node-children input-val))
-
-  (main-loop* free-stack match-nodes input-nodes))
-
-(define match-root #f)
+  (if (null? match-nodes)
+      (if (null? input-nodes)
+          (list (get-current-match-thread))
+          '())
+      (match-current free-stack match-nodes input-nodes)))
 
 (define (run-match-pattern/nondet free-stack match-node input-val)
   (define match-val
     (variable-get-association-or/nondet match-node (list match-node)))
-
-  (set! match-root match-node)
 
   (main-loop* free-stack match-val (list input-val)))

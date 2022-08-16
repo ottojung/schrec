@@ -21,8 +21,6 @@
 %use (variable-get-association-or) "./variable-get-association-or.scm"
 %use (node-equal?) "./node-equal-huh.scm"
 
-%use (debugv) "./euphrates/debugv.scm"
-
 (define (run-rewrite-pattern replace-pattern main-input)
   (define (loop P)
     (or (variable-get-association-or P #f)
