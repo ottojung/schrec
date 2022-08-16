@@ -16,10 +16,13 @@
 
 %var eval/det-topdown/node/loop
 
+%use (raisu) "./euphrates/raisu.scm"
+
 %use (eval/det-topdown) "./eval-det-topdown.scm"
 %use (get-eval-body) "./get-eval-body.scm"
 %use (get-eval-env) "./get-eval-env.scm"
 %use (eval-single-form?) "./eval-single-form-huh.scm"
+%use (eval-multi-form?) "./eval-multi-form-huh.scm"
 
 (define (eval/det-topdown/node/loop eval-node)
   (cond
@@ -30,4 +33,6 @@
         (if (eval/det-topdown env body)
             (loop #t)
             evaled?))))
+   ((eval-multi-form? eval-node)
+    (raisu 'multi-form-not-supported-in-det-mode eval-node))
    (else #f)))
