@@ -25,6 +25,7 @@
 %use (soft-uninitialize-variable!) "./soft-uninitialize-variable-bang.scm"
 %use (eval-hook) "./eval-hook.scm"
 %use (match-thread-relative) "./match-thread-relative.scm"
+%use (thread-relative) "./thread-relative.scm"
 %use (thread-fork) "./thread-fork.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 %use (block-fn) "./block-fn.scm"
@@ -53,5 +54,5 @@
   (if (null? result) '()
       (let ((hook (eval-hook)))
         (when hook
-          (for-each (match-thread-relative (hook body)) result))
+          (for-each (thread-relative (hook body)) result))
         result)))
