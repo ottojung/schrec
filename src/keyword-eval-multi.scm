@@ -16,4 +16,4 @@
 
 %var keyword-eval-multi
 
-(define keyword-eval-multi 'eval*)
+(define keyword-eval-multi 'eval)
