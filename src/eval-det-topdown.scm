@@ -20,7 +20,6 @@
 %use (run-environment) "./run-environment.scm"
 %use (node-children node-visited? set-node-visited?!) "./node.scm"
 %use (check-environment) "./check-environment.scm"
-%use (eval-hook) "./eval-hook.scm"
 
 (define (eval/det-topdown env g)
   (and (check-environment env)
@@ -29,10 +28,8 @@
                 (if (node-visited? g) #f
                     (begin
                       (set-node-visited?! g #t)
-                      (let ((ret (or (run-environment env g)
+                      (let ((ret (or (run-environment env g g)
                                      (list-or-map loop (node-children g)))))
                         (set-node-visited?! g #f)
                         ret))))))
-         (when (and result (eval-hook))
-           ((eval-hook) g))
          result)))

@@ -31,8 +31,9 @@
 %use (uninitialize-rewrite-block) "./uninitialize-rewrite-block.scm"
 %use (uninitialize-variable!) "./uninitialize-variable-bang.scm"
 %use (check-rewrite-block) "./check-rewrite-block.scm"
+%use (eval-hook) "./eval-hook.scm"
 
-(define (run-environment env main-input)
+(define (run-environment env main-input body)
   (define free-stack (stack-make))
   (define blocks (node-children env))
 
@@ -52,5 +53,9 @@
 
   (for-each uninitialize-variable!
             (stack->list free-stack))
+
+  (when result
+    (let ((hook (eval-hook)))
+      (when hook (hook body))))
 
   result)
