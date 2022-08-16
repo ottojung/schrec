@@ -10,7 +10,7 @@
 %use (run-environment) "./src/run-environment.scm"
 %use (eval-hook) "./src/eval-hook.scm"
 %use (get-head) "./src/get-head.scm"
-%use (find-partially-sorted-evals) "./src/find-partially-sorted-evals.scm"
+%use (find-partially-sorted-eval-likes) "./src/find-partially-sorted-eval-likes.scm"
 
 %use (debug) "./src/euphrates/debug.scm"
 %use (debugv) "./src/euphrates/debugv.scm"
@@ -21,18 +21,19 @@
 (let ()
   (define instance
     '(a b c
-        (x x (eval e1 b1))
-        (y y (eval e6 (eval e7 b7)))
-        (eval e2
-            (d e (eval e3
+        (x x (eval-type-1 e1 b1))
+        (y y (eval-type-2 e6 (eval-type-1 e7 b7)))
+        (eval-type-2 e2
+            (d e (eval-type-1 e3
                      (f g
-                        (k l (eval e4 (i o)))))
-               (p x (y n (eval e5 z)))))))
+                        (k l (eval-type-2 e4 (i o)))))
+               (p x (y n (eval-type-2 e5 z)))))))
   (define graph
     (list->graph instance))
 
   (define found
-    (find-partially-sorted-evals graph))
+    (find-partially-sorted-eval-likes
+     `(eval-type-1 eval-type-2) graph))
 
   (define mapped
     (let loop ((x found))
