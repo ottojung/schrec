@@ -20,10 +20,15 @@
 %use (get-eval-body) "./get-eval-body.scm"
 %use (get-eval-env) "./get-eval-env.scm"
 %use (eval-single-form?) "./eval-single-form-huh.scm"
+%use (eval-multi-form?) "./eval-multi-form-huh.scm"
 
 (define (eval/nondet/node eval-node)
   (cond
    ((eval-single-form? eval-node)
+    (let ((env (get-eval-env eval-node))
+          (body (get-eval-body eval-node)))
+      (eval/nondet env body)))
+   ((eval-multi-form? eval-node)
     (let ((env (get-eval-env eval-node))
           (body (get-eval-body eval-node)))
       (eval/nondet env body)))
