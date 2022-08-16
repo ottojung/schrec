@@ -17,18 +17,17 @@
 %var eval/det-topdown
 
 %use (list-or-map) "./euphrates/list-or-map.scm"
-%use (run-environment) "./run-environment.scm"
 %use (node-children node-visited? set-node-visited?!) "./node.scm"
 %use (check-environment) "./check-environment.scm"
 
-(define (eval/det-topdown env body)
+(define (eval/det-topdown func env body)
   (and (check-environment env)
        (let ((result
               (let loop ((g body))
                 (if (node-visited? g) #f
                     (begin
                       (set-node-visited?! g #t)
-                      (let ((ret (or (run-environment env g body)
+                      (let ((ret (or (func env g body)
                                      (list-or-map loop (node-children g)))))
                         (set-node-visited?! g #f)
                         ret))))))

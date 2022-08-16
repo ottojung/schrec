@@ -23,6 +23,8 @@
 %use (get-eval-env) "./get-eval-env.scm"
 %use (eval-single-form?) "./eval-single-form-huh.scm"
 %use (eval-multi-form?) "./eval-multi-form-huh.scm"
+%use (run-environment) "./run-environment.scm"
+%use (run-environment/multi) "./run-environment-multi.scm"
 
 (define (eval/det-topdown/node/loop eval-node)
   (cond
@@ -30,9 +32,14 @@
     (let ((env (get-eval-env eval-node))
           (body (get-eval-body eval-node)))
       (let loop ((evaled? #f))
-        (if (eval/det-topdown env body)
+        (if (eval/det-topdown run-environment env body)
             (loop #t)
             evaled?))))
    ((eval-multi-form? eval-node)
-    (raisu 'multi-form-not-supported-in-det-mode eval-node))
+    (let ((env (get-eval-env eval-node))
+          (body (get-eval-body eval-node)))
+      (let loop ((evaled? #f))
+        (if (eval/det-topdown run-environment/multi env body)
+            (loop #t)
+            evaled?))))
    (else #f)))
