@@ -30,7 +30,7 @@
 %use (variable-associated?/nondet) "./variable-associated-huh-nondet.scm"
 %use (associate-variable!/nondet) "./associate-variable-bang-nondet.scm"
 %use (get-current-thread) "./get-current-thread.scm"
-%use (engine-fork) "./engine-fork.scm"
+%use (thread-fork) "./thread-fork.scm"
 
 %use (debug) "./euphrates/debug.scm"
 %use (debugv) "./euphrates/debugv.scm"
@@ -92,7 +92,7 @@
          (if (node-matches? current taken)
              (continue)
              '())
-         (engine-fork
+         (thread-fork
           ;; (let ((th (get-current-thread)))
           ;;   (debugv th))
           ;; (let* ((get0 (variable-get-association-or/nondet current #f))

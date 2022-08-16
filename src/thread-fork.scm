@@ -14,12 +14,12 @@
 
 %run guile
 
-%var engine-fork
+%var thread-fork
 
 %use (make-thread-id) "./make-thread-id.scm"
 %use (current-thread/p) "./current-thread-p.scm"
 
-(define-syntax engine-fork
+(define-syntax thread-fork
   (syntax-rules ()
     ((_ . args)
      (parameterize ((current-thread/p (make-thread-id))) . args))))

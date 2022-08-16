@@ -17,7 +17,7 @@
 %var eval/nondet
 
 %use (node-children node-visited? set-node-visited?!) "./node.scm"
-%use (engine-fork) "./engine-fork.scm"
+%use (thread-fork) "./thread-fork.scm"
 
 ;; returns a list of new thread ids
 (define (eval/nondet func env body)
@@ -29,7 +29,7 @@
                  (apply
                   append
                   (cons
-                   (engine-fork
+                   (thread-fork
                     (func env g body))
                    (map loop (node-children g))))))
             (set-node-visited?! g #f)
