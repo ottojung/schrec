@@ -1,7 +1,7 @@
 
 ;; stupid syntetic example
 (s
- (eval (((i z b)     ;; constants
+ (eva1 (((i z b)     ;; constants
          g           ;; input
          (i x)       ;; match pattern
          (b u x i))) ;; replace pattern

@@ -1,7 +1,7 @@
 
 ;; shuffles (warn: does not halt)
 ;; try to replace the last `3' and the match should fail
-(eval (((+ -) g
+(eva1 (((+ -) g
         (x (y z))
         (z (x y)))
        (() x x x)

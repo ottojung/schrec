@@ -1,6 +1,6 @@
 
 ;; removes first argument
-(eval ((() g
+(eva1 ((() g
         (x y)
         (y)))
       (1 2))

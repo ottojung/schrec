@@ -1,7 +1,7 @@
 
 ;; state test 2 / with noop rewrite
 (let ((switch (off)))
-  (eval (((switch off on) switch
+  (eva1 (((switch off on) switch
           (off)
           (on))
          (() g r r))

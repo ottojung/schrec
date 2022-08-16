@@ -16,4 +16,4 @@
 
 %var keyword-eval-single
 
-(define keyword-eval-single 'eval)
+(define keyword-eval-single 'eva1)

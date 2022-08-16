@@ -1,7 +1,7 @@
 
 ;; state test 3 / with double bind
 (let ((switch (off)))
-  (eval ((() g
+  (eva1 ((() g
           (x)
           (x (x)))
          ((switch off on) switch

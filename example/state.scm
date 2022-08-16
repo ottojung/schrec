@@ -1,7 +1,7 @@
 
 ;; state test 1
 (let ((switch (off)))
-  (eval ((() g
+  (eva1 ((() g
           (x)
           (x (x)))
          ((switch off on) switch

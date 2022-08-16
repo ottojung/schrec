@@ -1,6 +1,6 @@
 
 ;; removes border arguments
-(eval ((() g
+(eva1 ((() g
         (x y z)
         (y))
        (() x o o)

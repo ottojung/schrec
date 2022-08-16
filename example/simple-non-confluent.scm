@@ -1,5 +1,5 @@
 
 (let ((body (x)))
   (fork
-   (eval (((x 0) g (x) (0))) body)
-   (eval (((x 1) g (x) (1))) body)))
+   (eva1 (((x 0) g (x) (0))) body)
+   (eva1 (((x 1) g (x) (1))) body)))
