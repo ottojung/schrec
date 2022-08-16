@@ -23,29 +23,20 @@
 %use (or-expression?) "./or-expression-huh.scm"
 %use (and-expression?) "./and-expression-huh.scm"
 %use (node-children) "./node.scm"
-%use (initialize-rewrite-block) "./initialize-rewrite-block.scm"
 %use (match-rewrite-block) "./match-rewrite-block.scm"
 %use (rewrite-rewrite-block) "./rewrite-rewrite-block.scm"
-%use (uninitialize-rewrite-block) "./uninitialize-rewrite-block.scm"
 %use (uninitialize-variable!) "./uninitialize-variable-bang.scm"
 %use (eval-hook) "./eval-hook.scm"
+%use (block-fn) "./block-fn.scm"
 
 (define (run-environment env main-input body)
   (define free-stack (stack-make))
   (define blocks (node-children env))
 
-  (define (with-initialization fn)
-    (lambda (block)
-      (and
-       (initialize-rewrite-block free-stack block main-input)
-       (let ((ret (fn free-stack block main-input)))
-         (uninitialize-rewrite-block free-stack block main-input)
-         ret))))
-
   (define result
     (and
-     (list-and-map (with-initialization match-rewrite-block) blocks)
-     (for-each (with-initialization rewrite-rewrite-block) blocks)))
+     (list-and-map (block-fn match-rewrite-block free-stack main-input) blocks)
+     (for-each (block-fn rewrite-rewrite-block free-stack main-input) blocks)))
 
   (for-each uninitialize-variable!
             (stack->list free-stack))

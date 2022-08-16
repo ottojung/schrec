@@ -21,16 +21,15 @@
 %use (list-map/flatten) "./euphrates/list-map-flatten.scm"
 
 %use (node-children) "./node.scm"
-%use (initialize-rewrite-block) "./initialize-rewrite-block.scm"
 %use (match-rewrite-block/nondet) "./match-rewrite-block-nondet.scm"
 %use (rewrite-rewrite-block/nondet) "./rewrite-rewrite-block-nondet.scm"
-%use (uninitialize-rewrite-block) "./uninitialize-rewrite-block.scm"
 %use (soft-uninitialize-variable!) "./soft-uninitialize-variable-bang.scm"
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (eval-hook) "./eval-hook.scm"
 %use (match-thread-relative) "./match-thread-relative.scm"
 %use (thread-fork) "./thread-fork.scm"
 %use (get-current-thread) "./get-current-thread.scm"
+%use (block-fn) "./block-fn.scm"
 
 %use (debugv) "./euphrates/debugv.scm"
 %use (debug) "./euphrates/debug.scm"
@@ -45,14 +44,6 @@
   (debug "-------------------------")
   (debug "GOT: ~a" (get-head 100 body))
 
-  (define (with-initialization fn)
-    (lambda (block)
-      (and
-       (initialize-rewrite-block free-stack block main-input)
-       (let ((ret (fn free-stack block main-input)))
-         (uninitialize-rewrite-block free-stack block main-input)
-         ret))))
-
   (define result
     (let ((re-match-threads
            (let loop ((match-threads (list (get-current-match-thread)))
@@ -62,7 +53,7 @@
                    (define new-match-threads
                      (list-map/flatten
                       (match-thread-relative
-                       ((with-initialization match-rewrite-block/nondet) cur))
+                       ((block-fn match-rewrite-block/nondet free-stack main-input) cur))
                       match-threads))
                    (loop new-match-threads (cdr blocks)))))))
 
@@ -72,7 +63,7 @@
         (map
          (match-thread-relative
           (thread-fork
-           (for-each (with-initialization rewrite-rewrite-block/nondet) blocks)
+           (for-each (block-fn rewrite-rewrite-block/nondet free-stack main-input) blocks)
            (get-current-thread)))
          re-match-threads))
 
