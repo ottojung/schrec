@@ -21,15 +21,14 @@
 %use (list-map/flatten) "./euphrates/list-map-flatten.scm"
 
 %use (node-children) "./node.scm"
-%use (match-rewrite-block/nondet) "./match-rewrite-block-nondet.scm"
 %use (rewrite-rewrite-block/nondet) "./rewrite-rewrite-block-nondet.scm"
 %use (soft-uninitialize-variable!) "./soft-uninitialize-variable-bang.scm"
-%use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (eval-hook) "./eval-hook.scm"
 %use (match-thread-relative) "./match-thread-relative.scm"
 %use (thread-fork) "./thread-fork.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 %use (block-fn) "./block-fn.scm"
+%use (match-blocks/nondet) "./match-blocks-nondet.scm"
 
 %use (debugv) "./euphrates/debugv.scm"
 %use (debug) "./euphrates/debug.scm"
@@ -46,17 +45,7 @@
 
   (define result
     (let ((re-match-threads
-           (let loop ((match-threads (list (get-current-match-thread)))
-                      (blocks blocks))
-             (if (null? blocks) match-threads
-                 (let ((cur (car blocks)))
-                   (define new-match-threads
-                     (list-map/flatten
-                      (match-thread-relative
-                       ((block-fn match-rewrite-block/nondet free-stack main-input) cur))
-                      match-threads))
-                   (loop new-match-threads (cdr blocks)))))))
-
+           (match-blocks/nondet free-stack main-input blocks)))
       (debug-show-variable-bindings free-stack re-match-threads)
 
       (define re-threads
