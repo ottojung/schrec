@@ -21,15 +21,28 @@
 %use (get-eval-env) "./get-eval-env.scm"
 %use (eval-single-form?) "./eval-single-form-huh.scm"
 %use (eval-multi-form?) "./eval-multi-form-huh.scm"
+%use (eval-hook) "./eval-hook.scm"
+%use (run-environment) "./run-environment.scm"
+%use (run-environment/nondet) "./run-environment-nondet.scm"
+%use (get-current-thread) "./get-current-thread.scm"
+
+(define (single-runner env g body)
+  (if (run-environment env g)
+      (let ((hook (eval-hook)))
+        (when hook (hook body))
+        (list (get-current-thread)))
+      '()))
+
+(define multi-runner run-environment/nondet)
 
 (define (eval/nondet/node eval-node)
   (cond
    ((eval-single-form? eval-node)
     (let ((env (get-eval-env eval-node))
           (body (get-eval-body eval-node)))
-      (eval/nondet env body)))
+      (eval/nondet single-runner env body)))
    ((eval-multi-form? eval-node)
     (let ((env (get-eval-env eval-node))
           (body (get-eval-body eval-node)))
-      (eval/nondet env body)))
+      (eval/nondet multi-runner env body)))
    (else '())))
