@@ -22,15 +22,12 @@
 
 %use (or-expression?) "./or-expression-huh.scm"
 %use (and-expression?) "./and-expression-huh.scm"
-%use (check-or-expression-syntax) "./check-or-expression-syntax.scm"
-%use (check-and-expression-syntax) "./check-and-expression-syntax.scm"
 %use (node-children) "./node.scm"
 %use (initialize-rewrite-block) "./initialize-rewrite-block.scm"
 %use (match-rewrite-block) "./match-rewrite-block.scm"
 %use (rewrite-rewrite-block) "./rewrite-rewrite-block.scm"
 %use (uninitialize-rewrite-block) "./uninitialize-rewrite-block.scm"
 %use (uninitialize-variable!) "./uninitialize-variable-bang.scm"
-%use (check-rewrite-block) "./check-rewrite-block.scm"
 %use (eval-hook) "./eval-hook.scm"
 
 (define (run-environment env main-input body)
@@ -47,7 +44,6 @@
 
   (define result
     (and
-     (list-and-map check-rewrite-block blocks)
      (list-and-map (with-initialization match-rewrite-block) blocks)
      (for-each (with-initialization rewrite-rewrite-block) blocks)))
 

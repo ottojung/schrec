@@ -26,7 +26,6 @@
 %use (rewrite-rewrite-block/nondet) "./rewrite-rewrite-block-nondet.scm"
 %use (uninitialize-rewrite-block) "./uninitialize-rewrite-block.scm"
 %use (soft-uninitialize-variable!) "./soft-uninitialize-variable-bang.scm"
-%use (check-rewrite-block) "./check-rewrite-block.scm"
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (eval-hook) "./eval-hook.scm"
 %use (match-thread-relative) "./match-thread-relative.scm"
@@ -55,30 +54,29 @@
          ret))))
 
   (define result
-    (if (not (list-and-map check-rewrite-block blocks)) '()
-        (let ((re-match-threads
-               (let loop ((match-threads (list (get-current-match-thread)))
-                          (blocks blocks))
-                 (if (null? blocks) match-threads
-                     (let ((cur (car blocks)))
-                       (define new-match-threads
-                         (list-map/flatten
-                          (match-thread-relative
-                           ((with-initialization match-rewrite-block/nondet) cur))
-                          match-threads))
-                       (loop new-match-threads (cdr blocks)))))))
+    (let ((re-match-threads
+           (let loop ((match-threads (list (get-current-match-thread)))
+                      (blocks blocks))
+             (if (null? blocks) match-threads
+                 (let ((cur (car blocks)))
+                   (define new-match-threads
+                     (list-map/flatten
+                      (match-thread-relative
+                       ((with-initialization match-rewrite-block/nondet) cur))
+                      match-threads))
+                   (loop new-match-threads (cdr blocks)))))))
 
-          (debug-show-variable-bindings free-stack re-match-threads)
+      (debug-show-variable-bindings free-stack re-match-threads)
 
-          (define re-threads
-            (map
-             (match-thread-relative
-              (thread-fork
-               (for-each (with-initialization rewrite-rewrite-block/nondet) blocks)
-               (get-current-thread)))
-             re-match-threads))
+      (define re-threads
+        (map
+         (match-thread-relative
+          (thread-fork
+           (for-each (with-initialization rewrite-rewrite-block/nondet) blocks)
+           (get-current-thread)))
+         re-match-threads))
 
-          re-threads)))
+      re-threads))
 
   ;; (debugv (length result))
 
