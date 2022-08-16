@@ -22,8 +22,6 @@
 %use (open-file-port) "./euphrates/open-file-port.scm"
 %use (read-list) "./euphrates/read-list.scm"
 
-;; %use () "./run-environment-nondet.scm"
-
 %use (eval-hook) "./eval-hook.scm"
 %use (graph->list) "./graph-to-list.scm"
 %use (list->graph) "./list-to-graph.scm"
@@ -51,11 +49,11 @@
       /     --no-trace
       )
 
-     :default (--deterministic #t)
-     :exclusive (--deterministic --nondeterministic)
+     :default (--nondeterministic #t)
+     :exclusive (--nondeterministic --deterministic)
 
-     :default (--trace #t)
-     :exclusive (--trace --no-trace)
+     :default (--no-trace #t)
+     :exclusive (--no-trace --trace)
 
      (when --help
        (define-cli:show-help))
