@@ -32,10 +32,6 @@
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (match-thread-fork) "./match-thread-fork.scm"
 
-%use (debug) "./euphrates/debug.scm"
-%use (debugv) "./euphrates/debugv.scm"
-%use (get-head) "./get-head.scm"
-
 (define (node-lists-equal?/no-deref a b)
   (and
    (= (length a) (length b))
@@ -63,14 +59,6 @@
                     (main-loop* free-stack current-children other-children))
                    match-threads)))
             (loop (cdr taken) new-match-threads))))))
-
-(define (debug-log-bind current taken result)
-  (let* ((cur1 (get-head 4 current))
-         ;; (taken1 (list->vector (map (lambda (x) (get-head 4 x)) taken)))
-         (taken1
-          (let ((ass (variable-get-association-or/nondet current #f)))
-            (list->vector (map (lambda (n) (get-head 4 n)) ass)))))
-    (debug "Bind ~s to ~s -> ~s    [~s]" cur1 taken1 result (get-current-match-thread))))
 
 (define (match-current free-stack match-nodes input-nodes)
   (define current (car match-nodes))
