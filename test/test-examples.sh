@@ -9,6 +9,7 @@ addition-fork.scm
 addition-serial.scm
 block-order-dependent-1.scm
 block-order-dependent-2.scm
+block-order-dependent-3.scm
 children-mismatch-multi.scm
 const-multi.scm
 const.scm
@@ -39,6 +40,7 @@ addition-fork.scm
 addition-serial.scm
 block-order-dependent-1.scm
 block-order-dependent-2.scm
+block-order-dependent-3.scm
 children-mismatch-multi.scm
 const-multi.scm
 const.scm
