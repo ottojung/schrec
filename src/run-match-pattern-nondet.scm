@@ -38,13 +38,9 @@
    (list-and-map node-equal? a b)))
 
 (define (node-matches? pattern-node input-node-list)
-  ;; TODO(style): inline
-  (define (deref x)
-    (or (variable-get-association-or/nondet x #f)
-        (list x)))
-
   (node-lists-equal?/no-deref
-   (deref pattern-node)
+   (or (variable-get-association-or/nondet pattern-node #f)
+       (list pattern-node))
    input-node-list))
 
 (define (recur-on-children free-stack current-children taken)
