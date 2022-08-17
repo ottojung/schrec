@@ -30,9 +30,11 @@
 %use (block-fn) "./block-fn.scm"
 %use (match-blocks/nondet) "./match-blocks-nondet.scm"
 
-(define (run-environment/multi env main-input body)
+(define (run-environment/multi main-input env body pointer-node)
   (define free-stack (stack-make))
   (define blocks (node-children env))
+
+  ;; FIXME: the pointer-node
 
   (define result
     (let ((re-match-threads

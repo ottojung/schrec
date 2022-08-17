@@ -20,7 +20,7 @@
 %use (run-match-pattern) "./run-match-pattern.scm"
 %use (variable-get-association-or) "./variable-get-association-or.scm"
 
-(define (match-rewrite-block free-stack block main-input)
+(define (match-rewrite-block free-stack block)
   (define children (node-children block))
   (define const-node (list-ref children 0))
   (define input-node (list-ref children 1))
@@ -28,6 +28,6 @@
   (define replace-pattern (list-ref children 3))
 
   (define input-val
-    (variable-get-association-or input-node main-input))
+    (variable-get-association-or input-node input-node))
 
   (run-match-pattern free-stack match-pattern input-val))

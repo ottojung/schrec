@@ -20,7 +20,7 @@
 %use (run-rewrite-pattern) "./run-rewrite-pattern.scm"
 %use (variable-get-association-or) "./variable-get-association-or.scm"
 
-(define (rewrite-rewrite-block free-stack block main-input)
+(define (rewrite-rewrite-block free-stack block)
   (define children (node-children block))
   (define const-node (list-ref children 0))
   (define input-node (list-ref children 1))
@@ -29,6 +29,6 @@
   (define const-list (node-children const-node))
 
   (define input-val
-    (variable-get-association-or input-node main-input))
+    (variable-get-association-or input-node input-node))
 
   (run-rewrite-pattern replace-pattern input-val))

@@ -20,7 +20,7 @@
 %use (stack->list) "./euphrates/stack.scm"
 %use (soft-uninitialize-const-variable!) "./soft-uninitialize-const-variable-bang.scm"
 
-(define (uninitialize-rewrite-block free-stack block main-input)
+(define (uninitialize-rewrite-block free-stack block)
   (define children (node-children block))
   (define const-list (node-children (list-ref children 0)))
   (define input-node (list-ref children 1))

@@ -14,15 +14,14 @@
 
 %run guile
 
-%var block-fn
+%var get-eval-input
 
-%use (initialize-rewrite-block) "./initialize-rewrite-block.scm"
-%use (uninitialize-rewrite-block) "./uninitialize-rewrite-block.scm"
+%use (raisu) "./euphrates/raisu.scm"
+%use (list-ref-or) "./euphrates/list-ref-or.scm"
 
-(define (block-fn fn free-stack)
-  (lambda (block)
-    (and
-     (initialize-rewrite-block free-stack block)
-     (let ((ret (fn free-stack block)))
-       (uninitialize-rewrite-block free-stack block)
-       ret))))
+%use (node-children) "./node.scm"
+
+(define (get-eval-input graph)
+  (define children (node-children graph))
+  (or (list-ref-or children 1 #f)
+      (raisu 'eval-does-not-have-a-body graph)))

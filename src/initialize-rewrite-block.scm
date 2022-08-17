@@ -21,7 +21,7 @@
 %use (raisu) "./euphrates/raisu.scm"
 %use (soft-initialize-const-variable!) "./soft-initialize-const-variable-bang.scm"
 
-(define (initialize-rewrite-block free-stack block main-input)
+(define (initialize-rewrite-block free-stack block)
   (define children (node-children block))
   (define const-node (list-ref children 0))
   (define input-node (list-ref children 1))

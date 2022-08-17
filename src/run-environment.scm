@@ -16,27 +16,26 @@
 
 %var run-environment
 
-%use (list-or-map) "./euphrates/list-or-map.scm"
 %use (list-and-map) "./euphrates/list-and-map.scm"
 %use (stack-make stack->list) "./euphrates/stack.scm"
 
-%use (or-expression?) "./or-expression-huh.scm"
-%use (and-expression?) "./and-expression-huh.scm"
 %use (node-children) "./node.scm"
 %use (match-rewrite-block) "./match-rewrite-block.scm"
 %use (rewrite-rewrite-block) "./rewrite-rewrite-block.scm"
+%use (associate-variable!) "./associate-variable-bang.scm"
 %use (uninitialize-variable!) "./uninitialize-variable-bang.scm"
 %use (eval-hook) "./eval-hook.scm"
 %use (block-fn) "./block-fn.scm"
 
-(define (run-environment env main-input body)
+(define (run-environment main-input env body pointer-node)
   (define free-stack (stack-make))
   (define blocks (node-children env))
 
   (define result
     (and
-     (list-and-map (block-fn match-rewrite-block free-stack main-input) blocks)
-     (for-each (block-fn rewrite-rewrite-block free-stack main-input) blocks)))
+     (or (associate-variable! free-stack main-input pointer-node) #t)
+     (list-and-map (block-fn match-rewrite-block free-stack) blocks)
+     (for-each (block-fn rewrite-rewrite-block free-stack) blocks)))
 
   (for-each uninitialize-variable!
             (stack->list free-stack))

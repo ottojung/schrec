@@ -21,6 +21,7 @@
 %use (eval/det-topdown) "./eval-det-topdown.scm"
 %use (get-eval-body) "./get-eval-body.scm"
 %use (get-eval-env) "./get-eval-env.scm"
+%use (get-eval-input) "./get-eval-input.scm"
 %use (eval-single-form?) "./eval-single-form-huh.scm"
 %use (eval-multi-form?) "./eval-multi-form-huh.scm"
 %use (run-environment) "./run-environment.scm"
@@ -30,16 +31,18 @@
   (cond
    ((eval-single-form? eval-node)
     (let ((env (get-eval-env eval-node))
-          (body (get-eval-body eval-node)))
+          (body (get-eval-body eval-node))
+          (main-input (get-eval-input eval-node)))
       (let loop ((evaled? #f))
-        (if (eval/det-topdown run-environment env body)
+        (if (eval/det-topdown run-environment main-input env body)
             (loop #t)
             evaled?))))
    ((eval-multi-form? eval-node)
     (let ((env (get-eval-env eval-node))
-          (body (get-eval-body eval-node)))
+          (body (get-eval-body eval-node))
+          (main-input (get-eval-input eval-node)))
       (let loop ((evaled? #f))
-        (if (eval/det-topdown run-environment/multi env body)
+        (if (eval/det-topdown run-environment/multi main-input env body)
             (loop #t)
             evaled?))))
    (else #f)))
