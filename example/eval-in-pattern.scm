@@ -1,6 +1,6 @@
 
-;; eva1 in pattern test
-(eva1 ((eva1) g
-       (eva1 env body)
+;; eva1 g in pattern test
+(eva1 g ((eva1 g) g
+       (eva1 g env body)
        (2))
       1)

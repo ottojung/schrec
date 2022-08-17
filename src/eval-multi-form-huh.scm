@@ -22,9 +22,10 @@
 %use (node-children) "./node.scm"
 %use (check-environment) "./check-environment.scm"
 %use (eval-multi-node?) "./eval-multi-node-huh.scm"
+%use (get-eval-env) "./get-eval-env.scm"
 
 (define (eval-multi-form? node)
   (define children (node-children node))
-  (and (list-length= 3 children)
+  (and (list-length= 4 children)
        (eval-multi-node? (car children))
-       (check-environment (list-ref children 1))))
+       (check-environment (get-eval-env node))))

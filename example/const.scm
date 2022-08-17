@@ -1,6 +1,6 @@
 
 ;; replaces all pluses by minuses
-(eva1 (((+ -) g
+(eva1 g (((+ -) g
         (x + y)
         (- x y)))
       (1 + (2 + 3)))

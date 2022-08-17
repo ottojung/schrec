@@ -1,5 +1,5 @@
 Original:
-((eva1 (((m (m m) b) g (m x) (b m))) (m a)))
+((eva1 g (((m (m m) b) g (m x) (b m))) (m a)))
 
 Step:
-((eva1 (((m (m m) b) g (m x) (b m))) (b m)))
+((eva1 g (((m (m m) b) g (m x) (b m))) (b m)))

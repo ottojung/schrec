@@ -21,9 +21,10 @@
 %use (eval-single-node?) "./eval-single-node-huh.scm"
 %use (node-children) "./node.scm"
 %use (check-environment) "./check-environment.scm"
+%use (get-eval-env) "./get-eval-env.scm"
 
 (define (eval-single-form? node)
   (define children (node-children node))
-  (and (list-length= 3 children)
+  (and (list-length= 4 children)
        (eval-single-node? (car children))
-       (check-environment (list-ref children 1))))
+       (check-environment (get-eval-env node))))

@@ -1,6 +1,6 @@
 
 ;; if blocks are swaped, then the answer is different
-(eva1 (((+ - *) a
+(eva1 g (((+ - *) a
         (g + c)
         (g - c))
        ((+ - *) g

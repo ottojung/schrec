@@ -1,7 +1,7 @@
 
 ;; state test 4 / without local rewrite
 (let ((switch (off)))
-  (eva1 (((switch off on) switch
+  (eva1 g (((switch off on) switch
           (off)
           (on)))
         (body)))
