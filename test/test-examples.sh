@@ -31,6 +31,7 @@ state-with-double-bind.scm
 state-with-noop-2.scm
 state-with-noop-3.scm
 state-with-noop.scm
+state-without-const.scm
 state-without-local.scm
 stupid-synthetic-example.scm
 "
@@ -61,6 +62,7 @@ state-with-double-bind.scm
 state-with-noop-2.scm
 state-with-noop-3.scm
 state-with-noop.scm
+state-without-const.scm
 state-without-local.scm
 stupid-synthetic-example.scm
 "
