@@ -19,14 +19,15 @@
 %use (eval/nondet) "./eval-nondet.scm"
 %use (get-eval-body) "./get-eval-body.scm"
 %use (get-eval-env) "./get-eval-env.scm"
+%use (get-eval-input) "./get-eval-input.scm"
 %use (eval-single-form?) "./eval-single-form-huh.scm"
 %use (eval-multi-form?) "./eval-multi-form-huh.scm"
 %use (run-environment) "./run-environment.scm"
 %use (run-environment/nondet) "./run-environment-nondet.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 
-(define (single-runner env g body)
-  (if (run-environment env g body)
+(define (single-runner main-input env body pointer-node)
+  (if (run-environment main-input env body pointer-node)
       (list (get-current-thread))
       '()))
 
@@ -36,10 +37,12 @@
   (cond
    ((eval-single-form? eval-node)
     (let ((env (get-eval-env eval-node))
-          (body (get-eval-body eval-node)))
-      (eval/nondet single-runner env body)))
+          (body (get-eval-body eval-node))
+          (main-input (get-eval-input eval-node)))
+      (eval/nondet single-runner main-input env body)))
    ((eval-multi-form? eval-node)
     (let ((env (get-eval-env eval-node))
-          (body (get-eval-body eval-node)))
-      (eval/nondet multi-runner env body)))
+          (body (get-eval-body eval-node))
+          (main-input (get-eval-input eval-node)))
+      (eval/nondet multi-runner main-input env body)))
    (else '())))

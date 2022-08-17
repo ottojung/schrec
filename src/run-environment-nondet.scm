@@ -31,7 +31,7 @@
 %use (block-fn) "./block-fn.scm"
 %use (match-blocks/nondet) "./match-blocks-nondet.scm"
 
-(define (run-environment/nondet env main-input body)
+(define (run-environment/nondet main-input env body pointer-node)
   (define free-stack (stack-make))
   (define blocks (node-children env))
 
