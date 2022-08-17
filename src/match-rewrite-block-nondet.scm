@@ -20,7 +20,7 @@
 %use (run-match-pattern/nondet) "./run-match-pattern-nondet.scm"
 %use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
 
-(define (match-rewrite-block/nondet free-stack block main-input)
+(define (match-rewrite-block/nondet free-stack block)
   (define children (node-children block))
   (define const-node (list-ref children 0))
   (define input-node (list-ref children 1))
@@ -28,7 +28,7 @@
   (define replace-pattern (list-ref children 3))
 
   (define input-val
-    (variable-get-association-nondet-singleton input-node main-input #f))
+    (variable-get-association-nondet-singleton input-node input-node #f))
 
   (define ret
     (if (not input-val) '()

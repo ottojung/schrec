@@ -37,12 +37,12 @@
 
   (define result
     (let ((re-match-threads
-           (match-blocks/nondet free-stack main-input blocks)))
+           (match-blocks/nondet free-stack main-input pointer-node blocks)))
       (define re-threads
         (map
          (match-thread-relative
           (thread-fork
-           (for-each (block-fn rewrite-rewrite-block/nondet free-stack main-input) blocks)
+           (for-each (block-fn rewrite-rewrite-block/nondet free-stack) blocks)
            (get-current-thread)))
          re-match-threads))
 

@@ -34,15 +34,13 @@
   (define free-stack (stack-make))
   (define blocks (node-children env))
 
-  ;; FIXME: the pointer-node
-
   (define result
     (let ((re-match-threads
-           (match-blocks/nondet free-stack main-input blocks)))
+           (match-blocks/nondet free-stack main-input pointer-node blocks)))
       (if (null? re-match-threads) #f
           (let ((chosen-thread (car re-match-threads))) ;; NOTE: choosing the greediest match
             ((match-thread-relative
-              (for-each (block-fn rewrite-rewrite-block/nondet free-stack main-input) blocks))
+              (for-each (block-fn rewrite-rewrite-block/nondet free-stack) blocks))
              chosen-thread)
             #t))))
 

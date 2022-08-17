@@ -23,7 +23,7 @@
 %use (variable-get-association-or/nondet) "./variable-get-association-or-nondet.scm"
 %use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
 
-(define (rewrite-rewrite-block/nondet free-stack block main-input)
+(define (rewrite-rewrite-block/nondet free-stack block)
   (define children (node-children block))
   (define const-node (list-ref children 0))
   (define input-node (list-ref children 1))
@@ -32,7 +32,7 @@
   (define const-list (node-children const-node))
 
   (define input-val
-    (or (variable-get-association-nondet-singleton input-node main-input #f)
+    (or (variable-get-association-nondet-singleton input-node input-node #f)
         (raisu 'bad-input-node-in-rewrite-rewrite-block-nondet input-node)))
 
   (run-rewrite-pattern/nondet replace-pattern input-val))

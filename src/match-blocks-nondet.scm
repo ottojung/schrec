@@ -22,9 +22,11 @@
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (match-thread-relative) "./match-thread-relative.scm"
 %use (block-fn) "./block-fn.scm"
+%use (associate-variable!/nondet) "./associate-variable-bang-nondet.scm"
 
 ;; returns a list of `match-thread's
-(define (match-blocks/nondet free-stack main-input blocks)
+(define (match-blocks/nondet free-stack main-input pointer-node blocks)
+  (associate-variable!/nondet free-stack main-input (list pointer-node))
   (let loop ((match-threads (list (get-current-match-thread)))
              (blocks blocks))
     (if (null? blocks) match-threads
@@ -32,6 +34,6 @@
           (define new-match-threads
             (list-map/flatten
              (match-thread-relative
-              ((block-fn match-rewrite-block/nondet free-stack main-input) cur))
+              ((block-fn match-rewrite-block/nondet free-stack) cur))
              match-threads))
           (loop new-match-threads (cdr blocks))))))
