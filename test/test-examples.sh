@@ -74,7 +74,7 @@ do
 	$CMD | head -n 1000 > "dist/test/examples/det/$FILE.txt"
 
 	diff "test/expected-example-outputs/det/$FILE.txt" \
-		 "dist/test/examples/det/$FILE.txt"
+	     "dist/test/examples/det/$FILE.txt"
 done
 
 echo "$NONDET" | while IFS= read -r FILE
@@ -85,7 +85,7 @@ do
 	$CMD | head -n 1000 > "dist/test/examples/nondet/$FILE.txt"
 
 	diff "test/expected-example-outputs/nondet/$FILE.txt" \
-		 "dist/test/examples/nondet/$FILE.txt"
+	     "dist/test/examples/nondet/$FILE.txt"
 done
 
 echo "All outputs match."
