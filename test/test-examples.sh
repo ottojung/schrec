@@ -71,10 +71,10 @@ do
 	test -z "$FILE" && continue
 	CMD="$SCHREC --trace --deterministic example/$FILE"
 	echo "> $CMD"
-	$CMD | head -n 1000 > "dist/test/examples/det/$FILE"
+	$CMD | head -n 1000 > "dist/test/examples/det/$FILE.txt"
 
-	diff "test/expected-example-outputs/det/$FILE" \
-		 "dist/test/examples/det/$FILE"
+	diff "test/expected-example-outputs/det/$FILE.txt" \
+		 "dist/test/examples/det/$FILE.txt"
 done
 
 echo "$NONDET" | while IFS= read -r FILE
@@ -82,10 +82,10 @@ do
 	test -z "$FILE" && continue
 	CMD="$SCHREC --trace --nondeterministic example/$FILE"
 	echo "> $CMD"
-	$CMD | head -n 1000 > "dist/test/examples/nondet/$FILE"
+	$CMD | head -n 1000 > "dist/test/examples/nondet/$FILE.txt"
 
-	diff "test/expected-example-outputs/nondet/$FILE" \
-		 "dist/test/examples/nondet/$FILE"
+	diff "test/expected-example-outputs/nondet/$FILE.txt" \
+		 "dist/test/examples/nondet/$FILE.txt"
 done
 
 echo "All outputs match."
