@@ -15,6 +15,7 @@ const-multi.scm
 const.scm
 eval-in-pattern.scm
 lambda.scm
+lisp-list-functions.scm
 loop-1.scm
 loop-2.scm
 loop-pattern.scm
@@ -46,6 +47,7 @@ children-mismatch-multi.scm
 const-multi.scm
 const.scm
 eval-in-pattern.scm
+lisp-list-functions.scm
 loop-1.scm
 loop-2.scm
 loop-pattern.scm
