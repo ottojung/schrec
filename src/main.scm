@@ -21,6 +21,7 @@
 %use (file-or-directory-exists?) "./euphrates/file-or-directory-exists-q.scm"
 %use (open-file-port) "./euphrates/open-file-port.scm"
 %use (read-list) "./euphrates/read-list.scm"
+%use (with-randomizer-seed) "./euphrates/with-randomizer-seed.scm"
 
 %use (eval-hook) "./eval-hook.scm"
 %use (graph->list) "./graph-to-list.scm"
@@ -46,6 +47,7 @@
       OPT : RESULTS
       /     --trace
       /     --no-trace
+      /     --seed <seed>
       RESULTS : --results all
       /         --results first
       )
@@ -56,6 +58,10 @@
      :help (all "Non-deterministic mode, returns all possible values.")
      :help (first "Deterministic mode, returns only the first (left-most) value.")
 
+     :help (<seed> "A seed for the random number generator.")
+     :type (<seed> 'number)
+     :default (<seed> 777)
+
      :default (--no-trace #t)
      :exclusive (--no-trace --trace)
 
@@ -65,25 +71,27 @@
      (unless (file-or-directory-exists? <filename>)
        (fatal "Given file does not exist: ~a" <filename>))
 
-     (let* ((file-port (open-file-port <filename> "r"))
-            (parsed (read-list file-port))
-            (do (close-port file-port))
-            (graph (list->graph parsed)))
+     (with-randomizer-seed
+      <seed>
+      (let* ((file-port (open-file-port <filename> "r"))
+             (parsed (read-list file-port))
+             (do (close-port file-port))
+             (graph (list->graph parsed)))
 
-       (when --trace
-         (eval-hook (default-eval-hook graph))
-         (display "Original:\n")
-         (pretty-print-graph graph))
+        (when --trace
+          (eval-hook (default-eval-hook graph))
+          (display "Original:\n")
+          (pretty-print-graph graph))
 
-       (let ((thread-ids
-              (if first
-                  (begin (reduce/resultsfirst graph) (list (get-current-thread)))
-                  (reduce/resultsall graph))))
+        (let ((thread-ids
+               (if first
+                   (begin (reduce/resultsfirst graph) (list (get-current-thread)))
+                   (reduce/resultsall graph))))
 
-         (unless --trace
-           (for-each
-            (thread-relative
-             (pretty-print-graph graph))
-            thread-ids)))))))
+          (unless --trace
+            (for-each
+             (thread-relative
+              (pretty-print-graph graph))
+             thread-ids))))))))
 
 (main)
