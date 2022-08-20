@@ -14,7 +14,7 @@
 
 %run guile
 
-%var variable-get-association-resultsall-singleton
+%var variable-get-association-nondet-singleton
 
 %use (make-prefixtree prefixtree-set! prefixtree-ref-furthest) "./euphrates/prefixtree.scm"
 
@@ -27,7 +27,7 @@
   (and (not (null? L))
        (null? (cdr L))))
 
-(define (variable-get-association-resultsall-singleton node default default-if-not-singleton)
+(define (variable-get-association-nondet-singleton node default default-if-not-singleton)
   (if (const-variable? node) node
       (let* ((match-thread (get-current-match-thread))
              (lst (thread-obj-lst match-thread))

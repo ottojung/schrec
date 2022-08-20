@@ -18,7 +18,7 @@
 
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-constant? set-node-constant?! node-binding set-node-binding! node-visited? set-node-visited?!) "./node.scm"
 %use (run-match-pattern-nondet) "./run-match-pattern-nondet.scm"
-%use (variable-get-association-resultsall-singleton) "./variable-get-association-resultsall-singleton.scm"
+%use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
 
 (define (match-rewrite-block/resultsall free-stack block)
   (define children (node-children block))
@@ -28,7 +28,7 @@
   (define replace-pattern (list-ref children 3))
 
   (define input-val
-    (variable-get-association-resultsall-singleton input-node input-node #f))
+    (variable-get-association-nondet-singleton input-node input-node #f))
 
   (define ret
     (if (not input-val) '()

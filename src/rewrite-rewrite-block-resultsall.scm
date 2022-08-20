@@ -20,8 +20,8 @@
 
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-constant? set-node-constant?! node-binding set-node-binding! node-visited? set-node-visited?!) "./node.scm"
 %use (run-rewrite-pattern-nondet) "./run-rewrite-pattern-nondet.scm"
-%use (variable-get-association-or-det/resultsall) "./variable-get-association-or-nondet.scm"
-%use (variable-get-association-resultsall-singleton) "./variable-get-association-resultsall-singleton.scm"
+%use (variable-get-association-or-nondet) "./variable-get-association-or-nondet.scm"
+%use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
 
 (define (rewrite-rewrite-block/resultsall free-stack block)
   (define children (node-children block))
@@ -32,7 +32,7 @@
   (define const-list (node-children const-node))
 
   (define input-val
-    (or (variable-get-association-resultsall-singleton input-node input-node #f)
+    (or (variable-get-association-nondet-singleton input-node input-node #f)
         (raisu 'bad-input-node-in-rewrite-rewrite-block-resultsall input-node)))
 
   (run-rewrite-pattern-nondet replace-pattern input-val))

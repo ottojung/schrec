@@ -16,9 +16,9 @@
 
 %var variable-associated?/nondet
 
-%use (variable-get-association-or-det/resultsall) "./variable-get-association-or-nondet.scm"
+%use (variable-get-association-or-nondet) "./variable-get-association-or-nondet.scm"
 
 (define (variable-associated?/nondet node)
-  (not (not (variable-get-association-or-det/resultsall node #f))))
+  (not (not (variable-get-association-or-nondet node #f))))
 
 

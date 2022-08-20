@@ -25,8 +25,7 @@
 %use (node-children) "./node.scm"
 %use (node-equal?) "./node-equal-huh.scm"
 %use (match-thread-relative) "./match-thread-relative.scm"
-%use (variable-get-association-or-det/resultsall) "./variable-get-association-or-nondet.scm"
-%use (variable-get-association-resultsall-singleton) "./variable-get-association-resultsall-singleton.scm"
+%use (variable-get-association-or-nondet) "./variable-get-association-or-nondet.scm"
 %use (variable-associated?/nondet) "./variable-associated-huh-nondet.scm"
 %use (associate-variable!/det/nondet) "./associate-variable-bang-nondet.scm"
 %use (get-current-match-thread) "./get-current-match-thread.scm"
@@ -39,7 +38,7 @@
 
 (define (node-matches? pattern-node input-node-list)
   (node-lists-equal?/no-deref
-   (or (variable-get-association-or-det/resultsall pattern-node #f)
+   (or (variable-get-association-or-nondet pattern-node #f)
        (list pattern-node))
    input-node-list))
 
@@ -93,6 +92,6 @@
 
 (define (run-match-pattern-nondet free-stack match-node input-val)
   (define match-val
-    (variable-get-association-or-det/resultsall match-node (list match-node)))
+    (variable-get-association-or-nondet match-node (list match-node)))
 
   (main-loop* free-stack match-val (list input-val)))
