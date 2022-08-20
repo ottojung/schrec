@@ -14,14 +14,14 @@
 
 %run guile
 
-%var run-rewrite-pattern-resultsfirst
+%var run-rewrite-pattern-det
 
 %use (set-node-children! node-children) "./node.scm"
 %use (make-fresh-branch-node) "./make-fresh-branch-node.scm"
 %use (variable-get-association-or-det) "./variable-get-association-or-det.scm"
 %use (node-equal?) "./node-equal-huh.scm"
 
-(define (run-rewrite-pattern-resultsfirst replace-pattern main-input)
+(define (run-rewrite-pattern-det replace-pattern main-input)
   (define (loop P)
     (or (variable-get-association-or-det P #f)
         (make-fresh-branch-node
