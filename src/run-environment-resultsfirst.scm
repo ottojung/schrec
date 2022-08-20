@@ -22,7 +22,7 @@
 %use (node-children) "./node.scm"
 %use (match-rewrite-block) "./match-rewrite-block.scm"
 %use (rewrite-rewrite-block) "./rewrite-rewrite-block.scm"
-%use (associate-variable!) "./associate-variable-bang.scm"
+%use (associate-variable!/det) "./associate-variable-bang-det.scm"
 %use (uninitialize-variable!) "./uninitialize-variable-bang.scm"
 %use (eval-hook) "./eval-hook.scm"
 %use (block-fn) "./block-fn.scm"
@@ -33,7 +33,7 @@
 
   (define result
     (and
-     (or (associate-variable! free-stack main-input pointer-node) #t)
+     (or (associate-variable!/det free-stack main-input pointer-node) #t)
      (list-and-map (block-fn match-rewrite-block free-stack) blocks)
      (for-each (block-fn rewrite-rewrite-block free-stack) blocks)))
 

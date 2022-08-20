@@ -14,7 +14,7 @@
 
 %run guile
 
-%var associate-variable!
+%var associate-variable!/det
 
 %use (raisu) "./euphrates/raisu.scm"
 %use (stack-push!) "./euphrates/stack.scm"
@@ -23,7 +23,7 @@
 %use (variable-associated?/det) "./variable-associated-huh-det.scm"
 %use (const-variable?) "./const-variable-huh.scm"
 
-(define (associate-variable! free-stack node target-node)
+(define (associate-variable!/det free-stack node target-node)
   (if (variable-associated?/det node)
       (if (const-variable? node)
           (raisu 'trying-to-associate-a-constant node target-node)

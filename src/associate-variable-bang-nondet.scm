@@ -14,7 +14,7 @@
 
 %run guile
 
-%var associate-variable!/resultsall
+%var associate-variable!/det/nondet
 
 %use (raisu) "./euphrates/raisu.scm"
 %use (stack-push!) "./euphrates/stack.scm"
@@ -26,7 +26,7 @@
 %use (thread-obj-lst) "./thread-obj.scm"
 %use (const-variable?) "./const-variable-huh.scm"
 
-(define (associate-variable!/resultsall free-stack node vals)
+(define (associate-variable!/det/nondet free-stack node vals)
   (if (variable-associated?/nondet node)
       (if (const-variable? node)
           (raisu 'trying-to-associate-a-constant node vals)
@@ -34,7 +34,7 @@
       (let* ((match-thread (get-current-match-thread))
              (lst (thread-obj-lst match-thread))
              (pt (or (node-binding node)
-                     (let ((new (make-prefixtree 'uninitialized-prefixtree-from-associate-variable!)))
+                     (let ((new (make-prefixtree 'uninitialized-prefixtree-from-associate-variable!/det)))
                        (set-node-binding! node new)
                        new))))
         (stack-push! free-stack node)

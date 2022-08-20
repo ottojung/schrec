@@ -34,7 +34,7 @@
              (pt (node-binding node))
              (ret (and pt (prefixtree-ref-furthest pt lst))))
         (if (and ret
-                 (not (equal? ret 'uninitialized-prefixtree-from-associate-variable!)))
+                 (not (equal? ret 'uninitialized-prefixtree-from-associate-variable!/det)))
             (if (list-singleton? ret)
                 (car ret)
                 default-if-not-singleton)

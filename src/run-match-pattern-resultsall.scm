@@ -28,7 +28,7 @@
 %use (variable-get-association-or-det/resultsall) "./variable-get-association-or-nondet.scm"
 %use (variable-get-association-resultsall-singleton) "./variable-get-association-resultsall-singleton.scm"
 %use (variable-associated?/nondet) "./variable-associated-huh-nondet.scm"
-%use (associate-variable!/resultsall) "./associate-variable-bang-resultsall.scm"
+%use (associate-variable!/det/nondet) "./associate-variable-bang-nondet.scm"
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (match-thread-fork) "./match-thread-fork.scm"
 
@@ -76,7 +76,7 @@
              (continue)
              '())
          (match-thread-fork
-          (associate-variable!/resultsall free-stack current taken)
+          (associate-variable!/det/nondet free-stack current taken)
           (let ((match-threads (continue)))
             (if (null? current-children) match-threads
                 (list-map/flatten

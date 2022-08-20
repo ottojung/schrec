@@ -29,7 +29,7 @@
              (lst (thread-obj-lst match-thread))
              (pt (node-binding node))
              (ret (and pt (prefixtree-ref-furthest pt lst))))
-        (if (or (equal? ret 'uninitialized-prefixtree-from-associate-variable!)
+        (if (or (equal? ret 'uninitialized-prefixtree-from-associate-variable!/det)
                 (not ret))
             default
             ret))))
