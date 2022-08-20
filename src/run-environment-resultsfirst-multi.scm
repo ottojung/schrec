@@ -24,7 +24,7 @@
 %use (rewrite-rewrite-block/nondet) "./rewrite-rewrite-block-nondet.scm"
 %use (soft-uninitialize-variable!) "./soft-uninitialize-variable-bang.scm"
 %use (eval-hook) "./eval-hook.scm"
-%use (match-thread-relative) "./match-thread-relative.scm"
+%use (with-current-match-thread) "./with-current-match-thread.scm"
 %use (thread-fork) "./thread-fork.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 %use (block-fn) "./block-fn.scm"
@@ -39,9 +39,9 @@
            (match-blocks/nondet free-stack main-input pointer-node blocks)))
       (if (null? re-match-threads) #f
           (let ((chosen-thread (car re-match-threads))) ;; NOTE: choosing the greediest match
-            ((match-thread-relative
-              (for-each (block-fn rewrite-rewrite-block/nondet free-stack) blocks))
-             chosen-thread)
+            (with-current-match-thread
+             chosen-thread
+             (for-each (block-fn rewrite-rewrite-block/nondet free-stack) blocks))
             #t))))
 
   (for-each soft-uninitialize-variable!
