@@ -17,7 +17,7 @@
 %var match-rewrite-block/resultsall
 
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-constant? set-node-constant?! node-binding set-node-binding! node-visited? set-node-visited?!) "./node.scm"
-%use (run-match-pattern-resultsfirst/resultsall) "./run-match-pattern-resultsfirst-resultsall.scm"
+%use (run-match-pattern-resultsall) "./run-match-pattern-resultsall.scm"
 %use (variable-get-association-resultsall-singleton) "./variable-get-association-resultsall-singleton.scm"
 
 (define (match-rewrite-block/resultsall free-stack block)
@@ -32,6 +32,6 @@
 
   (define ret
     (if (not input-val) '()
-        (run-match-pattern-resultsfirst/resultsall free-stack match-pattern input-val)))
+        (run-match-pattern-resultsall free-stack match-pattern input-val)))
 
   ret)

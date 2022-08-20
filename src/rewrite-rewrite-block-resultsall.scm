@@ -19,7 +19,7 @@
 %use (raisu) "./euphrates/raisu.scm"
 
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-constant? set-node-constant?! node-binding set-node-binding! node-visited? set-node-visited?!) "./node.scm"
-%use (run-rewrite-pattern-resultsfirst/resultsall) "./run-rewrite-pattern-resultsfirst-resultsall.scm"
+%use (run-rewrite-pattern-resultsall) "./run-rewrite-pattern-resultsall.scm"
 %use (variable-get-association-or/resultsall) "./variable-get-association-or-resultsall.scm"
 %use (variable-get-association-resultsall-singleton) "./variable-get-association-resultsall-singleton.scm"
 
@@ -35,4 +35,4 @@
     (or (variable-get-association-resultsall-singleton input-node input-node #f)
         (raisu 'bad-input-node-in-rewrite-rewrite-block-resultsall input-node)))
 
-  (run-rewrite-pattern-resultsfirst/resultsall replace-pattern input-val))
+  (run-rewrite-pattern-resultsall replace-pattern input-val))

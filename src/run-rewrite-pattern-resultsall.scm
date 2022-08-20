@@ -14,7 +14,7 @@
 
 %run guile
 
-%var run-rewrite-pattern-resultsfirst/resultsall
+%var run-rewrite-pattern-resultsall
 
 %use (raisu) "./euphrates/raisu.scm"
 %use (list-map/flatten) "./euphrates/list-map-flatten.scm"
@@ -25,7 +25,7 @@
 %use (variable-get-association-or/resultsall) "./variable-get-association-or-resultsall.scm"
 %use (variable-get-association-resultsall-singleton) "./variable-get-association-resultsall-singleton.scm"
 
-(define (run-rewrite-pattern-resultsfirst/resultsall replace-pattern main-input)
+(define (run-rewrite-pattern-resultsall replace-pattern main-input)
   (define (loop P)
     (or (variable-get-association-or/resultsall P #f)
         (list (make-fresh-branch-node

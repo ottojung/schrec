@@ -23,7 +23,7 @@
 %use (eval-single-form?) "./eval-single-form-huh.scm"
 %use (eval-multi-form?) "./eval-multi-form-huh.scm"
 %use (run-environment-resultsfirst) "./run-environment-resultsfirst.scm"
-%use (run-environment-resultsfirst/resultsall) "./run-environment-resultsfirst-resultsall.scm"
+%use (run-environment-resultsall) "./run-environment-resultsall.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 
 (define (single-runner main-input env body pointer-node)
@@ -31,7 +31,7 @@
       (list (get-current-thread))
       '()))
 
-(define multi-runner run-environment-resultsfirst/resultsall)
+(define multi-runner run-environment-resultsall)
 
 (define (eval/resultsall/node eval-node)
   (cond
