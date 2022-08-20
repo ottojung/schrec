@@ -16,12 +16,49 @@
 
 %var reduce/resultsall
 
-%use (reduce/resultsall/stream) "./reduce-resultsall-stream.scm"
+%use (list-or-map) "./euphrates/list-or-map.scm"
+%use (list-map/flatten) "./euphrates/list-map-flatten.scm"
+%use (cons!) "./euphrates/cons-bang.scm"
+%use (stack-make stack-push! stack-pop! stack-empty?) "./euphrates/stack.scm"
 
-;; Returns list of thread IDs that were the finishers
+%use (find-partially-sorted-evals) "./find-partially-sorted-evals.scm"
+%use (eval/resultsall/node) "./eval-resultsall-node.scm"
+%use (make-thread-id) "./make-thread-id.scm"
+%use (thread-relative) "./thread-relative.scm"
+%use (get-current-thread) "./get-current-thread.scm"
+%use (node-children) "./node.scm"
+
+;; Returns an enumerator of thread IDs that were the finishers
 (define (reduce/resultsall graph)
-  (define stream (reduce/resultsall/stream graph))
-  (let loop ((buf '()))
-    (let ((got (stream)))
-      (if got (loop (cons got buf))
-          buf))))
+  (define mem (list (get-current-thread)))
+  (define results (stack-make))
+
+  (define (eval-fun)
+    ;; These `evals' are grouped such that
+    ;;   in each group every element can be run first
+    (define evals (find-partially-sorted-evals graph))
+
+    (let loop ((evals evals))
+      (if (null? evals)
+          (begin
+            (stack-push! results (get-current-thread))
+            '())
+          (let* ((group (car evals))
+                 (successful-thread-ids
+                  (list-map/flatten eval/resultsall/node group)))
+            (if (null? successful-thread-ids)
+                (loop (cdr evals))
+                successful-thread-ids)))))
+
+  (lambda _
+    (when (stack-empty? results)
+      (let oloop ((threads mem))
+        (if (or (not (stack-empty? results))
+                (null? threads))
+            (set! mem threads)
+            (oloop
+             (list-map/flatten
+              (thread-relative (eval-fun)) threads)))))
+
+    (if (stack-empty? results) #f
+        (stack-pop! results))))

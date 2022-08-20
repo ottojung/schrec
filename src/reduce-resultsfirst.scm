@@ -20,9 +20,13 @@
 
 %use (eval/resultsfirst/node) "./eval-resultsfirst-node.scm"
 %use (find-sorted-evals) "./find-sorted-evals.scm"
+%use (get-current-thread) "./get-current-thread.scm"
 
 (define (reduce/resultsfirst g)
-  (let oloop ()
-    (define evals (find-sorted-evals g))
-    (when (list-find-first eval/resultsfirst/node #f evals)
-      (oloop))))
+  (lambda _
+    (let oloop ((reduced-once? #f))
+      (define evals (find-sorted-evals g))
+      (if (list-find-first eval/resultsfirst/node #f evals)
+          (oloop #t)
+          (and reduced-once?
+               (get-current-thread))))))

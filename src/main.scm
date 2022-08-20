@@ -30,7 +30,7 @@
 %use (reduce/resultsfirst) "./reduce-resultsfirst.scm"
 %use (reduce/resultsall) "./reduce-resultsall.scm"
 %use (reduce/resultsrandom) "./reduce-resultsrandom.scm"
-%use (thread-relative) "./thread-relative.scm"
+%use (with-current-thread) "./with-current-thread.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 %use (pretty-print-graph) "./pretty-print-graph.scm"
 %use (default-eval-hook) "./default-eval-hook.scm"
@@ -85,7 +85,7 @@
           (display "Original:\n")
           (pretty-print-graph graph))
 
-        (let ((thread-ids
+        (let ((thread-ids-stream
                (cond
                 (all
                  (reduce/resultsall graph))
@@ -96,10 +96,11 @@
                 (else
                  (raisu 'impossible RESULTS)))))
 
-          (unless --trace
-            (for-each
-             (thread-relative
-              (pretty-print-graph graph))
-             thread-ids))))))))
+          (let loop ()
+            (let ((thread (thread-ids-stream)))
+              (when thread
+                (unless --trace
+                  (with-current-thread thread (pretty-print-graph graph)))
+                (loop))))))))))
 
 (main)

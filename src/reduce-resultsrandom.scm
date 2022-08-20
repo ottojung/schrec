@@ -43,8 +43,9 @@
             (or successful?
                 (loop (cdr evals)))))))
 
-  (let oloop ()
-    (when (eval-fun)
-      (oloop)))
-
-  (list (get-current-thread)))
+  (lambda _
+    (let oloop ((reduced-once? #f))
+      (if (eval-fun)
+          (oloop #t)
+          (and reduced-once?
+               (get-current-thread))))))
