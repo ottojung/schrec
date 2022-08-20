@@ -21,7 +21,7 @@
 %use (list-map/flatten) "./euphrates/list-map-flatten.scm"
 
 %use (node-children) "./node.scm"
-%use (rewrite-rewrite-block/resultsall) "./rewrite-rewrite-block-resultsall.scm"
+%use (rewrite-rewrite-block/nondet) "./rewrite-rewrite-block-nondet.scm"
 %use (soft-uninitialize-variable!) "./soft-uninitialize-variable-bang.scm"
 %use (eval-hook) "./eval-hook.scm"
 %use (match-thread-relative) "./match-thread-relative.scm"
@@ -40,7 +40,7 @@
       (if (null? re-match-threads) #f
           (let ((chosen-thread (car re-match-threads))) ;; NOTE: choosing the greediest match
             ((match-thread-relative
-              (for-each (block-fn rewrite-rewrite-block/resultsall free-stack) blocks))
+              (for-each (block-fn rewrite-rewrite-block/nondet free-stack) blocks))
              chosen-thread)
             #t))))
 
