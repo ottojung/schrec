@@ -17,7 +17,7 @@
 %var match-rewrite-block
 
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-constant? set-node-constant?! node-binding set-node-binding! node-visited? set-node-visited?!) "./node.scm"
-%use (run-match-pattern-resultsfirst) "./run-match-pattern-resultsfirst.scm"
+%use (run-match-pattern-det) "./run-match-pattern-det.scm"
 %use (variable-get-association-or-det) "./variable-get-association-or-det.scm"
 
 (define (match-rewrite-block free-stack block)
@@ -30,4 +30,4 @@
   (define input-val
     (variable-get-association-or-det input-node input-node))
 
-  (run-match-pattern-resultsfirst free-stack match-pattern input-val))
+  (run-match-pattern-det free-stack match-pattern input-val))

@@ -14,7 +14,7 @@
 
 %run guile
 
-%var run-match-pattern-resultsall
+%var run-match-pattern-nondet
 
 %use (list-and-map) "./euphrates/list-and-map.scm"
 %use (list-map/flatten) "./euphrates/list-map-flatten.scm"
@@ -91,7 +91,7 @@
           '())
       (match-current free-stack match-nodes input-nodes)))
 
-(define (run-match-pattern-resultsall free-stack match-node input-val)
+(define (run-match-pattern-nondet free-stack match-node input-val)
   (define match-val
     (variable-get-association-or-det/resultsall match-node (list match-node)))
 

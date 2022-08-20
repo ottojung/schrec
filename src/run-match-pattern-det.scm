@@ -14,7 +14,7 @@
 
 %run guile
 
-%var run-match-pattern-resultsfirst
+%var run-match-pattern-det
 
 %use (node-children) "./node.scm"
 %use (list-and-map) "./euphrates/list-and-map.scm"
@@ -22,7 +22,7 @@
 %use (associate-variable!/det) "./associate-variable-bang-det.scm"
 %use (variable-get-association-or-det) "./variable-get-association-or-det.scm"
 
-(define (run-match-pattern-resultsfirst free-stack match-node input-node)
+(define (run-match-pattern-det free-stack match-node input-node)
   (let loop ((match-node match-node) (input-node input-node))
     (let ((match-val (variable-get-association-or-det match-node #f)))
       (if match-val
