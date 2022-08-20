@@ -29,7 +29,7 @@
 %use (thread-fork) "./thread-fork.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 %use (block-fn) "./block-fn.scm"
-%use (match-blocks/resultsall) "./match-blocks-resultsall.scm"
+%use (match-blocks/nondet) "./match-blocks-nondet.scm"
 
 (define (run-environment-resultsall main-input env body pointer-node)
   (define free-stack (stack-make))
@@ -37,7 +37,7 @@
 
   (define result
     (let ((re-match-threads
-           (match-blocks/resultsall free-stack main-input pointer-node blocks)))
+           (match-blocks/nondet free-stack main-input pointer-node blocks)))
       (define re-threads
         (map
          (match-thread-relative

@@ -28,7 +28,7 @@
 %use (thread-fork) "./thread-fork.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 %use (block-fn) "./block-fn.scm"
-%use (match-blocks/resultsall) "./match-blocks-resultsall.scm"
+%use (match-blocks/nondet) "./match-blocks-nondet.scm"
 
 (define (run-environment-resultsfirst/multi main-input env body pointer-node)
   (define free-stack (stack-make))
@@ -36,7 +36,7 @@
 
   (define result
     (let ((re-match-threads
-           (match-blocks/resultsall free-stack main-input pointer-node blocks)))
+           (match-blocks/nondet free-stack main-input pointer-node blocks)))
       (if (null? re-match-threads) #f
           (let ((chosen-thread (car re-match-threads))) ;; NOTE: choosing the greediest match
             ((match-thread-relative
