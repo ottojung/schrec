@@ -25,7 +25,7 @@
 %use (eval-hook) "./eval-hook.scm"
 %use (graph->list) "./graph-to-list.scm"
 %use (list->graph) "./list-to-graph.scm"
-%use (reduce/det-topdown) "./reduce-det-topdown.scm"
+%use (reduce/resultsfirst) "./reduce-resultsfirst.scm"
 %use (reduce/resultsall) "./reduce-resultsall.scm"
 %use (thread-relative) "./thread-relative.scm"
 %use (get-current-thread) "./get-current-thread.scm"
@@ -77,7 +77,7 @@
 
        (let ((thread-ids
               (if first
-                  (begin (reduce/det-topdown graph) (list (get-current-thread)))
+                  (begin (reduce/resultsfirst graph) (list (get-current-thread)))
                   (reduce/resultsall graph))))
 
          (unless --trace

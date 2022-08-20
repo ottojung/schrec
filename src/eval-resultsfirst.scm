@@ -14,13 +14,13 @@
 
 %run guile
 
-%var eval/det-topdown
+%var eval/resultsfirst
 
 %use (list-or-map) "./euphrates/list-or-map.scm"
 %use (node-children node-visited? set-node-visited?!) "./node.scm"
 %use (check-environment) "./check-environment.scm"
 
-(define (eval/det-topdown func main-input env body)
+(define (eval/resultsfirst func main-input env body)
   (and (check-environment env)
        (let ((result
               (let loop ((g body))

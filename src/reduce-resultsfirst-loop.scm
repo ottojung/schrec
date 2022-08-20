@@ -14,15 +14,17 @@
 
 %run guile
 
-%var reduce/det-topdown
+%var reduce/resultsfirst/loop
 
 %use (list-find-first) "./euphrates/list-find-first.scm"
-
-%use (eval/det-topdown/node) "./eval-det-topdown-node.scm"
+%use (run-environment) "./run-environment.scm"
 %use (find-sorted-evals) "./find-sorted-evals.scm"
+%use (get-eval-env) "./get-eval-env.scm"
+%use (eval/resultsfirst/node/loop) "./eval-resultsfirst-node-loop.scm"
 
-(define (reduce/det-topdown g)
+;; NOTE: not semantically correct either
+(define (reduce/resultsfirst/loop graph)
   (let oloop ()
-    (define evals (find-sorted-evals g))
-    (when (list-find-first eval/det-topdown/node #f evals)
+    (define evals (find-sorted-evals graph))
+    (when (list-find-first eval/resultsfirst/node/loop #f evals)
       (oloop))))

@@ -14,11 +14,11 @@
 
 %run guile
 
-%var eval/det-topdown/node/loop
+%var eval/resultsfirst/node/loop
 
 %use (raisu) "./euphrates/raisu.scm"
 
-%use (eval/det-topdown) "./eval-det-topdown.scm"
+%use (eval/resultsfirst) "./eval-resultsfirst.scm"
 %use (get-eval-body) "./get-eval-body.scm"
 %use (get-eval-env) "./get-eval-env.scm"
 %use (get-eval-input) "./get-eval-input.scm"
@@ -27,14 +27,14 @@
 %use (run-environment) "./run-environment.scm"
 %use (run-environment/multi) "./run-environment-multi.scm"
 
-(define (eval/det-topdown/node/loop eval-node)
+(define (eval/resultsfirst/node/loop eval-node)
   (cond
    ((eval-single-form? eval-node)
     (let ((env (get-eval-env eval-node))
           (body (get-eval-body eval-node))
           (main-input (get-eval-input eval-node)))
       (let loop ((evaled? #f))
-        (if (eval/det-topdown run-environment main-input env body)
+        (if (eval/resultsfirst run-environment main-input env body)
             (loop #t)
             evaled?))))
    ((eval-multi-form? eval-node)
@@ -42,7 +42,7 @@
           (body (get-eval-body eval-node))
           (main-input (get-eval-input eval-node)))
       (let loop ((evaled? #f))
-        (if (eval/det-topdown run-environment/multi main-input env body)
+        (if (eval/resultsfirst run-environment/multi main-input env body)
             (loop #t)
             evaled?))))
    (else #f)))
