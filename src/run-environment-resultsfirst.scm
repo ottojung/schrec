@@ -14,7 +14,7 @@
 
 %run guile
 
-%var run-environment
+%var run-environment-resultsfirst
 
 %use (list-and-map) "./euphrates/list-and-map.scm"
 %use (stack-make stack->list) "./euphrates/stack.scm"
@@ -27,7 +27,7 @@
 %use (eval-hook) "./eval-hook.scm"
 %use (block-fn) "./block-fn.scm"
 
-(define (run-environment main-input env body pointer-node)
+(define (run-environment-resultsfirst main-input env body pointer-node)
   (define free-stack (stack-make))
   (define blocks (node-children env))
 

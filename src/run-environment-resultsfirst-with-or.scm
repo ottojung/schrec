@@ -14,7 +14,7 @@
 
 %run guile
 
-%var run-environment
+%var run-environment-resultsfirst
 
 %use (list-or-map) "./euphrates/list-or-map.scm"
 %use (list-and-map) "./euphrates/list-and-map.scm"
@@ -29,7 +29,7 @@
 %use (rewrite-rewrite-block) "./rewrite-rewrite-block.scm"
 %use (uninitialize-rewrite-block) "./uninitialize-rewrite-block.scm"
 
-(define (run-environment env main-input)
+(define (run-environment-resultsfirst env main-input)
   (define free-stack (stack-make))
 
   (define (expr-map fn)

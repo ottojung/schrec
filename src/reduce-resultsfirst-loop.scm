@@ -17,7 +17,7 @@
 %var reduce/resultsfirst/loop
 
 %use (list-find-first) "./euphrates/list-find-first.scm"
-%use (run-environment) "./run-environment.scm"
+%use (run-environment-resultsfirst) "./run-environment-resultsfirst.scm"
 %use (find-sorted-evals) "./find-sorted-evals.scm"
 %use (get-eval-env) "./get-eval-env.scm"
 %use (eval/resultsfirst/node/loop) "./eval-resultsfirst-node-loop.scm"

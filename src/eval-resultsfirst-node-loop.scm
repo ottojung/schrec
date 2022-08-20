@@ -24,8 +24,8 @@
 %use (get-eval-input) "./get-eval-input.scm"
 %use (eval-single-form?) "./eval-single-form-huh.scm"
 %use (eval-multi-form?) "./eval-multi-form-huh.scm"
-%use (run-environment) "./run-environment.scm"
-%use (run-environment/multi) "./run-environment-multi.scm"
+%use (run-environment-resultsfirst) "./run-environment-resultsfirst.scm"
+%use (run-environment-resultsfirst/multi) "./run-environment-resultsfirst-multi.scm"
 
 (define (eval/resultsfirst/node/loop eval-node)
   (cond
@@ -34,7 +34,7 @@
           (body (get-eval-body eval-node))
           (main-input (get-eval-input eval-node)))
       (let loop ((evaled? #f))
-        (if (eval/resultsfirst run-environment main-input env body)
+        (if (eval/resultsfirst run-environment-resultsfirst main-input env body)
             (loop #t)
             evaled?))))
    ((eval-multi-form? eval-node)
@@ -42,7 +42,7 @@
           (body (get-eval-body eval-node))
           (main-input (get-eval-input eval-node)))
       (let loop ((evaled? #f))
-        (if (eval/resultsfirst run-environment/multi main-input env body)
+        (if (eval/resultsfirst run-environment-resultsfirst/multi main-input env body)
             (loop #t)
             evaled?))))
    (else #f)))

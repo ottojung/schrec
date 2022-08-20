@@ -7,7 +7,7 @@
 %use (node? node-children set-node-children! node-label) "./src/node.scm"
 %use (list->graph) "./src/list-to-graph.scm"
 %use (graph->list) "./src/graph-to-list.scm"
-%use (run-environment) "./src/run-environment.scm"
+%use (run-environment-resultsfirst) "./src/run-environment-resultsfirst.scm"
 %use (eval-hook) "./src/eval-hook.scm"
 %use (get-head) "./src/get-head.scm"
 %use (find-partially-sorted-eval-likes) "./src/find-partially-sorted-eval-likes.scm"
