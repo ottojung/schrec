@@ -22,12 +22,14 @@
 %use (open-file-port) "./euphrates/open-file-port.scm"
 %use (read-list) "./euphrates/read-list.scm"
 %use (with-randomizer-seed) "./euphrates/with-randomizer-seed.scm"
+%use (raisu) "./euphrates/raisu.scm"
 
 %use (eval-hook) "./eval-hook.scm"
 %use (graph->list) "./graph-to-list.scm"
 %use (list->graph) "./list-to-graph.scm"
 %use (reduce/resultsfirst) "./reduce-resultsfirst.scm"
 %use (reduce/resultsall) "./reduce-resultsall.scm"
+%use (reduce/resultsrandom) "./reduce-resultsrandom.scm"
 %use (thread-relative) "./thread-relative.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 %use (pretty-print-graph) "./pretty-print-graph.scm"
@@ -44,19 +46,19 @@
      (MAIN
       MAIN : --help
       /      OPT* <filename>
-      OPT : RESULTS
+      OPT : --results RESULTS
       /     --trace
       /     --no-trace
       /     --seed <seed>
-      RESULTS : --results all
-      /         --results first
+      RESULTS : all / first / random
       )
 
      :default (all #t)
-     :exclusive (all first)
+     :exclusive (all first random)
 
      :help (all "Non-deterministic mode, returns all possible values.")
      :help (first "Deterministic mode, returns only the first (left-most) value.")
+     :help (random "Random deterministic mode, returns a random value.")
 
      :help (<seed> "A seed for the random number generator.")
      :type (<seed> 'number)
@@ -84,9 +86,15 @@
           (pretty-print-graph graph))
 
         (let ((thread-ids
-               (if first
-                   (begin (reduce/resultsfirst graph) (list (get-current-thread)))
-                   (reduce/resultsall graph))))
+               (cond
+                (all
+                 (reduce/resultsall graph))
+                (first
+                 (reduce/resultsfirst graph))
+                (random
+                 (reduce/resultsrandom graph))
+                (else
+                 (raisu 'impossible RESULTS)))))
 
           (unless --trace
             (for-each
