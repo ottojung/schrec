@@ -75,7 +75,7 @@ mkdir -p dist/test/examples/nondet/
 echo "$DET" | while IFS= read -r FILE
 do
 	test -z "$FILE" && continue
-	CMD="$SCHREC --trace --deterministic example/$FILE"
+	CMD="$SCHREC --trace --results first example/$FILE"
 	echo "> $CMD"
 	$CMD | head -n 1000 > "dist/test/examples/det/$FILE.txt"
 
@@ -86,7 +86,7 @@ done
 echo "$NONDET" | while IFS= read -r FILE
 do
 	test -z "$FILE" && continue
-	CMD="$SCHREC --trace --nondeterministic example/$FILE"
+	CMD="$SCHREC --trace --results all example/$FILE"
 	echo "> $CMD"
 	$CMD | head -n 1000 > "dist/test/examples/nondet/$FILE.txt"
 

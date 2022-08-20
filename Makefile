@@ -3,7 +3,7 @@ PREFIX = $(HOME)/.local
 PREFIX_BIN = $(PREFIX)/bin
 
 RUN_TARGET =
-SCHREC_OPTS = --nondeterministic
+SCHREC_OPTS = --results all
 
 SUBMODULES = deps/euphrates/.git
 

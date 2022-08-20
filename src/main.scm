@@ -43,14 +43,18 @@
      (MAIN
       MAIN : --help
       /      OPT* <filename>
-      OPT : --deterministic
-      /     --nondeterministic
+      OPT : RESULTS
       /     --trace
       /     --no-trace
+      RESULTS : --results all
+      /         --results first
       )
 
-     :default (--nondeterministic #t)
-     :exclusive (--nondeterministic --deterministic)
+     :default (all #t)
+     :exclusive (all first)
+
+     :help (all "Non-deterministic mode, returns all possible values.")
+     :help (first "Deterministic mode, returns only the first (left-most) value.")
 
      :default (--no-trace #t)
      :exclusive (--no-trace --trace)
@@ -72,7 +76,7 @@
          (pretty-print-graph graph))
 
        (let ((thread-ids
-              (if --deterministic
+              (if first
                   (begin (reduce/det-topdown graph) (list (get-current-thread)))
                   (reduce/nondet graph))))
 
