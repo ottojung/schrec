@@ -14,7 +14,7 @@
 
 %run guile
 
-%var run-match-pattern
+%var run-match-pattern-resultsfirst
 
 %use (node-children) "./node.scm"
 %use (list-and-map) "./euphrates/list-and-map.scm"
@@ -22,7 +22,7 @@
 %use (associate-variable!) "./associate-variable-bang.scm"
 %use (variable-get-association-or) "./variable-get-association-or.scm"
 
-(define (run-match-pattern free-stack match-node input-node)
+(define (run-match-pattern-resultsfirst free-stack match-node input-node)
   (let loop ((match-node match-node) (input-node input-node))
     (let ((match-val (variable-get-association-or match-node #f)))
       (if match-val
