@@ -21,13 +21,13 @@
 %use (make-prefixtree prefixtree-set! prefixtree-ref-furthest) "./euphrates/prefixtree.scm"
 
 %use (node-binding set-node-binding!) "./node.scm"
-%use (variable-associated?/resultsall) "./variable-associated-huh-resultsall.scm"
+%use (variable-associated?/det/nondet) "./variable-associated-huh-det-nondet.scm"
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (thread-obj-lst) "./thread-obj.scm"
 %use (const-variable?) "./const-variable-huh.scm"
 
 (define (associate-variable!/resultsall free-stack node vals)
-  (if (variable-associated?/resultsall node)
+  (if (variable-associated?/det/nondet node)
       (if (const-variable? node)
           (raisu 'trying-to-associate-a-constant node vals)
           (raisu 'already-associated node vals))

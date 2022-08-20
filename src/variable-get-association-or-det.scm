@@ -14,11 +14,12 @@
 
 %run guile
 
-%var variable-associated?/resultsall
+%var variable-get-association-or-det
 
-%use (variable-get-association-or/resultsall) "./variable-get-association-or-resultsall.scm"
+%use (node-binding) "./node.scm"
+%use (const-variable?) "./const-variable-huh.scm"
 
-(define (variable-associated?/resultsall node)
-  (not (not (variable-get-association-or/resultsall node #f))))
-
-
+(define (variable-get-association-or-det node default)
+  (if (const-variable? node) node
+      (or (node-binding node)
+          default)))

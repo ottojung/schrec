@@ -22,12 +22,12 @@
 %use (set-node-children! node-children) "./node.scm"
 %use (node-equal?) "./node-equal-huh.scm"
 %use (make-fresh-branch-node) "./make-fresh-branch-node.scm"
-%use (variable-get-association-or/resultsall) "./variable-get-association-or-resultsall.scm"
+%use (variable-get-association-or-det/resultsall) "./variable-get-association-or-det-resultsall.scm"
 %use (variable-get-association-resultsall-singleton) "./variable-get-association-resultsall-singleton.scm"
 
 (define (run-rewrite-pattern-resultsall replace-pattern main-input)
   (define (loop P)
-    (or (variable-get-association-or/resultsall P #f)
+    (or (variable-get-association-or-det/resultsall P #f)
         (list (make-fresh-branch-node
                (list-map/flatten loop (node-children P))))))
 

@@ -20,11 +20,11 @@
 %use (stack-push!) "./euphrates/stack.scm"
 
 %use (set-node-binding!) "./node.scm"
-%use (variable-associated?) "./variable-associated-huh.scm"
+%use (variable-associated?/det) "./variable-associated-huh-det.scm"
 %use (const-variable?) "./const-variable-huh.scm"
 
 (define (associate-variable! free-stack node target-node)
-  (if (variable-associated? node)
+  (if (variable-associated?/det node)
       (if (const-variable? node)
           (raisu 'trying-to-associate-a-constant node target-node)
           (raisu 'already-associated node target-node))

@@ -14,9 +14,9 @@
 
 %run guile
 
-%var variable-associated?
+%var variable-associated?/det
 
-%use (variable-get-association-or) "./variable-get-association-or.scm"
+%use (variable-get-association-or-det) "./variable-get-association-or-det.scm"
 
-(define (variable-associated? node)
-  (not (not (variable-get-association-or node #f))))
+(define (variable-associated?/det node)
+  (not (not (variable-get-association-or-det node #f))))

@@ -20,11 +20,11 @@
 %use (list-and-map) "./euphrates/list-and-map.scm"
 %use (node-equal?) "./node-equal-huh.scm"
 %use (associate-variable!) "./associate-variable-bang.scm"
-%use (variable-get-association-or) "./variable-get-association-or.scm"
+%use (variable-get-association-or-det) "./variable-get-association-or-det.scm"
 
 (define (run-match-pattern-resultsfirst free-stack match-node input-node)
   (let loop ((match-node match-node) (input-node input-node))
-    (let ((match-val (variable-get-association-or match-node #f)))
+    (let ((match-val (variable-get-association-or-det match-node #f)))
       (if match-val
           (node-equal? match-val input-node)
           (let ((mchildren (node-children match-node))

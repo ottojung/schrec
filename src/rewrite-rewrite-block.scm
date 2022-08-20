@@ -18,7 +18,7 @@
 
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-constant? set-node-constant?! node-binding set-node-binding! node-visited? set-node-visited?!) "./node.scm"
 %use (run-rewrite-pattern-resultsfirst) "./run-rewrite-pattern-resultsfirst.scm"
-%use (variable-get-association-or) "./variable-get-association-or.scm"
+%use (variable-get-association-or-det) "./variable-get-association-or-det.scm"
 
 (define (rewrite-rewrite-block free-stack block)
   (define children (node-children block))
@@ -29,6 +29,6 @@
   (define const-list (node-children const-node))
 
   (define input-val
-    (variable-get-association-or input-node input-node))
+    (variable-get-association-or-det input-node input-node))
 
   (run-rewrite-pattern-resultsfirst replace-pattern input-val))

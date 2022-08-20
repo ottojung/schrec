@@ -18,13 +18,13 @@
 
 %use (dprintln) "./euphrates/dprintln.scm"
 
-%use (variable-get-association-or/resultsall) "./variable-get-association-or-resultsall.scm"
+%use (variable-get-association-or-det/resultsall) "./variable-get-association-or-det-resultsall.scm"
 %use (get-head) "./get-head.scm"
 
 (define (debug-log-bind current taken result)
   (let* ((cur1 (get-head 4 current))
          ;; (taken1 (list->vector (map (lambda (x) (get-head 4 x)) taken)))
          (taken1
-          (let ((ass (variable-get-association-or/resultsall current #f)))
+          (let ((ass (variable-get-association-or-det/resultsall current #f)))
             (list->vector (map (lambda (n) (get-head 4 n)) ass)))))
     (dprintln "Bind ~s to ~s -> ~s    [~s]" cur1 taken1 result (get-current-match-thread))))

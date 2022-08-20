@@ -18,17 +18,17 @@
 
 %use (set-node-children! node-children) "./node.scm"
 %use (make-fresh-branch-node) "./make-fresh-branch-node.scm"
-%use (variable-get-association-or) "./variable-get-association-or.scm"
+%use (variable-get-association-or-det) "./variable-get-association-or-det.scm"
 %use (node-equal?) "./node-equal-huh.scm"
 
 (define (run-rewrite-pattern-resultsfirst replace-pattern main-input)
   (define (loop P)
-    (or (variable-get-association-or P #f)
+    (or (variable-get-association-or-det P #f)
         (make-fresh-branch-node
          (map loop (node-children P)))))
 
   (let ((replace-pattern-val
-         (variable-get-association-or
+         (variable-get-association-or-det
           replace-pattern replace-pattern)))
     (unless (node-equal? replace-pattern-val main-input)
       (let ((new-children

@@ -19,10 +19,10 @@
 %use (raisu) "./euphrates/raisu.scm"
 
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-constant? set-node-constant?! node-binding set-node-binding! node-visited? set-node-visited?!) "./node.scm"
-%use (variable-associated?) "./variable-associated-huh.scm"
+%use (variable-associated?/det) "./variable-associated-huh-det.scm"
 
 (define (uninitialize-variable! node)
-  ;; (unless (variable-associated? node)
+  ;; (unless (variable-associated?/det node)
   (unless (node-binding node)
     (raisu 'variable-not-associated node))
 

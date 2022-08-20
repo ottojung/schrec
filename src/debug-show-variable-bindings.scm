@@ -16,7 +16,7 @@
 
 %var debug-show-variable-bindings
 
-%use (variable-get-association-or/resultsall) "./variable-get-association-or-resultsall.scm"
+%use (variable-get-association-or-det/resultsall) "./variable-get-association-or-det-resultsall.scm"
 %use (words->string) "./euphrates/words-to-string.scm"
 %use (list-intersperse) "./euphrates/list-intersperse.scm"
 %use (dprintln) "./euphrates/dprintln.scm"
@@ -38,7 +38,7 @@
     (dprintln "\nTH: ~s" (get-current-match-thread))
     (for-each
      (lambda (var)
-       (define ass (variable-get-association-or/resultsall var #f))
+       (define ass (variable-get-association-or-det/resultsall var #f))
        (when ass
          (dprintln
           "~s -> ~a"

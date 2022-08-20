@@ -14,7 +14,7 @@
 
 %run guile
 
-%var variable-get-association-or/resultsall
+%var variable-get-association-or-det/resultsall
 
 %use (make-prefixtree prefixtree-set! prefixtree-ref-furthest) "./euphrates/prefixtree.scm"
 
@@ -23,7 +23,7 @@
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (thread-obj-lst) "./thread-obj.scm"
 
-(define (variable-get-association-or/resultsall node default)
+(define (variable-get-association-or-det/resultsall node default)
   (if (const-variable? node) (list node)
       (let* ((match-thread (get-current-match-thread))
              (lst (thread-obj-lst match-thread))
