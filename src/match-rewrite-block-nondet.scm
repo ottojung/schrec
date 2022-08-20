@@ -14,13 +14,13 @@
 
 %run guile
 
-%var match-rewrite-block/resultsall
+%var match-rewrite-block/nondet
 
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-constant? set-node-constant?! node-binding set-node-binding! node-visited? set-node-visited?!) "./node.scm"
 %use (run-match-pattern-nondet) "./run-match-pattern-nondet.scm"
 %use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
 
-(define (match-rewrite-block/resultsall free-stack block)
+(define (match-rewrite-block/nondet free-stack block)
   (define children (node-children block))
   (define const-node (list-ref children 0))
   (define input-node (list-ref children 1))

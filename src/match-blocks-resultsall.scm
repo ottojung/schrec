@@ -18,7 +18,7 @@
 
 %use (list-map/flatten) "./euphrates/list-map-flatten.scm"
 
-%use (match-rewrite-block/resultsall) "./match-rewrite-block-resultsall.scm"
+%use (match-rewrite-block/nondet) "./match-rewrite-block-nondet.scm"
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (match-thread-relative) "./match-thread-relative.scm"
 %use (block-fn) "./block-fn.scm"
@@ -34,6 +34,6 @@
           (define new-match-threads
             (list-map/flatten
              (match-thread-relative
-              ((block-fn match-rewrite-block/resultsall free-stack) cur))
+              ((block-fn match-rewrite-block/nondet free-stack) cur))
              match-threads))
           (loop new-match-threads (cdr blocks))))))
