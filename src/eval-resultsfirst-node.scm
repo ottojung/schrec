@@ -16,7 +16,7 @@
 
 %var eval/resultsfirst/node
 
-%use (eval/resultsfirst) "./eval-resultsfirst.scm"
+%use (eval/det) "./eval-det.scm"
 %use (get-eval-body) "./get-eval-body.scm"
 %use (get-eval-env) "./get-eval-env.scm"
 %use (get-eval-input) "./get-eval-input.scm"
@@ -31,10 +31,10 @@
     (let ((env (get-eval-env eval-node))
           (body (get-eval-body eval-node))
           (main-input (get-eval-input eval-node)))
-      (eval/resultsfirst run-environment-resultsfirst main-input env body)))
+      (eval/det run-environment-resultsfirst main-input env body)))
    ((eval-multi-form? eval-node)
     (let ((env (get-eval-env eval-node))
           (body (get-eval-body eval-node))
           (main-input (get-eval-input eval-node)))
-      (eval/resultsfirst run-environment-resultsfirst/multi main-input env body)))
+      (eval/det run-environment-resultsfirst/multi main-input env body)))
    (else #f)))

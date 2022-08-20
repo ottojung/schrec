@@ -18,7 +18,7 @@
 
 %use (raisu) "./euphrates/raisu.scm"
 
-%use (eval/resultsfirst) "./eval-resultsfirst.scm"
+%use (eval/det) "./eval-det.scm"
 %use (get-eval-body) "./get-eval-body.scm"
 %use (get-eval-env) "./get-eval-env.scm"
 %use (get-eval-input) "./get-eval-input.scm"
@@ -34,7 +34,7 @@
           (body (get-eval-body eval-node))
           (main-input (get-eval-input eval-node)))
       (let loop ((evaled? #f))
-        (if (eval/resultsfirst run-environment-resultsfirst main-input env body)
+        (if (eval/det run-environment-resultsfirst main-input env body)
             (loop #t)
             evaled?))))
    ((eval-multi-form? eval-node)
@@ -42,7 +42,7 @@
           (body (get-eval-body eval-node))
           (main-input (get-eval-input eval-node)))
       (let loop ((evaled? #f))
-        (if (eval/resultsfirst run-environment-resultsfirst/multi main-input env body)
+        (if (eval/det run-environment-resultsfirst/multi main-input env body)
             (loop #t)
             evaled?))))
    (else #f)))

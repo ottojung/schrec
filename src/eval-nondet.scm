@@ -14,13 +14,13 @@
 
 %run guile
 
-%var eval/resultsall
+%var eval/nondet
 
 %use (node-children node-visited? set-node-visited?!) "./node.scm"
 %use (thread-fork) "./thread-fork.scm"
 
 ;; returns a list of new thread ids
-(define (eval/resultsall func main-input env body)
+(define (eval/nondet func main-input env body)
   (let loop ((g body))
     (if (node-visited? g) '()
         (begin
