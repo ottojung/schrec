@@ -14,14 +14,14 @@
 
 %run guile
 
-%var run-environment/nondet
+%var run-environment/resultsall
 
 %use (list-and-map) "./euphrates/list-and-map.scm"
 %use (stack-make stack->list) "./euphrates/stack.scm"
 %use (list-map/flatten) "./euphrates/list-map-flatten.scm"
 
 %use (node-children) "./node.scm"
-%use (rewrite-rewrite-block/nondet) "./rewrite-rewrite-block-nondet.scm"
+%use (rewrite-rewrite-block/resultsall) "./rewrite-rewrite-block-resultsall.scm"
 %use (soft-uninitialize-variable!) "./soft-uninitialize-variable-bang.scm"
 %use (eval-hook) "./eval-hook.scm"
 %use (match-thread-relative) "./match-thread-relative.scm"
@@ -29,20 +29,20 @@
 %use (thread-fork) "./thread-fork.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 %use (block-fn) "./block-fn.scm"
-%use (match-blocks/nondet) "./match-blocks-nondet.scm"
+%use (match-blocks/resultsall) "./match-blocks-resultsall.scm"
 
-(define (run-environment/nondet main-input env body pointer-node)
+(define (run-environment/resultsall main-input env body pointer-node)
   (define free-stack (stack-make))
   (define blocks (node-children env))
 
   (define result
     (let ((re-match-threads
-           (match-blocks/nondet free-stack main-input pointer-node blocks)))
+           (match-blocks/resultsall free-stack main-input pointer-node blocks)))
       (define re-threads
         (map
          (match-thread-relative
           (thread-fork
-           (for-each (block-fn rewrite-rewrite-block/nondet free-stack) blocks)
+           (for-each (block-fn rewrite-rewrite-block/resultsall free-stack) blocks)
            (get-current-thread)))
          re-match-threads))
 

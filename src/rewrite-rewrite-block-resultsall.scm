@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2021, 2022  Otto Jung
+;;;; Copyright (C) 2022  Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -14,24 +14,25 @@
 
 %run guile
 
-%var match-rewrite-block/nondet
+%var rewrite-rewrite-block/resultsall
+
+%use (raisu) "./euphrates/raisu.scm"
 
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-constant? set-node-constant?! node-binding set-node-binding! node-visited? set-node-visited?!) "./node.scm"
-%use (run-match-pattern/nondet) "./run-match-pattern-nondet.scm"
-%use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
+%use (run-rewrite-pattern/resultsall) "./run-rewrite-pattern-resultsall.scm"
+%use (variable-get-association-or/resultsall) "./variable-get-association-or-resultsall.scm"
+%use (variable-get-association-resultsall-singleton) "./variable-get-association-resultsall-singleton.scm"
 
-(define (match-rewrite-block/nondet free-stack block)
+(define (rewrite-rewrite-block/resultsall free-stack block)
   (define children (node-children block))
   (define const-node (list-ref children 0))
   (define input-node (list-ref children 1))
   (define match-pattern (list-ref children 2))
   (define replace-pattern (list-ref children 3))
+  (define const-list (node-children const-node))
 
   (define input-val
-    (variable-get-association-nondet-singleton input-node input-node #f))
+    (or (variable-get-association-resultsall-singleton input-node input-node #f)
+        (raisu 'bad-input-node-in-rewrite-rewrite-block-resultsall input-node)))
 
-  (define ret
-    (if (not input-val) '()
-        (run-match-pattern/nondet free-stack match-pattern input-val)))
-
-  ret)
+  (run-rewrite-pattern/resultsall replace-pattern input-val))

@@ -14,19 +14,19 @@
 
 %run guile
 
-%var match-blocks/nondet
+%var match-blocks/resultsall
 
 %use (list-map/flatten) "./euphrates/list-map-flatten.scm"
 
-%use (match-rewrite-block/nondet) "./match-rewrite-block-nondet.scm"
+%use (match-rewrite-block/resultsall) "./match-rewrite-block-resultsall.scm"
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (match-thread-relative) "./match-thread-relative.scm"
 %use (block-fn) "./block-fn.scm"
-%use (associate-variable!/nondet) "./associate-variable-bang-nondet.scm"
+%use (associate-variable!/resultsall) "./associate-variable-bang-resultsall.scm"
 
 ;; returns a list of `match-thread's
-(define (match-blocks/nondet free-stack main-input pointer-node blocks)
-  (associate-variable!/nondet free-stack main-input (list pointer-node))
+(define (match-blocks/resultsall free-stack main-input pointer-node blocks)
+  (associate-variable!/resultsall free-stack main-input (list pointer-node))
   (let loop ((match-threads (list (get-current-match-thread)))
              (blocks blocks))
     (if (null? blocks) match-threads
@@ -34,6 +34,6 @@
           (define new-match-threads
             (list-map/flatten
              (match-thread-relative
-              ((block-fn match-rewrite-block/nondet free-stack) cur))
+              ((block-fn match-rewrite-block/resultsall free-stack) cur))
              match-threads))
           (loop new-match-threads (cdr blocks))))))

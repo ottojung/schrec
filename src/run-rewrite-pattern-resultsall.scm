@@ -14,7 +14,7 @@
 
 %run guile
 
-%var run-rewrite-pattern/nondet
+%var run-rewrite-pattern/resultsall
 
 %use (raisu) "./euphrates/raisu.scm"
 %use (list-map/flatten) "./euphrates/list-map-flatten.scm"
@@ -22,18 +22,18 @@
 %use (set-node-children! node-children) "./node.scm"
 %use (node-equal?) "./node-equal-huh.scm"
 %use (make-fresh-branch-node) "./make-fresh-branch-node.scm"
-%use (variable-get-association-or/nondet) "./variable-get-association-or-nondet.scm"
-%use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
+%use (variable-get-association-or/resultsall) "./variable-get-association-or-resultsall.scm"
+%use (variable-get-association-resultsall-singleton) "./variable-get-association-resultsall-singleton.scm"
 
-(define (run-rewrite-pattern/nondet replace-pattern main-input)
+(define (run-rewrite-pattern/resultsall replace-pattern main-input)
   (define (loop P)
-    (or (variable-get-association-or/nondet P #f)
+    (or (variable-get-association-or/resultsall P #f)
         (list (make-fresh-branch-node
                (list-map/flatten loop (node-children P))))))
 
   (let ((replace-pattern-val
          (or
-          (variable-get-association-nondet-singleton replace-pattern replace-pattern #f)
+          (variable-get-association-resultsall-singleton replace-pattern replace-pattern #f)
           (raisu 'expected-singleton-match replace-pattern))))
     (unless (node-equal? main-input replace-pattern-val)
       (let ((new-children

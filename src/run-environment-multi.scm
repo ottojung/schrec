@@ -21,14 +21,14 @@
 %use (list-map/flatten) "./euphrates/list-map-flatten.scm"
 
 %use (node-children) "./node.scm"
-%use (rewrite-rewrite-block/nondet) "./rewrite-rewrite-block-nondet.scm"
+%use (rewrite-rewrite-block/resultsall) "./rewrite-rewrite-block-resultsall.scm"
 %use (soft-uninitialize-variable!) "./soft-uninitialize-variable-bang.scm"
 %use (eval-hook) "./eval-hook.scm"
 %use (match-thread-relative) "./match-thread-relative.scm"
 %use (thread-fork) "./thread-fork.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 %use (block-fn) "./block-fn.scm"
-%use (match-blocks/nondet) "./match-blocks-nondet.scm"
+%use (match-blocks/resultsall) "./match-blocks-resultsall.scm"
 
 (define (run-environment/multi main-input env body pointer-node)
   (define free-stack (stack-make))
@@ -36,11 +36,11 @@
 
   (define result
     (let ((re-match-threads
-           (match-blocks/nondet free-stack main-input pointer-node blocks)))
+           (match-blocks/resultsall free-stack main-input pointer-node blocks)))
       (if (null? re-match-threads) #f
           (let ((chosen-thread (car re-match-threads))) ;; NOTE: choosing the greediest match
             ((match-thread-relative
-              (for-each (block-fn rewrite-rewrite-block/nondet free-stack) blocks))
+              (for-each (block-fn rewrite-rewrite-block/resultsall free-stack) blocks))
              chosen-thread)
             #t))))
 

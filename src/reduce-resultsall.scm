@@ -14,21 +14,21 @@
 
 %run guile
 
-%var reduce/nondet
+%var reduce/resultsall
 
 %use (list-or-map) "./euphrates/list-or-map.scm"
 %use (list-map/flatten) "./euphrates/list-map-flatten.scm"
 %use (cons!) "./euphrates/cons-bang.scm"
 
 %use (find-partially-sorted-evals) "./find-partially-sorted-evals.scm"
-%use (eval/nondet/node) "./eval-nondet-node.scm"
+%use (eval/resultsall/node) "./eval-resultsall-node.scm"
 %use (make-thread-id) "./make-thread-id.scm"
 %use (thread-relative) "./thread-relative.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 %use (node-children) "./node.scm"
 
 ;; Returns list of thread IDs that were the finishers
-(define (reduce/nondet graph)
+(define (reduce/resultsall graph)
   (define result '())
 
   (define (eval-fun)
@@ -43,7 +43,7 @@
             '())
           (let* ((group (car evals))
                  (successful-thread-ids
-                  (list-map/flatten eval/nondet/node group)))
+                  (list-map/flatten eval/resultsall/node group)))
             (if (null? successful-thread-ids)
                 (loop (cdr evals))
                 successful-thread-ids)))))

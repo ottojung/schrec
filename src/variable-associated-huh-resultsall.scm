@@ -14,23 +14,11 @@
 
 %run guile
 
-%var eval/nondet
+%var variable-associated?/resultsall
 
-%use (node-children node-visited? set-node-visited?!) "./node.scm"
-%use (thread-fork) "./thread-fork.scm"
+%use (variable-get-association-or/resultsall) "./variable-get-association-or-resultsall.scm"
 
-;; returns a list of new thread ids
-(define (eval/nondet func main-input env body)
-  (let loop ((g body))
-    (if (node-visited? g) '()
-        (begin
-          (set-node-visited?! g #t)
-          (let ((ret
-                 (apply
-                  append
-                  (cons
-                   (thread-fork
-                    (func main-input env body g))
-                   (map loop (node-children g))))))
-            (set-node-visited?! g #f)
-            ret)))))
+(define (variable-associated?/resultsall node)
+  (not (not (variable-get-association-or/resultsall node #f))))
+
+

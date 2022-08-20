@@ -14,28 +14,28 @@
 
 %run guile
 
-%var variable-get-association-nondet-singleton
+%var associate-variable!/resultsall
 
+%use (raisu) "./euphrates/raisu.scm"
+%use (stack-push!) "./euphrates/stack.scm"
 %use (make-prefixtree prefixtree-set! prefixtree-ref-furthest) "./euphrates/prefixtree.scm"
 
-%use (node-binding) "./node.scm"
-%use (const-variable?) "./const-variable-huh.scm"
+%use (node-binding set-node-binding!) "./node.scm"
+%use (variable-associated?/resultsall) "./variable-associated-huh-resultsall.scm"
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (thread-obj-lst) "./thread-obj.scm"
+%use (const-variable?) "./const-variable-huh.scm"
 
-(define (list-singleton? L)
-  (and (not (null? L))
-       (null? (cdr L))))
-
-(define (variable-get-association-nondet-singleton node default default-if-not-singleton)
-  (if (const-variable? node) node
+(define (associate-variable!/resultsall free-stack node vals)
+  (if (variable-associated?/resultsall node)
+      (if (const-variable? node)
+          (raisu 'trying-to-associate-a-constant node vals)
+          (raisu 'already-associated node vals))
       (let* ((match-thread (get-current-match-thread))
              (lst (thread-obj-lst match-thread))
-             (pt (node-binding node))
-             (ret (and pt (prefixtree-ref-furthest pt lst))))
-        (if (and ret
-                 (not (equal? ret 'uninitialized-prefixtree-from-associate-variable!)))
-            (if (list-singleton? ret)
-                (car ret)
-                default-if-not-singleton)
-            default))))
+             (pt (or (node-binding node)
+                     (let ((new (make-prefixtree 'uninitialized-prefixtree-from-associate-variable!)))
+                       (set-node-binding! node new)
+                       new))))
+        (stack-push! free-stack node)
+        (prefixtree-set! pt lst vals))))

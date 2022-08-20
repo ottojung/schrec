@@ -14,7 +14,7 @@
 
 %run guile
 
-%var run-match-pattern/nondet
+%var run-match-pattern/resultsall
 
 %use (list-and-map) "./euphrates/list-and-map.scm"
 %use (list-map/flatten) "./euphrates/list-map-flatten.scm"
@@ -25,10 +25,10 @@
 %use (node-children) "./node.scm"
 %use (node-equal?) "./node-equal-huh.scm"
 %use (match-thread-relative) "./match-thread-relative.scm"
-%use (variable-get-association-or/nondet) "./variable-get-association-or-nondet.scm"
-%use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
-%use (variable-associated?/nondet) "./variable-associated-huh-nondet.scm"
-%use (associate-variable!/nondet) "./associate-variable-bang-nondet.scm"
+%use (variable-get-association-or/resultsall) "./variable-get-association-or-resultsall.scm"
+%use (variable-get-association-resultsall-singleton) "./variable-get-association-resultsall-singleton.scm"
+%use (variable-associated?/resultsall) "./variable-associated-huh-resultsall.scm"
+%use (associate-variable!/resultsall) "./associate-variable-bang-resultsall.scm"
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (match-thread-fork) "./match-thread-fork.scm"
 
@@ -39,7 +39,7 @@
 
 (define (node-matches? pattern-node input-node-list)
   (node-lists-equal?/no-deref
-   (or (variable-get-association-or/nondet pattern-node #f)
+   (or (variable-get-association-or/resultsall pattern-node #f)
        (list pattern-node))
    input-node-list))
 
@@ -71,12 +71,12 @@
      (define (continue)
        (main-loop* free-stack rest left))
 
-     (if (variable-associated?/nondet current)
+     (if (variable-associated?/resultsall current)
          (if (node-matches? current taken)
              (continue)
              '())
          (match-thread-fork
-          (associate-variable!/nondet free-stack current taken)
+          (associate-variable!/resultsall free-stack current taken)
           (let ((match-threads (continue)))
             (if (null? current-children) match-threads
                 (list-map/flatten
@@ -91,8 +91,8 @@
           '())
       (match-current free-stack match-nodes input-nodes)))
 
-(define (run-match-pattern/nondet free-stack match-node input-val)
+(define (run-match-pattern/resultsall free-stack match-node input-val)
   (define match-val
-    (variable-get-association-or/nondet match-node (list match-node)))
+    (variable-get-association-or/resultsall match-node (list match-node)))
 
   (main-loop* free-stack match-val (list input-val)))
