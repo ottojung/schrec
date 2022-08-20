@@ -20,8 +20,8 @@
 %use (stack-make stack->list) "./euphrates/stack.scm"
 
 %use (node-children) "./node.scm"
-%use (match-rewrite-block) "./match-rewrite-block.scm"
-%use (rewrite-rewrite-block) "./rewrite-rewrite-block.scm"
+%use (match-rewrite-block/det) "./match-rewrite-block-det.scm"
+%use (rewrite-rewrite-block/det) "./rewrite-rewrite-block-det.scm"
 %use (associate-variable!/det) "./associate-variable-bang-det.scm"
 %use (uninitialize-variable!) "./uninitialize-variable-bang.scm"
 %use (eval-hook) "./eval-hook.scm"
@@ -34,8 +34,8 @@
   (define result
     (and
      (or (associate-variable!/det free-stack main-input pointer-node) #t)
-     (list-and-map (block-fn match-rewrite-block free-stack) blocks)
-     (for-each (block-fn rewrite-rewrite-block free-stack) blocks)))
+     (list-and-map (block-fn match-rewrite-block/det free-stack) blocks)
+     (for-each (block-fn rewrite-rewrite-block/det free-stack) blocks)))
 
   (for-each uninitialize-variable!
             (stack->list free-stack))

@@ -25,8 +25,8 @@
 %use (check-and-expression-syntax) "./check-and-expression-syntax.scm"
 %use (node-children) "./node.scm"
 %use (initialize-rewrite-block) "./initialize-rewrite-block.scm"
-%use (match-rewrite-block) "./match-rewrite-block.scm"
-%use (rewrite-rewrite-block) "./rewrite-rewrite-block.scm"
+%use (match-rewrite-block/det) "./match-rewrite-block-det.scm"
+%use (rewrite-rewrite-block/det) "./rewrite-rewrite-block-det.scm"
 %use (uninitialize-rewrite-block) "./uninitialize-rewrite-block.scm"
 
 (define (run-environment-resultsfirst env main-input)
@@ -58,8 +58,8 @@
 
   (define run-result
     (and (expr-for-each initialize-rewrite-block)
-         (expr-map match-rewrite-block)
-         (expr-for-each rewrite-rewrite-block)))
+         (expr-map match-rewrite-block/det)
+         (expr-for-each rewrite-rewrite-block/det)))
 
   (and (expr-for-each uninitialize-rewrite-block)
        run-result))

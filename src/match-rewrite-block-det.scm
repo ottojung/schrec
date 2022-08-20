@@ -14,21 +14,20 @@
 
 %run guile
 
-%var rewrite-rewrite-block
+%var match-rewrite-block/det
 
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-constant? set-node-constant?! node-binding set-node-binding! node-visited? set-node-visited?!) "./node.scm"
-%use (run-rewrite-pattern-det) "./run-rewrite-pattern-det.scm"
+%use (run-match-pattern-det) "./run-match-pattern-det.scm"
 %use (variable-get-association-or-det) "./variable-get-association-or-det.scm"
 
-(define (rewrite-rewrite-block free-stack block)
+(define (match-rewrite-block/det free-stack block)
   (define children (node-children block))
   (define const-node (list-ref children 0))
   (define input-node (list-ref children 1))
   (define match-pattern (list-ref children 2))
   (define replace-pattern (list-ref children 3))
-  (define const-list (node-children const-node))
 
   (define input-val
     (variable-get-association-or-det input-node input-node))
 
-  (run-rewrite-pattern-det replace-pattern input-val))
+  (run-match-pattern-det free-stack match-pattern input-val))
