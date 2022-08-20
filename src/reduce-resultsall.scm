@@ -32,6 +32,7 @@
 (define (reduce/resultsall graph)
   (define mem (list (get-current-thread)))
   (define results (stack-make))
+  (define ever-reduced-anything? #f)
 
   (define (eval-fun)
     ;; These `evals' are grouped such that
@@ -48,7 +49,10 @@
                   (list-map/flatten eval/resultsall/node group)))
             (if (null? successful-thread-ids)
                 (loop (cdr evals))
-                successful-thread-ids)))))
+                (begin
+                  (unless ever-reduced-anything?
+                    (set! ever-reduced-anything? #t))
+                  successful-thread-ids))))))
 
   (lambda _
     (when (stack-empty? results)
@@ -60,5 +64,7 @@
              (list-map/flatten
               (thread-relative (eval-fun)) threads)))))
 
-    (if (stack-empty? results) #f
-        (stack-pop! results))))
+    (cond
+     ((not ever-reduced-anything?) #f)
+     ((stack-empty? results) #f)
+     (else (stack-pop! results)))))
