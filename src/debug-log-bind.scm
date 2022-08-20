@@ -18,7 +18,7 @@
 
 %use (dprintln) "./euphrates/dprintln.scm"
 
-%use (variable-get-association-or-det/resultsall) "./variable-get-association-or-det-resultsall.scm"
+%use (variable-get-association-or-det/resultsall) "./variable-get-association-or-nondet.scm"
 %use (get-head) "./get-head.scm"
 
 (define (debug-log-bind current taken result)

@@ -16,7 +16,7 @@
 
 %var debug-show-variable-bindings
 
-%use (variable-get-association-or-det/resultsall) "./variable-get-association-or-det-resultsall.scm"
+%use (variable-get-association-or-det/resultsall) "./variable-get-association-or-nondet.scm"
 %use (words->string) "./euphrates/words-to-string.scm"
 %use (list-intersperse) "./euphrates/list-intersperse.scm"
 %use (dprintln) "./euphrates/dprintln.scm"

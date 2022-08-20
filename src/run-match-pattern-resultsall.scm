@@ -25,9 +25,9 @@
 %use (node-children) "./node.scm"
 %use (node-equal?) "./node-equal-huh.scm"
 %use (match-thread-relative) "./match-thread-relative.scm"
-%use (variable-get-association-or-det/resultsall) "./variable-get-association-or-det-resultsall.scm"
+%use (variable-get-association-or-det/resultsall) "./variable-get-association-or-nondet.scm"
 %use (variable-get-association-resultsall-singleton) "./variable-get-association-resultsall-singleton.scm"
-%use (variable-associated?/det/nondet) "./variable-associated-huh-det-nondet.scm"
+%use (variable-associated?/nondet) "./variable-associated-huh-nondet.scm"
 %use (associate-variable!/resultsall) "./associate-variable-bang-resultsall.scm"
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (match-thread-fork) "./match-thread-fork.scm"
@@ -71,7 +71,7 @@
      (define (continue)
        (main-loop* free-stack rest left))
 
-     (if (variable-associated?/det/nondet current)
+     (if (variable-associated?/nondet current)
          (if (node-matches? current taken)
              (continue)
              '())

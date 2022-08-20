@@ -22,7 +22,7 @@
 %use (set-node-children! node-children) "./node.scm"
 %use (node-equal?) "./node-equal-huh.scm"
 %use (make-fresh-branch-node) "./make-fresh-branch-node.scm"
-%use (variable-get-association-or-det/resultsall) "./variable-get-association-or-det-resultsall.scm"
+%use (variable-get-association-or-det/resultsall) "./variable-get-association-or-nondet.scm"
 %use (variable-get-association-resultsall-singleton) "./variable-get-association-resultsall-singleton.scm"
 
 (define (run-rewrite-pattern-resultsall replace-pattern main-input)

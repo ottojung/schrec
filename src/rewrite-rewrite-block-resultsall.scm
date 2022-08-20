@@ -20,7 +20,7 @@
 
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-constant? set-node-constant?! node-binding set-node-binding! node-visited? set-node-visited?!) "./node.scm"
 %use (run-rewrite-pattern-resultsall) "./run-rewrite-pattern-resultsall.scm"
-%use (variable-get-association-or-det/resultsall) "./variable-get-association-or-det-resultsall.scm"
+%use (variable-get-association-or-det/resultsall) "./variable-get-association-or-nondet.scm"
 %use (variable-get-association-resultsall-singleton) "./variable-get-association-resultsall-singleton.scm"
 
 (define (rewrite-rewrite-block/resultsall free-stack block)

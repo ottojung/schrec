@@ -14,11 +14,11 @@
 
 %run guile
 
-%var variable-associated?/det/nondet
+%var variable-associated?/nondet
 
-%use (variable-get-association-or-det/resultsall) "./variable-get-association-or-det-resultsall.scm"
+%use (variable-get-association-or-det/resultsall) "./variable-get-association-or-nondet.scm"
 
-(define (variable-associated?/det/nondet node)
+(define (variable-associated?/nondet node)
   (not (not (variable-get-association-or-det/resultsall node #f))))
 
 
