@@ -17,7 +17,7 @@
 %var rewrite-rewrite-block
 
 %use (make-node node? node-children set-node-children! node-id node-label node-namespace node-constant? set-node-constant?! node-binding set-node-binding! node-visited? set-node-visited?!) "./node.scm"
-%use (run-rewrite-pattern) "./run-rewrite-pattern.scm"
+%use (run-rewrite-pattern-resultsfirst) "./run-rewrite-pattern-resultsfirst.scm"
 %use (variable-get-association-or) "./variable-get-association-or.scm"
 
 (define (rewrite-rewrite-block free-stack block)
@@ -31,4 +31,4 @@
   (define input-val
     (variable-get-association-or input-node input-node))
 
-  (run-rewrite-pattern replace-pattern input-val))
+  (run-rewrite-pattern-resultsfirst replace-pattern input-val))
