@@ -29,7 +29,9 @@
   (associate-variable!/det/nondet free-stack main-input (list pointer-node))
   (let loop ((match-threads (list (get-current-match-thread)))
              (blocks blocks))
-    (if (null? blocks) match-threads
+    (if (or (null? blocks)
+            (null? match-threads))
+        match-threads
         (let ((cur (car blocks)))
           (define new-match-threads
             (list-map/flatten
