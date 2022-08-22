@@ -25,19 +25,18 @@ Original:
           ((const g (if (begin false) x y) (begin x)))
           body)
     (eva1 g
-          ((const g (null? (qq x)) (begin true))
-           (const x x x))
+          ((const g (null? 'x) (begin true)) (const x x x))
           (eval g
                 ((const g (null? z) (begin false))
-                 (const z (qq (x xs)))
+                 (const z '(x xs))
                  (const x x x))
                 body))
     (eva1 g
-          ((const g (eq? (qq x) (qq y)) (begin false)))
+          ((const g (eq? 'x 'y) (begin false)))
           (eva1 g
                 ((const g (eq? z w) (begin true))
-                 (const z (qq x) z)
-                 (const w (qq x) w))
+                 (const z 'x z)
+                 (const w 'x w))
                 body))
     (eval g
           ((const g (car '(x xs)) 'x) (const x x x))
@@ -52,7 +51,7 @@ Original:
           ((const g
                   (begin sa instructions)
                   (begin instructions))
-           (() sab sab '(y xs))
+           (const sab sab '(y xs))
            (() sa sa sa)
            (() y y y)
            (() x x x))
@@ -61,7 +60,7 @@ Original:
           ((const g
                   (begin sd instructions)
                   (begin instructions))
-           (() sdb sdb '(x ys))
+           (const sdb sdb '(x ys))
            (() sd sd sd)
            (() x x x))
           body)
@@ -99,19 +98,18 @@ Step:
           ((const g (if (begin false) x y) (begin x)))
           body)
     (eva1 g
-          ((const g (null? (qq x)) (begin true))
-           (const x x x))
+          ((const g (null? 'x) (begin true)) (const x x x))
           (eval g
                 ((const g (null? z) (begin false))
-                 (const z (qq (x xs)))
+                 (const z '(x xs))
                  (const x x x))
                 body))
     (eva1 g
-          ((const g (eq? (qq x) (qq y)) (begin false)))
+          ((const g (eq? 'x 'y) (begin false)))
           (eva1 g
                 ((const g (eq? z w) (begin true))
-                 (const z (qq x) z)
-                 (const w (qq x) w))
+                 (const z 'x z)
+                 (const w 'x w))
                 body))
     (eval g
           ((const g (car '(x xs)) 'x) (const x x x))
@@ -126,7 +124,7 @@ Step:
           ((const g
                   (begin sa instructions)
                   (begin instructions))
-           (() sab sab '(y xs))
+           (const sab sab '(y xs))
            (() sa sa sa)
            (() y y y)
            (() x x x))
@@ -135,7 +133,7 @@ Step:
           ((const g
                   (begin sd instructions)
                   (begin instructions))
-           (() sdb sdb '(x ys))
+           (const sdb sdb '(x ys))
            (() sd sd sd)
            (() x x x))
           body)
@@ -173,19 +171,18 @@ Step:
           ((const g (if (begin false) x y) (begin x)))
           body)
     (eva1 g
-          ((const g (null? (qq x)) (begin true))
-           (const x x x))
+          ((const g (null? 'x) (begin true)) (const x x x))
           (eval g
                 ((const g (null? z) (begin false))
-                 (const z (qq (x xs)))
+                 (const z '(x xs))
                  (const x x x))
                 body))
     (eva1 g
-          ((const g (eq? (qq x) (qq y)) (begin false)))
+          ((const g (eq? 'x 'y) (begin false)))
           (eva1 g
                 ((const g (eq? z w) (begin true))
-                 (const z (qq x) z)
-                 (const w (qq x) w))
+                 (const z 'x z)
+                 (const w 'x w))
                 body))
     (eval g
           ((const g (car '(x xs)) 'x) (const x x x))
@@ -200,7 +197,7 @@ Step:
           ((const g
                   (begin sa instructions)
                   (begin instructions))
-           (() sab sab '(y xs))
+           (const sab sab '(y xs))
            (() sa sa sa)
            (() y y y)
            (() x x x))
@@ -209,7 +206,7 @@ Step:
           ((const g
                   (begin sd instructions)
                   (begin instructions))
-           (() sdb sdb '(x ys))
+           (const sdb sdb '(x ys))
            (() sd sd sd)
            (() x x x))
           body)
@@ -247,19 +244,18 @@ Step:
           ((const g (if (begin false) x y) (begin x)))
           body)
     (eva1 g
-          ((const g (null? (qq x)) (begin true))
-           (const x x x))
+          ((const g (null? 'x) (begin true)) (const x x x))
           (eval g
                 ((const g (null? z) (begin false))
-                 (const z (qq (x xs)))
+                 (const z '(x xs))
                  (const x x x))
                 body))
     (eva1 g
-          ((const g (eq? (qq x) (qq y)) (begin false)))
+          ((const g (eq? 'x 'y) (begin false)))
           (eva1 g
                 ((const g (eq? z w) (begin true))
-                 (const z (qq x) z)
-                 (const w (qq x) w))
+                 (const z 'x z)
+                 (const w 'x w))
                 body))
     (eval g
           ((const g (car '(x xs)) 'x) (const x x x))
@@ -274,7 +270,7 @@ Step:
           ((const g
                   (begin sa instructions)
                   (begin instructions))
-           (() sab sab '(y xs))
+           (const sab sab '(y xs))
            (() sa sa sa)
            (() y y y)
            (() x x x))
@@ -283,7 +279,7 @@ Step:
           ((const g
                   (begin sd instructions)
                   (begin instructions))
-           (() sdb sdb '(x ys))
+           (const sdb sdb '(x ys))
            (() sd sd sd)
            (() x x x))
           body)
@@ -321,19 +317,18 @@ Step:
           ((const g (if (begin false) x y) (begin x)))
           body)
     (eva1 g
-          ((const g (null? (qq x)) (begin true))
-           (const x x x))
+          ((const g (null? 'x) (begin true)) (const x x x))
           (eval g
                 ((const g (null? z) (begin false))
-                 (const z (qq (x xs)))
+                 (const z '(x xs))
                  (const x x x))
                 body))
     (eva1 g
-          ((const g (eq? (qq x) (qq y)) (begin false)))
+          ((const g (eq? 'x 'y) (begin false)))
           (eva1 g
                 ((const g (eq? z w) (begin true))
-                 (const z (qq x) z)
-                 (const w (qq x) w))
+                 (const z 'x z)
+                 (const w 'x w))
                 body))
     (eval g
           ((const g (car '(x xs)) 'x) (const x x x))
@@ -348,7 +343,7 @@ Step:
           ((const g
                   (begin sa instructions)
                   (begin instructions))
-           (() sab sab '(y xs))
+           (const sab sab '(y xs))
            (() sa sa sa)
            (() y y y)
            (() x x x))
@@ -357,7 +352,7 @@ Step:
           ((const g
                   (begin sd instructions)
                   (begin instructions))
-           (() sdb sdb '(x ys))
+           (const sdb sdb '(x ys))
            (() sd sd sd)
            (() x x x))
           body)
@@ -395,19 +390,18 @@ Step:
           ((const g (if (begin false) x y) (begin x)))
           body)
     (eva1 g
-          ((const g (null? (qq x)) (begin true))
-           (const x x x))
+          ((const g (null? 'x) (begin true)) (const x x x))
           (eval g
                 ((const g (null? z) (begin false))
-                 (const z (qq (x xs)))
+                 (const z '(x xs))
                  (const x x x))
                 body))
     (eva1 g
-          ((const g (eq? (qq x) (qq y)) (begin false)))
+          ((const g (eq? 'x 'y) (begin false)))
           (eva1 g
                 ((const g (eq? z w) (begin true))
-                 (const z (qq x) z)
-                 (const w (qq x) w))
+                 (const z 'x z)
+                 (const w 'x w))
                 body))
     (eval g
           ((const g (car '(x xs)) 'x) (const x x x))
@@ -422,7 +416,7 @@ Step:
           ((const g
                   (begin sa instructions)
                   (begin instructions))
-           (() sab sab '(y xs))
+           (const sab sab '(y xs))
            (() sa sa sa)
            (() y y y)
            (() x x x))
@@ -431,7 +425,7 @@ Step:
           ((const g
                   (begin sd instructions)
                   (begin instructions))
-           (() sdb sdb '(x ys))
+           (const sdb sdb '(x ys))
            (() sd sd sd)
            (() x x x))
           body)
@@ -469,19 +463,18 @@ Step:
           ((const g (if (begin false) x y) (begin x)))
           body)
     (eva1 g
-          ((const g (null? (qq x)) (begin true))
-           (const x x x))
+          ((const g (null? 'x) (begin true)) (const x x x))
           (eval g
                 ((const g (null? z) (begin false))
-                 (const z (qq (x xs)))
+                 (const z '(x xs))
                  (const x x x))
                 body))
     (eva1 g
-          ((const g (eq? (qq x) (qq y)) (begin false)))
+          ((const g (eq? 'x 'y) (begin false)))
           (eva1 g
                 ((const g (eq? z w) (begin true))
-                 (const z (qq x) z)
-                 (const w (qq x) w))
+                 (const z 'x z)
+                 (const w 'x w))
                 body))
     (eval g
           ((const g (car '(x xs)) 'x) (const x x x))
@@ -496,7 +489,7 @@ Step:
           ((const g
                   (begin sa instructions)
                   (begin instructions))
-           (() sab sab '(y xs))
+           (const sab sab '(y xs))
            (() sa sa sa)
            (() y y y)
            (() x x x))
@@ -505,7 +498,7 @@ Step:
           ((const g
                   (begin sd instructions)
                   (begin instructions))
-           (() sdb sdb '(x ys))
+           (const sdb sdb '(x ys))
            (() sd sd sd)
            (() x x x))
           body)
@@ -543,19 +536,18 @@ Step:
           ((const g (if (begin false) x y) (begin x)))
           body)
     (eva1 g
-          ((const g (null? (qq x)) (begin true))
-           (const x x x))
+          ((const g (null? 'x) (begin true)) (const x x x))
           (eval g
                 ((const g (null? z) (begin false))
-                 (const z (qq (x xs)))
+                 (const z '(x xs))
                  (const x x x))
                 body))
     (eva1 g
-          ((const g (eq? (qq x) (qq y)) (begin false)))
+          ((const g (eq? 'x 'y) (begin false)))
           (eva1 g
                 ((const g (eq? z w) (begin true))
-                 (const z (qq x) z)
-                 (const w (qq x) w))
+                 (const z 'x z)
+                 (const w 'x w))
                 body))
     (eval g
           ((const g (car '(x xs)) 'x) (const x x x))
@@ -570,7 +562,7 @@ Step:
           ((const g
                   (begin sa instructions)
                   (begin instructions))
-           (() sab sab '(y xs))
+           (const sab sab '(y xs))
            (() sa sa sa)
            (() y y y)
            (() x x x))
@@ -579,7 +571,7 @@ Step:
           ((const g
                   (begin sd instructions)
                   (begin instructions))
-           (() sdb sdb '(x ys))
+           (const sdb sdb '(x ys))
            (() sd sd sd)
            (() x x x))
           body)
@@ -617,19 +609,18 @@ Step:
           ((const g (if (begin false) x y) (begin x)))
           body)
     (eva1 g
-          ((const g (null? (qq x)) (begin true))
-           (const x x x))
+          ((const g (null? 'x) (begin true)) (const x x x))
           (eval g
                 ((const g (null? z) (begin false))
-                 (const z (qq (x xs)))
+                 (const z '(x xs))
                  (const x x x))
                 body))
     (eva1 g
-          ((const g (eq? (qq x) (qq y)) (begin false)))
+          ((const g (eq? 'x 'y) (begin false)))
           (eva1 g
                 ((const g (eq? z w) (begin true))
-                 (const z (qq x) z)
-                 (const w (qq x) w))
+                 (const z 'x z)
+                 (const w 'x w))
                 body))
     (eval g
           ((const g (car '(x xs)) 'x) (const x x x))
@@ -644,7 +635,7 @@ Step:
           ((const g
                   (begin sa instructions)
                   (begin instructions))
-           (() sab sab '(y xs))
+           (const sab sab '(y xs))
            (() sa sa sa)
            (() y y y)
            (() x x x))
@@ -653,7 +644,7 @@ Step:
           ((const g
                   (begin sd instructions)
                   (begin instructions))
-           (() sdb sdb '(x ys))
+           (const sdb sdb '(x ys))
            (() sd sd sd)
            (() x x x))
           body)
@@ -691,19 +682,18 @@ Step:
           ((const g (if (begin false) x y) (begin x)))
           body)
     (eva1 g
-          ((const g (null? (qq x)) (begin true))
-           (const x x x))
+          ((const g (null? 'x) (begin true)) (const x x x))
           (eval g
                 ((const g (null? z) (begin false))
-                 (const z (qq (x xs)))
+                 (const z '(x xs))
                  (const x x x))
                 body))
     (eva1 g
-          ((const g (eq? (qq x) (qq y)) (begin false)))
+          ((const g (eq? 'x 'y) (begin false)))
           (eva1 g
                 ((const g (eq? z w) (begin true))
-                 (const z (qq x) z)
-                 (const w (qq x) w))
+                 (const z 'x z)
+                 (const w 'x w))
                 body))
     (eval g
           ((const g (car '(x xs)) 'x) (const x x x))
@@ -718,7 +708,7 @@ Step:
           ((const g
                   (begin sa instructions)
                   (begin instructions))
-           (() sab sab '(y xs))
+           (const sab sab '(y xs))
            (() sa sa sa)
            (() y y y)
            (() x x x))
@@ -727,7 +717,7 @@ Step:
           ((const g
                   (begin sd instructions)
                   (begin instructions))
-           (() sdb sdb '(x ys))
+           (const sdb sdb '(x ys))
            (() sd sd sd)
            (() x x x))
           body)
@@ -765,19 +755,18 @@ Step:
           ((const g (if (begin false) x y) (begin x)))
           body)
     (eva1 g
-          ((const g (null? (qq x)) (begin true))
-           (const x x x))
+          ((const g (null? 'x) (begin true)) (const x x x))
           (eval g
                 ((const g (null? z) (begin false))
-                 (const z (qq (x xs)))
+                 (const z '(x xs))
                  (const x x x))
                 body))
     (eva1 g
-          ((const g (eq? (qq x) (qq y)) (begin false)))
+          ((const g (eq? 'x 'y) (begin false)))
           (eva1 g
                 ((const g (eq? z w) (begin true))
-                 (const z (qq x) z)
-                 (const w (qq x) w))
+                 (const z 'x z)
+                 (const w 'x w))
                 body))
     (eval g
           ((const g (car '(x xs)) 'x) (const x x x))
@@ -792,7 +781,7 @@ Step:
           ((const g
                   (begin sa instructions)
                   (begin instructions))
-           (() sab sab '(y xs))
+           (const sab sab '(y xs))
            (() sa sa sa)
            (() y y y)
            (() x x x))
@@ -801,7 +790,7 @@ Step:
           ((const g
                   (begin sd instructions)
                   (begin instructions))
-           (() sdb sdb '(x ys))
+           (const sdb sdb '(x ys))
            (() sd sd sd)
            (() x x x))
           body)
@@ -839,19 +828,18 @@ Step:
           ((const g (if (begin false) x y) (begin x)))
           body)
     (eva1 g
-          ((const g (null? (qq x)) (begin true))
-           (const x x x))
+          ((const g (null? 'x) (begin true)) (const x x x))
           (eval g
                 ((const g (null? z) (begin false))
-                 (const z (qq (x xs)))
+                 (const z '(x xs))
                  (const x x x))
                 body))
     (eva1 g
-          ((const g (eq? (qq x) (qq y)) (begin false)))
+          ((const g (eq? 'x 'y) (begin false)))
           (eva1 g
                 ((const g (eq? z w) (begin true))
-                 (const z (qq x) z)
-                 (const w (qq x) w))
+                 (const z 'x z)
+                 (const w 'x w))
                 body))
     (eval g
           ((const g (car '(x xs)) 'x) (const x x x))
@@ -866,7 +854,7 @@ Step:
           ((const g
                   (begin sa instructions)
                   (begin instructions))
-           (() sab sab '(y xs))
+           (const sab sab '(y xs))
            (() sa sa sa)
            (() y y y)
            (() x x x))
@@ -875,7 +863,7 @@ Step:
           ((const g
                   (begin sd instructions)
                   (begin instructions))
-           (() sdb sdb '(x ys))
+           (const sdb sdb '(x ys))
            (() sd sd sd)
            (() x x x))
           body)
@@ -913,19 +901,18 @@ Step:
           ((const g (if (begin false) x y) (begin x)))
           body)
     (eva1 g
-          ((const g (null? (qq x)) (begin true))
-           (const x x x))
+          ((const g (null? 'x) (begin true)) (const x x x))
           (eval g
                 ((const g (null? z) (begin false))
-                 (const z (qq (x xs)))
+                 (const z '(x xs))
                  (const x x x))
                 body))
     (eva1 g
-          ((const g (eq? (qq x) (qq y)) (begin false)))
+          ((const g (eq? 'x 'y) (begin false)))
           (eva1 g
                 ((const g (eq? z w) (begin true))
-                 (const z (qq x) z)
-                 (const w (qq x) w))
+                 (const z 'x z)
+                 (const w 'x w))
                 body))
     (eval g
           ((const g (car '(x xs)) 'x) (const x x x))
@@ -940,7 +927,7 @@ Step:
           ((const g
                   (begin sa instructions)
                   (begin instructions))
-           (() sab sab '(y xs))
+           (const sab sab '(y xs))
            (() sa sa sa)
            (() y y y)
            (() x x x))
@@ -949,7 +936,7 @@ Step:
           ((const g
                   (begin sd instructions)
                   (begin instructions))
-           (() sdb sdb '(x ys))
+           (const sdb sdb '(x ys))
            (() sd sd sd)
            (() x x x))
           body)
@@ -987,14 +974,27 @@ Step:
           ((const g (if (begin false) x y) (begin x)))
           body)
     (eva1 g
-          ((const g (null? (qq x)) (begin true))
-           (const x x x))
+          ((const g (null? 'x) (begin true)) (const x x x))
           (eval g
                 ((const g (null? z) (begin false))
-                 (const z (qq (x xs)))
+                 (const z '(x xs))
                  (const x x x))
                 body))
     (eva1 g
-          ((const g (eq? (qq x) (qq y)) (begin false)))
+          ((const g (eq? 'x 'y) (begin false)))
           (eva1 g
                 ((const g (eq? z w) (begin true))
+                 (const z 'x z)
+                 (const w 'x w))
+                body))
+    (eval g
+          ((const g (car '(x xs)) 'x) (const x x x))
+          body)
+    (eval g
+          ((const g (cdr '(x xs)) '(xs)) (const x x x))
+          body)
+    (eval g
+          ((const g (cons 'x '(ys)) '(x ys)) (const x x x))
+          body)
+    (eval g
+          ((const g

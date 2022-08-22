@@ -94,4 +94,6 @@
   (define match-val
     (variable-get-association-or-nondet match-node (list match-node)))
 
-  (main-loop* free-stack match-val (list input-val)))
+  (if (node-lists-equal?/no-deref match-val (list input-val))
+      (list (get-current-match-thread))
+      (main-loop* free-stack match-val (list input-val))))

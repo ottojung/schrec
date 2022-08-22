@@ -19,23 +19,23 @@
                   (begin x)))
         body)
   (eva1 g ((const g
-                  (null? (qq x))
+                  (null? (quote x))
                   (begin true))
            (const x x x))
         (eval g ((const g
                         (null? z)
                         (begin false))
-                 (const z (qq (x xs)))
+                 (const z (quote (x xs)))
                  (const x x x))
               body))
   (eva1 g ((const g
-                  (eq? (qq x) (qq y))
+                  (eq? (quote x) (quote y))
                   (begin false)))
         (eva1 g ((const g
                         (eq? z w)
                         (begin true))
-                 (const z (qq x) z)
-                 (const w (qq x) w))
+                 (const z (quote x) z)
+                 (const w (quote x) w))
               body))
   (eval g ((const g
                   (car (quote (x xs)))
@@ -57,7 +57,7 @@
             ((const g
                     (begin sa instructions)
                     (begin instructions))
-             (() sab sab (quote (y xs)))
+             (const sab sab (quote (y xs)))
              (() sa sa sa)
              (() y y y)
              (() x x x)))
@@ -67,7 +67,7 @@
             ((const g
                     (begin sd instructions)
                     (begin instructions))
-             (() sdb sdb (quote (x ys)))
+             (const sdb sdb (quote (x ys)))
              (() sd sd sd)
              (() x x x)))
         body)
