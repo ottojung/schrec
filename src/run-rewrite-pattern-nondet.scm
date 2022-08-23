@@ -16,14 +16,13 @@
 
 %var run-rewrite-pattern-nondet
 
-%use (raisu) "./euphrates/raisu.scm"
 %use (list-map/flatten) "./euphrates/list-map-flatten.scm"
-
-%use (set-node-children! node-children) "./node.scm"
-%use (node-equal?) "./node-equal-huh.scm"
+%use (raisu) "./euphrates/raisu.scm"
 %use (make-fresh-branch-node) "./make-fresh-branch-node.scm"
-%use (variable-get-association-or-nondet) "./variable-get-association-or-nondet.scm"
+%use (node-equal?) "./node-equal-huh.scm"
+%use (node-children set-node-children!) "./node.scm"
 %use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
+%use (variable-get-association-or-nondet) "./variable-get-association-or-nondet.scm"
 
 (define (run-rewrite-pattern-nondet replace-pattern main-input)
   (define (loop P)

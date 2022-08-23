@@ -17,7 +17,6 @@
 %var get-current-match-thread
 
 %use (current-match-thread/p) "./current-match-thread-p.scm"
-
 %use (thread-obj-ctr) "./thread-obj.scm"
 
 (define root-match-thread

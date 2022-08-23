@@ -17,7 +17,6 @@
 %var check-environment
 
 %use (list-and-map) "./euphrates/list-and-map.scm"
-
 %use (check-rewrite-block) "./check-rewrite-block.scm"
 %use (node-children) "./node.scm"
 

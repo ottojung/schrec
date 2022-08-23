@@ -19,9 +19,8 @@
 %use (comp) "./euphrates/comp.scm"
 %use (list-and-map) "./euphrates/list-and-map.scm"
 %use (list-or-map) "./euphrates/list-or-map.scm"
-
-%use (node-children node-visited? set-node-visited?!) "./node.scm"
 %use (eval-like?) "./eval-like-huh.scm"
+%use (node-children node-visited? set-node-visited?!) "./node.scm"
 
 (define (find-partially-sorted-eval-likes names root)
   (define sequences '())

@@ -17,14 +17,14 @@
 %var eval/resultsrandom/node
 
 %use (eval/det) "./eval-det.scm"
+%use (eval-multi-form?) "./eval-multi-form-huh.scm"
+%use (eval-single-form?) "./eval-single-form-huh.scm"
+%use (get-current-thread) "./get-current-thread.scm"
 %use (get-eval-body) "./get-eval-body.scm"
 %use (get-eval-env) "./get-eval-env.scm"
 %use (get-eval-input) "./get-eval-input.scm"
-%use (eval-single-form?) "./eval-single-form-huh.scm"
-%use (eval-multi-form?) "./eval-multi-form-huh.scm"
 %use (run-environment-resultsfirst) "./run-environment-resultsfirst.scm"
 %use (run-environment-resultsrandom) "./run-environment-resultsrandom.scm"
-%use (get-current-thread) "./get-current-thread.scm"
 
 (define (eval/resultsrandom/node eval-node)
   (cond

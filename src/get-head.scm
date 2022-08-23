@@ -16,8 +16,8 @@
 
 %var get-head
 
-%use (node-children node-label node-namespace) "./node.scm"
 %use (branch-node-label) "./branch-node-label.scm"
+%use (node-children node-label node-namespace) "./node.scm"
 
 (define (get-head n node)
   (let loop ((n n) (node node))

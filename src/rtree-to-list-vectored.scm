@@ -16,7 +16,7 @@
 
 %var rtree->list/vectored
 
-%use (rtree rtree-ref set-rtree-ref! rtree-leaf? rtree-value) "./euphrates/rtree.scm"
+%use (rtree rtree-children rtree-ref rtree-value set-rtree-ref!) "./euphrates/rtree.scm"
 %use (node-label node-namespace) "./node.scm"
 
 (define (rtree->list/vectored tree)

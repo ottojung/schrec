@@ -16,15 +16,15 @@
 
 %var eval/resultsall/node
 
+%use (eval-multi-form?) "./eval-multi-form-huh.scm"
 %use (eval/nondet) "./eval-nondet.scm"
+%use (eval-single-form?) "./eval-single-form-huh.scm"
+%use (get-current-thread) "./get-current-thread.scm"
 %use (get-eval-body) "./get-eval-body.scm"
 %use (get-eval-env) "./get-eval-env.scm"
 %use (get-eval-input) "./get-eval-input.scm"
-%use (eval-single-form?) "./eval-single-form-huh.scm"
-%use (eval-multi-form?) "./eval-multi-form-huh.scm"
-%use (run-environment-resultsfirst) "./run-environment-resultsfirst.scm"
 %use (run-environment-resultsall) "./run-environment-resultsall.scm"
-%use (get-current-thread) "./get-current-thread.scm"
+%use (run-environment-resultsfirst) "./run-environment-resultsfirst.scm"
 
 (define (single-runner main-input env body pointer-node)
   (if (run-environment-resultsfirst main-input env body pointer-node)

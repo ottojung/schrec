@@ -17,8 +17,8 @@
 %var eval/det
 
 %use (list-or-map) "./euphrates/list-or-map.scm"
-%use (node-children node-visited? set-node-visited?!) "./node.scm"
 %use (check-environment) "./check-environment.scm"
+%use (node-children node-visited? set-node-visited?!) "./node.scm"
 
 (define (eval/det func main-input env body)
   (and (check-environment env)

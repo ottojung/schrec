@@ -16,17 +16,16 @@
 
 %var reduce/resultsrandom
 
-%use (list-or-map) "./euphrates/list-or-map.scm"
-%use (list-map/flatten) "./euphrates/list-map-flatten.scm"
-%use (list-random-shuffle) "./euphrates/list-random-shuffle.scm"
 %use (list-find-first) "./euphrates/list-find-first.scm"
-
-%use (find-partially-sorted-evals) "./find-partially-sorted-evals.scm"
+%use (list-map/flatten) "./euphrates/list-map-flatten.scm"
+%use (list-or-map) "./euphrates/list-or-map.scm"
+%use (list-random-shuffle) "./euphrates/list-random-shuffle.scm"
 %use (eval/resultsrandom/node) "./eval-resultsrandom-node.scm"
-%use (make-thread-id) "./make-thread-id.scm"
-%use (thread-relative) "./thread-relative.scm"
+%use (find-partially-sorted-evals) "./find-partially-sorted-evals.scm"
 %use (get-current-thread) "./get-current-thread.scm"
+%use (make-thread-id) "./make-thread-id.scm"
 %use (node-children) "./node.scm"
+%use (thread-relative) "./thread-relative.scm"
 
 (define (reduce/resultsrandom graph)
   (define (eval-fun)

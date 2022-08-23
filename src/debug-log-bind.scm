@@ -17,9 +17,9 @@
 %var debug-log-bind
 
 %use (dprintln) "./euphrates/dprintln.scm"
-
-%use (variable-get-association-or-nondet) "./variable-get-association-or-nondet.scm"
+%use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (get-head) "./get-head.scm"
+%use (variable-get-association-or-nondet) "./variable-get-association-or-nondet.scm"
 
 (define (debug-log-bind current taken result)
   (let* ((cur1 (get-head 4 current))

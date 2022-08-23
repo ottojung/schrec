@@ -16,15 +16,14 @@
 
 %var associate-variable!/det/nondet
 
+%use (make-prefixtree prefixtree-ref-furthest prefixtree-set!) "./euphrates/prefixtree.scm"
 %use (raisu) "./euphrates/raisu.scm"
 %use (stack-push!) "./euphrates/stack.scm"
-%use (make-prefixtree prefixtree-set! prefixtree-ref-furthest) "./euphrates/prefixtree.scm"
-
-%use (node-binding set-node-binding!) "./node.scm"
-%use (variable-associated?/nondet) "./variable-associated-huh-nondet.scm"
-%use (get-current-match-thread) "./get-current-match-thread.scm"
-%use (thread-obj-lst) "./thread-obj.scm"
 %use (const-variable?) "./const-variable-huh.scm"
+%use (get-current-match-thread) "./get-current-match-thread.scm"
+%use (node-binding set-node-binding!) "./node.scm"
+%use (thread-obj-lst) "./thread-obj.scm"
+%use (variable-associated?/nondet) "./variable-associated-huh-nondet.scm"
 
 (define (associate-variable!/det/nondet free-stack node vals)
   (if (variable-associated?/nondet node)

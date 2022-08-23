@@ -14,26 +14,25 @@
 
 %run guile
 
-%use (with-cli define-cli:show-help) "./euphrates/define-cli.scm"
 %use (current-program-path/p) "./euphrates/current-program-path-p.scm"
-%use (read-string-file) "./euphrates/read-string-file.scm"
+%use (define-cli:show-help with-cli) "./euphrates/define-cli.scm"
 %use (dprintln) "./euphrates/dprintln.scm"
 %use (file-or-directory-exists?) "./euphrates/file-or-directory-exists-q.scm"
 %use (open-file-port) "./euphrates/open-file-port.scm"
-%use (read-list) "./euphrates/read-list.scm"
-%use (with-randomizer-seed) "./euphrates/with-randomizer-seed.scm"
 %use (raisu) "./euphrates/raisu.scm"
-
+%use (read-list) "./euphrates/read-list.scm"
+%use (read-string-file) "./euphrates/read-string-file.scm"
+%use (with-randomizer-seed) "./euphrates/with-randomizer-seed.scm"
+%use (default-eval-hook) "./default-eval-hook.scm"
 %use (eval-hook) "./eval-hook.scm"
+%use (get-current-thread) "./get-current-thread.scm"
 %use (graph->list) "./graph-to-list.scm"
 %use (list->graph) "./list-to-graph.scm"
-%use (reduce/resultsfirst) "./reduce-resultsfirst.scm"
+%use (pretty-print-graph) "./pretty-print-graph.scm"
 %use (reduce/resultsall) "./reduce-resultsall.scm"
+%use (reduce/resultsfirst) "./reduce-resultsfirst.scm"
 %use (reduce/resultsrandom) "./reduce-resultsrandom.scm"
 %use (with-current-thread) "./with-current-thread.scm"
-%use (get-current-thread) "./get-current-thread.scm"
-%use (pretty-print-graph) "./pretty-print-graph.scm"
-%use (default-eval-hook) "./default-eval-hook.scm"
 
 (define (fatal fmt . args)
   (parameterize ((current-output-port (current-error-port)))

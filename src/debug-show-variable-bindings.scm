@@ -16,17 +16,16 @@
 
 %var debug-show-variable-bindings
 
-%use (variable-get-association-or-nondet) "./variable-get-association-or-nondet.scm"
-%use (words->string) "./euphrates/words-to-string.scm"
-%use (list-intersperse) "./euphrates/list-intersperse.scm"
 %use (dprintln) "./euphrates/dprintln.scm"
-%use (~s) "./euphrates/tilda-s.scm"
-%use (stack-make stack->list) "./euphrates/stack.scm"
 %use (list-deduplicate/reverse) "./euphrates/list-deduplicate.scm"
-
-%use (match-thread-relative) "./match-thread-relative.scm"
+%use (list-intersperse) "./euphrates/list-intersperse.scm"
+%use (stack->list stack-make) "./euphrates/stack.scm"
+%use (~s) "./euphrates/tilda-s.scm"
+%use (words->string) "./euphrates/words-to-string.scm"
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (get-head) "./get-head.scm"
+%use (match-thread-relative) "./match-thread-relative.scm"
+%use (variable-get-association-or-nondet) "./variable-get-association-or-nondet.scm"
 
 (define (debug-show-variable-bindings free-stack result)
   (define vars

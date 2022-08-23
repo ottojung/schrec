@@ -16,9 +16,8 @@
 
 %var get-eval-body
 
-%use (raisu) "./euphrates/raisu.scm"
 %use (list-ref-or) "./euphrates/list-ref-or.scm"
-
+%use (raisu) "./euphrates/raisu.scm"
 %use (node-children) "./node.scm"
 
 (define (get-eval-body graph)

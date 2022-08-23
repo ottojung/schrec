@@ -1,19 +1,18 @@
 
 %run guile
 
-%use (range) "./src/euphrates/range.scm"
-%use (comp) "./src/euphrates/comp.scm"
 %use (assert=) "./src/euphrates/assert-equal.scm"
-%use (node? node-children set-node-children! node-label) "./src/node.scm"
-%use (list->graph) "./src/list-to-graph.scm"
-%use (graph->list) "./src/graph-to-list.scm"
-%use (run-environment-resultsfirst) "./src/run-environment-resultsfirst.scm"
-%use (eval-hook) "./src/eval-hook.scm"
-%use (get-head) "./src/get-head.scm"
-%use (find-partially-sorted-eval-likes) "./src/find-partially-sorted-eval-likes.scm"
-
+%use (comp) "./src/euphrates/comp.scm"
 %use (debug) "./src/euphrates/debug.scm"
 %use (debugv) "./src/euphrates/debugv.scm"
+%use (range) "./src/euphrates/range.scm"
+%use (eval-hook) "./src/eval-hook.scm"
+%use (find-partially-sorted-eval-likes) "./src/find-partially-sorted-eval-likes.scm"
+%use (get-head) "./src/get-head.scm"
+%use (graph->list) "./src/graph-to-list.scm"
+%use (list->graph) "./src/list-to-graph.scm"
+%use (node-children node-label node? set-node-children!) "./src/node.scm"
+%use (run-environment-resultsfirst) "./src/run-environment-resultsfirst.scm"
 
 (use-modules (ice-9 pretty-print))
 

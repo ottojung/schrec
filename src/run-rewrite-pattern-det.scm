@@ -16,10 +16,10 @@
 
 %var run-rewrite-pattern/det
 
-%use (set-node-children! node-children) "./node.scm"
 %use (make-fresh-branch-node) "./make-fresh-branch-node.scm"
-%use (variable-get-association-or-det) "./variable-get-association-or-det.scm"
 %use (node-equal?) "./node-equal-huh.scm"
+%use (node-children set-node-children!) "./node.scm"
+%use (variable-get-association-or-det) "./variable-get-association-or-det.scm"
 
 (define (run-rewrite-pattern/det replace-pattern main-input)
   (define (loop P)

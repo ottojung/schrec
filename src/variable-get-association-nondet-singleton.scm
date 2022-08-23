@@ -16,11 +16,11 @@
 
 %var variable-get-association-nondet-singleton
 
-%use (make-prefixtree prefixtree-set! prefixtree-ref-furthest) "./euphrates/prefixtree.scm"
-
-%use (node-binding) "./node.scm"
+%use (list-singleton?) "./euphrates/list-singleton-q.scm"
+%use (make-prefixtree prefixtree-ref-furthest prefixtree-set!) "./euphrates/prefixtree.scm"
 %use (const-variable?) "./const-variable-huh.scm"
 %use (get-current-match-thread) "./get-current-match-thread.scm"
+%use (node-binding) "./node.scm"
 %use (thread-obj-lst) "./thread-obj.scm"
 
 (define (list-singleton? L)

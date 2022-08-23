@@ -16,8 +16,8 @@
 
 %var match-thread-fork
 
-%use (make-match-thread-id) "./make-match-thread-id.scm"
 %use (current-match-thread/p) "./current-match-thread-p.scm"
+%use (make-match-thread-id) "./make-match-thread-id.scm"
 
 (define-syntax match-thread-fork
   (syntax-rules ()

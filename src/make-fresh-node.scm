@@ -16,9 +16,8 @@
 
 %var make-fresh-node
 
-%use (make-node) "./node.scm"
-
 %use (raisu) "./euphrates/raisu.scm"
+%use (make-node) "./node.scm"
 
 (define make-fresh-node
   (let ((counter 0))

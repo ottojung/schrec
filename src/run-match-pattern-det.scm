@@ -16,10 +16,10 @@
 
 %var run-match-pattern-det
 
-%use (node-children) "./node.scm"
 %use (list-and-map) "./euphrates/list-and-map.scm"
-%use (node-equal?) "./node-equal-huh.scm"
 %use (associate-variable!/det) "./associate-variable-bang-det.scm"
+%use (node-equal?) "./node-equal-huh.scm"
+%use (node-children) "./node.scm"
 %use (variable-get-association-or-det) "./variable-get-association-or-det.scm"
 
 (define (run-match-pattern-det free-stack match-node input-node)

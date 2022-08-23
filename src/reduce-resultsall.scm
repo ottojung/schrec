@@ -16,17 +16,16 @@
 
 %var reduce/resultsall
 
-%use (list-or-map) "./euphrates/list-or-map.scm"
-%use (list-map/flatten) "./euphrates/list-map-flatten.scm"
 %use (cons!) "./euphrates/cons-bang.scm"
-%use (stack-make stack-push! stack-pop! stack-empty?) "./euphrates/stack.scm"
-
-%use (find-partially-sorted-evals) "./find-partially-sorted-evals.scm"
+%use (list-map/flatten) "./euphrates/list-map-flatten.scm"
+%use (list-or-map) "./euphrates/list-or-map.scm"
+%use (stack-empty? stack-make stack-pop! stack-push!) "./euphrates/stack.scm"
 %use (eval/resultsall/node) "./eval-resultsall-node.scm"
-%use (make-thread-id) "./make-thread-id.scm"
-%use (thread-relative) "./thread-relative.scm"
+%use (find-partially-sorted-evals) "./find-partially-sorted-evals.scm"
 %use (get-current-thread) "./get-current-thread.scm"
+%use (make-thread-id) "./make-thread-id.scm"
 %use (node-children) "./node.scm"
+%use (thread-relative) "./thread-relative.scm"
 
 ;; Returns an enumerator of thread IDs that were the finishers
 (define (reduce/resultsall graph)

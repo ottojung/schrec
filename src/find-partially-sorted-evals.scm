@@ -16,9 +16,9 @@
 
 %var find-partially-sorted-evals
 
-%use (keyword-eval-single) "./keyword-eval-single.scm"
-%use (keyword-eval-multi) "./keyword-eval-multi.scm"
 %use (find-partially-sorted-eval-likes) "./find-partially-sorted-eval-likes.scm"
+%use (keyword-eval-multi) "./keyword-eval-multi.scm"
+%use (keyword-eval-single) "./keyword-eval-single.scm"
 
 (define (find-partially-sorted-evals root)
   (find-partially-sorted-eval-likes

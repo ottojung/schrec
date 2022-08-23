@@ -18,8 +18,8 @@
 
 %use (list-length=<?) "./euphrates/list-length-geq-q.scm"
 %use (raisu) "./euphrates/raisu.scm"
-%use (node-children) "./node.scm"
 %use (and-node?) "./and-node-huh.scm"
+%use (node-children) "./node.scm"
 
 (define (check-and-expression-syntax node)
   (define children (node-children node))

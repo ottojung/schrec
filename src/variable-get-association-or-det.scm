@@ -16,8 +16,8 @@
 
 %var variable-get-association-or-det
 
-%use (node-binding) "./node.scm"
 %use (const-variable?) "./const-variable-huh.scm"
+%use (node-binding) "./node.scm"
 
 (define (variable-get-association-or-det node default)
   (if (const-variable? node) node

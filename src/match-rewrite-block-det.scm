@@ -16,7 +16,7 @@
 
 %var match-rewrite-block/det
 
-%use (make-node node? node-children set-node-children! node-id node-label node-namespace node-constant? set-node-constant?! node-binding set-node-binding! node-visited? set-node-visited?!) "./node.scm"
+%use (make-node node-binding node-children node-constant? node-id node-label node-namespace node-visited? node? set-node-binding! set-node-children! set-node-constant?! set-node-visited?!) "./node.scm"
 %use (run-match-pattern-det) "./run-match-pattern-det.scm"
 %use (variable-get-association-or-det) "./variable-get-association-or-det.scm"
 

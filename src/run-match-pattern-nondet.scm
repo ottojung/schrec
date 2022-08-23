@@ -17,19 +17,18 @@
 %var run-match-pattern-nondet
 
 %use (list-and-map) "./euphrates/list-and-map.scm"
+%use (list-drop-n) "./euphrates/list-drop-n.scm"
 %use (list-map/flatten) "./euphrates/list-map-flatten.scm"
 %use (list-take-n) "./euphrates/list-take-n.scm"
-%use (list-drop-n) "./euphrates/list-drop-n.scm"
 %use (range) "./euphrates/range.scm"
-
-%use (node-children) "./node.scm"
-%use (node-equal?) "./node-equal-huh.scm"
-%use (match-thread-relative) "./match-thread-relative.scm"
-%use (variable-get-association-or-nondet) "./variable-get-association-or-nondet.scm"
-%use (variable-associated?/nondet) "./variable-associated-huh-nondet.scm"
 %use (associate-variable!/det/nondet) "./associate-variable-bang-nondet.scm"
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (match-thread-fork) "./match-thread-fork.scm"
+%use (match-thread-relative) "./match-thread-relative.scm"
+%use (node-equal?) "./node-equal-huh.scm"
+%use (node-children) "./node.scm"
+%use (variable-associated?/nondet) "./variable-associated-huh-nondet.scm"
+%use (variable-get-association-or-nondet) "./variable-get-association-or-nondet.scm"
 
 (define (node-lists-equal?/no-deref a b)
   (and

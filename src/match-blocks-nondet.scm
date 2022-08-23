@@ -17,12 +17,11 @@
 %var match-blocks/nondet
 
 %use (list-map/flatten) "./euphrates/list-map-flatten.scm"
-
-%use (match-rewrite-block/nondet) "./match-rewrite-block-nondet.scm"
-%use (get-current-match-thread) "./get-current-match-thread.scm"
-%use (match-thread-relative) "./match-thread-relative.scm"
-%use (block-fn) "./block-fn.scm"
 %use (associate-variable!/det/nondet) "./associate-variable-bang-nondet.scm"
+%use (block-fn) "./block-fn.scm"
+%use (get-current-match-thread) "./get-current-match-thread.scm"
+%use (match-rewrite-block/nondet) "./match-rewrite-block-nondet.scm"
+%use (match-thread-relative) "./match-thread-relative.scm"
 
 ;; returns a list of `match-thread's
 (define (match-blocks/nondet free-stack main-input pointer-node blocks)

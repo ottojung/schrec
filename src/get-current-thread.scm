@@ -17,7 +17,6 @@
 %var get-current-thread
 
 %use (current-thread/p) "./current-thread-p.scm"
-
 %use (thread-obj-ctr) "./thread-obj.scm"
 
 (define root-thread

@@ -16,8 +16,8 @@
 
 %var thread-fork
 
-%use (make-thread-id) "./make-thread-id.scm"
 %use (current-thread/p) "./current-thread-p.scm"
+%use (make-thread-id) "./make-thread-id.scm"
 
 (define-syntax thread-fork
   (syntax-rules ()

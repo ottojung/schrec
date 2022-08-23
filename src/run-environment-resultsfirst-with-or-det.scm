@@ -16,16 +16,17 @@
 
 %var run-environment-resultsfirst-with-or/det
 
-%use (list-or-map) "./euphrates/list-or-map.scm"
+%use (fn) "./euphrates/fn.scm"
 %use (list-and-map) "./euphrates/list-and-map.scm"
+%use (list-or-map) "./euphrates/list-or-map.scm"
 %use (stack-make) "./euphrates/stack.scm"
-%use (or-expression?) "./or-expression-huh.scm"
 %use (and-expression?) "./and-expression-huh.scm"
-%use (check-or-expression-syntax) "./check-or-expression-syntax.scm"
 %use (check-and-expression-syntax) "./check-and-expression-syntax.scm"
-%use (node-children) "./node.scm"
+%use (check-or-expression-syntax) "./check-or-expression-syntax.scm"
 %use (initialize-rewrite-block) "./initialize-rewrite-block.scm"
 %use (match-rewrite-block/det) "./match-rewrite-block-det.scm"
+%use (node-children) "./node.scm"
+%use (or-expression?) "./or-expression-huh.scm"
 %use (rewrite-rewrite-block/det) "./rewrite-rewrite-block-det.scm"
 %use (uninitialize-rewrite-block) "./uninitialize-rewrite-block.scm"
 

@@ -16,8 +16,8 @@
 
 %var eval-multi-node?
 
-%use (node-label node-namespace) "./node.scm"
 %use (keyword-eval-multi) "./keyword-eval-multi.scm"
+%use (node-label node-namespace) "./node.scm"
 %use (root-namespace) "./root-namespace.scm"
 
 (define (eval-multi-node? n)

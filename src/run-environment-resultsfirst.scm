@@ -17,15 +17,14 @@
 %var run-environment-resultsfirst
 
 %use (list-and-map) "./euphrates/list-and-map.scm"
-%use (stack-make stack->list) "./euphrates/stack.scm"
-
-%use (node-children) "./node.scm"
-%use (match-rewrite-block/det) "./match-rewrite-block-det.scm"
-%use (rewrite-rewrite-block/det) "./rewrite-rewrite-block-det.scm"
+%use (stack->list stack-make) "./euphrates/stack.scm"
 %use (associate-variable!/det) "./associate-variable-bang-det.scm"
-%use (uninitialize-variable!) "./uninitialize-variable-bang.scm"
-%use (eval-hook) "./eval-hook.scm"
 %use (block-fn) "./block-fn.scm"
+%use (eval-hook) "./eval-hook.scm"
+%use (match-rewrite-block/det) "./match-rewrite-block-det.scm"
+%use (node-children) "./node.scm"
+%use (rewrite-rewrite-block/det) "./rewrite-rewrite-block-det.scm"
+%use (uninitialize-variable!) "./uninitialize-variable-bang.scm"
 
 (define (run-environment-resultsfirst main-input env body pointer-node)
   (define free-stack (stack-make))

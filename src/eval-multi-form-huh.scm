@@ -17,12 +17,10 @@
 %var eval-multi-form?
 
 %use (list-length=) "./euphrates/list-length-eq.scm"
-
-%use (eval-multi-node?) "./eval-multi-node-huh.scm"
-%use (node-children) "./node.scm"
 %use (check-environment) "./check-environment.scm"
 %use (eval-multi-node?) "./eval-multi-node-huh.scm"
 %use (get-eval-env) "./get-eval-env.scm"
+%use (node-children) "./node.scm"
 
 (define (eval-multi-form? node)
   (define children (node-children node))

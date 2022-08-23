@@ -29,8 +29,7 @@
 %var set-node-visited?!
 
 %use (define-type9) "./euphrates/define-type9.scm"
-%use (make-prefixtree prefixtree-set! prefixtree-ref-furthest) "./euphrates/prefixtree.scm"
-
+%use (make-prefixtree prefixtree-ref-furthest prefixtree-set!) "./euphrates/prefixtree.scm"
 %use (get-current-thread) "./get-current-thread.scm"
 %use (thread-obj-lst) "./thread-obj.scm"
 

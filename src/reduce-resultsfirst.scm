@@ -17,7 +17,6 @@
 %var reduce/resultsfirst
 
 %use (list-find-first) "./euphrates/list-find-first.scm"
-
 %use (eval/resultsfirst/node) "./eval-resultsfirst-node.scm"
 %use (find-sorted-evals) "./find-sorted-evals.scm"
 %use (get-current-thread) "./get-current-thread.scm"

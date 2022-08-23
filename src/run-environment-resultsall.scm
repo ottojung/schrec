@@ -17,19 +17,18 @@
 %var run-environment-resultsall
 
 %use (list-and-map) "./euphrates/list-and-map.scm"
-%use (stack-make stack->list) "./euphrates/stack.scm"
 %use (list-map/flatten) "./euphrates/list-map-flatten.scm"
-
+%use (stack->list stack-make) "./euphrates/stack.scm"
+%use (block-fn) "./block-fn.scm"
+%use (eval-hook) "./eval-hook.scm"
+%use (get-current-thread) "./get-current-thread.scm"
+%use (match-blocks/nondet) "./match-blocks-nondet.scm"
+%use (match-thread-relative) "./match-thread-relative.scm"
 %use (node-children) "./node.scm"
 %use (rewrite-rewrite-block/nondet) "./rewrite-rewrite-block-nondet.scm"
 %use (soft-uninitialize-variable!) "./soft-uninitialize-variable-bang.scm"
-%use (eval-hook) "./eval-hook.scm"
-%use (match-thread-relative) "./match-thread-relative.scm"
-%use (thread-relative) "./thread-relative.scm"
 %use (thread-fork) "./thread-fork.scm"
-%use (get-current-thread) "./get-current-thread.scm"
-%use (block-fn) "./block-fn.scm"
-%use (match-blocks/nondet) "./match-blocks-nondet.scm"
+%use (thread-relative) "./thread-relative.scm"
 
 (define (run-environment-resultsall main-input env body pointer-node)
   (define free-stack (stack-make))

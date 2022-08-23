@@ -17,7 +17,6 @@
 %var check-let-syntax
 
 %use (raisu) "./euphrates/raisu.scm"
-
 %use (get-let-bindings) "./get-let-bindings.scm"
 %use (get-let-body) "./get-let-body.scm"
 

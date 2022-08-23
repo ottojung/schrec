@@ -16,9 +16,9 @@
 
 %var make-fresh-branch-node
 
+%use (branch-node-label) "./branch-node-label.scm"
 %use (make-fresh-node) "./make-fresh-node.scm"
 %use (root-namespace) "./root-namespace.scm"
-%use (branch-node-label) "./branch-node-label.scm"
 
 (define (make-fresh-branch-node children)
   (make-fresh-node branch-node-label root-namespace children))

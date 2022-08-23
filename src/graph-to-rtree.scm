@@ -16,9 +16,9 @@
 
 %var graph->rtree
 
-%use (node-children node-id set-node-children! node-label node-namespace) "./node.scm"
-%use (make-hashmap hashmap-ref hashmap-set!) "./euphrates/ihashmap.scm"
-%use (rtree rtree-ref set-rtree-ref! rtree-value rtree-children set-rtree-children!) "./euphrates/rtree.scm"
+%use (hashmap-ref hashmap-set! make-hashmap) "./euphrates/ihashmap.scm"
+%use (rtree rtree-children rtree-ref rtree-value set-rtree-children! set-rtree-ref!) "./euphrates/rtree.scm"
+%use (node-children node-id node-label node-namespace set-node-children!) "./node.scm"
 
 (define (graph->rtree g)
   (define H (make-hashmap))
