@@ -19,10 +19,10 @@
 %use (initialize-rewrite-block) "./initialize-rewrite-block.scm"
 %use (uninitialize-rewrite-block) "./uninitialize-rewrite-block.scm"
 
-(define (block-fn fn free-stack)
+(define (block-fn proc free-stack)
   (lambda (block)
     (and
      (initialize-rewrite-block free-stack block)
-     (let ((ret (fn free-stack block)))
+     (let ((ret (proc free-stack block)))
        (uninitialize-rewrite-block free-stack block)
        ret))))
