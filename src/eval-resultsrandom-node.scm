@@ -19,7 +19,6 @@
 %use (eval/det) "./eval-det.scm"
 %use (eval-multi-form?) "./eval-multi-form-huh.scm"
 %use (eval-single-form?) "./eval-single-form-huh.scm"
-%use (get-current-thread) "./get-current-thread.scm"
 %use (get-eval-body) "./get-eval-body.scm"
 %use (get-eval-env) "./get-eval-env.scm"
 %use (get-eval-input) "./get-eval-input.scm"

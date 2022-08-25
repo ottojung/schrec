@@ -17,7 +17,7 @@
 %var initialize-const-variable!
 
 %use (raisu) "./euphrates/raisu.scm"
-%use (make-node node-binding node-children node-constant? node-id node-label node-namespace node-visited? node? set-node-binding! set-node-children! set-node-constant?! set-node-visited?!) "./node.scm"
+%use (node-constant? set-node-constant?!) "./node.scm"
 
 (define (initialize-const-variable! node)
   (when (node-constant? node)

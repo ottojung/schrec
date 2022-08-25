@@ -16,7 +16,7 @@
 
 %var variable-get-association-or-nondet
 
-%use (make-prefixtree prefixtree-ref-furthest prefixtree-set!) "./euphrates/prefixtree.scm"
+%use (prefixtree-ref-furthest) "./euphrates/prefixtree.scm"
 %use (const-variable?) "./const-variable-huh.scm"
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (node-binding) "./node.scm"

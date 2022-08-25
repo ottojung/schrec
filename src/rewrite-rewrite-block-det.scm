@@ -16,7 +16,7 @@
 
 %var rewrite-rewrite-block/det
 
-%use (make-node node-binding node-children node-constant? node-id node-label node-namespace node-visited? node? set-node-binding! set-node-children! set-node-constant?! set-node-visited?!) "./node.scm"
+%use (node-children) "./node.scm"
 %use (run-rewrite-pattern/det) "./run-rewrite-pattern-det.scm"
 %use (variable-get-association-or-det) "./variable-get-association-or-det.scm"
 

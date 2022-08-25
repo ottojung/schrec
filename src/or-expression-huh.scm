@@ -16,7 +16,6 @@
 
 %var or-expression?
 
-%use (list-length=<?) "./euphrates/list-length-geq-q.scm"
 %use (node-children) "./node.scm"
 %use (or-node?) "./or-node-huh.scm"
 

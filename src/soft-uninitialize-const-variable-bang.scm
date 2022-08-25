@@ -17,7 +17,6 @@
 %var soft-uninitialize-const-variable!
 
 %use (const-variable?) "./const-variable-huh.scm"
-%use (make-node node-binding node-children node-constant? node-id node-label node-namespace node-visited? node? set-node-binding! set-node-children! set-node-constant?! set-node-visited?!) "./node.scm"
 %use (uninitialize-const-variable!) "./uninitialize-const-variable-bang.scm"
 
 (define (soft-uninitialize-const-variable! node)

@@ -16,7 +16,7 @@
 
 %var associate-variable!/det/nondet
 
-%use (make-prefixtree prefixtree-ref-furthest prefixtree-set!) "./euphrates/prefixtree.scm"
+%use (make-prefixtree prefixtree-set!) "./euphrates/prefixtree.scm"
 %use (raisu) "./euphrates/raisu.scm"
 %use (stack-push!) "./euphrates/stack.scm"
 %use (const-variable?) "./const-variable-huh.scm"

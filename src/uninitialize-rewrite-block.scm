@@ -16,8 +16,7 @@
 
 %var uninitialize-rewrite-block
 
-%use (stack->list) "./euphrates/stack.scm"
-%use (make-node node-binding node-children node-constant? node-id node-label node-namespace node-visited? node? set-node-binding! set-node-children! set-node-constant?! set-node-visited?!) "./node.scm"
+%use (node-children) "./node.scm"
 %use (soft-uninitialize-const-variable!) "./soft-uninitialize-const-variable-bang.scm"
 
 (define (uninitialize-rewrite-block free-stack block)

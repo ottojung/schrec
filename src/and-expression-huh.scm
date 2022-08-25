@@ -16,7 +16,6 @@
 
 %var and-expression?
 
-%use (list-length=<?) "./euphrates/list-length-geq-q.scm"
 %use (and-node?) "./and-node-huh.scm"
 %use (node-children) "./node.scm"
 

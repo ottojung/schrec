@@ -16,7 +16,7 @@
 
 %var match-rewrite-block/nondet
 
-%use (make-node node-binding node-children node-constant? node-id node-label node-namespace node-visited? node? set-node-binding! set-node-children! set-node-constant?! set-node-visited?!) "./node.scm"
+%use (node-children) "./node.scm"
 %use (run-match-pattern-nondet) "./run-match-pattern-nondet.scm"
 %use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
 

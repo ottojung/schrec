@@ -16,7 +16,6 @@
 
 %var make-fresh-node
 
-%use (raisu) "./euphrates/raisu.scm"
 %use (make-node) "./node.scm"
 
 (define make-fresh-node

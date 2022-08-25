@@ -16,9 +16,7 @@
 
 %var initialize-rewrite-block
 
-%use (list-drop-n) "./euphrates/list-drop-n.scm"
-%use (raisu) "./euphrates/raisu.scm"
-%use (make-node node-binding node-children node-constant? node-id node-label node-namespace node-visited? node? set-node-binding! set-node-children! set-node-constant?! set-node-visited?!) "./node.scm"
+%use (node-children) "./node.scm"
 %use (soft-initialize-const-variable!) "./soft-initialize-const-variable-bang.scm"
 
 (define (initialize-rewrite-block free-stack block)

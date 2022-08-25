@@ -16,13 +16,11 @@
 
 %var list->graph
 
-%use (lexical-scope-make lexical-scope-namespace lexical-scope-ref lexical-scope-set!) "./euphrates/lexical-scope.scm"
-%use (raisu) "./euphrates/raisu.scm"
+%use (lexical-scope-make lexical-scope-ref lexical-scope-set!) "./euphrates/lexical-scope.scm"
 %use (check-let-syntax) "./check-let-syntax.scm"
 %use (let-expression?) "./let-expression-huh.scm"
 %use (make-fresh-atom-node) "./make-fresh-atom-node.scm"
 %use (make-fresh-branch-node) "./make-fresh-branch-node.scm"
-%use (make-node) "./node.scm"
 %use (parse-let-expression) "./parse-let-expression.scm"
 %use (root-namespace) "./root-namespace.scm"
 

@@ -16,8 +16,6 @@
 
 %var run-environment-resultsall
 
-%use (list-and-map) "./euphrates/list-and-map.scm"
-%use (list-map/flatten) "./euphrates/list-map-flatten.scm"
 %use (stack->list stack-make) "./euphrates/stack.scm"
 %use (block-fn) "./block-fn.scm"
 %use (eval-hook) "./eval-hook.scm"

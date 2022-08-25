@@ -16,18 +16,14 @@
 
 %var run-environment-resultsrandom
 
-%use (list-and-map) "./euphrates/list-and-map.scm"
-%use (list-map/flatten) "./euphrates/list-map-flatten.scm"
 %use (list-random-element) "./euphrates/list-random-element.scm"
 %use (stack->list stack-make) "./euphrates/stack.scm"
 %use (block-fn) "./block-fn.scm"
 %use (eval-hook) "./eval-hook.scm"
-%use (get-current-thread) "./get-current-thread.scm"
 %use (match-blocks/nondet) "./match-blocks-nondet.scm"
 %use (node-children) "./node.scm"
 %use (rewrite-rewrite-block/nondet) "./rewrite-rewrite-block-nondet.scm"
 %use (soft-uninitialize-variable!) "./soft-uninitialize-variable-bang.scm"
-%use (thread-fork) "./thread-fork.scm"
 %use (with-current-match-thread) "./with-current-match-thread.scm"
 
 (define (run-environment-resultsrandom main-input env body pointer-node)

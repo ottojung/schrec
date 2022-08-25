@@ -16,7 +16,6 @@
 
 %var eval/resultsfirst/node/loop
 
-%use (raisu) "./euphrates/raisu.scm"
 %use (eval/det) "./eval-det.scm"
 %use (eval-multi-form?) "./eval-multi-form-huh.scm"
 %use (eval-single-form?) "./eval-single-form-huh.scm"

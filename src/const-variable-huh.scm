@@ -16,7 +16,7 @@
 
 %var const-variable?
 
-%use (make-node node-binding node-children node-constant? node-id node-label node-namespace node-visited? node? set-node-binding! set-node-children! set-node-constant?! set-node-visited?!) "./node.scm"
+%use (node-constant?) "./node.scm"
 
 (define (const-variable? node)
   (node-constant? node))

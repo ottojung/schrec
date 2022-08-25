@@ -17,10 +17,9 @@
 %var rewrite-rewrite-block/nondet
 
 %use (raisu) "./euphrates/raisu.scm"
-%use (make-node node-binding node-children node-constant? node-id node-label node-namespace node-visited? node? set-node-binding! set-node-children! set-node-constant?! set-node-visited?!) "./node.scm"
+%use (node-children) "./node.scm"
 %use (run-rewrite-pattern-nondet) "./run-rewrite-pattern-nondet.scm"
 %use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
-%use (variable-get-association-or-nondet) "./variable-get-association-or-nondet.scm"
 
 (define (rewrite-rewrite-block/nondet free-stack block)
   (define children (node-children block))

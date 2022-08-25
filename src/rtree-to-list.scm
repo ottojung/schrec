@@ -16,16 +16,15 @@
 
 %var rtree->list
 
-%use (cons!) "./euphrates/cons-bang.scm"
 %use (fp) "./euphrates/fp.scm"
-%use (hashmap->alist hashmap-ref hashmap-set! make-hashmap) "./euphrates/ihashmap.scm"
+%use (hashmap-ref hashmap-set! make-hashmap) "./euphrates/ihashmap.scm"
 %use (raisu) "./euphrates/raisu.scm"
-%use (rtree rtree-children rtree-ref rtree-value rtree? set-rtree-ref!) "./euphrates/rtree.scm"
+%use (rtree-children rtree-ref rtree-value rtree?) "./euphrates/rtree.scm"
 %use (~a) "./euphrates/tilda-a.scm"
 %use (branch-node-label) "./branch-node-label.scm"
 %use (exp-node?) "./exp-node-huh.scm"
 %use (keyword-let) "./keyword-let.scm"
-%use (node-children node-id node-label node-namespace node? set-node-children!) "./node.scm"
+%use (node-id node-label node-namespace) "./node.scm"
 
 (define (rtree->list tree)
   (define all-references

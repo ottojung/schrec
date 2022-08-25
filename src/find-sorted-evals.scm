@@ -16,7 +16,6 @@
 
 %var find-sorted-evals
 
-%use (comp) "./euphrates/comp.scm"
 %use (find-sorted-eval-likes) "./find-sorted-eval-likes.scm"
 %use (keyword-eval-multi) "./keyword-eval-multi.scm"
 %use (keyword-eval-single) "./keyword-eval-single.scm"

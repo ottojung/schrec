@@ -17,12 +17,12 @@
 %var parse-let-expression
 
 %use (fp) "./euphrates/fp.scm"
-%use (lexical-scope-namespace lexical-scope-ref lexical-scope-set! lexical-scope-stage! lexical-scope-unstage!) "./euphrates/lexical-scope.scm"
+%use (lexical-scope-set! lexical-scope-stage! lexical-scope-unstage!) "./euphrates/lexical-scope.scm"
 %use (get-let-bindings) "./get-let-bindings.scm"
 %use (get-let-body) "./get-let-body.scm"
 %use (make-fresh-namespace) "./make-fresh-namespace.scm"
 %use (make-fresh-regular-node) "./make-fresh-regular-node.scm"
-%use (make-node node-children node-label node-namespace set-node-children!) "./node.scm"
+%use (node-label set-node-children!) "./node.scm"
 %use (transform-let-bindings) "./transform-let-bindings.scm"
 
 (define (parse-let-expression scope loop lst)
