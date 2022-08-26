@@ -5,7 +5,4 @@ Original:
          (body))))
 
 Step:
-(let ((switch (on)))
-  ((eva1 g
-         (((switch off on) switch (off) (on)))
-         (body))))
+(body)

@@ -7,9 +7,4 @@ Original:
          (body))))
 
 Step:
-(let ((switch (on)))
-  ((eva1 g
-         ((() g (x) (x (x)))
-          ((switch off on) switch (off) (on))
-          (() g r r))
-         (body (body)))))
+(body (body))

@@ -25,6 +25,6 @@
 (define (default-eval-hook original-graph)
   (lambda (g)
     (display "\nStep:\n")
-    (pretty-print-graph original-graph)))
+    (pretty-print-graph g)))
 
 

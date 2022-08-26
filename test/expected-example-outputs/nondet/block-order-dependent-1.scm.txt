@@ -6,15 +6,7 @@ Original:
          body)))
 
 Step:
-(let ((body ((body - 2) * 3)))
-  ((eva1 g
-         (((+ - *) g (a + b) (a * b))
-          ((+ - *) a (g + c) (g - c)))
-         body)))
+(let ((body ((body - 2) * 3))) body)
 
 Step:
-(let ((body ((body * 2) - 3)))
-  ((eva1 g
-         (((+ - *) g (a + b) (a * b))
-          ((+ - *) a (g + c) (g - c)))
-         body)))
+(let ((body ((body * 2) - 3))) body)
