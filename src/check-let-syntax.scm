@@ -42,8 +42,9 @@
        (unless (= 2 (length binding))
          (raisu 'let-binding-must-be-of-length-2 binding lst))
 
-       (unless (symbol? (car binding))
-         (raisu 'let-binding-name-must-be-a-symbol binding lst))
+       (unless (or (symbol? (car binding))
+                   (number? (car binding)))
+         (raisu 'let-binding-name-must-be-a-symbol-or-a-number binding lst))
 
        (unless (or (symbol? (cadr binding))
                    (list? (cadr binding))
