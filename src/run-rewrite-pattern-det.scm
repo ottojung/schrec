@@ -24,6 +24,7 @@
 (define (run-rewrite-pattern/det replace-pattern main-input)
   (define (loop P)
     (or (variable-get-association-or-det P #f)
+        ;; FIXME: remember association of of `P -> this new node`
         (make-fresh-branch-node
          (map loop (node-children P)))))
 

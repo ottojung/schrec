@@ -27,6 +27,7 @@
 (define (run-rewrite-pattern-nondet replace-pattern main-input)
   (define (loop P)
     (or (variable-get-association-or-nondet P #f)
+        ;; FIXME: remember association of of `P -> this new nodes`
         (list (make-fresh-branch-node
                (list-map/flatten loop (node-children P))))))
 
