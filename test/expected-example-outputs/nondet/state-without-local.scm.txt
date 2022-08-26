@@ -4,8 +4,16 @@ Original:
          (((switch off on) switch (off) (on)))
          (body))))
 
-Step:
-(body)
 
 Step:
+(let ((switch (on)))
+  (((switch off on) switch (off) (on))))
+--------
+(body)
+
+
+Step:
+(let ((switch (on)))
+  (((switch off on) switch (off) (on))))
+--------
 (body)

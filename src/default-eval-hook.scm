@@ -23,8 +23,11 @@
 %end
 
 (define (default-eval-hook original-graph)
-  (lambda (g)
-    (display "\nStep:\n")
-    (pretty-print-graph g)))
+  (lambda (env body ptr)
+    (display "\n\nStep:\n")
+    (when env
+      (pretty-print-graph env)
+      (display "--------\n"))
+    (pretty-print-graph body)))
 
 

@@ -41,6 +41,6 @@
 
   (when result
     (let ((hook (eval-hook)))
-      (when hook (hook body))))
+      (when hook (hook env body pointer-node))))
 
   result)

@@ -51,5 +51,5 @@
   (if (null? result) '()
       (let ((hook (eval-hook)))
         (when hook
-          (for-each (thread-relative (hook body)) result))
+          (for-each (thread-relative (hook env body pointer-node)) result))
         result)))

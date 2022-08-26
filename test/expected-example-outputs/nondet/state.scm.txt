@@ -5,5 +5,10 @@ Original:
           ((switch off on) switch (off) (on)))
          (body))))
 
+
 Step:
+(let ((switch (on)))
+  ((() g (x) (x (x)))
+   ((switch off on) switch (off) (on))))
+--------
 (body (body))

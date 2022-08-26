@@ -5,8 +5,16 @@ Original:
           ((+ - *) a (g + c) (g - c)))
          body)))
 
-Step:
-(let ((body ((body - 2) * 3))) body)
 
 Step:
+(((+ - *) g (a + b) (a * b))
+ ((+ - *) a (g + c) (g - c)))
+--------
+(let ((body ((body - 2) * 3))) body)
+
+
+Step:
+(((+ - *) g (a + b) (a * b))
+ ((+ - *) a (g + c) (g - c)))
+--------
 (let ((body ((body * 2) - 3))) body)

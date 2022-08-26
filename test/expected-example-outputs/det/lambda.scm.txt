@@ -30,17 +30,39 @@ Original:
                                       (const g (abs b) (abs arg)))
                                      input))))))))
 
+
 Step:
+(let ((const (got app abs nil wrap))
+      (got (x (app (abs u (app u 2)) 1))))
+  ((const g (app (abs var body) arg) (wrap body))
+   (const got (nil) (var arg))))
+--------
 (wrap (app (abs j (app x j)) x))
 
-Step:
-(wrap (app (abs j (app x j)) (app (abs u (app u 2)) 1)))
 
 Step:
+(let ((const (got app abs nil wrap))
+      (got (x (app (abs u (app u 2)) 1))))
+  ((const got (b arg) (b arg))
+   (const g (app y b) (app y arg))))
+--------
+(wrap (app (abs j (app x j)) (app (abs u (app u 2)) 1)))
+
+
+Step:
+(let ((const (got app abs nil wrap))
+      (got (x (app (abs u (app u 2)) 1))))
+  ((const got (x arg) (x arg))
+   (const g (app x y) (app arg y))))
+--------
 (let (($1 (app (abs u (app u 2)) 1)))
   (wrap (app (abs j (app $1 j)) $1)))
 
+
 Step:
+(let ((got (nil)))
+  (((got app abs nil wrap) got (a1 b1) (nil))))
+--------
 (let ((const (got app abs nil wrap))
       (got (nil))
       (input (wrap (app (abs j (app $1 j)) $1)))
@@ -62,14 +84,30 @@ Step:
              (const g (abs b) (abs arg)))
             input)))
 
-Step:
-(wrap (wrap (app (app (abs u (app u 2)) 1) j)))
 
 Step:
+(let ((const (got app abs nil wrap))
+      (got (j (app (abs u (app u 2)) 1))))
+  ((const g (app (abs var body) arg) (wrap body))
+   (const got (nil) (var arg))))
+--------
+(wrap (wrap (app (app (abs u (app u 2)) 1) j)))
+
+
+Step:
+(let ((const (got app abs nil wrap))
+      (got (j (app (abs u (app u 2)) 1))))
+  ((const got (b arg) (b arg))
+   (const g (app y b) (app y arg))))
+--------
 (let (($1 (app (abs u (app u 2)) 1)))
   (wrap (wrap (app $1 $1))))
 
+
 Step:
+(let ((got (nil)))
+  (((got app abs nil wrap) got (a1 b1) (nil))))
+--------
 (let ((const (got app abs nil wrap))
       (got (nil))
       (input (wrap (wrap (app $1 $1))))
@@ -91,15 +129,29 @@ Step:
              (const g (abs b) (abs arg)))
             input)))
 
+
 Step:
+(let ((const (got app abs nil wrap)) (got (u 1)))
+  ((const g (app (abs var body) arg) (wrap body))
+   (const got (nil) (var arg))))
+--------
 (let (($1 (wrap (app u 2))))
   (wrap (wrap (app $1 $1))))
 
+
 Step:
+(let ((const (got app abs nil wrap)) (got (u 1)))
+  ((const got (x arg) (x arg))
+   (const g (app x y) (app arg y))))
+--------
 (let (($1 (wrap (app 1 2))))
   (wrap (wrap (app $1 $1))))
 
+
 Step:
+(let ((got (nil)))
+  (((got app abs nil wrap) got (a1 b1) (nil))))
+--------
 (let ((const (got app abs nil wrap))
       (got (nil))
       (input (wrap (wrap (app $1 $1))))
@@ -121,7 +173,13 @@ Step:
              (const g (abs b) (abs arg)))
             input)))
 
+
 Step:
+((((nil) app abs nil wrap)
+  g
+  (app (wrap w) a2)
+  (app w a2)))
+--------
 (let ((const (got app abs nil wrap))
       (got (nil))
       (input (wrap (wrap (app $1 (wrap $1)))))
@@ -145,7 +203,13 @@ Step:
                    (const g (abs b) (abs arg)))
                   input))))
 
+
 Step:
+((((nil) app abs nil wrap)
+  g
+  (app a1 (wrap w))
+  (app a1 w)))
+--------
 (let ((const (got app abs nil wrap))
       (got (nil))
       (input (wrap (wrap (app $1 $1))))
@@ -171,7 +235,13 @@ Step:
                          (const g (abs b) (abs arg)))
                         input)))))
 
+
 Step:
+((((nil) app abs nil wrap)
+  g
+  (wrap (wrap w))
+  (wrap w)))
+--------
 (let ((const (got app abs nil wrap))
       (got (nil))
       (input (wrap (app $1 $1)))
