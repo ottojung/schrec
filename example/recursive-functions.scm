@@ -27,6 +27,7 @@
 
       (add (rec (pi 0) (comp succ (pi 1))))
       (sg (rec zero (comp one (pi 0))))
+      (mul (rec zero (comp add (pi 1) (pi 2))))
 
       ;; (program (pred (succ (succ (succ (succ 0))))))
       ;; (program (pred (succ (succ (succ 0)))))
@@ -36,11 +37,13 @@
 
       ;; (program (add (num (i i i i i))
       ;;               (num (i i i i))))
-
       ;; (program (add (succ (succ 0))
       ;;               (succ (succ 0))))
 
-      (program (sg (succ (succ (succ 0)))))
+      (program (mul (num (i i i i i))
+                    (num (i i i i))))
+
+      ;; (program (sg (succ (succ (succ 0)))))
       ;; (program (sg 0))
 
       ;; (program ((comp f g) x))
