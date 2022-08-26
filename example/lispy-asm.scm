@@ -4,7 +4,7 @@
 ;; Input program is written to the `body' variable.
 ;; Variables are simply references to nodes, no special "let*" construct for them is needed.
 (let ((const (head tail null? cons eq? if append set! and qq define do begin))
-      (var1 (qq (1 2 3 4)))
+      (var1 (qq (2)))
       (var2 (qq (5 6)))
       (body (do start))
       (start
@@ -14,20 +14,30 @@
          (define e3)
          (define e4)
 
-         (set! e1 (head var2))
-         (set! e2 (tail var2))
-         (set! e4 (head e3))
+         ;; (set! e1 (head var2))
+         ;; (set! e2 (tail var2))
+         ;; (set! e4 (head e3))
          ;; (set! e4 (append e1 e2))
+
+         (set! e1 (cons var1 var2))
+         (set! e2 (append var1 var2))
+
+         (set! e3 (head e1))
+         (set! e4 (head e2))
+
+         (done e1 e2 e3 e4 var1 var2)
 
          ;; (set! var1 (cons var1 var2))
          ;; (set! var1 (append (qq (5 7)) (qq (2 3))))
 
-         (set! var1 (append e1 var1))
+         ;; (set! var1 (append e1 var1))
          ;; (set! var1 (cons var2 var1))
          ;; (set! e4 (head var1))
 
-         (set! var2 (tail var2))
-         (if (null? var2) (yes e1 e2 e3 var1 var2) start))))
+         ;; (set! var2 (tail var2))
+         ;; (if (null? var2) (yes e1 e2 e3 var1 var2) start)
+
+         )))
 
   ;; null?
   (eva1 g
@@ -88,7 +98,7 @@
            (const pair (and i second) pair)
            (const i in i)
            (const v (qq qv) v)
-           (const qv qv (x))
+           (() qv qv (x))
            (() second second second)
            (() l l l)
            (() q q q)
@@ -110,7 +120,7 @@
            (const pair (and i second) pair)
            (const i in i)
            (const v (qq qv) v)
-           (const qv qv (xs))
+           (() qv qv (xs))
            (() second second second)
            (() l l l)
            (() q q q)
@@ -133,7 +143,7 @@
                   (do second))
            (const pair (and i second) pair)
            (const v (qq qv) v)
-           (const qv qv (al1 bs))
+           (() qv qv (al1 bs))
            (() al1 al1 al1)
            (() al al al)
            (() bl bl bl)
@@ -158,7 +168,7 @@
                   (do second))
            (const pair (and i second) pair)
            (const v (qq qv) v)
-           (const qv qv (al bs))
+           (() qv qv (al bs))
            (() al al al)
            (() bl bl bl)
            (() a a a)
