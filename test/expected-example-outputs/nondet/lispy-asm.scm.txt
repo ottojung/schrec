@@ -1,0 +1,1000 @@
+Original:
+(let ((const (head tail
+                   null?
+                   cons
+                   eq?
+                   if
+                   append
+                   set!
+                   and
+                   qq
+                   define
+                   do
+                   begin))
+      (condition-1 (null? lst-1))
+      (lst-1 (qq lst-2))
+      (lst-2 (x xs))
+      (body (do (begin
+                 (define e1)
+                 (define e2)
+                 (define e3)
+                 (define e4)
+                 (set! e1 (cons var1 var2))
+                 (set! e2 (append var1 var2))
+                 (set! e3 (head e1))
+                 (set! e4 (head e2))
+                 (done e1 e2 e3 e4 var1 var2))))
+      (var1 (qq (2)))
+      (var2 (qq (5 6)))
+      (i (define v))
+      (e (head q))
+      (q (qq l))
+      (l (x xs))
+      (e.5 (tail q.5))
+      (q.5 (qq l.5))
+      (l.5 (x xs))
+      (i.6 (set! v e.6))
+      (e.6 (append a b))
+      (a (qq al))
+      (al (al1))
+      (b (qq bl))
+      (bl (bs))
+      (i.7 (set! v e.7))
+      (e.7 (cons a.7 b.7))
+      (a.7 (qq al.0))
+      (b.7 (qq bl.7))
+      (bl.7 (bs)))
+  (((eva1 g
+          ((const g
+                  (do (if (null? (qq x)) then else))
+                  (do then)))
+          (eval g
+                ((const g (do if-exp) (do else))
+                 (const if-exp
+                        (if-keyword condition-1 then else)
+                        if-exp)
+                 (const if-keyword if if-keyword)
+                 (() x x x)
+                 (() lst-2 lst-2 lst-2)
+                 (() lst-1 lst-1 lst-1)
+                 (() condition-1 condition-1 condition-1)
+                 (() then then then)
+                 (() else else else))
+                body))
+    (eva1 g
+          ((const g (do (if (eq? x y) then else)) (do else)))
+          (eva1 g
+                ((const g
+                        (do (if (keyword-eq (qq x) (qq x)) then else))
+                        (do then))
+                 (const keyword-eq eq? keyword-eq))
+                body))
+    (eva1 g
+          ((const g (do pair) (do second))
+           (const pair (and i second) pair)
+           (const v v (qq (())))
+           (() i i i))
+          body)
+    (eval g
+          ((const g (do pair) (do second))
+           (const pair (and i.0 second) pair)
+           (const i.0 (set! v e) i.0)
+           (const v (qq qv) v)
+           (() qv qv (x))
+           (() second second second)
+           (() l l l)
+           (() q q q)
+           (() e e e)
+           (() x x x))
+          body)
+    (eval g
+          ((const g (do pair) (do second))
+           (const pair (and i.0 second) pair)
+           (const i.0 (set! v e.5) i.0)
+           (const v (qq qv) v)
+           (() qv qv (xs))
+           (() second second second)
+           (() l.5 l.5 l.5)
+           (() q.5 q.5 q.5)
+           (() e.5 e.5 e.5)
+           (() x x x))
+          body)
+    (eval g
+          ((const g (do pair) (do second))
+           (const pair (and i.6 second) pair)
+           (const v (qq qv) v)
+           (() qv qv (al1 bs))
+           (() al1 al1 al1)
+           (() al al al)
+           (() bl bl bl)
+           (() a a a)
+           (() b b b)
+           (() e.6 e.6 e.6)
+           (() i.6 i.6 i.6)
+           (() x x x))
+          body)
+    (eval g
+          ((const g (do pair) (do second))
+           (const pair (and i.7 second) pair)
+           (const v (qq qv) v)
+           (() qv qv (al.0 bs))
+           (() al.0 al.0 al.0)
+           (() bl.7 bl.7 bl.7)
+           (() a.7 a.7 a.7)
+           (() b.7 b.7 b.7)
+           (() e.7 e.7 e.7)
+           (() i.7 i.7 i.7)
+           (() x x x))
+          body)
+    (eval g
+          ((const g
+                  (begin x1 x2 x3 xs)
+                  (and x1 (begin x2 x3 xs)))
+           (() x1 x1 x1)
+           (() x2 x2 x2)
+           (() x3 x3 x3))
+          body)
+    (eva1 g
+          ((const g (begin x1 x2) (and x1 x2)))
+          body))))
+
+
+Step:
+(((head tail
+        null?
+        cons
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((var1 (qq (2))) (var2 (qq (5 6))))
+  (do (and
+       (define e1)
+       (begin
+         (define e2)
+         (define e3)
+         (define e4)
+         (set! e1 (cons var1 var2))
+         (set! e2 (append var1 var2))
+         (set! e3 (head e1))
+         (set! e4 (head e2))
+         (done e1 e2 e3 e4 var1 var2)))))
+
+
+Step:
+(((head tail
+        null?
+        cons
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((var1 (qq (2))) (var2 (qq (5 6))))
+  (do (and
+       (define e1)
+       (and (define e2)
+            (begin
+              (define e3)
+              (define e4)
+              (set! e1 (cons var1 var2))
+              (set! e2 (append var1 var2))
+              (set! e3 (head e1))
+              (set! e4 (head e2))
+              (done e1 e2 e3 e4 var1 var2))))))
+
+
+Step:
+(let ((const (head tail
+                   null?
+                   cons
+                   eq?
+                   if
+                   append
+                   set!
+                   and
+                   qq
+                   define
+                   do
+                   begin))
+      (i (define v)))
+  ((const g (do pair) (do second))
+   (const pair (and i second) pair)
+   (const v v (qq (())))
+   (() i i i)))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6))))
+  (do (begin
+       (define e2)
+       (define e3)
+       (define e4)
+       (set! e1 (cons var1 var2))
+       (set! e2 (append var1 var2))
+       (set! e3 (head e1))
+       (set! e4 (head e2))
+       (done e1 e2 e3 e4 var1 var2))))
+
+
+Step:
+(((head tail
+        null?
+        cons
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((var1 (qq (2))) (var2 (qq (5 6))))
+  (do (and
+       (define e1)
+       (and (define e2)
+            (and (define e3)
+                 (begin
+                   (define e4)
+                   (set! e1 (cons var1 var2))
+                   (set! e2 (append var1 var2))
+                   (set! e3 (head e1))
+                   (set! e4 (head e2))
+                   (done e1 e2 e3 e4 var1 var2)))))))
+
+
+Step:
+(let ((const (head tail
+                   null?
+                   cons
+                   eq?
+                   if
+                   append
+                   set!
+                   and
+                   qq
+                   define
+                   do
+                   begin))
+      (i (define v)))
+  ((const g (do pair) (do second))
+   (const pair (and i second) pair)
+   (const v v (qq (())))
+   (() i i i)))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6))))
+  (do (and
+       (define e2)
+       (begin
+         (define e3)
+         (define e4)
+         (set! e1 (cons var1 var2))
+         (set! e2 (append var1 var2))
+         (set! e3 (head e1))
+         (set! e4 (head e2))
+         (done e1 e2 e3 e4 var1 var2)))))
+
+
+Step:
+(((head tail
+        null?
+        cons
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6))))
+  (do (and
+       (define e2)
+       (begin
+         (define e3)
+         (define e4)
+         (set! e1 (cons var1 var2))
+         (set! e2 (append var1 var2))
+         (set! e3 (head e1))
+         (set! e4 (head e2))
+         (done e1 e2 e3 e4 var1 var2)))))
+
+
+Step:
+(((head tail
+        null?
+        cons
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((var1 (qq (2))) (var2 (qq (5 6))))
+  (do (and
+       (define e1)
+       (and (define e2)
+            (and (define e3)
+                 (and (define e4)
+                      (begin
+                        (set! e1 (cons var1 var2))
+                        (set! e2 (append var1 var2))
+                        (set! e3 (head e1))
+                        (set! e4 (head e2))
+                        (done e1 e2 e3 e4 var1 var2))))))))
+
+
+Step:
+(let ((const (head tail
+                   null?
+                   cons
+                   eq?
+                   if
+                   append
+                   set!
+                   and
+                   qq
+                   define
+                   do
+                   begin))
+      (i (define v)))
+  ((const g (do pair) (do second))
+   (const pair (and i second) pair)
+   (const v v (qq (())))
+   (() i i i)))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6))))
+  (do (and
+       (define e2)
+       (and (define e3)
+            (begin
+              (define e4)
+              (set! e1 (cons var1 var2))
+              (set! e2 (append var1 var2))
+              (set! e3 (head e1))
+              (set! e4 (head e2))
+              (done e1 e2 e3 e4 var1 var2))))))
+
+
+Step:
+(((head tail
+        null?
+        cons
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6))))
+  (do (and
+       (define e2)
+       (and (define e3)
+            (begin
+              (define e4)
+              (set! e1 (cons var1 var2))
+              (set! e2 (append var1 var2))
+              (set! e3 (head e1))
+              (set! e4 (head e2))
+              (done e1 e2 e3 e4 var1 var2))))))
+
+
+Step:
+(let ((const (head tail
+                   null?
+                   cons
+                   eq?
+                   if
+                   append
+                   set!
+                   and
+                   qq
+                   define
+                   do
+                   begin))
+      (i (define v)))
+  ((const g (do pair) (do second))
+   (const pair (and i second) pair)
+   (const v v (qq (())))
+   (() i i i)))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6)))
+      (e2 (qq (()))))
+  (do (begin
+       (define e3)
+       (define e4)
+       (set! e1 (cons var1 var2))
+       (set! e2 (append var1 var2))
+       (set! e3 (head e1))
+       (set! e4 (head e2))
+       (done e1 e2 e3 e4 var1 var2))))
+
+
+Step:
+(((head tail
+        null?
+        cons
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6))))
+  (do (and
+       (define e2)
+       (and (define e3)
+            (begin
+              (define e4)
+              (set! e1 (cons var1 var2))
+              (set! e2 (append var1 var2))
+              (set! e3 (head e1))
+              (set! e4 (head e2))
+              (done e1 e2 e3 e4 var1 var2))))))
+
+
+Step:
+(let ((const (head tail
+                   null?
+                   cons
+                   eq?
+                   if
+                   append
+                   set!
+                   and
+                   qq
+                   define
+                   do
+                   begin))
+      (i (define v)))
+  ((const g (do pair) (do second))
+   (const pair (and i second) pair)
+   (const v v (qq (())))
+   (() i i i)))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6)))
+      (e2 (qq (()))))
+  (do (begin
+       (define e3)
+       (define e4)
+       (set! e1 (cons var1 var2))
+       (set! e2 (append var1 var2))
+       (set! e3 (head e1))
+       (set! e4 (head e2))
+       (done e1 e2 e3 e4 var1 var2))))
+
+
+Step:
+(((head tail
+        null?
+        cons
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((var1 (qq (2))) (var2 (qq (5 6))))
+  (do (and
+       (define e1)
+       (and (define e2)
+            (and (define e3)
+                 (and (define e4)
+                      (and (set! e1 (cons var1 var2))
+                           (begin
+                             (set! e2 (append var1 var2))
+                             (set! e3 (head e1))
+                             (set! e4 (head e2))
+                             (done e1 e2 e3 e4 var1 var2)))))))))
+
+
+Step:
+(let ((const (head tail
+                   null?
+                   cons
+                   eq?
+                   if
+                   append
+                   set!
+                   and
+                   qq
+                   define
+                   do
+                   begin))
+      (i (define v)))
+  ((const g (do pair) (do second))
+   (const pair (and i second) pair)
+   (const v v (qq (())))
+   (() i i i)))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6))))
+  (do (and
+       (define e2)
+       (and (define e3)
+            (and (define e4)
+                 (begin
+                   (set! e1 (cons var1 var2))
+                   (set! e2 (append var1 var2))
+                   (set! e3 (head e1))
+                   (set! e4 (head e2))
+                   (done e1 e2 e3 e4 var1 var2)))))))
+
+
+Step:
+(((head tail
+        null?
+        cons
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6))))
+  (do (and
+       (define e2)
+       (and (define e3)
+            (and (define e4)
+                 (begin
+                   (set! e1 (cons var1 var2))
+                   (set! e2 (append var1 var2))
+                   (set! e3 (head e1))
+                   (set! e4 (head e2))
+                   (done e1 e2 e3 e4 var1 var2)))))))
+
+
+Step:
+(let ((const (head tail
+                   null?
+                   cons
+                   eq?
+                   if
+                   append
+                   set!
+                   and
+                   qq
+                   define
+                   do
+                   begin))
+      (i (define v)))
+  ((const g (do pair) (do second))
+   (const pair (and i second) pair)
+   (const v v (qq (())))
+   (() i i i)))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6)))
+      (e2 (qq (()))))
+  (do (and
+       (define e3)
+       (begin
+         (define e4)
+         (set! e1 (cons var1 var2))
+         (set! e2 (append var1 var2))
+         (set! e3 (head e1))
+         (set! e4 (head e2))
+         (done e1 e2 e3 e4 var1 var2)))))
+
+
+Step:
+(((head tail
+        null?
+        cons
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6))))
+  (do (and
+       (define e2)
+       (and (define e3)
+            (and (define e4)
+                 (begin
+                   (set! e1 (cons var1 var2))
+                   (set! e2 (append var1 var2))
+                   (set! e3 (head e1))
+                   (set! e4 (head e2))
+                   (done e1 e2 e3 e4 var1 var2)))))))
+
+
+Step:
+(let ((const (head tail
+                   null?
+                   cons
+                   eq?
+                   if
+                   append
+                   set!
+                   and
+                   qq
+                   define
+                   do
+                   begin))
+      (i (define v)))
+  ((const g (do pair) (do second))
+   (const pair (and i second) pair)
+   (const v v (qq (())))
+   (() i i i)))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6)))
+      (e2 (qq (()))))
+  (do (and
+       (define e3)
+       (begin
+         (define e4)
+         (set! e1 (cons var1 var2))
+         (set! e2 (append var1 var2))
+         (set! e3 (head e1))
+         (set! e4 (head e2))
+         (done e1 e2 e3 e4 var1 var2)))))
+
+
+Step:
+(((head tail
+        null?
+        cons
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6)))
+      (e2 (qq (()))))
+  (do (and
+       (define e3)
+       (begin
+         (define e4)
+         (set! e1 (cons var1 var2))
+         (set! e2 (append var1 var2))
+         (set! e3 (head e1))
+         (set! e4 (head e2))
+         (done e1 e2 e3 e4 var1 var2)))))
+
+
+Step:
+(((head tail
+        null?
+        cons
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6))))
+  (do (and
+       (define e2)
+       (and (define e3)
+            (and (define e4)
+                 (begin
+                   (set! e1 (cons var1 var2))
+                   (set! e2 (append var1 var2))
+                   (set! e3 (head e1))
+                   (set! e4 (head e2))
+                   (done e1 e2 e3 e4 var1 var2)))))))
+
+
+Step:
+(let ((const (head tail
+                   null?
+                   cons
+                   eq?
+                   if
+                   append
+                   set!
+                   and
+                   qq
+                   define
+                   do
+                   begin))
+      (i (define v)))
+  ((const g (do pair) (do second))
+   (const pair (and i second) pair)
+   (const v v (qq (())))
+   (() i i i)))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6)))
+      (e2 (qq (()))))
+  (do (and
+       (define e3)
+       (begin
+         (define e4)
+         (set! e1 (cons var1 var2))
+         (set! e2 (append var1 var2))
+         (set! e3 (head e1))
+         (set! e4 (head e2))
+         (done e1 e2 e3 e4 var1 var2)))))
+
+
+Step:
+(((head tail
+        null?
+        cons
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6)))
+      (e2 (qq (()))))
+  (do (and
+       (define e3)
+       (begin
+         (define e4)
+         (set! e1 (cons var1 var2))
+         (set! e2 (append var1 var2))
+         (set! e3 (head e1))
+         (set! e4 (head e2))
+         (done e1 e2 e3 e4 var1 var2)))))
+
+
+Step:
+(((head tail
+        null?
+        cons
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((var1 (qq (2))) (var2 (qq (5 6))))
+  (do (and
+       (define e1)
+       (and (define e2)
+            (and (define e3)
+                 (and (define e4)
+                      (and (set! e1 (cons var1 var2))
+                           (and (set! e2 (append var1 var2))
+                                (begin
+                                  (set! e3 (head e1))
+                                  (set! e4 (head e2))
+                                  (done e1 e2 e3 e4 var1 var2))))))))))
+
+
+Step:
+(let ((const (head tail
+                   null?
+                   cons
+                   eq?
+                   if
+                   append
+                   set!
+                   and
+                   qq
+                   define
+                   do
+                   begin))
+      (i (define v)))
+  ((const g (do pair) (do second))
+   (const pair (and i second) pair)
+   (const v v (qq (())))
+   (() i i i)))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6))))
+  (do (and
+       (define e2)
+       (and (define e3)
+            (and (define e4)
+                 (and (set! e1 (cons var1 var2))
+                      (begin
+                        (set! e2 (append var1 var2))
+                        (set! e3 (head e1))
+                        (set! e4 (head e2))
+                        (done e1 e2 e3 e4 var1 var2))))))))
+
+
+Step:
+(((head tail
+        null?
+        cons
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6))))
+  (do (and
+       (define e2)
+       (and (define e3)
+            (and (define e4)
+                 (and (set! e1 (cons var1 var2))
+                      (begin
+                        (set! e2 (append var1 var2))
+                        (set! e3 (head e1))
+                        (set! e4 (head e2))
+                        (done e1 e2 e3 e4 var1 var2))))))))
+
+
+Step:
+(let ((const (head tail
+                   null?

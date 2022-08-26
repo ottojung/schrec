@@ -16,6 +16,7 @@ const.scm
 eval-in-pattern.scm
 lambda.scm
 lisp-list-functions.scm
+lispy-asm.scm
 loop-1.scm
 loop-2.scm
 loop-pattern.scm
@@ -24,6 +25,7 @@ non-determinism-example-2.scm
 primitive-multi-2.scm
 primitive-multi.scm
 primitive.scm
+recursive-functions.scm
 shuffle-multi.scm
 simple-let-example.scm
 simple-non-confluent.scm
@@ -48,6 +50,7 @@ const-multi.scm
 const.scm
 eval-in-pattern.scm
 lisp-list-functions.scm
+lispy-asm.scm
 loop-1.scm
 loop-2.scm
 loop-pattern.scm
@@ -56,6 +59,7 @@ non-determinism-example-2.scm
 primitive-multi-2.scm
 primitive-multi.scm
 primitive.scm
+recursive-functions.scm
 shuffle-multi.scm
 simple-let-example.scm
 simple-non-confluent.scm
