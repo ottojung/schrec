@@ -29,7 +29,6 @@
       (sg (rec zero (comp one (pi 0))))
       (notsg (rec one (comp zero (pi 0))))
       (mul (rec zero (comp add (pi 1) (pi 2))))
-      (find-zero (μ notsg))
 
       (body
        (results
@@ -59,6 +58,9 @@
         ;; (program ((pi 2) 1 2 3 4 5))
         ;; (program ((pi 1) 1 2 3 4 5))
         ;; (program ((pi 0) 1 2 3 4 5))
+
+        ;; (program ((μ notsg) 0))
+        ;; (program (one 2 2))
 
         ;; (program ((rec f g) 0))
         ;; (program ((rec zero g) (succ (succ 0))))
@@ -128,18 +130,32 @@
         body)
 
   ;; μ-operator
-  (eva1 o ((const o
-                  (search-μ f (num not0) x)
-                  (search-μ f (f (succ x)) (succ x))))
-        (eva1 o ((const o
-                        (search-μ-keyword f (num (i)) x)
-                        ((pi (num (i))) x))
-                 (const search-μ-keyword search-μ search-μ-keyword))
+  (eval o (let ((result (num not0)))
+            ((const o
+                    (search-μ f result x args)
+                    (search-μ f (f (succ x) args) (succ x) args))
+             (() f f f)
+             (() x x x)
+             (() not0 not0 not0)
+             (() result result result)))
+        (eval o (let ((n (i))
+                      (result (num n)))
+                  ((const o
+                          (search-μ-keyword f result x args)
+                          ((pi (num (i))) x))
+                   (const search-μ-keyword search-μ search-μ-keyword)
+                   (() n n n)
+                   (() f f f)
+                   (() x x x)
+                   (() result result result)))
               body))
 
-  (eva1 o ((const o
-                  (μ f)
-                  (search-μ f (f (num (i))) (num (i)))))
+  (eval o (let ((main (μ f)))
+            ((const o
+                    (main args)
+                    (search-μ f (f (num (i))) (num (i)) args))
+             (() f f f)
+             (() main main main)))
         body)
 
   ;; recursion

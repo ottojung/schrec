@@ -17,7 +17,11 @@ Original:
               (program
                 ((rec (pi (num (i))) (comp succ (pi (num (i i)))))
                  (num (i i i i))
-                 (num (i i i)))))))
+                 (num (i i i))))))
+      (result (num not0))
+      (result.4 (num n.4))
+      (n.4 (i))
+      (main (μ f)))
   (((eval g
           ((const g (xs pa ys) (xs a ys))
            (() pa pa pa)
@@ -71,22 +75,32 @@ Original:
            (() f f f)
            (() g g g))
           body)
-    (eva1 o
+    (eval o
           ((const o
-                  (search-μ f (num not0) x)
-                  (search-μ f (f (succ x)) (succ x))))
-          (eva1 o
+                  (search-μ f result x args)
+                  (search-μ f (f (succ x) args) (succ x) args))
+           (() f f f)
+           (() x x x)
+           (() not0 not0 not0)
+           (() result result result))
+          (eval o
                 ((const o
-                        (search-μ-keyword f (num (i)) x)
+                        (search-μ-keyword f result.4 x args)
                         ((pi (num (i))) x))
                  (const search-μ-keyword
                         search-μ
-                        search-μ-keyword))
+                        search-μ-keyword)
+                 (() n.4 n.4 n.4)
+                 (() f f f)
+                 (() x x x)
+                 (() result.4 result.4 result.4))
                 body))
-    (eva1 o
+    (eval o
           ((const o
-                  (μ f)
-                  (search-μ f (f (num (i))) (num (i)))))
+                  (main args)
+                  (search-μ f (f (num (i))) (num (i)) args))
+           (() f f f)
+           (() main main main))
           body)
     (eval o
           ((const o (rr args n0) (f args))
@@ -984,17 +998,3 @@ Step:
  (() bl1 bl1 bl1)
  (() bl2 bl2 bl2)
  (() f f f)
- (() g g g)
- (() x1 x1 x1))
---------
-(let (($1 (pi (num (i i)))) ($2 (num (i i i i))))
-  (results
-    (program
-      ((comp succ $1)
-       (num (i i))
-       (succ ($1 (num (i)) ((pi (num (i))) $2) $2))
-       $2))))
-
-
-Step:
-(let ((pa (p0 a args))
