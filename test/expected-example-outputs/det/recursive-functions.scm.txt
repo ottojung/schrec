@@ -9,21 +9,24 @@ Original:
                    num
                    i
                    hello))
+      (pa (p0 a args))
+      (p0 (pi z))
+      (z (num numz))
+      (numz (nums))
       (body (results
               (program
                 ((rec (pi (num (i))) (comp succ (pi (num (i i)))))
                  (num (i i i i))
                  (num (i i i)))))))
   (((eval g
-          ((const g (f xs pa ys) (f xs a ys))
-           (const pa (p0 a args) pa)
-           (const p0 (pi z) p0)
-           (const z (num numz) z)
-           (const a a a)
-           (() numz (nums) numz)
+          ((const g (xs pa ys) (xs a ys))
+           (() pa pa pa)
+           (() p0 p0 p0)
+           (() z z z)
+           (() a a a)
+           (() numz numz numz)
            (() nums nums nums)
-           (() y y y)
-           (() f f f))
+           (() y y y))
           body)
     (eval g
           ((const g (pin x xs) ((pi (num (n1 ns))) xs))
@@ -88,8 +91,8 @@ Original:
     (eval o
           ((const o (rr args n0) (f args))
            (const rr (rec f g) rr)
-           (const n0 (num numz) n0)
-           (() numz (nums) numz)
+           (const n0 (num numz.0) n0)
+           (() numz.0 (nums) numz.0)
            (() nums nums nums)
            (() f f f)
            (() g g g))
@@ -388,25 +391,30 @@ Step:
 
 
 Step:
-(let ((const (zero succ
-                   pi
-                   comp
-                   comp-map
-                   rec
-                   μ
-                   search-μ
-                   num
-                   i
-                   hello)))
-  ((const g (f xs pa ys) (f xs a ys))
-   (const pa (p0 a args) pa)
-   (const p0 (pi z) p0)
-   (const z (num numz) z)
-   (const a a a)
-   (() numz (nums) numz)
+(let ((pa (p0 a args))
+      (p0 (pi z))
+      (z (num numz))
+      (numz (nums)))
+  (((zero succ
+          pi
+          comp
+          comp-map
+          rec
+          μ
+          search-μ
+          num
+          i
+          hello)
+    g
+    (xs pa ys)
+    (xs a ys))
+   (() pa pa pa)
+   (() p0 p0 p0)
+   (() z z z)
+   (() a a a)
+   (() numz numz numz)
    (() nums nums nums)
-   (() y y y)
-   (() f f f)))
+   (() y y y)))
 --------
 (let (($1 (num (i i i i))))
   (results
@@ -415,25 +423,30 @@ Step:
 
 
 Step:
-(let ((const (zero succ
-                   pi
-                   comp
-                   comp-map
-                   rec
-                   μ
-                   search-μ
-                   num
-                   i
-                   hello)))
-  ((const g (f xs pa ys) (f xs a ys))
-   (const pa (p0 a args) pa)
-   (const p0 (pi z) p0)
-   (const z (num numz) z)
-   (const a a a)
-   (() numz (nums) numz)
+(let ((pa (p0 a args))
+      (p0 (pi z))
+      (z (num numz))
+      (numz (nums)))
+  (((zero succ
+          pi
+          comp
+          comp-map
+          rec
+          μ
+          search-μ
+          num
+          i
+          hello)
+    g
+    (xs pa ys)
+    (xs a ys))
+   (() pa pa pa)
+   (() p0 p0 p0)
+   (() z z z)
+   (() a a a)
+   (() numz numz numz)
    (() nums nums nums)
-   (() y y y)
-   (() f f f)))
+   (() y y y)))
 --------
 (results
   (program
@@ -441,25 +454,30 @@ Step:
 
 
 Step:
-(let ((const (zero succ
-                   pi
-                   comp
-                   comp-map
-                   rec
-                   μ
-                   search-μ
-                   num
-                   i
-                   hello)))
-  ((const g (f xs pa ys) (f xs a ys))
-   (const pa (p0 a args) pa)
-   (const p0 (pi z) p0)
-   (const z (num numz) z)
-   (const a a a)
-   (() numz (nums) numz)
+(let ((pa (p0 a args))
+      (p0 (pi z))
+      (z (num numz))
+      (numz (nums)))
+  (((zero succ
+          pi
+          comp
+          comp-map
+          rec
+          μ
+          search-μ
+          num
+          i
+          hello)
+    g
+    (xs pa ys)
+    (xs a ys))
+   (() pa pa pa)
+   (() p0 p0 p0)
+   (() z z z)
+   (() a a a)
+   (() numz numz numz)
    (() nums nums nums)
-   (() y y y)
-   (() f f f)))
+   (() y y y)))
 --------
 (results (program (succ (succ (num (i i i i))))))
 
