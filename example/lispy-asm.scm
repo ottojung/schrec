@@ -3,7 +3,7 @@
 ;; Works on qqd source code, so this is an embedding.
 ;; Input program is written to the `body' variable.
 ;; Variables are simply references to nodes, no special "let*" construct for them is needed.
-(let ((const (head tail null? insert eq? if append set! and qq define do begin))
+(let ((const (head tail null? cons car eq? if append set! and qq define do begin))
       (var1 (qq (2)))
       (var2 (qq (5 6)))
       (body (do start))
@@ -13,25 +13,31 @@
          (define e2)
          (define e3)
          (define e4)
+         (define e5)
+         (define e6)
 
          ;; (set! e1 (head var2))
          ;; (set! e2 (tail var2))
          ;; (set! e4 (head e3))
          ;; (set! e4 (append e1 e2))
 
-         (set! e1 (insert var1 var2))
+         (set! e1 (cons var1 var2))
          (set! e2 (append var1 var2))
 
          (set! e3 (head e1))
          (set! e4 (head e2))
 
-         (done e1 e2 e3 e4 var1 var2)
+         (set! e5 (car e1))
+         (set! e6 (car e4))
 
-         ;; (set! var1 (insert var1 var2))
+         (ret (vars var1 var2)
+              (es e1 e2 e3 e4 e5 e6))
+
+         ;; (set! var1 (cons var1 var2))
          ;; (set! var1 (append (qq (5 7)) (qq (2 3))))
 
          ;; (set! var1 (append e1 var1))
-         ;; (set! var1 (insert var2 var1))
+         ;; (set! var1 (cons var2 var1))
          ;; (set! e4 (head var1))
 
          ;; (set! var2 (tail var2))
@@ -107,6 +113,29 @@
            ))
         body)
 
+  ;; set! car
+  (eval g
+        (let ((x (ys))
+              (l (x xs))
+              (q (qq l))
+              (e (car q))
+              (in (set! v e))
+              )
+          ((const g
+                  (do pair)
+                  (do second))
+           (const pair (and i second) pair)
+           (const i in i)
+           (const v (qq qv) v)
+           (() qv qv (ys))
+           (() second second second)
+           (() l l l)
+           (() q q q)
+           (() e e e)
+           (() x x x)
+           ))
+        body)
+
   ;; set! tail
   (eval g
         (let ((l (x xs))
@@ -155,12 +184,12 @@
            ))
         body)
 
-  ;; set! insert
+  ;; set! cons
   (eval g
         (let ((bl (bs))
               (a (qq al))
               (b (qq bl))
-              (e (insert a b))
+              (e (cons a b))
               (i (set! v e))
               )
           ((const g

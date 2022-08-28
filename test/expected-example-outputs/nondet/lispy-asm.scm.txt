@@ -1,7 +1,8 @@
 Original:
 (let ((const (head tail
                    null?
-                   insert
+                   cons
+                   car
                    eq?
                    if
                    append
@@ -19,31 +20,39 @@ Original:
                  (define e2)
                  (define e3)
                  (define e4)
-                 (set! e1 (insert var1 var2))
+                 (define e5)
+                 (define e6)
+                 (set! e1 (cons var1 var2))
                  (set! e2 (append var1 var2))
                  (set! e3 (head e1))
                  (set! e4 (head e2))
-                 (done e1 e2 e3 e4 var1 var2))))
+                 (set! e5 (car e1))
+                 (set! e6 (car e4))
+                 (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6)))))
       (var1 (qq (2)))
       (var2 (qq (5 6)))
       (i (define v))
       (e (head q))
       (q (qq l))
       (l (x xs))
-      (e.5 (tail q.5))
+      (e.5 (car q.5))
       (q.5 (qq l.5))
-      (l.5 (x xs))
-      (i.6 (set! v e.6))
-      (e.6 (append a b))
+      (l.5 (x.5 xs))
+      (x.5 (ys))
+      (e.6 (tail q.6))
+      (q.6 (qq l.6))
+      (l.6 (x xs))
+      (i.7 (set! v e.7))
+      (e.7 (append a b))
       (a (qq al))
       (al (al1))
       (b (qq bl))
       (bl (bs))
-      (i.7 (set! v e.7))
-      (e.7 (insert a.7 b.7))
-      (a.7 (qq al.0))
-      (b.7 (qq bl.7))
-      (bl.7 (bs)))
+      (i.8 (set! v e.8))
+      (e.8 (cons a.8 b.8))
+      (a.8 (qq al.0))
+      (b.8 (qq bl.8))
+      (bl.8 (bs)))
   (((eva1 g
           ((const g
                   (do (if (null? (qq x)) then else))
@@ -92,16 +101,28 @@ Original:
            (const pair (and i.0 second) pair)
            (const i.0 (set! v e.5) i.0)
            (const v (qq qv) v)
-           (() qv qv (xs))
+           (() qv qv (ys))
            (() second second second)
            (() l.5 l.5 l.5)
            (() q.5 q.5 q.5)
            (() e.5 e.5 e.5)
+           (() x.5 x.5 x.5))
+          body)
+    (eval g
+          ((const g (do pair) (do second))
+           (const pair (and i.0 second) pair)
+           (const i.0 (set! v e.6) i.0)
+           (const v (qq qv) v)
+           (() qv qv (xs))
+           (() second second second)
+           (() l.6 l.6 l.6)
+           (() q.6 q.6 q.6)
+           (() e.6 e.6 e.6)
            (() x x x))
           body)
     (eval g
           ((const g (do pair) (do second))
-           (const pair (and i.6 second) pair)
+           (const pair (and i.7 second) pair)
            (const v (qq qv) v)
            (() qv qv (al1 bs))
            (() al1 al1 al1)
@@ -109,21 +130,21 @@ Original:
            (() bl bl bl)
            (() a a a)
            (() b b b)
-           (() e.6 e.6 e.6)
-           (() i.6 i.6 i.6)
+           (() e.7 e.7 e.7)
+           (() i.7 i.7 i.7)
            (() x x x))
           body)
     (eval g
           ((const g (do pair) (do second))
-           (const pair (and i.7 second) pair)
+           (const pair (and i.8 second) pair)
            (const v (qq qv) v)
            (() qv qv (al.0 bs))
            (() al.0 al.0 al.0)
-           (() bl.7 bl.7 bl.7)
-           (() a.7 a.7 a.7)
-           (() b.7 b.7 b.7)
-           (() e.7 e.7 e.7)
-           (() i.7 i.7 i.7)
+           (() bl.8 bl.8 bl.8)
+           (() a.8 a.8 a.8)
+           (() b.8 b.8 b.8)
+           (() e.8 e.8 e.8)
+           (() i.8 i.8 i.8)
            (() x x x))
           body)
     (eval g
@@ -142,7 +163,8 @@ Original:
 Step:
 (((head tail
         null?
-        insert
+        cons
+        car
         eq?
         if
         append
@@ -166,17 +188,22 @@ Step:
          (define e2)
          (define e3)
          (define e4)
-         (set! e1 (insert var1 var2))
+         (define e5)
+         (define e6)
+         (set! e1 (cons var1 var2))
          (set! e2 (append var1 var2))
          (set! e3 (head e1))
          (set! e4 (head e2))
-         (done e1 e2 e3 e4 var1 var2)))))
+         (set! e5 (car e1))
+         (set! e6 (car e4))
+         (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6))))))
 
 
 Step:
 (((head tail
         null?
-        insert
+        cons
+        car
         eq?
         if
         append
@@ -200,17 +227,22 @@ Step:
             (begin
               (define e3)
               (define e4)
-              (set! e1 (insert var1 var2))
+              (define e5)
+              (define e6)
+              (set! e1 (cons var1 var2))
               (set! e2 (append var1 var2))
               (set! e3 (head e1))
               (set! e4 (head e2))
-              (done e1 e2 e3 e4 var1 var2))))))
+              (set! e5 (car e1))
+              (set! e6 (car e4))
+              (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6)))))))
 
 
 Step:
 (let ((const (head tail
                    null?
-                   insert
+                   cons
+                   car
                    eq?
                    if
                    append
@@ -231,17 +263,22 @@ Step:
        (define e2)
        (define e3)
        (define e4)
-       (set! e1 (insert var1 var2))
+       (define e5)
+       (define e6)
+       (set! e1 (cons var1 var2))
        (set! e2 (append var1 var2))
        (set! e3 (head e1))
        (set! e4 (head e2))
-       (done e1 e2 e3 e4 var1 var2))))
+       (set! e5 (car e1))
+       (set! e6 (car e4))
+       (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6)))))
 
 
 Step:
 (((head tail
         null?
-        insert
+        cons
+        car
         eq?
         if
         append
@@ -265,17 +302,22 @@ Step:
             (and (define e3)
                  (begin
                    (define e4)
-                   (set! e1 (insert var1 var2))
+                   (define e5)
+                   (define e6)
+                   (set! e1 (cons var1 var2))
                    (set! e2 (append var1 var2))
                    (set! e3 (head e1))
                    (set! e4 (head e2))
-                   (done e1 e2 e3 e4 var1 var2)))))))
+                   (set! e5 (car e1))
+                   (set! e6 (car e4))
+                   (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6))))))))
 
 
 Step:
 (let ((const (head tail
                    null?
-                   insert
+                   cons
+                   car
                    eq?
                    if
                    append
@@ -297,17 +339,22 @@ Step:
        (begin
          (define e3)
          (define e4)
-         (set! e1 (insert var1 var2))
+         (define e5)
+         (define e6)
+         (set! e1 (cons var1 var2))
          (set! e2 (append var1 var2))
          (set! e3 (head e1))
          (set! e4 (head e2))
-         (done e1 e2 e3 e4 var1 var2)))))
+         (set! e5 (car e1))
+         (set! e6 (car e4))
+         (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6))))))
 
 
 Step:
 (((head tail
         null?
-        insert
+        cons
+        car
         eq?
         if
         append
@@ -330,17 +377,22 @@ Step:
        (begin
          (define e3)
          (define e4)
-         (set! e1 (insert var1 var2))
+         (define e5)
+         (define e6)
+         (set! e1 (cons var1 var2))
          (set! e2 (append var1 var2))
          (set! e3 (head e1))
          (set! e4 (head e2))
-         (done e1 e2 e3 e4 var1 var2)))))
+         (set! e5 (car e1))
+         (set! e6 (car e4))
+         (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6))))))
 
 
 Step:
 (((head tail
         null?
-        insert
+        cons
+        car
         eq?
         if
         append
@@ -364,17 +416,22 @@ Step:
             (and (define e3)
                  (and (define e4)
                       (begin
-                        (set! e1 (insert var1 var2))
+                        (define e5)
+                        (define e6)
+                        (set! e1 (cons var1 var2))
                         (set! e2 (append var1 var2))
                         (set! e3 (head e1))
                         (set! e4 (head e2))
-                        (done e1 e2 e3 e4 var1 var2))))))))
+                        (set! e5 (car e1))
+                        (set! e6 (car e4))
+                        (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6)))))))))
 
 
 Step:
 (let ((const (head tail
                    null?
-                   insert
+                   cons
+                   car
                    eq?
                    if
                    append
@@ -396,17 +453,22 @@ Step:
        (and (define e3)
             (begin
               (define e4)
-              (set! e1 (insert var1 var2))
+              (define e5)
+              (define e6)
+              (set! e1 (cons var1 var2))
               (set! e2 (append var1 var2))
               (set! e3 (head e1))
               (set! e4 (head e2))
-              (done e1 e2 e3 e4 var1 var2))))))
+              (set! e5 (car e1))
+              (set! e6 (car e4))
+              (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6)))))))
 
 
 Step:
 (((head tail
         null?
-        insert
+        cons
+        car
         eq?
         if
         append
@@ -429,17 +491,22 @@ Step:
        (and (define e3)
             (begin
               (define e4)
-              (set! e1 (insert var1 var2))
+              (define e5)
+              (define e6)
+              (set! e1 (cons var1 var2))
               (set! e2 (append var1 var2))
               (set! e3 (head e1))
               (set! e4 (head e2))
-              (done e1 e2 e3 e4 var1 var2))))))
+              (set! e5 (car e1))
+              (set! e6 (car e4))
+              (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6)))))))
 
 
 Step:
 (let ((const (head tail
                    null?
-                   insert
+                   cons
+                   car
                    eq?
                    if
                    append
@@ -462,17 +529,22 @@ Step:
   (do (begin
        (define e3)
        (define e4)
-       (set! e1 (insert var1 var2))
+       (define e5)
+       (define e6)
+       (set! e1 (cons var1 var2))
        (set! e2 (append var1 var2))
        (set! e3 (head e1))
        (set! e4 (head e2))
-       (done e1 e2 e3 e4 var1 var2))))
+       (set! e5 (car e1))
+       (set! e6 (car e4))
+       (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6)))))
 
 
 Step:
 (((head tail
         null?
-        insert
+        cons
+        car
         eq?
         if
         append
@@ -495,17 +567,22 @@ Step:
        (and (define e3)
             (begin
               (define e4)
-              (set! e1 (insert var1 var2))
+              (define e5)
+              (define e6)
+              (set! e1 (cons var1 var2))
               (set! e2 (append var1 var2))
               (set! e3 (head e1))
               (set! e4 (head e2))
-              (done e1 e2 e3 e4 var1 var2))))))
+              (set! e5 (car e1))
+              (set! e6 (car e4))
+              (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6)))))))
 
 
 Step:
 (let ((const (head tail
                    null?
-                   insert
+                   cons
+                   car
                    eq?
                    if
                    append
@@ -528,17 +605,22 @@ Step:
   (do (begin
        (define e3)
        (define e4)
-       (set! e1 (insert var1 var2))
+       (define e5)
+       (define e6)
+       (set! e1 (cons var1 var2))
        (set! e2 (append var1 var2))
        (set! e3 (head e1))
        (set! e4 (head e2))
-       (done e1 e2 e3 e4 var1 var2))))
+       (set! e5 (car e1))
+       (set! e6 (car e4))
+       (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6)))))
 
 
 Step:
 (((head tail
         null?
-        insert
+        cons
+        car
         eq?
         if
         append
@@ -561,18 +643,24 @@ Step:
        (and (define e2)
             (and (define e3)
                  (and (define e4)
-                      (and (set! e1 (insert var1 var2))
+                      (and (define e5)
                            (begin
+                             (define e6)
+                             (set! e1 (cons var1 var2))
                              (set! e2 (append var1 var2))
                              (set! e3 (head e1))
                              (set! e4 (head e2))
-                             (done e1 e2 e3 e4 var1 var2)))))))))
+                             (set! e5 (car e1))
+                             (set! e6 (car e4))
+                             (ret (vars var1 var2)
+                                  (es e1 e2 e3 e4 e5 e6))))))))))
 
 
 Step:
 (let ((const (head tail
                    null?
-                   insert
+                   cons
+                   car
                    eq?
                    if
                    append
@@ -594,84 +682,22 @@ Step:
        (and (define e3)
             (and (define e4)
                  (begin
-                   (set! e1 (insert var1 var2))
+                   (define e5)
+                   (define e6)
+                   (set! e1 (cons var1 var2))
                    (set! e2 (append var1 var2))
                    (set! e3 (head e1))
                    (set! e4 (head e2))
-                   (done e1 e2 e3 e4 var1 var2)))))))
+                   (set! e5 (car e1))
+                   (set! e6 (car e4))
+                   (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6))))))))
 
 
 Step:
 (((head tail
         null?
-        insert
-        eq?
-        if
-        append
-        set!
-        and
-        qq
-        define
-        do
-        begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
---------
-(let ((e1 (qq ())) (var1 (qq (2))) (var2 (qq (5 6))))
-  (do (and
-       (define e2)
-       (and (define e3)
-            (and (define e4)
-                 (begin
-                   (set! e1 (insert var1 var2))
-                   (set! e2 (append var1 var2))
-                   (set! e3 (head e1))
-                   (set! e4 (head e2))
-                   (done e1 e2 e3 e4 var1 var2)))))))
-
-
-Step:
-(let ((const (head tail
-                   null?
-                   insert
-                   eq?
-                   if
-                   append
-                   set!
-                   and
-                   qq
-                   define
-                   do
-                   begin))
-      (i (define v)))
-  ((const g (do pair) (do second))
-   (const pair (and i second) pair)
-   (const v v (qq ()))
-   (() i i i)))
---------
-(let ((e1 (qq ()))
-      (var1 (qq (2)))
-      (var2 (qq (5 6)))
-      (e2 (qq ())))
-  (do (and
-       (define e3)
-       (begin
-         (define e4)
-         (set! e1 (insert var1 var2))
-         (set! e2 (append var1 var2))
-         (set! e3 (head e1))
-         (set! e4 (head e2))
-         (done e1 e2 e3 e4 var1 var2)))))
-
-
-Step:
-(((head tail
-        null?
-        insert
+        cons
+        car
         eq?
         if
         append
@@ -694,17 +720,22 @@ Step:
        (and (define e3)
             (and (define e4)
                  (begin
-                   (set! e1 (insert var1 var2))
+                   (define e5)
+                   (define e6)
+                   (set! e1 (cons var1 var2))
                    (set! e2 (append var1 var2))
                    (set! e3 (head e1))
                    (set! e4 (head e2))
-                   (done e1 e2 e3 e4 var1 var2)))))))
+                   (set! e5 (car e1))
+                   (set! e6 (car e4))
+                   (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6))))))))
 
 
 Step:
 (let ((const (head tail
                    null?
-                   insert
+                   cons
+                   car
                    eq?
                    if
                    append
@@ -728,52 +759,22 @@ Step:
        (define e3)
        (begin
          (define e4)
-         (set! e1 (insert var1 var2))
+         (define e5)
+         (define e6)
+         (set! e1 (cons var1 var2))
          (set! e2 (append var1 var2))
          (set! e3 (head e1))
          (set! e4 (head e2))
-         (done e1 e2 e3 e4 var1 var2)))))
+         (set! e5 (car e1))
+         (set! e6 (car e4))
+         (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6))))))
 
 
 Step:
 (((head tail
         null?
-        insert
-        eq?
-        if
-        append
-        set!
-        and
-        qq
-        define
-        do
-        begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
---------
-(let ((e1 (qq ()))
-      (var1 (qq (2)))
-      (var2 (qq (5 6)))
-      (e2 (qq ())))
-  (do (and
-       (define e3)
-       (begin
-         (define e4)
-         (set! e1 (insert var1 var2))
-         (set! e2 (append var1 var2))
-         (set! e3 (head e1))
-         (set! e4 (head e2))
-         (done e1 e2 e3 e4 var1 var2)))))
-
-
-Step:
-(((head tail
-        null?
-        insert
+        cons
+        car
         eq?
         if
         append
@@ -796,17 +797,22 @@ Step:
        (and (define e3)
             (and (define e4)
                  (begin
-                   (set! e1 (insert var1 var2))
+                   (define e5)
+                   (define e6)
+                   (set! e1 (cons var1 var2))
                    (set! e2 (append var1 var2))
                    (set! e3 (head e1))
                    (set! e4 (head e2))
-                   (done e1 e2 e3 e4 var1 var2)))))))
+                   (set! e5 (car e1))
+                   (set! e6 (car e4))
+                   (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6))))))))
 
 
 Step:
 (let ((const (head tail
                    null?
-                   insert
+                   cons
+                   car
                    eq?
                    if
                    append
@@ -830,17 +836,22 @@ Step:
        (define e3)
        (begin
          (define e4)
-         (set! e1 (insert var1 var2))
+         (define e5)
+         (define e6)
+         (set! e1 (cons var1 var2))
          (set! e2 (append var1 var2))
          (set! e3 (head e1))
          (set! e4 (head e2))
-         (done e1 e2 e3 e4 var1 var2)))))
+         (set! e5 (car e1))
+         (set! e6 (car e4))
+         (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6))))))
 
 
 Step:
 (((head tail
         null?
-        insert
+        cons
+        car
         eq?
         if
         append
@@ -865,83 +876,22 @@ Step:
        (define e3)
        (begin
          (define e4)
-         (set! e1 (insert var1 var2))
+         (define e5)
+         (define e6)
+         (set! e1 (cons var1 var2))
          (set! e2 (append var1 var2))
          (set! e3 (head e1))
          (set! e4 (head e2))
-         (done e1 e2 e3 e4 var1 var2)))))
+         (set! e5 (car e1))
+         (set! e6 (car e4))
+         (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6))))))
 
 
 Step:
 (((head tail
         null?
-        insert
-        eq?
-        if
-        append
-        set!
-        and
-        qq
-        define
-        do
-        begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
---------
-(let ((var1 (qq (2))) (var2 (qq (5 6))))
-  (do (and
-       (define e1)
-       (and (define e2)
-            (and (define e3)
-                 (and (define e4)
-                      (and (set! e1 (insert var1 var2))
-                           (and (set! e2 (append var1 var2))
-                                (begin
-                                  (set! e3 (head e1))
-                                  (set! e4 (head e2))
-                                  (done e1 e2 e3 e4 var1 var2))))))))))
-
-
-Step:
-(let ((const (head tail
-                   null?
-                   insert
-                   eq?
-                   if
-                   append
-                   set!
-                   and
-                   qq
-                   define
-                   do
-                   begin))
-      (i (define v)))
-  ((const g (do pair) (do second))
-   (const pair (and i second) pair)
-   (const v v (qq ()))
-   (() i i i)))
---------
-(let ((e1 (qq ())) (var1 (qq (2))) (var2 (qq (5 6))))
-  (do (and
-       (define e2)
-       (and (define e3)
-            (and (define e4)
-                 (and (set! e1 (insert var1 var2))
-                      (begin
-                        (set! e2 (append var1 var2))
-                        (set! e3 (head e1))
-                        (set! e4 (head e2))
-                        (done e1 e2 e3 e4 var1 var2))))))))
-
-
-Step:
-(((head tail
-        null?
-        insert
+        cons
+        car
         eq?
         if
         append
@@ -963,18 +913,23 @@ Step:
        (define e2)
        (and (define e3)
             (and (define e4)
-                 (and (set! e1 (insert var1 var2))
-                      (begin
-                        (set! e2 (append var1 var2))
-                        (set! e3 (head e1))
-                        (set! e4 (head e2))
-                        (done e1 e2 e3 e4 var1 var2))))))))
+                 (begin
+                   (define e5)
+                   (define e6)
+                   (set! e1 (cons var1 var2))
+                   (set! e2 (append var1 var2))
+                   (set! e3 (head e1))
+                   (set! e4 (head e2))
+                   (set! e5 (car e1))
+                   (set! e6 (car e4))
+                   (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6))))))))
 
 
 Step:
 (let ((const (head tail
                    null?
-                   insert
+                   cons
+                   car
                    eq?
                    if
                    append
@@ -996,5 +951,50 @@ Step:
       (e2 (qq ())))
   (do (and
        (define e3)
-       (and (define e4)
-            (begin
+       (begin
+         (define e4)
+         (define e5)
+         (define e6)
+         (set! e1 (cons var1 var2))
+         (set! e2 (append var1 var2))
+         (set! e3 (head e1))
+         (set! e4 (head e2))
+         (set! e5 (car e1))
+         (set! e6 (car e4))
+         (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6))))))
+
+
+Step:
+(((head tail
+        null?
+        cons
+        car
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((e1 (qq ()))
+      (var1 (qq (2)))
+      (var2 (qq (5 6)))
+      (e2 (qq ())))
+  (do (and
+       (define e3)
+       (begin
+         (define e4)
+         (define e5)
+         (define e6)
+         (set! e1 (cons var1 var2))
+         (set! e2 (append var1 var2))
+         (set! e3 (head e1))
