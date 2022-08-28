@@ -54,5 +54,5 @@
      bindings))
 
   (let ((body (get-let-body lst)))
-    (unless (list? body)
-      (raisu 'let-body-must-be-a-list body))))
+    (unless (or (list? body) (symbol? body) (number? body))
+      (raisu 'let-body-is-of-wierd-type body))))
