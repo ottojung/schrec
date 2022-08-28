@@ -3,7 +3,7 @@
 ;; Works on qqd source code, so this is an embedding.
 ;; Input program is written to the `body' variable.
 ;; Variables are simply references to nodes, no special "let*" construct for them is needed.
-(let ((const (head tail null? cons eq? if append set! and qq define do begin))
+(let ((const (head tail null? insert eq? if append set! and qq define do begin))
       (var1 (qq (2)))
       (var2 (qq (5 6)))
       (body (do start))
@@ -19,7 +19,7 @@
          ;; (set! e4 (head e3))
          ;; (set! e4 (append e1 e2))
 
-         (set! e1 (cons var1 var2))
+         (set! e1 (insert var1 var2))
          (set! e2 (append var1 var2))
 
          (set! e3 (head e1))
@@ -27,11 +27,11 @@
 
          (done e1 e2 e3 e4 var1 var2)
 
-         ;; (set! var1 (cons var1 var2))
+         ;; (set! var1 (insert var1 var2))
          ;; (set! var1 (append (qq (5 7)) (qq (2 3))))
 
          ;; (set! var1 (append e1 var1))
-         ;; (set! var1 (cons var2 var1))
+         ;; (set! var1 (insert var2 var1))
          ;; (set! e4 (head var1))
 
          ;; (set! var2 (tail var2))
@@ -155,12 +155,12 @@
            ))
         body)
 
-  ;; set! cons
+  ;; set! insert
   (eval g
         (let ((bl (bs))
               (a (qq al))
               (b (qq bl))
-              (e (cons a b))
+              (e (insert a b))
               (i (set! v e))
               )
           ((const g

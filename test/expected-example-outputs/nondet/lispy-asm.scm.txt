@@ -1,7 +1,7 @@
 Original:
 (let ((const (head tail
                    null?
-                   cons
+                   insert
                    eq?
                    if
                    append
@@ -19,7 +19,7 @@ Original:
                  (define e2)
                  (define e3)
                  (define e4)
-                 (set! e1 (cons var1 var2))
+                 (set! e1 (insert var1 var2))
                  (set! e2 (append var1 var2))
                  (set! e3 (head e1))
                  (set! e4 (head e2))
@@ -40,7 +40,7 @@ Original:
       (b (qq bl))
       (bl (bs))
       (i.7 (set! v e.7))
-      (e.7 (cons a.7 b.7))
+      (e.7 (insert a.7 b.7))
       (a.7 (qq al.0))
       (b.7 (qq bl.7))
       (bl.7 (bs)))
@@ -142,7 +142,7 @@ Original:
 Step:
 (((head tail
         null?
-        cons
+        insert
         eq?
         if
         append
@@ -166,7 +166,7 @@ Step:
          (define e2)
          (define e3)
          (define e4)
-         (set! e1 (cons var1 var2))
+         (set! e1 (insert var1 var2))
          (set! e2 (append var1 var2))
          (set! e3 (head e1))
          (set! e4 (head e2))
@@ -176,7 +176,7 @@ Step:
 Step:
 (((head tail
         null?
-        cons
+        insert
         eq?
         if
         append
@@ -200,7 +200,7 @@ Step:
             (begin
               (define e3)
               (define e4)
-              (set! e1 (cons var1 var2))
+              (set! e1 (insert var1 var2))
               (set! e2 (append var1 var2))
               (set! e3 (head e1))
               (set! e4 (head e2))
@@ -210,7 +210,7 @@ Step:
 Step:
 (let ((const (head tail
                    null?
-                   cons
+                   insert
                    eq?
                    if
                    append
@@ -233,7 +233,7 @@ Step:
        (define e2)
        (define e3)
        (define e4)
-       (set! e1 (cons var1 var2))
+       (set! e1 (insert var1 var2))
        (set! e2 (append var1 var2))
        (set! e3 (head e1))
        (set! e4 (head e2))
@@ -243,7 +243,7 @@ Step:
 Step:
 (((head tail
         null?
-        cons
+        insert
         eq?
         if
         append
@@ -267,7 +267,7 @@ Step:
             (and (define e3)
                  (begin
                    (define e4)
-                   (set! e1 (cons var1 var2))
+                   (set! e1 (insert var1 var2))
                    (set! e2 (append var1 var2))
                    (set! e3 (head e1))
                    (set! e4 (head e2))
@@ -277,7 +277,7 @@ Step:
 Step:
 (let ((const (head tail
                    null?
-                   cons
+                   insert
                    eq?
                    if
                    append
@@ -301,7 +301,7 @@ Step:
        (begin
          (define e3)
          (define e4)
-         (set! e1 (cons var1 var2))
+         (set! e1 (insert var1 var2))
          (set! e2 (append var1 var2))
          (set! e3 (head e1))
          (set! e4 (head e2))
@@ -311,7 +311,7 @@ Step:
 Step:
 (((head tail
         null?
-        cons
+        insert
         eq?
         if
         append
@@ -336,7 +336,7 @@ Step:
        (begin
          (define e3)
          (define e4)
-         (set! e1 (cons var1 var2))
+         (set! e1 (insert var1 var2))
          (set! e2 (append var1 var2))
          (set! e3 (head e1))
          (set! e4 (head e2))
@@ -346,7 +346,7 @@ Step:
 Step:
 (((head tail
         null?
-        cons
+        insert
         eq?
         if
         append
@@ -370,7 +370,7 @@ Step:
             (and (define e3)
                  (and (define e4)
                       (begin
-                        (set! e1 (cons var1 var2))
+                        (set! e1 (insert var1 var2))
                         (set! e2 (append var1 var2))
                         (set! e3 (head e1))
                         (set! e4 (head e2))
@@ -380,7 +380,7 @@ Step:
 Step:
 (let ((const (head tail
                    null?
-                   cons
+                   insert
                    eq?
                    if
                    append
@@ -404,7 +404,7 @@ Step:
        (and (define e3)
             (begin
               (define e4)
-              (set! e1 (cons var1 var2))
+              (set! e1 (insert var1 var2))
               (set! e2 (append var1 var2))
               (set! e3 (head e1))
               (set! e4 (head e2))
@@ -414,7 +414,7 @@ Step:
 Step:
 (((head tail
         null?
-        cons
+        insert
         eq?
         if
         append
@@ -439,7 +439,7 @@ Step:
        (and (define e3)
             (begin
               (define e4)
-              (set! e1 (cons var1 var2))
+              (set! e1 (insert var1 var2))
               (set! e2 (append var1 var2))
               (set! e3 (head e1))
               (set! e4 (head e2))
@@ -449,7 +449,7 @@ Step:
 Step:
 (let ((const (head tail
                    null?
-                   cons
+                   insert
                    eq?
                    if
                    append
@@ -472,7 +472,7 @@ Step:
   (do (begin
        (define e3)
        (define e4)
-       (set! e1 (cons var1 var2))
+       (set! e1 (insert var1 var2))
        (set! e2 (append var1 var2))
        (set! e3 (head e1))
        (set! e4 (head e2))
@@ -482,7 +482,7 @@ Step:
 Step:
 (((head tail
         null?
-        cons
+        insert
         eq?
         if
         append
@@ -507,7 +507,7 @@ Step:
        (and (define e3)
             (begin
               (define e4)
-              (set! e1 (cons var1 var2))
+              (set! e1 (insert var1 var2))
               (set! e2 (append var1 var2))
               (set! e3 (head e1))
               (set! e4 (head e2))
@@ -517,7 +517,7 @@ Step:
 Step:
 (let ((const (head tail
                    null?
-                   cons
+                   insert
                    eq?
                    if
                    append
@@ -540,7 +540,7 @@ Step:
   (do (begin
        (define e3)
        (define e4)
-       (set! e1 (cons var1 var2))
+       (set! e1 (insert var1 var2))
        (set! e2 (append var1 var2))
        (set! e3 (head e1))
        (set! e4 (head e2))
@@ -550,7 +550,7 @@ Step:
 Step:
 (((head tail
         null?
-        cons
+        insert
         eq?
         if
         append
@@ -573,7 +573,7 @@ Step:
        (and (define e2)
             (and (define e3)
                  (and (define e4)
-                      (and (set! e1 (cons var1 var2))
+                      (and (set! e1 (insert var1 var2))
                            (begin
                              (set! e2 (append var1 var2))
                              (set! e3 (head e1))
@@ -584,7 +584,7 @@ Step:
 Step:
 (let ((const (head tail
                    null?
-                   cons
+                   insert
                    eq?
                    if
                    append
@@ -608,7 +608,7 @@ Step:
        (and (define e3)
             (and (define e4)
                  (begin
-                   (set! e1 (cons var1 var2))
+                   (set! e1 (insert var1 var2))
                    (set! e2 (append var1 var2))
                    (set! e3 (head e1))
                    (set! e4 (head e2))
@@ -618,7 +618,7 @@ Step:
 Step:
 (((head tail
         null?
-        cons
+        insert
         eq?
         if
         append
@@ -643,76 +643,7 @@ Step:
        (and (define e3)
             (and (define e4)
                  (begin
-                   (set! e1 (cons var1 var2))
-                   (set! e2 (append var1 var2))
-                   (set! e3 (head e1))
-                   (set! e4 (head e2))
-                   (done e1 e2 e3 e4 var1 var2)))))))
-
-
-Step:
-(let ((const (head tail
-                   null?
-                   cons
-                   eq?
-                   if
-                   append
-                   set!
-                   and
-                   qq
-                   define
-                   do
-                   begin))
-      (i (define v)))
-  ((const g (do pair) (do second))
-   (const pair (and i second) pair)
-   (const v v (qq (())))
-   (() i i i)))
---------
-(let ((e1 (qq (())))
-      (var1 (qq (2)))
-      (var2 (qq (5 6)))
-      (e2 (qq (()))))
-  (do (and
-       (define e3)
-       (begin
-         (define e4)
-         (set! e1 (cons var1 var2))
-         (set! e2 (append var1 var2))
-         (set! e3 (head e1))
-         (set! e4 (head e2))
-         (done e1 e2 e3 e4 var1 var2)))))
-
-
-Step:
-(((head tail
-        null?
-        cons
-        eq?
-        if
-        append
-        set!
-        and
-        qq
-        define
-        do
-        begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
---------
-(let ((e1 (qq (())))
-      (var1 (qq (2)))
-      (var2 (qq (5 6))))
-  (do (and
-       (define e2)
-       (and (define e3)
-            (and (define e4)
-                 (begin
-                   (set! e1 (cons var1 var2))
+                   (set! e1 (insert var1 var2))
                    (set! e2 (append var1 var2))
                    (set! e3 (head e1))
                    (set! e4 (head e2))
@@ -722,7 +653,7 @@ Step:
 Step:
 (let ((const (head tail
                    null?
-                   cons
+                   insert
                    eq?
                    if
                    append
@@ -746,7 +677,7 @@ Step:
        (define e3)
        (begin
          (define e4)
-         (set! e1 (cons var1 var2))
+         (set! e1 (insert var1 var2))
          (set! e2 (append var1 var2))
          (set! e3 (head e1))
          (set! e4 (head e2))
@@ -756,42 +687,7 @@ Step:
 Step:
 (((head tail
         null?
-        cons
-        eq?
-        if
-        append
-        set!
-        and
-        qq
-        define
-        do
-        begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
---------
-(let ((e1 (qq (())))
-      (var1 (qq (2)))
-      (var2 (qq (5 6)))
-      (e2 (qq (()))))
-  (do (and
-       (define e3)
-       (begin
-         (define e4)
-         (set! e1 (cons var1 var2))
-         (set! e2 (append var1 var2))
-         (set! e3 (head e1))
-         (set! e4 (head e2))
-         (done e1 e2 e3 e4 var1 var2)))))
-
-
-Step:
-(((head tail
-        null?
-        cons
+        insert
         eq?
         if
         append
@@ -816,7 +712,7 @@ Step:
        (and (define e3)
             (and (define e4)
                  (begin
-                   (set! e1 (cons var1 var2))
+                   (set! e1 (insert var1 var2))
                    (set! e2 (append var1 var2))
                    (set! e3 (head e1))
                    (set! e4 (head e2))
@@ -826,7 +722,7 @@ Step:
 Step:
 (let ((const (head tail
                    null?
-                   cons
+                   insert
                    eq?
                    if
                    append
@@ -850,7 +746,7 @@ Step:
        (define e3)
        (begin
          (define e4)
-         (set! e1 (cons var1 var2))
+         (set! e1 (insert var1 var2))
          (set! e2 (append var1 var2))
          (set! e3 (head e1))
          (set! e4 (head e2))
@@ -860,7 +756,7 @@ Step:
 Step:
 (((head tail
         null?
-        cons
+        insert
         eq?
         if
         append
@@ -885,7 +781,7 @@ Step:
        (define e3)
        (begin
          (define e4)
-         (set! e1 (cons var1 var2))
+         (set! e1 (insert var1 var2))
          (set! e2 (append var1 var2))
          (set! e3 (head e1))
          (set! e4 (head e2))
@@ -895,7 +791,111 @@ Step:
 Step:
 (((head tail
         null?
-        cons
+        insert
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6))))
+  (do (and
+       (define e2)
+       (and (define e3)
+            (and (define e4)
+                 (begin
+                   (set! e1 (insert var1 var2))
+                   (set! e2 (append var1 var2))
+                   (set! e3 (head e1))
+                   (set! e4 (head e2))
+                   (done e1 e2 e3 e4 var1 var2)))))))
+
+
+Step:
+(let ((const (head tail
+                   null?
+                   insert
+                   eq?
+                   if
+                   append
+                   set!
+                   and
+                   qq
+                   define
+                   do
+                   begin))
+      (i (define v)))
+  ((const g (do pair) (do second))
+   (const pair (and i second) pair)
+   (const v v (qq (())))
+   (() i i i)))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6)))
+      (e2 (qq (()))))
+  (do (and
+       (define e3)
+       (begin
+         (define e4)
+         (set! e1 (insert var1 var2))
+         (set! e2 (append var1 var2))
+         (set! e3 (head e1))
+         (set! e4 (head e2))
+         (done e1 e2 e3 e4 var1 var2)))))
+
+
+Step:
+(((head tail
+        null?
+        insert
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((e1 (qq (())))
+      (var1 (qq (2)))
+      (var2 (qq (5 6)))
+      (e2 (qq (()))))
+  (do (and
+       (define e3)
+       (begin
+         (define e4)
+         (set! e1 (insert var1 var2))
+         (set! e2 (append var1 var2))
+         (set! e3 (head e1))
+         (set! e4 (head e2))
+         (done e1 e2 e3 e4 var1 var2)))))
+
+
+Step:
+(((head tail
+        null?
+        insert
         eq?
         if
         append
@@ -918,7 +918,7 @@ Step:
        (and (define e2)
             (and (define e3)
                  (and (define e4)
-                      (and (set! e1 (cons var1 var2))
+                      (and (set! e1 (insert var1 var2))
                            (and (set! e2 (append var1 var2))
                                 (begin
                                   (set! e3 (head e1))
@@ -929,7 +929,7 @@ Step:
 Step:
 (let ((const (head tail
                    null?
-                   cons
+                   insert
                    eq?
                    if
                    append
@@ -952,7 +952,7 @@ Step:
        (define e2)
        (and (define e3)
             (and (define e4)
-                 (and (set! e1 (cons var1 var2))
+                 (and (set! e1 (insert var1 var2))
                       (begin
                         (set! e2 (append var1 var2))
                         (set! e3 (head e1))
@@ -963,7 +963,7 @@ Step:
 Step:
 (((head tail
         null?
-        cons
+        insert
         eq?
         if
         append
@@ -987,7 +987,7 @@ Step:
        (define e2)
        (and (define e3)
             (and (define e4)
-                 (and (set! e1 (cons var1 var2))
+                 (and (set! e1 (insert var1 var2))
                       (begin
                         (set! e2 (append var1 var2))
                         (set! e3 (head e1))
