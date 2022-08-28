@@ -115,8 +115,7 @@
 
   ;; set! car
   (eval g
-        (let ((x (ys))
-              (l (x xs))
+        (let ((l (x xs))
               (q (qq l))
               (e (car q))
               (in (set! v e))
@@ -126,8 +125,7 @@
                   (do second))
            (const pair (and i second) pair)
            (const i in i)
-           (const v (qq qv) v)
-           (() qv qv (ys))
+           (const v (qq qv) (qq x))
            (() second second second)
            (() l l l)
            (() q q q)
