@@ -12,6 +12,9 @@ CZEMPAK = CZEMPAK_ROOT=$(PWD)/.czempak-root guile -s ./deps/czempak.scm
 test: dist/schrec
 	dist/schrec $(SCHREC_OPTS) example/const.scm
 
+test2: dist/schrec
+	$(CZEMPAK) run test/lispy-lang/serialize-graph.scm
+
 run: dist/schrec
 	dist/schrec $(SCHREC_OPTS) $(RUN_TARGET)
 
