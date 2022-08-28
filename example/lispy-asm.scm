@@ -81,7 +81,7 @@
                   (do pair)
                   (do second))
            (const pair (and i second) pair)
-           (const v v (qq (())))
+           (const v v (qq ()))
            (() i i i)))
         body)
 

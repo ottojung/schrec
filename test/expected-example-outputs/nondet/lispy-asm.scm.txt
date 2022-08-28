@@ -72,7 +72,7 @@ Original:
     (eva1 g
           ((const g (do pair) (do second))
            (const pair (and i second) pair)
-           (const v v (qq (())))
+           (const v v (qq ()))
            (() i i i))
           body)
     (eval g
@@ -223,12 +223,10 @@ Step:
       (i (define v)))
   ((const g (do pair) (do second))
    (const pair (and i second) pair)
-   (const v v (qq (())))
+   (const v v (qq ()))
    (() i i i)))
 --------
-(let ((e1 (qq (())))
-      (var1 (qq (2)))
-      (var2 (qq (5 6))))
+(let ((e1 (qq ())) (var1 (qq (2))) (var2 (qq (5 6))))
   (do (begin
        (define e2)
        (define e3)
@@ -290,12 +288,10 @@ Step:
       (i (define v)))
   ((const g (do pair) (do second))
    (const pair (and i second) pair)
-   (const v v (qq (())))
+   (const v v (qq ()))
    (() i i i)))
 --------
-(let ((e1 (qq (())))
-      (var1 (qq (2)))
-      (var2 (qq (5 6))))
+(let ((e1 (qq ())) (var1 (qq (2))) (var2 (qq (5 6))))
   (do (and
        (define e2)
        (begin
@@ -328,9 +324,7 @@ Step:
  (() x2 x2 x2)
  (() x3 x3 x3))
 --------
-(let ((e1 (qq (())))
-      (var1 (qq (2)))
-      (var2 (qq (5 6))))
+(let ((e1 (qq ())) (var1 (qq (2))) (var2 (qq (5 6))))
   (do (and
        (define e2)
        (begin
@@ -393,12 +387,10 @@ Step:
       (i (define v)))
   ((const g (do pair) (do second))
    (const pair (and i second) pair)
-   (const v v (qq (())))
+   (const v v (qq ()))
    (() i i i)))
 --------
-(let ((e1 (qq (())))
-      (var1 (qq (2)))
-      (var2 (qq (5 6))))
+(let ((e1 (qq ())) (var1 (qq (2))) (var2 (qq (5 6))))
   (do (and
        (define e2)
        (and (define e3)
@@ -431,9 +423,7 @@ Step:
  (() x2 x2 x2)
  (() x3 x3 x3))
 --------
-(let ((e1 (qq (())))
-      (var1 (qq (2)))
-      (var2 (qq (5 6))))
+(let ((e1 (qq ())) (var1 (qq (2))) (var2 (qq (5 6))))
   (do (and
        (define e2)
        (and (define e3)
@@ -462,13 +452,13 @@ Step:
       (i (define v)))
   ((const g (do pair) (do second))
    (const pair (and i second) pair)
-   (const v v (qq (())))
+   (const v v (qq ()))
    (() i i i)))
 --------
-(let ((e1 (qq (())))
+(let ((e1 (qq ()))
       (var1 (qq (2)))
       (var2 (qq (5 6)))
-      (e2 (qq (()))))
+      (e2 (qq ())))
   (do (begin
        (define e3)
        (define e4)
@@ -499,9 +489,7 @@ Step:
  (() x2 x2 x2)
  (() x3 x3 x3))
 --------
-(let ((e1 (qq (())))
-      (var1 (qq (2)))
-      (var2 (qq (5 6))))
+(let ((e1 (qq ())) (var1 (qq (2))) (var2 (qq (5 6))))
   (do (and
        (define e2)
        (and (define e3)
@@ -530,13 +518,13 @@ Step:
       (i (define v)))
   ((const g (do pair) (do second))
    (const pair (and i second) pair)
-   (const v v (qq (())))
+   (const v v (qq ()))
    (() i i i)))
 --------
-(let ((e1 (qq (())))
+(let ((e1 (qq ()))
       (var1 (qq (2)))
       (var2 (qq (5 6)))
-      (e2 (qq (()))))
+      (e2 (qq ())))
   (do (begin
        (define e3)
        (define e4)
@@ -597,12 +585,10 @@ Step:
       (i (define v)))
   ((const g (do pair) (do second))
    (const pair (and i second) pair)
-   (const v v (qq (())))
+   (const v v (qq ()))
    (() i i i)))
 --------
-(let ((e1 (qq (())))
-      (var1 (qq (2)))
-      (var2 (qq (5 6))))
+(let ((e1 (qq ())) (var1 (qq (2))) (var2 (qq (5 6))))
   (do (and
        (define e2)
        (and (define e3)
@@ -635,78 +621,7 @@ Step:
  (() x2 x2 x2)
  (() x3 x3 x3))
 --------
-(let ((e1 (qq (())))
-      (var1 (qq (2)))
-      (var2 (qq (5 6))))
-  (do (and
-       (define e2)
-       (and (define e3)
-            (and (define e4)
-                 (begin
-                   (set! e1 (insert var1 var2))
-                   (set! e2 (append var1 var2))
-                   (set! e3 (head e1))
-                   (set! e4 (head e2))
-                   (done e1 e2 e3 e4 var1 var2)))))))
-
-
-Step:
-(let ((const (head tail
-                   null?
-                   insert
-                   eq?
-                   if
-                   append
-                   set!
-                   and
-                   qq
-                   define
-                   do
-                   begin))
-      (i (define v)))
-  ((const g (do pair) (do second))
-   (const pair (and i second) pair)
-   (const v v (qq (())))
-   (() i i i)))
---------
-(let ((e1 (qq (())))
-      (var1 (qq (2)))
-      (var2 (qq (5 6)))
-      (e2 (qq (()))))
-  (do (and
-       (define e3)
-       (begin
-         (define e4)
-         (set! e1 (insert var1 var2))
-         (set! e2 (append var1 var2))
-         (set! e3 (head e1))
-         (set! e4 (head e2))
-         (done e1 e2 e3 e4 var1 var2)))))
-
-
-Step:
-(((head tail
-        null?
-        insert
-        eq?
-        if
-        append
-        set!
-        and
-        qq
-        define
-        do
-        begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
---------
-(let ((e1 (qq (())))
-      (var1 (qq (2)))
-      (var2 (qq (5 6))))
+(let ((e1 (qq ())) (var1 (qq (2))) (var2 (qq (5 6))))
   (do (and
        (define e2)
        (and (define e3)
@@ -735,13 +650,13 @@ Step:
       (i (define v)))
   ((const g (do pair) (do second))
    (const pair (and i second) pair)
-   (const v v (qq (())))
+   (const v v (qq ()))
    (() i i i)))
 --------
-(let ((e1 (qq (())))
+(let ((e1 (qq ()))
       (var1 (qq (2)))
       (var2 (qq (5 6)))
-      (e2 (qq (()))))
+      (e2 (qq ())))
   (do (and
        (define e3)
        (begin
@@ -773,44 +688,7 @@ Step:
  (() x2 x2 x2)
  (() x3 x3 x3))
 --------
-(let ((e1 (qq (())))
-      (var1 (qq (2)))
-      (var2 (qq (5 6)))
-      (e2 (qq (()))))
-  (do (and
-       (define e3)
-       (begin
-         (define e4)
-         (set! e1 (insert var1 var2))
-         (set! e2 (append var1 var2))
-         (set! e3 (head e1))
-         (set! e4 (head e2))
-         (done e1 e2 e3 e4 var1 var2)))))
-
-
-Step:
-(((head tail
-        null?
-        insert
-        eq?
-        if
-        append
-        set!
-        and
-        qq
-        define
-        do
-        begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
---------
-(let ((e1 (qq (())))
-      (var1 (qq (2)))
-      (var2 (qq (5 6))))
+(let ((e1 (qq ())) (var1 (qq (2))) (var2 (qq (5 6))))
   (do (and
        (define e2)
        (and (define e3)
@@ -839,13 +717,13 @@ Step:
       (i (define v)))
   ((const g (do pair) (do second))
    (const pair (and i second) pair)
-   (const v v (qq (())))
+   (const v v (qq ()))
    (() i i i)))
 --------
-(let ((e1 (qq (())))
+(let ((e1 (qq ()))
       (var1 (qq (2)))
       (var2 (qq (5 6)))
-      (e2 (qq (()))))
+      (e2 (qq ())))
   (do (and
        (define e3)
        (begin
@@ -877,10 +755,112 @@ Step:
  (() x2 x2 x2)
  (() x3 x3 x3))
 --------
-(let ((e1 (qq (())))
+(let ((e1 (qq ()))
       (var1 (qq (2)))
       (var2 (qq (5 6)))
-      (e2 (qq (()))))
+      (e2 (qq ())))
+  (do (and
+       (define e3)
+       (begin
+         (define e4)
+         (set! e1 (insert var1 var2))
+         (set! e2 (append var1 var2))
+         (set! e3 (head e1))
+         (set! e4 (head e2))
+         (done e1 e2 e3 e4 var1 var2)))))
+
+
+Step:
+(((head tail
+        null?
+        insert
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((e1 (qq ())) (var1 (qq (2))) (var2 (qq (5 6))))
+  (do (and
+       (define e2)
+       (and (define e3)
+            (and (define e4)
+                 (begin
+                   (set! e1 (insert var1 var2))
+                   (set! e2 (append var1 var2))
+                   (set! e3 (head e1))
+                   (set! e4 (head e2))
+                   (done e1 e2 e3 e4 var1 var2)))))))
+
+
+Step:
+(let ((const (head tail
+                   null?
+                   insert
+                   eq?
+                   if
+                   append
+                   set!
+                   and
+                   qq
+                   define
+                   do
+                   begin))
+      (i (define v)))
+  ((const g (do pair) (do second))
+   (const pair (and i second) pair)
+   (const v v (qq ()))
+   (() i i i)))
+--------
+(let ((e1 (qq ()))
+      (var1 (qq (2)))
+      (var2 (qq (5 6)))
+      (e2 (qq ())))
+  (do (and
+       (define e3)
+       (begin
+         (define e4)
+         (set! e1 (insert var1 var2))
+         (set! e2 (append var1 var2))
+         (set! e3 (head e1))
+         (set! e4 (head e2))
+         (done e1 e2 e3 e4 var1 var2)))))
+
+
+Step:
+(((head tail
+        null?
+        insert
+        eq?
+        if
+        append
+        set!
+        and
+        qq
+        define
+        do
+        begin)
+  g
+  (begin x1 x2 x3 xs)
+  (and x1 (begin x2 x3 xs)))
+ (() x1 x1 x1)
+ (() x2 x2 x2)
+ (() x3 x3 x3))
+--------
+(let ((e1 (qq ()))
+      (var1 (qq (2)))
+      (var2 (qq (5 6)))
+      (e2 (qq ())))
   (do (and
        (define e3)
        (begin
@@ -942,12 +922,10 @@ Step:
       (i (define v)))
   ((const g (do pair) (do second))
    (const pair (and i second) pair)
-   (const v v (qq (())))
+   (const v v (qq ()))
    (() i i i)))
 --------
-(let ((e1 (qq (())))
-      (var1 (qq (2)))
-      (var2 (qq (5 6))))
+(let ((e1 (qq ())) (var1 (qq (2))) (var2 (qq (5 6))))
   (do (and
        (define e2)
        (and (define e3)
@@ -980,9 +958,7 @@ Step:
  (() x2 x2 x2)
  (() x3 x3 x3))
 --------
-(let ((e1 (qq (())))
-      (var1 (qq (2)))
-      (var2 (qq (5 6))))
+(let ((e1 (qq ())) (var1 (qq (2))) (var2 (qq (5 6))))
   (do (and
        (define e2)
        (and (define e3)
@@ -998,3 +974,27 @@ Step:
 Step:
 (let ((const (head tail
                    null?
+                   insert
+                   eq?
+                   if
+                   append
+                   set!
+                   and
+                   qq
+                   define
+                   do
+                   begin))
+      (i (define v)))
+  ((const g (do pair) (do second))
+   (const pair (and i second) pair)
+   (const v v (qq ()))
+   (() i i i)))
+--------
+(let ((e1 (qq ()))
+      (var1 (qq (2)))
+      (var2 (qq (5 6)))
+      (e2 (qq ())))
+  (do (and
+       (define e3)
+       (and (define e4)
+            (begin
