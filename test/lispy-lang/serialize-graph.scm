@@ -24,19 +24,13 @@
 %use (node-children set-node-children!) "./schrec/node.scm"
 %use (pretty-print-graph) "./schrec/pretty-print-graph.scm"
 
-;; g is like:
-;; (let ((a (m m))
-;;       (m ()))
-;;   (eva1 g (((m a b) g (m x) (b m)))
-;;         (let ((a ()))
-;;           (m a))))
-
 ;; (define example
 ;;   '(let ((a (m m))
-;;          (m ()))
-;;      (eva1 g (((m a b) g (m x) (b m)))
-;;            (let ((a ()))
-;;              (m a)))))
+;;          (m (a)))
+;;      a))
+     ;; (eval g (((m a b) g (m x) (b m)))
+     ;;       (let ((a ()))
+     ;;         (m a)))))
 
 (define example
   '(a (b c d eval) (e c f)))
@@ -56,7 +50,7 @@
 ;; NOTE: no equivalent op- version
 (define (f-car x)
   (when (null? (node-children x))
-    (raisu 'null-head-children x))
+    (raisu 'null-car-children x))
 
   (car (node-children x)))
 
@@ -119,13 +113,31 @@
   (op-tail return x)
   return)
 
+(define-syntax if-null?
+  (syntax-rules ()
+    ((_ exp then else)
+     (if (op-null? exp) then else))))
+
+(define-syntax if-eq?
+  (syntax-rules ()
+    ((_ a b then else)
+     (if (op-eq? a b) then else))))
+
 ;;;;;;;;;;;;;
 ;; Helpers ;;
 ;;;;;;;;;;;;;
 
+(define-syntax if-true?
+  (syntax-rules ()
+    ((_ exp then else)
+     (if (not (op-null? exp)) then else))))
+
 (define separator (make-fresh-atom-node '/ 0))
 (define digit0 (make-fresh-atom-node 'o 0))
 (define digit1 (make-fresh-atom-node 'i 0))
+
+(define false-node (op-define))
+(define true-node (f-cons false-node false-node))
 
 (define (make-singleton x)
   (define return (op-define))
@@ -153,6 +165,28 @@
             (make-singleton m))
           (f-append mlist (loop (f-tail x)))))))
 
+(define (split-by-separator bin)
+  (define return (op-define))
+
+  (define (add-to-return node)
+    (op-cons return node return))
+
+  (let loop ((bin bin)
+             (collected (op-define)))
+    (unless (op-null? bin)
+      (let* ((first (f-car bin)))
+        (cond
+         ((op-eq? first separator)
+          (add-to-return (reverse-children collected))
+          (loop (f-tail bin) (op-define)))
+         (else
+          (loop (f-tail bin)
+                (f-cons first collected)))))))
+
+  (let* ((rev (reverse-children return)))
+    (pretty-print-graph rev) (newline)
+    rev))
+
 (define (flatten-children x)
   (let loop ((x x))
     (if (op-null? x) (op-define)
@@ -176,16 +210,32 @@
         (loop (f-tail x)
               (f-append (f-head x) buf)))))
 
+(define (c-member? collection-node item-node)
+  (let loop ((collection-node collection-node))
+    (if-null?
+     collection-node false-node
+     (let* ((first (f-car collection-node)))
+       (if-eq?
+        first item-node
+        true-node
+        (loop (f-tail collection-node)))))))
+
 (define (graph->adjlist g)
   (define return (op-define))
+  (define visited-list (op-define))
 
   (define (add-to-return node)
     (op-cons return node return))
 
   (define (loop g)
     (define consed (f-cons g g))
-    (add-to-return consed)
-    (for-each loop (node-children g)))
+    (if-true?
+     (c-member? visited-list g)
+     (add-to-return consed)
+     (begin
+       (op-cons visited-list g visited-list)
+       (add-to-return consed)
+       (for-each loop (node-children g)))))
 
   (loop g)
 
@@ -213,10 +263,23 @@
 
   bin)
 
-(define (deserialize-graph bin)
-  bin)
+;; (define (deserialize-graph bin)
+;;   (define conc
+;;     (split-by-separator bin))
+
+;;   bin)
 
 ;; (debugv (graph->list input))
 
-(define return
-  (serialize-graph input))
+(define (main)
+  (pretty-print-graph input) (newline)
+
+  (define serialized
+    (serialize-graph input))
+
+  ;; (define unserialized
+  ;;   (deserialize-graph serialized))
+
+  (values))
+
+(main)
