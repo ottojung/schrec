@@ -2,18 +2,18 @@
 ;; Evaluator for a graph-based assembly language "gasm".
 ;; Similar to lisp in that it is based on analogs of `cons`, `car` and `cdr`,
 ;; but additionaly has `append` and `head` to deconstruct proper lists.
-(let ((const (head tail null? cons car eq? if append set! and qq define do begin))
+(let ((const (head tail null? cons car eq? if append set! and qq new do begin))
       (var1 (qq (2)))
       (var2 (qq (5 6)))
       (body (do start))
       (start
        (begin
-         (define e1)
-         (define e2)
-         (define e3)
-         (define e4)
-         (define e5)
-         (define e6)
+         (new e1)
+         (new e2)
+         (new e3)
+         (new e4)
+         (new e5)
+         (new e6)
 
          ;; (set! e1 (head var2))
          ;; (set! e2 (tail var2))
@@ -79,9 +79,9 @@
                (const keyword-eq eq? keyword-eq))
               body))
 
-  ;; define
+  ;; new
   (eva1 g
-        (let ((i (define v)))
+        (let ((i (new v)))
           ((const g
                   (do pair)
                   (do second))
