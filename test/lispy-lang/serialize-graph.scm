@@ -42,198 +42,208 @@
 ;; Builtins ;;
 ;;;;;;;;;;;;;;
 
-(define (op-cons target left right)
-  (set-node-children!
-   target
-   (cons left (node-children right))))
-
-;; NOTE: no equivalent op- version
 (define (f-car x)
   (when (null? (node-children x))
     (raisu 'null-car-children x))
 
   (car (node-children x)))
 
-(define (op-append target left right)
+(define (f-new)
+  (make-fresh-branch-node '()))
+
+(define (f-cons left right)
+  (define return (f-new))
+  (set-node-children!
+   return
+   (cons left (node-children right)))
+  return)
+
+(define (f-append left right)
+  (define return (f-new))
+
   (unless (list-singleton? (node-children left))
     (raisu 'not-singleton! left))
 
   (set-node-children!
-   target
+   return
    (cons (car (node-children left))
-         (node-children right))))
+         (node-children right)))
 
-(define (op-head target x)
+  return)
+
+(define (f-head x)
+  (define return (f-new))
+
   (when (null? (node-children x))
     (raisu 'null-head-children x))
 
   (set-node-children!
-   target (list (car (node-children x)))))
+   return (list (car (node-children x))))
 
-(define (op-tail target x)
-  (when (null? (node-children x))
-    (raisu 'null-tail-children x))
-
-  (set-node-children! target (cdr (node-children x))))
-
-(define (op-define)
-  (make-fresh-branch-node '()))
-
-(define (op-null? x)
-  (null? (node-children x)))
-
-(define (op-eq? a b)
-  (node-equal? a b))
-
-;; NOTE: compiled into equivalent `(if (eq? eval-node x) then else))` code.
-(define (eval-node? x)
-  (eval-multi-node? x))
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Functional equivalents ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(define (f-cons a b)
-  (define return (op-define))
-  (op-cons return a b)
-  return)
-
-(define (f-append a b)
-  (define return (op-define))
-  (op-append return a b)
-  return)
-
-(define (f-head x)
-  (define return (op-define))
-  (op-head return x)
   return)
 
 (define (f-tail x)
-  (define return (op-define))
-  (op-tail return x)
+  (define return (f-new))
+
+  (when (null? (node-children x))
+    (raisu 'null-tail-children x))
+
+  (set-node-children! return (cdr (node-children x)))
+
   return)
 
 (define-syntax if-null?
   (syntax-rules ()
     ((_ exp then else)
-     (if (op-null? exp) then else))))
+     (if (null? (node-children exp)) then else))))
 
 (define-syntax if-eq?
   (syntax-rules ()
     ((_ a b then else)
-     (if (op-eq? a b) then else))))
+     (if (node-equal? a b) then else))))
+
+;; NOTE: compiled into equivalent `(if (eq? eval-node x) then else))` code.
+(define-syntax if-eval-node?
+  (syntax-rules ()
+    ((_ x then else)
+     (if (eval-multi-node? x) then else))))
+
+(define-syntax defvar
+  (syntax-rules ()
+    ((_ name value) (define name value))))
+
+(define-syntax progn
+  (syntax-rules ()
+    ((_ . bodies) (let* () . bodies))))
+
+(define-syntax if-true?
+  (syntax-rules ()
+    ((_ exp then else)
+     (if-null? exp then else))))
 
 ;;;;;;;;;;;;;
 ;; Helpers ;;
 ;;;;;;;;;;;;;
 
-(define-syntax if-true?
-  (syntax-rules ()
-    ((_ exp then else)
-     (if (not (op-null? exp)) then else))))
-
-(define separator (make-fresh-atom-node '/ 0))
-(define digit0 (make-fresh-atom-node 'o 0))
-(define digit1 (make-fresh-atom-node 'i 0))
-
-(define false-node (op-define))
-(define true-node (f-cons false-node false-node))
+(defvar true-node (f-new))
+(defvar false-node (f-cons true-node true-node))
 
 (define (make-singleton x)
-  (define return (op-define))
-  (op-cons return x return)
+  (defvar return (f-new))
+  (set! return (f-cons x return))
   return)
 
 (define (concat left right)
   (let loop ((left left))
-    (if (op-null? left) right
-        (f-append (f-head left) (loop (f-tail left))))))
+    (if-null? left right
+              (f-append (f-head left)
+                        (loop (f-tail left))))))
 
 (define (copy-children x)
   (f-append (f-head x) (f-tail x)))
 
+(define (flatten-children x)
+  (define (loop x)
+    (if-null? x (f-new)
+              (concat
+               (f-car x)
+               (loop (f-tail x)))))
+  (loop x))
+
+;;;;;;;;;;;;;;;;
+;; Main logic ;;
+;;;;;;;;;;;;;;;;
+
+(defvar separator (make-fresh-atom-node '/ 0))
+(defvar digit0 (make-fresh-atom-node 'o 0))
+(defvar digit1 (make-fresh-atom-node 'i 0))
+
 (define (to-binary x)
-  (let loop ((x x))
-    (if (op-null? x) (op-define)
-        (let* ((first (f-car x)))
-          (define m
-            (cond
-             ((op-eq? first separator) separator)
-             ((eval-node? first) digit1)
-             (else digit0)))
-          (define mlist
-            (make-singleton m))
-          (f-append mlist (loop (f-tail x)))))))
+  (define (loop x)
+    (if-null? x (f-new)
+              (progn
+               (defvar first (f-car x))
+               (defvar m
+                 (if-eq? first separator
+                         separator
+                         (if-eval-node? first
+                                        digit1
+                                        digit0)))
+               (defvar mlist
+                 (make-singleton m))
+               (f-append mlist (loop (f-tail x))))))
+  (loop x))
 
 (define (split-by-separator bin)
-  (define return (op-define))
+  (defvar return (f-new))
 
   (define (add-to-return node)
-    (op-cons return node return))
+    (set! return (f-cons node return)))
 
-  (let loop ((bin bin)
-             (collected (op-define)))
-    (unless (op-null? bin)
-      (let* ((first (f-car bin)))
-        (cond
-         ((op-eq? first separator)
-          (add-to-return (reverse-children collected))
-          (loop (f-tail bin) (op-define)))
-         (else
-          (loop (f-tail bin)
-                (f-cons first collected)))))))
+  (define (loop bin collected)
+    (if-null? bin (f-new)
+              (progn
+               (defvar first (f-car bin))
+               (if-eq? first separator
+                       (progn
+                        (add-to-return (reverse-children collected))
+                        (loop (f-tail bin) (f-new)))
+                       (progn
+                        (loop (f-tail bin)
+                              (f-cons first collected)))))))
 
-  (let* ((rev (reverse-children return)))
-    (pretty-print-graph rev) (newline)
-    rev))
+  (defvar rb
+    (loop bin (f-new)))
 
-(define (flatten-children x)
-  (let loop ((x x))
-    (if (op-null? x) (op-define)
-        (concat
-         (f-car x)
-         (loop (f-tail x))))))
+  (defvar rev (reverse-children return))
+  (pretty-print-graph rev) (newline)
+  rev)
 
 (define (intersperse-adjlist-with-separators adjlist)
-  (define sep-list (make-singleton separator))
+  (defvar sep-list (make-singleton separator))
 
-  (let loop ((adjlist adjlist))
-    (if (op-null? adjlist)
-        (op-define)
-        (concat
-         (f-head adjlist)
-         (f-cons sep-list (loop (f-tail adjlist)))))))
+  (define (loop adjlist)
+    (if-null? adjlist
+              (f-new)
+              (concat
+               (f-head adjlist)
+               (f-cons sep-list (loop (f-tail adjlist))))))
+  (loop adjlist))
 
 (define (reverse-children x)
-  (let loop ((x x) (buf (op-define)))
-    (if (op-null? x) buf
-        (loop (f-tail x)
-              (f-append (f-head x) buf)))))
+  (define (loop x buf)
+    (if-null? x buf
+              (loop (f-tail x)
+                    (f-append (f-head x) buf))))
+
+  (loop x (f-new)))
 
 (define (c-member? collection-node item-node)
-  (let loop ((collection-node collection-node))
+  (define (loop collection-node)
     (if-null?
      collection-node false-node
-     (let* ((first (f-car collection-node)))
-       (if-eq?
-        first item-node
-        true-node
-        (loop (f-tail collection-node)))))))
+     (progn
+      (defvar first (f-car collection-node))
+      (if-eq?
+       first item-node
+       true-node
+       (loop (f-tail collection-node))))))
+  (loop collection-node))
 
 (define (graph->adjlist g)
-  (define return (op-define))
-  (define visited-list (op-define))
+  (defvar return (f-new))
+  (defvar visited-list (f-new))
 
   (define (add-to-return node)
-    (op-cons return node return))
+    (set! return (f-cons node return)))
 
   (define (loop g)
-    (define consed (f-cons g g))
+    (defvar consed (f-cons g g))
     (if-true?
      (c-member? visited-list g)
      (add-to-return consed)
-     (begin
-       (op-cons visited-list g visited-list)
+     (progn
+       (set! visited-list (f-cons g visited-list))
        (add-to-return consed)
        (for-each loop (node-children g)))))
 
@@ -242,21 +252,21 @@
   (reverse-children return))
 
 (define (serialize-graph g)
-  (define adjlist (graph->adjlist g))
+  (defvar adjlist (graph->adjlist g))
 
   (pretty-print-graph adjlist) (newline)
 
-  (define conc
+  (defvar conc
     (intersperse-adjlist-with-separators adjlist))
 
   (pretty-print-graph conc) (newline)
 
-  (define flat
+  (defvar flat
     (flatten-children conc))
 
   (pretty-print-graph flat) (newline)
 
-  (define bin
+  (defvar bin
     (to-binary flat))
 
   (pretty-print-graph bin) (newline)
@@ -264,7 +274,7 @@
   bin)
 
 ;; (define (deserialize-graph bin)
-;;   (define conc
+;;   (defvar conc
 ;;     (split-by-separator bin))
 
 ;;   bin)
@@ -274,10 +284,10 @@
 (define (main)
   (pretty-print-graph input) (newline)
 
-  (define serialized
+  (defvar serialized
     (serialize-graph input))
 
-  ;; (define unserialized
+  ;; (defvar unserialized
   ;;   (deserialize-graph serialized))
 
   (values))
