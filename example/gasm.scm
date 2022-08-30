@@ -1,8 +1,7 @@
 
-;; Evaluator of Lisp code restricted to list operations and `if' keyword.
-;; Works on qqd source code, so this is an embedding.
-;; Input program is written to the `body' variable.
-;; Variables are simply references to nodes, no special "let*" construct for them is needed.
+;; Evaluator for a graph-based assembly language "gasm".
+;; Similar to lisp in that it is based on analogs of `cons`, `car` and `cdr`,
+;; but additionaly has `append` and `head` to deconstruct proper lists.
 (let ((const (head tail null? cons car eq? if append set! and qq define do begin))
       (var1 (qq (2)))
       (var2 (qq (5 6)))
