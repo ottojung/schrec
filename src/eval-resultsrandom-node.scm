@@ -37,4 +37,4 @@
           (body (get-eval-body eval-node))
           (main-input (get-eval-input eval-node)))
       (eval/det run-environment-resultsrandom main-input env body)))
-   (else '())))
+   (else #f)))
