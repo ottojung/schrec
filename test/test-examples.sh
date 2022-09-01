@@ -15,6 +15,7 @@ const-multi.scm
 const.scm
 eval-in-pattern.scm
 gasm.scm
+gstack.scm
 lambda.scm
 lisp-list-functions.scm
 loop-1.scm
@@ -50,6 +51,7 @@ const-multi.scm
 const.scm
 eval-in-pattern.scm
 gasm.scm
+gstack.scm
 lisp-list-functions.scm
 loop-1.scm
 loop-2.scm

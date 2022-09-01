@@ -134,10 +134,11 @@
   return)
 
 (define (concat left right)
-  (let loop ((left left))
+  (define (loop left)
     (if-null? left right
               (f-append (f-head left)
-                        (loop (f-tail left))))))
+                        (loop (f-tail left)))))
+  (loop left))
 
 (define (copy-children x)
   (f-append (f-head x) (f-tail x)))
@@ -272,14 +273,6 @@
   (pretty-print-graph bin) (newline)
 
   bin)
-
-;; (define (deserialize-graph bin)
-;;   (defvar conc
-;;     (split-by-separator bin))
-
-;;   bin)
-
-;; (debugv (graph->list input))
 
 (define (main)
   (pretty-print-graph input) (newline)

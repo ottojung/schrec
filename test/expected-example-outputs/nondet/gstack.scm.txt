@@ -1,0 +1,1000 @@
+Original:
+(let ((const (null cons
+                   car
+                   append
+                   head
+                   tail
+                   null?
+                   eq?
+                   if
+                   push
+                   pop
+                   do
+                   begin
+                   and
+                   stack))
+      (do (start))
+      (start (begin
+               null
+               null
+               (push var1)
+               (pop e0)
+               null
+               (if null?
+                 (begin
+                   (push (5 6))
+                   (push var1)
+                   append
+                   (pop e1)
+                   cons
+                   (pop e2)
+                   (push e2)
+                   (pop e9)
+                   (result e0 e1 e2))
+                 (should-not-happen start))))
+      (var1 (2))
+      (if-expr (if null? then else))
+      (if-expr.3 (if eq? then else)))
+  (((eval g
+          ((const do (doexpr) (rest))
+           (const doexpr (and null rest) doexpr)
+           (const stack (ss) (() ss)))
+          body)
+    (eval g
+          ((const do (doexpr) (rest))
+           (const doexpr (and cons rest) doexpr)
+           (const stack (s1 s2 ss) ((s1 ys) ss))
+           (() s1 s1 s2)
+           (() s2 (ys) s2))
+          body)
+    (eval g
+          ((const do (doexpr) (rest))
+           (const doexpr (and car rest) doexpr)
+           (const stack (s1 ss) (x ss))
+           (() s1 (x xs) s1)
+           (() x x x))
+          body)
+    (eval g
+          ((const do (doexpr) (rest))
+           (const doexpr (and append rest) doexpr)
+           (const stack (s1 s2 ss) ((x ys) ss))
+           (() s1 (x) s1)
+           (() x x x)
+           (() s2 (ys) s2))
+          body)
+    (eval g
+          ((const do (doexpr) (rest))
+           (const doexpr (and head rest) doexpr)
+           (const stack (s1 ss) ((x) ss))
+           (() s1 (x xs) s1)
+           (() x x x))
+          body)
+    (eval g
+          ((const do (doexpr) (rest))
+           (const doexpr (and tail rest) doexpr)
+           (const stack (s1 ss) ((xs) ss))
+           (() s1 (x xs) s1)
+           (() x x x))
+          body)
+    (eval g
+          ((const do (if-expr) (then))
+           (const if-expr if-expr if-expr)
+           (const stack (s1 ss) (ss))
+           (() then then then)
+           (() else else else)
+           (() s1 s1 s1))
+          (eval g
+                ((const do (if-expr.0) (then))
+                 (const if-expr.0
+                        (if-keyword null? then else)
+                        if-expr.0)
+                 (const if-keyword if if-keyword)
+                 (const stack (s1 ss) (ss))
+                 (() s1 (x xs) s1)
+                 (() then then then)
+                 (() else else else)
+                 (() x x x))
+                body))
+    (eval g
+          ((const do (if-expr.3) (else))
+           (const if-expr.3 if-expr.3 if-expr.3)
+           (const stack (s1 s2 ss) (ss))
+           (() then then then)
+           (() else else else)
+           (() s1 s1 s1)
+           (() s2 s2 s2))
+          (eval g
+                ((const do (if-expr.0) (then))
+                 (const if-expr.0
+                        (if-keyword eq? then else)
+                        if-expr.0)
+                 (const if-keyword if if-keyword)
+                 (const stack (s1 s2 ss) (ss))
+                 (() s1 (x xs) s1)
+                 (() s2 (x ys) s1)
+                 (() then then then)
+                 (() else else else)
+                 (() x x x))
+                body))
+    (eval g
+          ((const do (doexpr) (rest))
+           (const doexpr (and pop-expr rest) doexpr)
+           (const pop-expr (pop v) pop-expr)
+           (const v (cs) (s1))
+           (const stack (s1 ss) (ss))
+           (() s1 s1 s1))
+          body)
+    (eval g
+          ((const do (doexpr) (rest))
+           (const doexpr (and push-expr rest) doexpr)
+           (const push-expr (push v) push-expr)
+           (const v (cs) v)
+           (const stack (ss) ((cs) ss)))
+          body)
+    (eval g
+          ((const g
+                  (begin x1 x2 x3 xs)
+                  (and x1 (begin x2 x3 xs)))
+           (() x1 x1 x1)
+           (() x2 x2 x2)
+           (() x3 x3 x3))
+          start)
+    (eva1 g
+          ((const g (begin x1 x2) (and x1 x2)))
+          start))))
+
+
+Step:
+(let ((start (and null
+                  (begin
+                    null
+                    (push var1)
+                    (pop e0)
+                    null
+                    (if null?
+                      (begin
+                        (push (5 6))
+                        (push var1)
+                        append
+                        (pop e1)
+                        cons
+                        (pop e2)
+                        (push e2)
+                        (pop e9)
+                        (result e0 e1 e2))
+                      (should-not-happen start)))))
+      (var1 (2)))
+  (((null cons
+          car
+          append
+          head
+          tail
+          null?
+          eq?
+          if
+          push
+          pop
+          (start)
+          begin
+          and
+          stack)
+    g
+    (begin x1 x2 x3 xs)
+    (and x1 (begin x2 x3 xs)))
+   (() x1 x1 x1)
+   (() x2 x2 x2)
+   (() x3 x3 x3)))
+--------
+(let ((start (and null
+                  (begin
+                    null
+                    (push var1)
+                    (pop e0)
+                    null
+                    (if null?
+                      (begin
+                        (push (5 6))
+                        (push var1)
+                        append
+                        (pop e1)
+                        cons
+                        (pop e2)
+                        (push e2)
+                        (pop e9)
+                        (result e0 e1 e2))
+                      (should-not-happen start)))))
+      (var1 (2)))
+  start)
+
+
+Step:
+(let ((start (begin
+               null
+               null
+               (push var1)
+               (pop e0)
+               null
+               (if null?
+                 (and (push (5 6))
+                      (begin
+                        (push var1)
+                        append
+                        (pop e1)
+                        cons
+                        (pop e2)
+                        (push e2)
+                        (pop e9)
+                        (result e0 e1 e2)))
+                 (should-not-happen start))))
+      (var1 (2)))
+  (((null cons
+          car
+          append
+          head
+          tail
+          null?
+          eq?
+          if
+          push
+          pop
+          (start)
+          begin
+          and
+          stack)
+    g
+    (begin x1 x2 x3 xs)
+    (and x1 (begin x2 x3 xs)))
+   (() x1 x1 x1)
+   (() x2 x2 x2)
+   (() x3 x3 x3)))
+--------
+(let ((start (begin
+               null
+               null
+               (push var1)
+               (pop e0)
+               null
+               (if null?
+                 (and (push (5 6))
+                      (begin
+                        (push var1)
+                        append
+                        (pop e1)
+                        cons
+                        (pop e2)
+                        (push e2)
+                        (pop e9)
+                        (result e0 e1 e2)))
+                 (should-not-happen start))))
+      (var1 (2)))
+  start)
+
+
+Step:
+(let ((start (and null
+                  (and null
+                       (begin
+                         (push var1)
+                         (pop e0)
+                         null
+                         (if null?
+                           (begin
+                             (push (5 6))
+                             (push var1)
+                             append
+                             (pop e1)
+                             cons
+                             (pop e2)
+                             (push e2)
+                             (pop e9)
+                             (result e0 e1 e2))
+                           (should-not-happen start))))))
+      (var1 (2)))
+  (((null cons
+          car
+          append
+          head
+          tail
+          null?
+          eq?
+          if
+          push
+          pop
+          (start)
+          begin
+          and
+          stack)
+    g
+    (begin x1 x2 x3 xs)
+    (and x1 (begin x2 x3 xs)))
+   (() x1 x1 x1)
+   (() x2 x2 x2)
+   (() x3 x3 x3)))
+--------
+(let ((start (and null
+                  (and null
+                       (begin
+                         (push var1)
+                         (pop e0)
+                         null
+                         (if null?
+                           (begin
+                             (push (5 6))
+                             (push var1)
+                             append
+                             (pop e1)
+                             cons
+                             (pop e2)
+                             (push e2)
+                             (pop e9)
+                             (result e0 e1 e2))
+                           (should-not-happen start))))))
+      (var1 (2)))
+  start)
+
+
+Step:
+(let ((start (and null
+                  (begin
+                    null
+                    (push var1)
+                    (pop e0)
+                    null
+                    (if null?
+                      (and (push (5 6))
+                           (begin
+                             (push var1)
+                             append
+                             (pop e1)
+                             cons
+                             (pop e2)
+                             (push e2)
+                             (pop e9)
+                             (result e0 e1 e2)))
+                      (should-not-happen start)))))
+      (var1 (2)))
+  (((null cons
+          car
+          append
+          head
+          tail
+          null?
+          eq?
+          if
+          push
+          pop
+          (start)
+          begin
+          and
+          stack)
+    g
+    (begin x1 x2 x3 xs)
+    (and x1 (begin x2 x3 xs)))
+   (() x1 x1 x1)
+   (() x2 x2 x2)
+   (() x3 x3 x3)))
+--------
+(let ((start (and null
+                  (begin
+                    null
+                    (push var1)
+                    (pop e0)
+                    null
+                    (if null?
+                      (and (push (5 6))
+                           (begin
+                             (push var1)
+                             append
+                             (pop e1)
+                             cons
+                             (pop e2)
+                             (push e2)
+                             (pop e9)
+                             (result e0 e1 e2)))
+                      (should-not-happen start)))))
+      (var1 (2)))
+  start)
+
+
+Step:
+(let ((const (null cons
+                   car
+                   append
+                   head
+                   tail
+                   null?
+                   eq?
+                   if
+                   push
+                   pop
+                   do
+                   begin
+                   and
+                   stack))
+      (do ($1))
+      ($1 (begin
+            null
+            (push var1)
+            (pop e0)
+            null
+            (if null?
+              (begin
+                (push (5 6))
+                (push var1)
+                append
+                (pop e1)
+                cons
+                (pop e2)
+                (push e2)
+                (pop e9)
+                (result e0 e1 e2))
+              (should-not-happen (and null $1)))))
+      (var1 (2))
+      (stack (())))
+  ((const do (doexpr) (rest))
+   (const doexpr (and null rest) doexpr)
+   (const stack (ss) (() ss))))
+--------
+body
+
+
+Step:
+(let ((start (and null
+                  (begin
+                    null
+                    (push var1)
+                    (pop e0)
+                    null
+                    (if null?
+                      (and (push (5 6))
+                           (begin
+                             (push var1)
+                             append
+                             (pop e1)
+                             cons
+                             (pop e2)
+                             (push e2)
+                             (pop e9)
+                             (result e0 e1 e2)))
+                      (should-not-happen start)))))
+      (var1 (2)))
+  (((null cons
+          car
+          append
+          head
+          tail
+          null?
+          eq?
+          if
+          push
+          pop
+          (start)
+          begin
+          and
+          stack)
+    g
+    (begin x1 x2 x3 xs)
+    (and x1 (begin x2 x3 xs)))
+   (() x1 x1 x1)
+   (() x2 x2 x2)
+   (() x3 x3 x3)))
+--------
+(let ((start (and null
+                  (begin
+                    null
+                    (push var1)
+                    (pop e0)
+                    null
+                    (if null?
+                      (and (push (5 6))
+                           (begin
+                             (push var1)
+                             append
+                             (pop e1)
+                             cons
+                             (pop e2)
+                             (push e2)
+                             (pop e9)
+                             (result e0 e1 e2)))
+                      (should-not-happen start)))))
+      (var1 (2)))
+  start)
+
+
+Step:
+(let ((start (begin
+               null
+               null
+               (push var1)
+               (pop e0)
+               null
+               (if null?
+                 (and (push (5 6))
+                      (and (push var1)
+                           (begin
+                             append
+                             (pop e1)
+                             cons
+                             (pop e2)
+                             (push e2)
+                             (pop e9)
+                             (result e0 e1 e2))))
+                 (should-not-happen start))))
+      (var1 (2)))
+  (((null cons
+          car
+          append
+          head
+          tail
+          null?
+          eq?
+          if
+          push
+          pop
+          (start)
+          begin
+          and
+          stack)
+    g
+    (begin x1 x2 x3 xs)
+    (and x1 (begin x2 x3 xs)))
+   (() x1 x1 x1)
+   (() x2 x2 x2)
+   (() x3 x3 x3)))
+--------
+(let ((start (begin
+               null
+               null
+               (push var1)
+               (pop e0)
+               null
+               (if null?
+                 (and (push (5 6))
+                      (and (push var1)
+                           (begin
+                             append
+                             (pop e1)
+                             cons
+                             (pop e2)
+                             (push e2)
+                             (pop e9)
+                             (result e0 e1 e2))))
+                 (should-not-happen start))))
+      (var1 (2)))
+  start)
+
+
+Step:
+(let ((start (and null
+                  (and null
+                       (and (push var1)
+                            (begin
+                              (pop e0)
+                              null
+                              (if null?
+                                (begin
+                                  (push (5 6))
+                                  (push var1)
+                                  append
+                                  (pop e1)
+                                  cons
+                                  (pop e2)
+                                  (push e2)
+                                  (pop e9)
+                                  (result e0 e1 e2))
+                                (should-not-happen start)))))))
+      (var1 (2)))
+  (((null cons
+          car
+          append
+          head
+          tail
+          null?
+          eq?
+          if
+          push
+          pop
+          (start)
+          begin
+          and
+          stack)
+    g
+    (begin x1 x2 x3 xs)
+    (and x1 (begin x2 x3 xs)))
+   (() x1 x1 x1)
+   (() x2 x2 x2)
+   (() x3 x3 x3)))
+--------
+(let ((start (and null
+                  (and null
+                       (and (push var1)
+                            (begin
+                              (pop e0)
+                              null
+                              (if null?
+                                (begin
+                                  (push (5 6))
+                                  (push var1)
+                                  append
+                                  (pop e1)
+                                  cons
+                                  (pop e2)
+                                  (push e2)
+                                  (pop e9)
+                                  (result e0 e1 e2))
+                                (should-not-happen start)))))))
+      (var1 (2)))
+  start)
+
+
+Step:
+(let ((start (and null
+                  (and null
+                       (begin
+                         (push var1)
+                         (pop e0)
+                         null
+                         (if null?
+                           (and (push (5 6))
+                                (begin
+                                  (push var1)
+                                  append
+                                  (pop e1)
+                                  cons
+                                  (pop e2)
+                                  (push e2)
+                                  (pop e9)
+                                  (result e0 e1 e2)))
+                           (should-not-happen start))))))
+      (var1 (2)))
+  (((null cons
+          car
+          append
+          head
+          tail
+          null?
+          eq?
+          if
+          push
+          pop
+          (start)
+          begin
+          and
+          stack)
+    g
+    (begin x1 x2 x3 xs)
+    (and x1 (begin x2 x3 xs)))
+   (() x1 x1 x1)
+   (() x2 x2 x2)
+   (() x3 x3 x3)))
+--------
+(let ((start (and null
+                  (and null
+                       (begin
+                         (push var1)
+                         (pop e0)
+                         null
+                         (if null?
+                           (and (push (5 6))
+                                (begin
+                                  (push var1)
+                                  append
+                                  (pop e1)
+                                  cons
+                                  (pop e2)
+                                  (push e2)
+                                  (pop e9)
+                                  (result e0 e1 e2)))
+                           (should-not-happen start))))))
+      (var1 (2)))
+  start)
+
+
+Step:
+(let ((const (null cons
+                   car
+                   append
+                   head
+                   tail
+                   null?
+                   eq?
+                   if
+                   push
+                   pop
+                   do
+                   begin
+                   and
+                   stack))
+      (do ($1))
+      ($1 (and null
+               (begin
+                 (push var1)
+                 (pop e0)
+                 null
+                 (if null?
+                   (begin
+                     (push (5 6))
+                     (push var1)
+                     append
+                     (pop e1)
+                     cons
+                     (pop e2)
+                     (push e2)
+                     (pop e9)
+                     (result e0 e1 e2))
+                   (should-not-happen (and null $1))))))
+      (var1 (2))
+      (stack (())))
+  ((const do (doexpr) (rest))
+   (const doexpr (and null rest) doexpr)
+   (const stack (ss) (() ss))))
+--------
+body
+
+
+Step:
+(let ((start (and null
+                  (and null
+                       (begin
+                         (push var1)
+                         (pop e0)
+                         null
+                         (if null?
+                           (and (push (5 6))
+                                (begin
+                                  (push var1)
+                                  append
+                                  (pop e1)
+                                  cons
+                                  (pop e2)
+                                  (push e2)
+                                  (pop e9)
+                                  (result e0 e1 e2)))
+                           (should-not-happen start))))))
+      (var1 (2)))
+  (((null cons
+          car
+          append
+          head
+          tail
+          null?
+          eq?
+          if
+          push
+          pop
+          (start)
+          begin
+          and
+          stack)
+    g
+    (begin x1 x2 x3 xs)
+    (and x1 (begin x2 x3 xs)))
+   (() x1 x1 x1)
+   (() x2 x2 x2)
+   (() x3 x3 x3)))
+--------
+(let ((start (and null
+                  (and null
+                       (begin
+                         (push var1)
+                         (pop e0)
+                         null
+                         (if null?
+                           (and (push (5 6))
+                                (begin
+                                  (push var1)
+                                  append
+                                  (pop e1)
+                                  cons
+                                  (pop e2)
+                                  (push e2)
+                                  (pop e9)
+                                  (result e0 e1 e2)))
+                           (should-not-happen start))))))
+      (var1 (2)))
+  start)
+
+
+Step:
+(let ((start (and null
+                  (begin
+                    null
+                    (push var1)
+                    (pop e0)
+                    null
+                    (if null?
+                      (and (push (5 6))
+                           (and (push var1)
+                                (begin
+                                  append
+                                  (pop e1)
+                                  cons
+                                  (pop e2)
+                                  (push e2)
+                                  (pop e9)
+                                  (result e0 e1 e2))))
+                      (should-not-happen start)))))
+      (var1 (2)))
+  (((null cons
+          car
+          append
+          head
+          tail
+          null?
+          eq?
+          if
+          push
+          pop
+          (start)
+          begin
+          and
+          stack)
+    g
+    (begin x1 x2 x3 xs)
+    (and x1 (begin x2 x3 xs)))
+   (() x1 x1 x1)
+   (() x2 x2 x2)
+   (() x3 x3 x3)))
+--------
+(let ((start (and null
+                  (begin
+                    null
+                    (push var1)
+                    (pop e0)
+                    null
+                    (if null?
+                      (and (push (5 6))
+                           (and (push var1)
+                                (begin
+                                  append
+                                  (pop e1)
+                                  cons
+                                  (pop e2)
+                                  (push e2)
+                                  (pop e9)
+                                  (result e0 e1 e2))))
+                      (should-not-happen start)))))
+      (var1 (2)))
+  start)
+
+
+Step:
+(let ((const (null cons
+                   car
+                   append
+                   head
+                   tail
+                   null?
+                   eq?
+                   if
+                   push
+                   pop
+                   do
+                   begin
+                   and
+                   stack))
+      (do ($1))
+      ($1 (begin
+            null
+            (push var1)
+            (pop e0)
+            null
+            (if null?
+              (and (push (5 6))
+                   (begin
+                     (push var1)
+                     append
+                     (pop e1)
+                     cons
+                     (pop e2)
+                     (push e2)
+                     (pop e9)
+                     (result e0 e1 e2)))
+              (should-not-happen (and null $1)))))
+      (var1 (2))
+      (stack (())))
+  ((const do (doexpr) (rest))
+   (const doexpr (and null rest) doexpr)
+   (const stack (ss) (() ss))))
+--------
+body
+
+
+Step:
+(let (($1 (and null
+               (begin
+                 (push var1)
+                 (pop e0)
+                 null
+                 (if null?
+                   (begin
+                     (push (5 6))
+                     (push var1)
+                     append
+                     (pop e1)
+                     cons
+                     (pop e2)
+                     (push e2)
+                     (pop e9)
+                     (result e0 e1 e2))
+                   (should-not-happen (and null $1))))))
+      (var1 (2)))
+  (((null cons
+          car
+          append
+          head
+          tail
+          null?
+          eq?
+          if
+          push
+          pop
+          ($1)
+          begin
+          and
+          (()))
+    g
+    (begin x1 x2 x3 xs)
+    (and x1 (begin x2 x3 xs)))
+   (() x1 x1 x1)
+   (() x2 x2 x2)
+   (() x3 x3 x3)))
+--------
+(let ((start (and null
+                  (and null
+                       (begin
+                         (push var1)
+                         (pop e0)
+                         null
+                         (if null?
+                           (begin
+                             (push (5 6))
+                             (push var1)
+                             append
+                             (pop e1)
+                             cons
+                             (pop e2)
+                             (push e2)
+                             (pop e9)
+                             (result e0 e1 e2))
+                           (should-not-happen start))))))
+      (var1 (2)))
+  start)
+
+
+Step:
+(let (($1 (begin
+            null
+            (push var1)
+            (pop e0)
+            null
+            (if null?
+              (and (push (5 6))
+                   (begin
+                     (push var1)
+                     append
+                     (pop e1)
+                     cons
+                     (pop e2)
+                     (push e2)
+                     (pop e9)
+                     (result e0 e1 e2)))
+              (should-not-happen (and null $1)))))
+      (var1 (2)))
+  (((null cons
+          car
+          append
+          head
+          tail
+          null?
+          eq?
+          if
+          push
+          pop
+          ($1)
+          begin
+          and
+          (()))
+    g
+    (begin x1 x2 x3 xs)
+    (and x1 (begin x2 x3 xs)))
