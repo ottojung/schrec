@@ -38,6 +38,7 @@ state-with-noop.scm
 state-without-const.scm
 state-without-local.scm
 stupid-synthetic-example.scm
+turing-machine.scm
 "
 
 NONDET="
@@ -73,6 +74,7 @@ state-with-noop.scm
 state-without-const.scm
 state-without-local.scm
 stupid-synthetic-example.scm
+turing-machine.scm
 "
 
 mkdir -p dist/test/examples/det/
