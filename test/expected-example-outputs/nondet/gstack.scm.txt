@@ -1,9 +1,7 @@
 Original:
 (let ((const (null cons
                    car
-                   append
-                   head
-                   tail
+                   cdr
                    null?
                    eq?
                    if
@@ -24,7 +22,8 @@ Original:
                  (begin
                    (push (5 6))
                    (push var1)
-                   append
+                   car
+                   cons
                    (pop e1)
                    cons
                    (pop e2)
@@ -56,22 +55,7 @@ Original:
           body)
     (eval g
           ((const do (doexpr) (rest))
-           (const doexpr (and append rest) doexpr)
-           (const stack (s1 s2 ss) ((x ys) ss))
-           (() s1 (x) s1)
-           (() x x x)
-           (() s2 (ys) s2))
-          body)
-    (eval g
-          ((const do (doexpr) (rest))
-           (const doexpr (and head rest) doexpr)
-           (const stack (s1 ss) ((x) ss))
-           (() s1 (x xs) s1)
-           (() x x x))
-          body)
-    (eval g
-          ((const do (doexpr) (rest))
-           (const doexpr (and tail rest) doexpr)
+           (const doexpr (and cdr rest) doexpr)
            (const stack (s1 ss) ((xs) ss))
            (() s1 (x xs) s1)
            (() x x x))
@@ -155,7 +139,8 @@ Step:
                       (begin
                         (push (5 6))
                         (push var1)
-                        append
+                        car
+                        cons
                         (pop e1)
                         cons
                         (pop e2)
@@ -166,9 +151,7 @@ Step:
       (var1 (2)))
   (((null cons
           car
-          append
-          head
-          tail
+          cdr
           null?
           eq?
           if
@@ -195,7 +178,8 @@ Step:
                       (begin
                         (push (5 6))
                         (push var1)
-                        append
+                        car
+                        cons
                         (pop e1)
                         cons
                         (pop e2)
@@ -218,7 +202,8 @@ Step:
                  (and (push (5 6))
                       (begin
                         (push var1)
-                        append
+                        car
+                        cons
                         (pop e1)
                         cons
                         (pop e2)
@@ -229,9 +214,7 @@ Step:
       (var1 (2)))
   (((null cons
           car
-          append
-          head
-          tail
+          cdr
           null?
           eq?
           if
@@ -258,7 +241,8 @@ Step:
                  (and (push (5 6))
                       (begin
                         (push var1)
-                        append
+                        car
+                        cons
                         (pop e1)
                         cons
                         (pop e2)
@@ -281,7 +265,8 @@ Step:
                            (begin
                              (push (5 6))
                              (push var1)
-                             append
+                             car
+                             cons
                              (pop e1)
                              cons
                              (pop e2)
@@ -292,9 +277,7 @@ Step:
       (var1 (2)))
   (((null cons
           car
-          append
-          head
-          tail
+          cdr
           null?
           eq?
           if
@@ -321,7 +304,8 @@ Step:
                            (begin
                              (push (5 6))
                              (push var1)
-                             append
+                             car
+                             cons
                              (pop e1)
                              cons
                              (pop e2)
@@ -344,7 +328,8 @@ Step:
                       (and (push (5 6))
                            (begin
                              (push var1)
-                             append
+                             car
+                             cons
                              (pop e1)
                              cons
                              (pop e2)
@@ -355,9 +340,7 @@ Step:
       (var1 (2)))
   (((null cons
           car
-          append
-          head
-          tail
+          cdr
           null?
           eq?
           if
@@ -384,7 +367,8 @@ Step:
                       (and (push (5 6))
                            (begin
                              (push var1)
-                             append
+                             car
+                             cons
                              (pop e1)
                              cons
                              (pop e2)
@@ -399,9 +383,7 @@ Step:
 Step:
 (let ((const (null cons
                    car
-                   append
-                   head
-                   tail
+                   cdr
                    null?
                    eq?
                    if
@@ -421,7 +403,8 @@ Step:
               (begin
                 (push (5 6))
                 (push var1)
-                append
+                car
+                cons
                 (pop e1)
                 cons
                 (pop e2)
@@ -449,7 +432,8 @@ Step:
                       (and (push (5 6))
                            (begin
                              (push var1)
-                             append
+                             car
+                             cons
                              (pop e1)
                              cons
                              (pop e2)
@@ -460,9 +444,7 @@ Step:
       (var1 (2)))
   (((null cons
           car
-          append
-          head
-          tail
+          cdr
           null?
           eq?
           if
@@ -489,7 +471,8 @@ Step:
                       (and (push (5 6))
                            (begin
                              (push var1)
-                             append
+                             car
+                             cons
                              (pop e1)
                              cons
                              (pop e2)
@@ -512,7 +495,8 @@ Step:
                  (and (push (5 6))
                       (and (push var1)
                            (begin
-                             append
+                             car
+                             cons
                              (pop e1)
                              cons
                              (pop e2)
@@ -523,9 +507,7 @@ Step:
       (var1 (2)))
   (((null cons
           car
-          append
-          head
-          tail
+          cdr
           null?
           eq?
           if
@@ -552,7 +534,8 @@ Step:
                  (and (push (5 6))
                       (and (push var1)
                            (begin
-                             append
+                             car
+                             cons
                              (pop e1)
                              cons
                              (pop e2)
@@ -575,7 +558,8 @@ Step:
                                 (begin
                                   (push (5 6))
                                   (push var1)
-                                  append
+                                  car
+                                  cons
                                   (pop e1)
                                   cons
                                   (pop e2)
@@ -586,9 +570,7 @@ Step:
       (var1 (2)))
   (((null cons
           car
-          append
-          head
-          tail
+          cdr
           null?
           eq?
           if
@@ -615,7 +597,8 @@ Step:
                                 (begin
                                   (push (5 6))
                                   (push var1)
-                                  append
+                                  car
+                                  cons
                                   (pop e1)
                                   cons
                                   (pop e2)
@@ -638,7 +621,8 @@ Step:
                            (and (push (5 6))
                                 (begin
                                   (push var1)
-                                  append
+                                  car
+                                  cons
                                   (pop e1)
                                   cons
                                   (pop e2)
@@ -649,9 +633,7 @@ Step:
       (var1 (2)))
   (((null cons
           car
-          append
-          head
-          tail
+          cdr
           null?
           eq?
           if
@@ -678,7 +660,8 @@ Step:
                            (and (push (5 6))
                                 (begin
                                   (push var1)
-                                  append
+                                  car
+                                  cons
                                   (pop e1)
                                   cons
                                   (pop e2)
@@ -693,9 +676,7 @@ Step:
 Step:
 (let ((const (null cons
                    car
-                   append
-                   head
-                   tail
+                   cdr
                    null?
                    eq?
                    if
@@ -715,7 +696,8 @@ Step:
                    (begin
                      (push (5 6))
                      (push var1)
-                     append
+                     car
+                     cons
                      (pop e1)
                      cons
                      (pop e2)
@@ -743,7 +725,8 @@ Step:
                            (and (push (5 6))
                                 (begin
                                   (push var1)
-                                  append
+                                  car
+                                  cons
                                   (pop e1)
                                   cons
                                   (pop e2)
@@ -754,9 +737,7 @@ Step:
       (var1 (2)))
   (((null cons
           car
-          append
-          head
-          tail
+          cdr
           null?
           eq?
           if
@@ -783,7 +764,8 @@ Step:
                            (and (push (5 6))
                                 (begin
                                   (push var1)
-                                  append
+                                  car
+                                  cons
                                   (pop e1)
                                   cons
                                   (pop e2)
@@ -806,7 +788,8 @@ Step:
                       (and (push (5 6))
                            (and (push var1)
                                 (begin
-                                  append
+                                  car
+                                  cons
                                   (pop e1)
                                   cons
                                   (pop e2)
@@ -817,9 +800,7 @@ Step:
       (var1 (2)))
   (((null cons
           car
-          append
-          head
-          tail
+          cdr
           null?
           eq?
           if
@@ -846,7 +827,8 @@ Step:
                       (and (push (5 6))
                            (and (push var1)
                                 (begin
-                                  append
+                                  car
+                                  cons
                                   (pop e1)
                                   cons
                                   (pop e2)
@@ -861,9 +843,7 @@ Step:
 Step:
 (let ((const (null cons
                    car
-                   append
-                   head
-                   tail
+                   cdr
                    null?
                    eq?
                    if
@@ -883,7 +863,8 @@ Step:
               (and (push (5 6))
                    (begin
                      (push var1)
-                     append
+                     car
+                     cons
                      (pop e1)
                      cons
                      (pop e2)
@@ -910,7 +891,8 @@ Step:
                    (begin
                      (push (5 6))
                      (push var1)
-                     append
+                     car
+                     cons
                      (pop e1)
                      cons
                      (pop e2)
@@ -921,9 +903,7 @@ Step:
       (var1 (2)))
   (((null cons
           car
-          append
-          head
-          tail
+          cdr
           null?
           eq?
           if
@@ -950,7 +930,8 @@ Step:
                            (begin
                              (push (5 6))
                              (push var1)
-                             append
+                             car
+                             cons
                              (pop e1)
                              cons
                              (pop e2)
@@ -972,7 +953,8 @@ Step:
               (and (push (5 6))
                    (begin
                      (push var1)
-                     append
+                     car
+                     cons
                      (pop e1)
                      cons
                      (pop e2)
@@ -983,9 +965,7 @@ Step:
       (var1 (2)))
   (((null cons
           car
-          append
-          head
-          tail
+          cdr
           null?
           eq?
           if
@@ -998,3 +978,23 @@ Step:
     g
     (begin x1 x2 x3 xs)
     (and x1 (begin x2 x3 xs)))
+   (() x1 x1 x1)
+   (() x2 x2 x2)
+   (() x3 x3 x3)))
+--------
+(let ((start (and null
+                  (begin
+                    null
+                    (push var1)
+                    (pop e0)
+                    null
+                    (if null?
+                      (and (push (5 6))
+                           (begin
+                             (push var1)
+                             car
+                             cons
+                             (pop e1)
+                             cons
+                             (pop e2)
+                             (push e2)
