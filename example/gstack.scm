@@ -1,7 +1,8 @@
 
 ;; Evaluator for a stack-based language "gstack".
-;; Similar to lisp in that it is based on analogs of `cons`, `car` and `cdr`.
-(let ((const (null cons car cdr null? eq? if push pop do begin and stack))
+;; Similar to lisp in that it is based on analogs of `cons`, `car` and `cdr`,
+;; and also the "set" instruction that is like "set-car!" and "set-cdr!".
+(let ((const (null cons car cdr null? eq? set if push pop do begin and stack))
       (stack ())
       (var1 (2))
       (var2 (5 6))
@@ -22,6 +23,9 @@
                cons
                (pop e1)
                cons
+               (push e1)
+               (push e1)
+               set
                (pop e2)
                (push e2)
                (pop e9)
@@ -40,7 +44,7 @@
   (eval g ((const do (doexpr) (rest))
            (const doexpr (and cons rest) doexpr)
            (const stack (s1 s2 ss) ((s1 ys) ss))
-           (() s1 s1 s2)
+           (() s1 s1 s1)
            (() s2 (ys) s2))
         body)
 
@@ -97,6 +101,14 @@
                  (() else else else)
                  (() x x x))
               body))
+
+  ;; set (modifies the top of the stack)
+  (eval g ((const do (doexpr) (rest))
+           (const doexpr (and set rest) doexpr)
+           (const stack (s1 s2 ss) (s2 ss))
+           (() s1 (xs) s1)
+           (() s2 (ys) (xs)))
+        body)
 
   ;; pop
   (eval g ((const do (doexpr) (rest))

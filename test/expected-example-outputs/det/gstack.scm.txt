@@ -4,6 +4,7 @@ Original:
                    cdr
                    null?
                    eq?
+                   set
                    if
                    push
                    pop
@@ -26,6 +27,9 @@ Original:
                    cons
                    (pop e1)
                    cons
+                   (push e1)
+                   (push e1)
+                   set
                    (pop e2)
                    (push e2)
                    (pop e9)
@@ -43,7 +47,7 @@ Original:
           ((const do (doexpr) (rest))
            (const doexpr (and cons rest) doexpr)
            (const stack (s1 s2 ss) ((s1 ys) ss))
-           (() s1 s1 s2)
+           (() s1 s1 s1)
            (() s2 (ys) s2))
           body)
     (eval g
@@ -102,6 +106,13 @@ Original:
                 body))
     (eval g
           ((const do (doexpr) (rest))
+           (const doexpr (and set rest) doexpr)
+           (const stack (s1 s2 ss) (s2 ss))
+           (() s1 (xs) s1)
+           (() s2 (ys) (xs)))
+          body)
+    (eval g
+          ((const do (doexpr) (rest))
            (const doexpr (and pop-expr rest) doexpr)
            (const pop-expr (pop v) pop-expr)
            (const v (cs) (s1))
@@ -143,6 +154,9 @@ Step:
                         cons
                         (pop e1)
                         cons
+                        (push e1)
+                        (push e1)
+                        set
                         (pop e2)
                         (push e2)
                         (pop e9)
@@ -154,6 +168,7 @@ Step:
           cdr
           null?
           eq?
+          set
           if
           push
           pop
@@ -182,6 +197,9 @@ Step:
                         cons
                         (pop e1)
                         cons
+                        (push e1)
+                        (push e1)
+                        set
                         (pop e2)
                         (push e2)
                         (pop e9)
@@ -206,6 +224,9 @@ Step:
                              cons
                              (pop e1)
                              cons
+                             (push e1)
+                             (push e1)
+                             set
                              (pop e2)
                              (push e2)
                              (pop e9)
@@ -217,6 +238,7 @@ Step:
           cdr
           null?
           eq?
+          set
           if
           push
           pop
@@ -245,6 +267,9 @@ Step:
                              cons
                              (pop e1)
                              cons
+                             (push e1)
+                             (push e1)
+                             set
                              (pop e2)
                              (push e2)
                              (pop e9)
@@ -269,6 +294,9 @@ Step:
                                   cons
                                   (pop e1)
                                   cons
+                                  (push e1)
+                                  (push e1)
+                                  set
                                   (pop e2)
                                   (push e2)
                                   (pop e9)
@@ -280,6 +308,7 @@ Step:
           cdr
           null?
           eq?
+          set
           if
           push
           pop
@@ -308,6 +337,9 @@ Step:
                                   cons
                                   (pop e1)
                                   cons
+                                  (push e1)
+                                  (push e1)
+                                  set
                                   (pop e2)
                                   (push e2)
                                   (pop e9)
@@ -332,6 +364,9 @@ Step:
                                        cons
                                        (pop e1)
                                        cons
+                                       (push e1)
+                                       (push e1)
+                                       set
                                        (pop e2)
                                        (push e2)
                                        (pop e9)
@@ -343,6 +378,7 @@ Step:
           cdr
           null?
           eq?
+          set
           if
           push
           pop
@@ -371,6 +407,9 @@ Step:
                                        cons
                                        (pop e1)
                                        cons
+                                       (push e1)
+                                       (push e1)
+                                       set
                                        (pop e2)
                                        (push e2)
                                        (pop e9)
@@ -394,6 +433,9 @@ Step:
                                           cons
                                           (pop e1)
                                           cons
+                                          (push e1)
+                                          (push e1)
+                                          set
                                           (pop e2)
                                           (push e2)
                                           (pop e9)
@@ -405,6 +447,7 @@ Step:
           cdr
           null?
           eq?
+          set
           if
           push
           pop
@@ -429,6 +472,9 @@ Step:
                                           cons
                                           (pop e1)
                                           cons
+                                          (push e1)
+                                          (push e1)
+                                          set
                                           (pop e2)
                                           (push e2)
                                           (pop e9)
@@ -452,6 +498,9 @@ Step:
                                                cons
                                                (pop e1)
                                                cons
+                                               (push e1)
+                                               (push e1)
+                                               set
                                                (pop e2)
                                                (push e2)
                                                (pop e9)
@@ -463,6 +512,7 @@ Step:
           cdr
           null?
           eq?
+          set
           if
           push
           pop
@@ -490,6 +540,9 @@ Step:
                                                cons
                                                (pop e1)
                                                cons
+                                               (push e1)
+                                               (push e1)
+                                               set
                                                (pop e2)
                                                (push e2)
                                                (pop e9)
@@ -513,6 +566,9 @@ Step:
                                                     cons
                                                     (pop e1)
                                                     cons
+                                                    (push e1)
+                                                    (push e1)
+                                                    set
                                                     (pop e2)
                                                     (push e2)
                                                     (pop e9)
@@ -524,6 +580,7 @@ Step:
           cdr
           null?
           eq?
+          set
           if
           push
           pop
@@ -551,6 +608,9 @@ Step:
                                                     cons
                                                     (pop e1)
                                                     cons
+                                                    (push e1)
+                                                    (push e1)
+                                                    set
                                                     (pop e2)
                                                     (push e2)
                                                     (pop e9)
@@ -574,6 +634,9 @@ Step:
                                                          cons
                                                          (pop e1)
                                                          cons
+                                                         (push e1)
+                                                         (push e1)
+                                                         set
                                                          (pop e2)
                                                          (push e2)
                                                          (pop e9)
@@ -585,6 +648,7 @@ Step:
           cdr
           null?
           eq?
+          set
           if
           push
           pop
@@ -612,6 +676,9 @@ Step:
                                                          cons
                                                          (pop e1)
                                                          cons
+                                                         (push e1)
+                                                         (push e1)
+                                                         set
                                                          (pop e2)
                                                          (push e2)
                                                          (pop e9)
@@ -635,6 +702,9 @@ Step:
                                                             (begin
                                                               (pop e1)
                                                               cons
+                                                              (push e1)
+                                                              (push e1)
+                                                              set
                                                               (pop e2)
                                                               (push e2)
                                                               (pop e9)
@@ -649,6 +719,7 @@ Step:
           cdr
           null?
           eq?
+          set
           if
           push
           pop
@@ -676,6 +747,9 @@ Step:
                                                             (begin
                                                               (pop e1)
                                                               cons
+                                                              (push e1)
+                                                              (push e1)
+                                                              set
                                                               (pop e2)
                                                               (push e2)
                                                               (pop e9)
@@ -702,6 +776,9 @@ Step:
                                                             (and (pop e1)
                                                                  (begin
                                                                    cons
+                                                                   (push e1)
+                                                                   (push e1)
+                                                                   set
                                                                    (pop e2)
                                                                    (push e2)
                                                                    (pop e9)
@@ -716,6 +793,7 @@ Step:
           cdr
           null?
           eq?
+          set
           if
           push
           pop
@@ -743,6 +821,9 @@ Step:
                                                             (and (pop e1)
                                                                  (begin
                                                                    cons
+                                                                   (push e1)
+                                                                   (push e1)
+                                                                   set
                                                                    (pop e2)
                                                                    (push e2)
                                                                    (pop e9)
@@ -769,6 +850,9 @@ Step:
                                                             (and (pop e1)
                                                                  (and cons
                                                                       (begin
+                                                                        (push e1)
+                                                                        (push e1)
+                                                                        set
                                                                         (pop e2)
                                                                         (push e2)
                                                                         (pop e9)
@@ -783,6 +867,7 @@ Step:
           cdr
           null?
           eq?
+          set
           if
           push
           pop
@@ -810,6 +895,9 @@ Step:
                                                             (and (pop e1)
                                                                  (and cons
                                                                       (begin
+                                                                        (push e1)
+                                                                        (push e1)
+                                                                        set
                                                                         (pop e2)
                                                                         (push e2)
                                                                         (pop e9)
@@ -835,8 +923,11 @@ Step:
                                                        (and cons
                                                             (and (pop e1)
                                                                  (and cons
-                                                                      (and (pop e2)
+                                                                      (and (push e1)
                                                                            (begin
+                                                                             (push e1)
+                                                                             set
+                                                                             (pop e2)
                                                                              (push e2)
                                                                              (pop e9)
                                                                              (result
@@ -850,6 +941,7 @@ Step:
           cdr
           null?
           eq?
+          set
           if
           push
           pop
@@ -876,8 +968,11 @@ Step:
                                                        (and cons
                                                             (and (pop e1)
                                                                  (and cons
-                                                                      (and (pop e2)
+                                                                      (and (push e1)
                                                                            (begin
+                                                                             (push e1)
+                                                                             set
+                                                                             (pop e2)
                                                                              (push e2)
                                                                              (pop e9)
                                                                              (result
@@ -902,99 +997,4 @@ Step:
                                                        (and cons
                                                             (and (pop e1)
                                                                  (and cons
-                                                                      (and (pop e2)
-                                                                           (and (push e2)
-                                                                                (begin
-                                                                                  (pop e9)
-                                                                                  (result
-                                                                                    e0
-                                                                                    e1
-                                                                                    e2))))))))))
-                                        (should-not-happen start))))))))
-      (var1 (2)))
-  (((null cons
-          car
-          cdr
-          null?
-          eq?
-          if
-          push
-          pop
-          (start)
-          begin
-          and
-          stack)
-    g
-    (begin x1 x2 x3 xs)
-    (and x1 (begin x2 x3 xs)))
-   (() x1 x1 x1)
-   (() x2 x2 x2)
-   (() x3 x3 x3)))
---------
-(let ((start (and null
-                  (and null
-                       (and (push var1)
-                            (and (pop e0)
-                                 (and null
-                                      (if null?
-                                        (and (push (5 6))
-                                             (and (push var1)
-                                                  (and car
-                                                       (and cons
-                                                            (and (pop e1)
-                                                                 (and cons
-                                                                      (and (pop e2)
-                                                                           (and (push e2)
-                                                                                (begin
-                                                                                  (pop e9)
-                                                                                  (result
-                                                                                    e0
-                                                                                    e1
-                                                                                    e2))))))))))
-                                        (should-not-happen start))))))))
-      (var1 (2)))
-  start)
-
-
-Step:
-(let ((start (and null
-                  (and null
-                       (and (push var1)
-                            (and (pop e0)
-                                 (and null
-                                      (if null?
-                                        (and (push (5 6))
-                                             (and (push var1)
-                                                  (and car
-                                                       (and cons
-                                                            (and (pop e1)
-                                                                 (and cons
-                                                                      (and (pop e2)
-                                                                           (and (push e2)
-                                                                                (and (pop e9)
-                                                                                     (result
-                                                                                       e0
-                                                                                       e1
-                                                                                       e2))))))))))
-                                        (should-not-happen start))))))))
-      (var1 (2)))
-  (((null cons
-          car
-          cdr
-          null?
-          eq?
-          if
-          push
-          pop
-          (start)
-          begin
-          and
-          stack)
-    g
-    (begin x1 x2)
-    (and x1 x2))))
---------
-(let ((start (and null
-                  (and null
-                       (and (push var1)
-                            (and (pop e0)
+                                                                      (and (push e1)
