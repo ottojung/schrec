@@ -7,6 +7,25 @@
       (action (MOVE >>))
       )
 
+  (eval g ((const action (MOVE >>) (NEWSTATE))
+           (const tape-left  (xs x) (xs x h))
+           (const head (h) (y))
+           (const tape-right (y ys) (ys _))
+           (() x x x)
+           (() y y y))
+        body)
+
+  (eval g ((const action (MOVE <<) (NEWSTATE))
+           (const tape-left  (xs x) (_ xs))
+           (const head (h) (x))
+           (const tape-right (y ys) (h y ys))
+           (() x x x)
+           (() y y y))
+        body)
+
+
+  ;; Transition relation:
+
   (eva1 g ((const action (NEWSTATE) (MOVE >>))
            (const head (0) (1))
            (const state (q0) (q0)))
@@ -25,29 +44,6 @@
   (eva1 g ((const action (NEWSTATE) (HALT))
            (const head (_) (_))
            (const state (q1) (HALT)))
-        body)
-
-  (eval g ((const action (MOVE >>) (NEWSTATE))
-           (const tape-left  (xs x) (xs x h))
-           (const head (h) (y))
-           (const tape-right (y ys) (ys _))
-           (() x x x)
-           (() y y y))
-        body)
-
-  (eval g ((const action (MOVE <<) (NEWSTATE))
-           (const tape-left  (xs x) (_ xs))
-           (const head (h) (x))
-           (const tape-right (y ys) (h y ys))
-           (() x x x)
-           (() y y y))
-        body)
-
-  (eval g ((const state (HALT) (DONE))
-           (const tape-left (xs) tape-left)
-           (const head (h) head)
-           (const tape-right (ys) tape-right)
-           (const g g (HALT xs h ys)))
         body)
 
   )
