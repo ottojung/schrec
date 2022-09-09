@@ -2,10 +2,13 @@
 ;; Evaluator for a stack-based language "gstack".
 ;; Similar to lisp in that it is based on analogs of `cons`, `car` and `cdr`,
 ;; and also the "set" instruction that is like "set-car!" and "set-cdr!".
-(let ((const (null cons car cdr null? eq? set if push pop do begin and stack))
+(let ((const (null cons car cdr set
+              push pop
+              if null? eq? and
+              do stack))
       (stack ())
       (var1 (2))
-      (var2 (5 6))
+      (var2 ((5 6)))
       (do (start))
       (start
        (begin
@@ -15,10 +18,14 @@
          (pop e0)
          null
 
+         ;; null
+         ;; (push var1)
+         ;; (if null? yes no)
+
          (if null?
              (begin
-               (push var2)
                (push var1)
+               (push var2)
                car
                cons
                (pop e1)
@@ -30,7 +37,7 @@
                (push e2)
                (pop e9)
                (result e0 e1 e2))
-             (should-not-happen start))
+             (should-not-happen do stack))
 
          )))
 
@@ -64,50 +71,21 @@
            (() x x x))
         body)
 
-  ;; null?
-  (eval g (let ((if-expr (if null? then else)))
-            ((const do (if-expr) (then))
-             (const if-expr if-expr if-expr)
-             (const stack (s1 ss) (ss))
-             (() then then then)
-             (() else else else)
-             (() s1 s1 s1)))
-        (eval g ((const do (if-expr) (then))
-                 (const if-expr (if-keyword null? then else) if-expr)
-                 (const if-keyword if if-keyword)
-                 (const stack (s1 ss) (ss))
-                 (() s1 (x xs) s1)
-                 (() then then then)
-                 (() else else else)
-                 (() x x x))
-              body))
-
-  ;; eq?
-  (eval g (let ((if-expr (if eq? then else)))
-            ((const do (if-expr) (else))
-             (const if-expr if-expr if-expr)
-             (const stack (s1 s2 ss) (ss))
-             (() then then then)
-             (() else else else)
-             (() s1 s1 s1)
-             (() s2 s2 s2)))
-        (eval g ((const do (if-expr) (then))
-                 (const if-expr (if-keyword eq? then else) if-expr)
-                 (const if-keyword if if-keyword)
-                 (const stack (s1 s2 ss) (ss))
-                 (() s1 (x xs) s1)
-                 (() s2 (x ys) s1)
-                 (() then then then)
-                 (() else else else)
-                 (() x x x))
-              body))
-
   ;; set (modifies the top of the stack)
   (eval g ((const do (doexpr) (rest))
            (const doexpr (and set rest) doexpr)
            (const stack (s1 s2 ss) (s2 ss))
            (() s1 (xs) s1)
            (() s2 (ys) (xs)))
+        body)
+
+  ;; push
+  (eval g ((const do (doexpr) (rest))
+           (const doexpr (and push-expr rest) doexpr)
+           (const push-expr (push v) push-expr)
+           (const v (x) v)
+           (const stack (ss) (x ss))
+           (() x x x))
         body)
 
   ;; pop
@@ -119,25 +97,49 @@
            (() s1 s1 s1))
         body)
 
-  ;; push
-  (eval g ((const do (doexpr) (rest))
-           (const doexpr (and push-expr rest) doexpr)
-           (const push-expr (push v) push-expr)
-           (const v (cs) v)
-           (const stack (ss) ((cs) ss)))
-        body)
+  ;; null?
+  (eval g ((const do (doexpr) (then))
+           (const doexpr (if null? then else) doexpr)
+           (const stack (s1 ss) (ss))
+           (() then then then)
+           (() else else else)
+           (() s1 s1 s1))
+        (eval g ((const do (doexpr) (else))
+                 (const doexpr (if null? then else) doexpr)
+                 (const stack (s1 ss) (ss))
+                 (() s1 (x xs) s1)
+                 (() then then then)
+                 (() else else else)
+                 (() x x x))
+              body))
+
+  ;; eq?
+  (eval g ((const do (doexpr) (else))
+           (const doexpr (if eq? then else) doexpr)
+           (const stack (s1 s2 ss) (ss))
+           (() then then then)
+           (() else else else)
+           (() s1 s1 s1)
+           (() s2 s2 s2))
+        (eval g ((const do (doexpr) (then))
+                 (const doexpr (if eq? then else) doexpr)
+                 (const stack (s1 s1 ss) (ss))
+                 (() s1 s1 s1)
+                 (() then then then)
+                 (() else else else))
+              body))
 
   ;; begin
-  (eval g ((const g
-                  (begin x1 x2 x3 xs)
-                  (and x1 (begin x2 x3 xs)))
+  (eval g (((and begin) g
+            (begin x1 x2 x3 xs)
+            (and x1 (begin x2 x3 xs)))
            (() x1 x1 x1)
            (() x2 x2 x2)
            (() x3 x3 x3))
         start)
-  (eva1 g ((const g
-                  (begin x1 x2)
-                  (and x1 x2)))
+  (eva1 g (((and begin) g
+            (begin x1 x2)
+            (and x1 x2)))
         start)
 
   )
