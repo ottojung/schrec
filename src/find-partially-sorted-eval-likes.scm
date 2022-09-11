@@ -22,6 +22,9 @@
 %use (eval-like?) "./eval-like-huh.scm"
 %use (node-children node-visited? set-node-visited?!) "./node.scm"
 
+;; FIXME: This is wrong. There are no "levels".
+;;        If bottom eval fails, then the top one must run
+;;        instead, on the same reduction step.
 (define (find-partially-sorted-eval-likes names root)
   (define sequences '())
   (let loop ((parents '()) (graph root))
