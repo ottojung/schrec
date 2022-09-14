@@ -1,12 +1,12 @@
 
 # Schrec
 
-A compiler for the `L-Rose` language. In active development.
+An interpreter for the `L-Rose` language.
 
 # Usage
 
-See example programs in `test/example.scm`.
-To run them, do `make example`.
+See example programs in `example/`.
+To run them, do `make` followed by `dist/schrec example/<NAME-OF-THE-EXAMPLE>.scm`.
 
 # Dependencies
 
