@@ -32,6 +32,7 @@
   (define free-stack (stack-make))
   (define blocks (node-children env))
 
+  ;; FIXME: copy the replace pattern first.
   (define result
     (let ((re-match-threads
            (match-blocks/nondet free-stack main-input pointer-node blocks)))
