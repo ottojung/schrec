@@ -19,11 +19,11 @@
 %use (comp) "./euphrates/comp.scm"
 %use (list-and-map) "./euphrates/list-and-map.scm"
 %use (stack->list stack-make) "./euphrates/stack.scm"
-%use (associate-variable!/det) "./associate-variable-bang-det.scm"
 %use (eval-hook) "./eval-hook.scm"
 %use (get-environment-blocks) "./get-environment-blocks.scm"
 %use (get-environment-constants) "./get-environment-constants.scm"
 %use (get-environment-input) "./get-environment-input.scm"
+%use (initialize-const-variables/det) "./initialize-const-variables-det.scm"
 %use (match-rewrite-block/det) "./match-rewrite-block-det.scm"
 %use (rewrite-rewrite-block/det) "./rewrite-rewrite-block-det.scm"
 %use (uninitialize-variable!) "./uninitialize-variable-bang.scm"
@@ -34,15 +34,10 @@
   (define main-input (get-environment-input env))
   (define free-stack (stack-make))
 
+  ;; FIXME: copy the replace pattern first.
   (define result
     (and
-     (begin
-       (associate-variable!/det free-stack main-input pointer-node)
-       (for-each
-        (lambda (const)
-          (associate-variable!/det free-stack const const))
-        constants)
-       #t)
+     (initialize-const-variables/det free-stack constants main-input pointer-node)
      (list-and-map (comp (match-rewrite-block/det free-stack)) blocks)
      (for-each (comp (rewrite-rewrite-block/det free-stack)) blocks)))
 
