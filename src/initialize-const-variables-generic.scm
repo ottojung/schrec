@@ -32,7 +32,8 @@
 
           (for-each
            (lambda (const)
-             (assign free-stack const (list const)))
+             (unless (node-equal? const main-input)
+               (assign free-stack const (list const))))
            constants)
 
           #t))))
