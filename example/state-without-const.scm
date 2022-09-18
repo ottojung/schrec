@@ -1,9 +1,6 @@
 
 ;; state test 7
-(eva1 g ((() g
-          (x)
-          (x (x)))
-         ((off on) (off)
-          (off)
-          (on)))
+(eva1 (g (off on)
+         ((g (x) (x (x)))
+          ((off) (off) (on))))
       (body))
