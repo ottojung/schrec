@@ -33,5 +33,5 @@
           replace-pattern replace-pattern)))
     (unless (node-equal? replace-pattern-val main-input)
       (let ((new-children
-             (map loop (node-children replace-pattern-val))))
+             (map loop (node-children replace-pattern))))
         (set-node-children! main-input new-children)))))
