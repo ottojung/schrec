@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2021, 2022  Otto Jung
+;;;; Copyright (C) 2022  Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -14,18 +14,10 @@
 
 %run guile
 
-%var rewrite-rewrite-block/det
+%var get-block-input
 
-%use (get-block-input) "./get-block-input.scm"
-%use (get-block-rpattern) "./get-block-rpattern.scm"
-%use (run-rewrite-pattern/det) "./run-rewrite-pattern-det.scm"
-%use (variable-get-association-or-det) "./variable-get-association-or-det.scm"
+%use (node-children) "./node.scm"
 
-(define (rewrite-rewrite-block/det free-stack block)
-  (define input-node (get-block-input block))
-  (define replace-pattern (get-block-rpattern block))
-
-  (define input-val
-    (variable-get-association-or-det input-node input-node))
-
-  (run-rewrite-pattern/det replace-pattern input-val))
+(define (get-block-input block)
+  (define children (node-children block))
+  (car children))

@@ -14,15 +14,10 @@
 
 %run guile
 
-%var block-fn
+%var get-environment-blocks
 
-%use (initialize-rewrite-block) "./initialize-rewrite-block.scm"
-%use (uninitialize-rewrite-block) "./uninitialize-rewrite-block.scm"
+%use (node-children) "./node.scm"
 
-(define (block-fn proc free-stack)
-  (lambda (block)
-    (and
-     (initialize-rewrite-block free-stack block)
-     (let ((ret (proc free-stack block)))
-       (uninitialize-rewrite-block free-stack block)
-       ret))))
+(define (get-environment-blocks env)
+  (define children (node-children env))
+  (node-children (caddr children)))

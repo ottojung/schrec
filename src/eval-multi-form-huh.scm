@@ -24,6 +24,6 @@
 
 (define (eval-multi-form? node)
   (define children (node-children node))
-  (and (list-length= 4 children)
+  (and (list-length= 3 children)
        (eval-multi-node? (car children))
        (check-environment (get-eval-env node))))

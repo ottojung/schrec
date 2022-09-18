@@ -16,31 +16,35 @@
 
 %var run-environment-resultsall
 
+%use (comp) "./euphrates/comp.scm"
 %use (stack->list stack-make) "./euphrates/stack.scm"
-%use (block-fn) "./block-fn.scm"
 %use (eval-hook) "./eval-hook.scm"
 %use (get-current-thread) "./get-current-thread.scm"
+%use (get-environment-blocks) "./get-environment-blocks.scm"
+%use (get-environment-constants) "./get-environment-constants.scm"
+%use (get-environment-input) "./get-environment-input.scm"
 %use (match-blocks/nondet) "./match-blocks-nondet.scm"
 %use (match-thread-relative) "./match-thread-relative.scm"
-%use (node-children) "./node.scm"
 %use (rewrite-rewrite-block/nondet) "./rewrite-rewrite-block-nondet.scm"
 %use (soft-uninitialize-variable!) "./soft-uninitialize-variable-bang.scm"
 %use (thread-fork) "./thread-fork.scm"
 %use (thread-relative) "./thread-relative.scm"
 
-(define (run-environment-resultsall main-input env body pointer-node)
+(define (run-environment-resultsall env body pointer-node)
+  (define blocks (get-environment-blocks env))
+  (define constants (get-environment-constants env))
+  (define main-input (get-environment-input env))
   (define free-stack (stack-make))
-  (define blocks (node-children env))
 
   ;; FIXME: copy the replace pattern first.
   (define result
     (let ((re-match-threads
-           (match-blocks/nondet free-stack main-input pointer-node blocks)))
+           (match-blocks/nondet free-stack constants main-input pointer-node blocks)))
       (define re-threads
         (map
          (match-thread-relative
           (thread-fork
-           (for-each (block-fn rewrite-rewrite-block/nondet free-stack) blocks)
+           (for-each (comp (rewrite-rewrite-block/nondet free-stack)) blocks)
            (get-current-thread)))
          re-match-threads))
 

@@ -18,14 +18,19 @@
 
 %use (list-map/flatten) "./euphrates/list-map-flatten.scm"
 %use (associate-variable!/det/nondet) "./associate-variable-bang-nondet.scm"
-%use (block-fn) "./block-fn.scm"
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (match-rewrite-block/nondet) "./match-rewrite-block-nondet.scm"
 %use (match-thread-relative) "./match-thread-relative.scm"
 
 ;; returns a list of `match-thread's
-(define (match-blocks/nondet free-stack main-input pointer-node blocks)
+(define (match-blocks/nondet free-stack constants main-input pointer-node blocks)
   (associate-variable!/det/nondet free-stack main-input (list pointer-node))
+
+  (for-each
+   (lambda (const)
+     (associate-variable!/det/nondet free-stack const (list const)))
+   constants)
+
   (let loop ((match-threads (list (get-current-match-thread)))
              (blocks blocks))
     (if (or (null? blocks)
@@ -35,6 +40,6 @@
           (define new-match-threads
             (list-map/flatten
              (match-thread-relative
-              ((block-fn match-rewrite-block/nondet free-stack) cur))
+              (match-rewrite-block/nondet free-stack cur))
              match-threads))
           (loop new-match-threads (cdr blocks))))))

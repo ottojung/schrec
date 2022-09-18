@@ -22,5 +22,5 @@
 
 (define (get-eval-body graph)
   (define children (node-children graph))
-  (or (list-ref-or children 3 #f)
+  (or (list-ref-or children 2 #f)
       (raisu 'eval-does-not-have-a-body graph)))

@@ -17,17 +17,14 @@
 %var rewrite-rewrite-block/nondet
 
 %use (raisu) "./euphrates/raisu.scm"
-%use (node-children) "./node.scm"
+%use (get-block-input) "./get-block-input.scm"
+%use (get-block-rpattern) "./get-block-rpattern.scm"
 %use (run-rewrite-pattern-nondet) "./run-rewrite-pattern-nondet.scm"
 %use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
 
 (define (rewrite-rewrite-block/nondet free-stack block)
-  (define children (node-children block))
-  (define const-node (list-ref children 0))
-  (define input-node (list-ref children 1))
-  (define match-pattern (list-ref children 2))
-  (define replace-pattern (list-ref children 3))
-  (define const-list (node-children const-node))
+  (define input-node (get-block-input block))
+  (define replace-pattern (get-block-rpattern block))
 
   (define input-val
     (or (variable-get-association-nondet-singleton input-node input-node #f)

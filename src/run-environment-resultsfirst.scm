@@ -16,25 +16,35 @@
 
 %var run-environment-resultsfirst
 
+%use (comp) "./euphrates/comp.scm"
 %use (list-and-map) "./euphrates/list-and-map.scm"
 %use (stack->list stack-make) "./euphrates/stack.scm"
 %use (associate-variable!/det) "./associate-variable-bang-det.scm"
-%use (block-fn) "./block-fn.scm"
 %use (eval-hook) "./eval-hook.scm"
+%use (get-environment-blocks) "./get-environment-blocks.scm"
+%use (get-environment-constants) "./get-environment-constants.scm"
+%use (get-environment-input) "./get-environment-input.scm"
 %use (match-rewrite-block/det) "./match-rewrite-block-det.scm"
-%use (node-children) "./node.scm"
 %use (rewrite-rewrite-block/det) "./rewrite-rewrite-block-det.scm"
 %use (uninitialize-variable!) "./uninitialize-variable-bang.scm"
 
-(define (run-environment-resultsfirst main-input env body pointer-node)
+(define (run-environment-resultsfirst env body pointer-node)
+  (define blocks (get-environment-blocks env))
+  (define constants (get-environment-constants env))
+  (define main-input (get-environment-input env))
   (define free-stack (stack-make))
-  (define blocks (node-children env))
 
   (define result
     (and
-     (or (associate-variable!/det free-stack main-input pointer-node) #t)
-     (list-and-map (block-fn match-rewrite-block/det free-stack) blocks)
-     (for-each (block-fn rewrite-rewrite-block/det free-stack) blocks)))
+     (begin
+       (associate-variable!/det free-stack main-input pointer-node)
+       (for-each
+        (lambda (const)
+          (associate-variable!/det free-stack const const))
+        constants)
+       #t)
+     (list-and-map (comp (match-rewrite-block/det free-stack)) blocks)
+     (for-each (comp (rewrite-rewrite-block/det free-stack)) blocks)))
 
   (for-each uninitialize-variable!
             (stack->list free-stack))

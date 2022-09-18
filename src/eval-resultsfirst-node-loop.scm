@@ -32,7 +32,7 @@
           (body (get-eval-body eval-node))
           (main-input (get-eval-input eval-node)))
       (let loop ((evaled? #f))
-        (if (eval/det run-environment-resultsfirst main-input env body)
+        (if (eval/det run-environment-resultsfirst env body)
             (loop #t)
             evaled?))))
    ((eval-multi-form? eval-node)

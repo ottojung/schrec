@@ -16,8 +16,9 @@
 
 %var check-rewrite-block
 
+%use (list-length=) "./euphrates/list-length-eq.scm"
 %use (node-children) "./node.scm"
 
 (define (check-rewrite-block block)
   (define children (node-children block))
-  (= 4 (length children)))
+  (list-length= 3 children))

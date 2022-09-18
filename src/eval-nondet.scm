@@ -20,7 +20,7 @@
 %use (thread-fork) "./thread-fork.scm"
 
 ;; returns a list of new thread ids
-(define (eval/nondet func main-input env body)
+(define (eval/nondet func env body)
   (let loop ((g body))
     (if (node-visited? g) '()
         (begin
@@ -30,7 +30,7 @@
                   append
                   (cons
                    (thread-fork
-                    (func main-input env body g))
+                    (func env body g))
                    (map loop (node-children g))))))
             (set-node-visited?! g #f)
             ret)))))

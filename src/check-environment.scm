@@ -17,11 +17,16 @@
 %var check-environment
 
 %use (list-and-map) "./euphrates/list-and-map.scm"
+%use (list-length=) "./euphrates/list-length-eq.scm"
 %use (check-rewrite-block) "./check-rewrite-block.scm"
+%use (get-environment-blocks) "./get-environment-blocks.scm"
 %use (node-children) "./node.scm"
 
-;; returns #f or success
+;; returns #t or success
 (define (check-environment env)
   (define children (node-children env))
-  (and (<= 1 (length children))
-       (list-and-map check-rewrite-block children)))
+  (and (list-length= 3 children)
+       (let ((blocks (get-environment-blocks env)))
+         (list-and-map check-rewrite-block blocks))))
+
+

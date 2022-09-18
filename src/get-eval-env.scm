@@ -22,5 +22,5 @@
 
 (define (get-eval-env graph)
   (define children (node-children graph))
-  (or (list-ref-or children 2 #f)
+  (or (list-ref-or children 1 #f)
       (raisu 'eval-does-not-have-an-env graph)))

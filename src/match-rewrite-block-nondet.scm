@@ -16,16 +16,14 @@
 
 %var match-rewrite-block/nondet
 
-%use (node-children) "./node.scm"
+%use (get-block-input) "./get-block-input.scm"
+%use (get-block-mpattern) "./get-block-mpattern.scm"
 %use (run-match-pattern-nondet) "./run-match-pattern-nondet.scm"
 %use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
 
 (define (match-rewrite-block/nondet free-stack block)
-  (define children (node-children block))
-  (define const-node (list-ref children 0))
-  (define input-node (list-ref children 1))
-  (define match-pattern (list-ref children 2))
-  (define replace-pattern (list-ref children 3))
+  (define input-node (get-block-input block))
+  (define match-pattern (get-block-mpattern block))
 
   (define input-val
     (variable-get-association-nondet-singleton input-node input-node #f))

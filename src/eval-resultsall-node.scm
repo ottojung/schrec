@@ -26,8 +26,8 @@
 %use (run-environment-resultsall) "./run-environment-resultsall.scm"
 %use (run-environment-resultsfirst) "./run-environment-resultsfirst.scm"
 
-(define (single-runner main-input env body pointer-node)
-  (if (run-environment-resultsfirst main-input env body pointer-node)
+(define (single-runner env body pointer-node)
+  (if (run-environment-resultsfirst env body pointer-node)
       (list (get-current-thread))
       '()))
 
@@ -39,10 +39,10 @@
     (let ((env (get-eval-env eval-node))
           (body (get-eval-body eval-node))
           (main-input (get-eval-input eval-node)))
-      (eval/nondet single-runner main-input env body)))
+      (eval/nondet single-runner env body)))
    ((eval-multi-form? eval-node)
     (let ((env (get-eval-env eval-node))
           (body (get-eval-body eval-node))
           (main-input (get-eval-input eval-node)))
-      (eval/nondet multi-runner main-input env body)))
+      (eval/nondet multi-runner env body)))
    (else '())))

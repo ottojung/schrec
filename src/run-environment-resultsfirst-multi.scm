@@ -16,28 +16,32 @@
 
 %var run-environment-resultsfirst/multi
 
+%use (comp) "./euphrates/comp.scm"
 %use (stack->list stack-make) "./euphrates/stack.scm"
-%use (block-fn) "./block-fn.scm"
 %use (eval-hook) "./eval-hook.scm"
+%use (get-environment-blocks) "./get-environment-blocks.scm"
+%use (get-environment-constants) "./get-environment-constants.scm"
+%use (get-environment-input) "./get-environment-input.scm"
 %use (match-blocks/nondet) "./match-blocks-nondet.scm"
-%use (node-children) "./node.scm"
 %use (rewrite-rewrite-block/nondet) "./rewrite-rewrite-block-nondet.scm"
 %use (soft-uninitialize-variable!) "./soft-uninitialize-variable-bang.scm"
 %use (with-current-match-thread) "./with-current-match-thread.scm"
 
-(define (run-environment-resultsfirst/multi main-input env body pointer-node)
+(define (run-environment-resultsfirst/multi env body pointer-node)
+  (define blocks (get-environment-blocks env))
+  (define constants (get-environment-constants env))
+  (define main-input (get-environment-input env))
   (define free-stack (stack-make))
-  (define blocks (node-children env))
 
   ;; FIXME: copy the replace pattern first.
   (define result
     (let ((re-match-threads
-           (match-blocks/nondet free-stack main-input pointer-node blocks)))
+           (match-blocks/nondet free-stack constants main-input pointer-node blocks)))
       (if (null? re-match-threads) #f
           (let ((chosen-thread (car re-match-threads))) ;; NOTE: choosing the greediest match
             (with-current-match-thread
              chosen-thread
-             (for-each (block-fn rewrite-rewrite-block/nondet free-stack) blocks))
+             (for-each (comp (rewrite-rewrite-block/nondet free-stack)) blocks))
             #t))))
 
   (for-each soft-uninitialize-variable!
