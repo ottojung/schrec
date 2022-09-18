@@ -77,29 +77,24 @@ stupid-synthetic-example.scm
 turing-machine.scm
 "
 
-mkdir -p dist/test/examples/det/
-mkdir -p dist/test/examples/nondet/
+run_mode() {
+	MODE="$1"
+	LIST="$2"
 
-echo "$DET" | while IFS= read -r FILE
-do
-	test -z "$FILE" && continue
-	CMD="$SCHREC --trace --results first example/$FILE"
-	echo "> $CMD"
-	$CMD | head -n 1000 > "dist/test/examples/det/$FILE.txt"
+	mkdir -p "dist/test/examples/$MODE"
+	echo "$LIST" | while IFS= read -r FILE
+	do
+		test -z "$FILE" && continue
+		CMD="$SCHREC --trace --results $MODE example/$FILE"
+		echo "> $CMD"
+		$CMD | head -n 1000 > "dist/test/examples/$MODE/$FILE.txt"
 
-	diff "test/expected-example-outputs/det/$FILE.txt" \
-	     "dist/test/examples/det/$FILE.txt"
-done
+		diff "test/expected-example-outputs/$MODE/$FILE.txt" \
+		     "dist/test/examples/$MODE/$FILE.txt"
+	done
+}
 
-echo "$NONDET" | while IFS= read -r FILE
-do
-	test -z "$FILE" && continue
-	CMD="$SCHREC --trace --results all example/$FILE"
-	echo "> $CMD"
-	$CMD | head -n 1000 > "dist/test/examples/nondet/$FILE.txt"
-
-	diff "test/expected-example-outputs/nondet/$FILE.txt" \
-	     "dist/test/examples/nondet/$FILE.txt"
-done
+run_mode "first" "$DET"
+run_mode "all" "$NONDET"
 
 echo "All outputs match."
