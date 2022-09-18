@@ -22,9 +22,10 @@
 
 (define (initialize-const-variables/generic assign)
   (lambda (free-stack constants main-input pointer-node)
-    (if (list-or-map
-         (comp (node-equal? main-input))
-         constants)
+    (if (and (list-or-map
+              (comp (node-equal? main-input))
+              constants)
+             (not (node-equal? main-input pointer-node)))
         #f ;; \phi is not a function in this case
         (begin
           (assign free-stack main-input (list pointer-node))
