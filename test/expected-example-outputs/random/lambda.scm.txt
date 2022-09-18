@@ -3,57 +3,50 @@ Original:
       (got (nil))
       (input (app (abs x (app (abs j (app x j)) x))
                   (app (abs u (app u 2)) 1))))
-  ((eva1 g
-         ((const g (wrap (wrap w)) (wrap w)))
-         (eva1 g
-               ((const g (app a1 (wrap w)) (app a1 w)))
-               (eva1 g
-                     ((const g (app (wrap w) a2) (app w a2)))
-                     (eva1 g
-                           ((const got (a1 b1) (nil)))
-                           (f1 (eva1 g
-                                     ((const g
-                                             (app (abs var body) arg)
-                                             (wrap body))
-                                      (const got (nil) (var arg)))
+  ((eva1 (g const ((g (wrap (wrap w)) (wrap w))))
+         (eva1 (g const ((g (app a1 (wrap w)) (app a1 w))))
+               (eva1 (g const ((g (app (wrap w) a2) (app w a2))))
+                     (eva1 (g const ((got (a1 b1) (nil))))
+                           (f1 (eva1 (g const
+                                        ((g (app (abs var body) arg)
+                                            (wrap body))
+                                         (got (nil) (var arg))))
                                      input)
-                               (eva1 g
-                                     ((const got (x arg) (x arg))
-                                      (const g (app x y) (app arg y)))
+                               (eva1 (g const
+                                        ((got (x arg) (x arg))
+                                         (g (app x y) (app arg y))))
                                      input)
-                               (eva1 g
-                                     ((const got (b arg) (b arg))
-                                      (const g (app y b) (app y arg)))
+                               (eva1 (g const
+                                        ((got (b arg) (b arg))
+                                         (g (app y b) (app y arg))))
                                      input)
-                               (eva1 g
-                                     ((const got (b arg) (b arg))
-                                      (const g (abs b) (abs arg)))
+                               (eva1 (g const
+                                        ((got (b arg) (b arg))
+                                         (g (abs b) (abs arg))))
                                      input))))))))
 
 
 Step:
-(let ((const (got app abs nil wrap))
-      (got (x (app (abs u (app u 2)) 1))))
-  ((const g (app (abs var body) arg) (wrap body))
-   (const got (nil) (var arg))))
+(let ((got (x (app (abs u (app u 2)) 1))))
+  (g (got app abs nil wrap)
+     ((g (app (abs var body) arg) (wrap body))
+      (got (nil) (var arg)))))
 --------
 (wrap (app (abs j (app x j)) x))
 
 
 Step:
-(let ((const (got app abs nil wrap))
-      (got (x (app (abs u (app u 2)) 1))))
-  ((const got (x arg) (x arg))
-   (const g (app x y) (app arg y))))
+(let ((got (x (app (abs u (app u 2)) 1))))
+  (g (got app abs nil wrap)
+     ((got (x arg) (x arg)) (g (app x y) (app arg y)))))
 --------
 (wrap (app (abs j (app (app (abs u (app u 2)) 1) j)) x))
 
 
 Step:
-(let ((const (got app abs nil wrap))
-      (got (x (app (abs u (app u 2)) 1))))
-  ((const got (b arg) (b arg))
-   (const g (app y b) (app y arg))))
+(let ((got (x (app (abs u (app u 2)) 1))))
+  (g (got app abs nil wrap)
+     ((got (b arg) (b arg)) (g (app y b) (app y arg)))))
 --------
 (let (($1 (app (abs u (app u 2)) 1)))
   (wrap (app (abs j (app $1 j)) $1)))
@@ -61,44 +54,40 @@ Step:
 
 Step:
 (let ((got (nil)))
-  (((got app abs nil wrap) got (a1 b1) (nil))))
+  (g (got app abs nil wrap) ((got (a1 b1) (nil)))))
 --------
 (let ((const (got app abs nil wrap))
       (got (nil))
       (input (wrap (app (abs j (app $1 j)) $1)))
       ($1 (app (abs u (app u 2)) 1)))
-  (f1 (eva1 g
-            ((const g (app (abs var body) arg) (wrap body))
-             (const got (nil) (var arg)))
+  (f1 (eva1 (g const
+               ((g (app (abs var body) arg) (wrap body))
+                (got (nil) (var arg))))
             input)
-      (eva1 g
-            ((const got (x arg) (x arg))
-             (const g (app x y) (app arg y)))
+      (eva1 (g const
+               ((got (x arg) (x arg)) (g (app x y) (app arg y))))
             input)
-      (eva1 g
-            ((const got (b arg) (b arg))
-             (const g (app y b) (app y arg)))
+      (eva1 (g const
+               ((got (b arg) (b arg)) (g (app y b) (app y arg))))
             input)
-      (eva1 g
-            ((const got (b arg) (b arg))
-             (const g (abs b) (abs arg)))
+      (eva1 (g const
+               ((got (b arg) (b arg)) (g (abs b) (abs arg))))
             input)))
 
 
 Step:
-(let ((const (got app abs nil wrap))
-      (got (j (app (abs u (app u 2)) 1))))
-  ((const g (app (abs var body) arg) (wrap body))
-   (const got (nil) (var arg))))
+(let ((got (j (app (abs u (app u 2)) 1))))
+  (g (got app abs nil wrap)
+     ((g (app (abs var body) arg) (wrap body))
+      (got (nil) (var arg)))))
 --------
 (wrap (wrap (app (app (abs u (app u 2)) 1) j)))
 
 
 Step:
-(let ((const (got app abs nil wrap))
-      (got (j (app (abs u (app u 2)) 1))))
-  ((const got (b arg) (b arg))
-   (const g (app y b) (app y arg))))
+(let ((got (j (app (abs u (app u 2)) 1))))
+  (g (got app abs nil wrap)
+     ((got (b arg) (b arg)) (g (app y b) (app y arg)))))
 --------
 (let (($1 (app (abs u (app u 2)) 1)))
   (wrap (wrap (app $1 $1))))
@@ -106,43 +95,41 @@ Step:
 
 Step:
 (let ((got (nil)))
-  (((got app abs nil wrap) got (a1 b1) (nil))))
+  (g (got app abs nil wrap) ((got (a1 b1) (nil)))))
 --------
 (let ((const (got app abs nil wrap))
       (got (nil))
       (input (wrap (wrap (app $1 $1))))
       ($1 (app (abs u (app u 2)) 1)))
-  (f1 (eva1 g
-            ((const g (app (abs var body) arg) (wrap body))
-             (const got (nil) (var arg)))
+  (f1 (eva1 (g const
+               ((g (app (abs var body) arg) (wrap body))
+                (got (nil) (var arg))))
             input)
-      (eva1 g
-            ((const got (x arg) (x arg))
-             (const g (app x y) (app arg y)))
+      (eva1 (g const
+               ((got (x arg) (x arg)) (g (app x y) (app arg y))))
             input)
-      (eva1 g
-            ((const got (b arg) (b arg))
-             (const g (app y b) (app y arg)))
+      (eva1 (g const
+               ((got (b arg) (b arg)) (g (app y b) (app y arg))))
             input)
-      (eva1 g
-            ((const got (b arg) (b arg))
-             (const g (abs b) (abs arg)))
+      (eva1 (g const
+               ((got (b arg) (b arg)) (g (abs b) (abs arg))))
             input)))
 
 
 Step:
-(let ((const (got app abs nil wrap)) (got (u 1)))
-  ((const g (app (abs var body) arg) (wrap body))
-   (const got (nil) (var arg))))
+(let ((got (u 1)))
+  (g (got app abs nil wrap)
+     ((g (app (abs var body) arg) (wrap body))
+      (got (nil) (var arg)))))
 --------
 (let (($1 (wrap (app u 2))))
   (wrap (wrap (app $1 $1))))
 
 
 Step:
-(let ((const (got app abs nil wrap)) (got (u 1)))
-  ((const got (x arg) (x arg))
-   (const g (app x y) (app arg y))))
+(let ((got (u 1)))
+  (g (got app abs nil wrap)
+     ((got (x arg) (x arg)) (g (app x y) (app arg y)))))
 --------
 (let (($1 (wrap (app 1 2))))
   (wrap (wrap (app $1 $1))))
@@ -150,121 +137,99 @@ Step:
 
 Step:
 (let ((got (nil)))
-  (((got app abs nil wrap) got (a1 b1) (nil))))
+  (g (got app abs nil wrap) ((got (a1 b1) (nil)))))
 --------
 (let ((const (got app abs nil wrap))
       (got (nil))
       (input (wrap (wrap (app $1 $1))))
       ($1 (wrap (app 1 2))))
-  (f1 (eva1 g
-            ((const g (app (abs var body) arg) (wrap body))
-             (const got (nil) (var arg)))
+  (f1 (eva1 (g const
+               ((g (app (abs var body) arg) (wrap body))
+                (got (nil) (var arg))))
             input)
-      (eva1 g
-            ((const got (x arg) (x arg))
-             (const g (app x y) (app arg y)))
+      (eva1 (g const
+               ((got (x arg) (x arg)) (g (app x y) (app arg y))))
             input)
-      (eva1 g
-            ((const got (b arg) (b arg))
-             (const g (app y b) (app y arg)))
+      (eva1 (g const
+               ((got (b arg) (b arg)) (g (app y b) (app y arg))))
             input)
-      (eva1 g
-            ((const got (b arg) (b arg))
-             (const g (abs b) (abs arg)))
+      (eva1 (g const
+               ((got (b arg) (b arg)) (g (abs b) (abs arg))))
             input)))
 
 
 Step:
-((((nil) app abs nil wrap)
-  g
-  (app (wrap w) a2)
-  (app w a2)))
+(g ((nil) app abs nil wrap)
+   ((g (app (wrap w) a2) (app w a2))))
 --------
 (let ((const (got app abs nil wrap))
       (got (nil))
       (input (wrap (wrap (app $1 (wrap $1)))))
       ($1 (app 1 2)))
-  (eva1 g
-        ((const got (a1 b1) (nil)))
-        (f1 (eva1 g
-                  ((const g (app (abs var body) arg) (wrap body))
-                   (const got (nil) (var arg)))
+  (eva1 (g const ((got (a1 b1) (nil))))
+        (f1 (eva1 (g const
+                     ((g (app (abs var body) arg) (wrap body))
+                      (got (nil) (var arg))))
                   input)
-            (eva1 g
-                  ((const got (x arg) (x arg))
-                   (const g (app x y) (app arg y)))
+            (eva1 (g const
+                     ((got (x arg) (x arg)) (g (app x y) (app arg y))))
                   input)
-            (eva1 g
-                  ((const got (b arg) (b arg))
-                   (const g (app y b) (app y arg)))
+            (eva1 (g const
+                     ((got (b arg) (b arg)) (g (app y b) (app y arg))))
                   input)
-            (eva1 g
-                  ((const got (b arg) (b arg))
-                   (const g (abs b) (abs arg)))
+            (eva1 (g const
+                     ((got (b arg) (b arg)) (g (abs b) (abs arg))))
                   input))))
 
 
 Step:
-((((nil) app abs nil wrap)
-  g
-  (app a1 (wrap w))
-  (app a1 w)))
+(g ((nil) app abs nil wrap)
+   ((g (app a1 (wrap w)) (app a1 w))))
 --------
 (let ((const (got app abs nil wrap))
       (got (nil))
       (input (wrap (wrap (app $1 $1))))
       ($1 (app 1 2)))
-  (eva1 g
-        ((const g (app (wrap w) a2) (app w a2)))
-        (eva1 g
-              ((const got (a1 b1) (nil)))
-              (f1 (eva1 g
-                        ((const g (app (abs var body) arg) (wrap body))
-                         (const got (nil) (var arg)))
+  (eva1 (g const ((g (app (wrap w) a2) (app w a2))))
+        (eva1 (g const ((got (a1 b1) (nil))))
+              (f1 (eva1 (g const
+                           ((g (app (abs var body) arg) (wrap body))
+                            (got (nil) (var arg))))
                         input)
-                  (eva1 g
-                        ((const got (x arg) (x arg))
-                         (const g (app x y) (app arg y)))
+                  (eva1 (g const
+                           ((got (x arg) (x arg)) (g (app x y) (app arg y))))
                         input)
-                  (eva1 g
-                        ((const got (b arg) (b arg))
-                         (const g (app y b) (app y arg)))
+                  (eva1 (g const
+                           ((got (b arg) (b arg)) (g (app y b) (app y arg))))
                         input)
-                  (eva1 g
-                        ((const got (b arg) (b arg))
-                         (const g (abs b) (abs arg)))
+                  (eva1 (g const
+                           ((got (b arg) (b arg)) (g (abs b) (abs arg))))
                         input)))))
 
 
 Step:
-((((nil) app abs nil wrap)
-  g
-  (wrap (wrap w))
-  (wrap w)))
+(g ((nil) app abs nil wrap)
+   ((g (wrap (wrap w)) (wrap w))))
 --------
 (let ((const (got app abs nil wrap))
       (got (nil))
       (input (wrap (app $1 $1)))
       ($1 (app 1 2)))
-  (eva1 g
-        ((const g (app a1 (wrap w)) (app a1 w)))
-        (eva1 g
-              ((const g (app (wrap w) a2) (app w a2)))
-              (eva1 g
-                    ((const got (a1 b1) (nil)))
-                    (f1 (eva1 g
-                              ((const g (app (abs var body) arg) (wrap body))
-                               (const got (nil) (var arg)))
+  (eva1 (g const ((g (app a1 (wrap w)) (app a1 w))))
+        (eva1 (g const ((g (app (wrap w) a2) (app w a2))))
+              (eva1 (g const ((got (a1 b1) (nil))))
+                    (f1 (eva1 (g const
+                                 ((g (app (abs var body) arg) (wrap body))
+                                  (got (nil) (var arg))))
                               input)
-                        (eva1 g
-                              ((const got (x arg) (x arg))
-                               (const g (app x y) (app arg y)))
+                        (eva1 (g const
+                                 ((got (x arg) (x arg))
+                                  (g (app x y) (app arg y))))
                               input)
-                        (eva1 g
-                              ((const got (b arg) (b arg))
-                               (const g (app y b) (app y arg)))
+                        (eva1 (g const
+                                 ((got (b arg) (b arg))
+                                  (g (app y b) (app y arg))))
                               input)
-                        (eva1 g
-                              ((const got (b arg) (b arg))
-                               (const g (abs b) (abs arg)))
+                        (eva1 (g const
+                                 ((got (b arg) (b arg)) (g (abs b) (abs arg))))
                               input))))))

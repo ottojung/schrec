@@ -1,8 +1,8 @@
 Original:
-((eva1 g (((m (m m) b) g (m x) (b m))) (m a)))
+((eva1 (g (m (m m) b) ((g (m x) (b m)))) (m a)))
 
 
 Step:
-(((m (m m) b) g (m x) (b m)))
+(g (m (m m) b) ((g (m x) (b m))))
 --------
 (b m)

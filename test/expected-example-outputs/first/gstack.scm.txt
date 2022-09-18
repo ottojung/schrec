@@ -35,109 +35,103 @@ Original:
                    (result e0 e1 e2))
                  (should-not-happen do stack))))
       (var1 (2)))
-  (((eval g
-          ((const do (doexpr) (rest))
-           (const doexpr (and null rest) doexpr)
-           (const stack (ss) (() ss)))
+  (((eval (g const
+             ((do (command) (rest))
+              (command (and null rest) command)
+              (stack (ss) (() ss))))
           body)
-    (eval g
-          ((const do (doexpr) (rest))
-           (const doexpr (and cons rest) doexpr)
-           (const stack (s1 s2 ss) ((s1 ys) ss))
-           (() s1 s1 s1)
-           (() s2 (ys) s2))
+    (eval (g const
+             ((do (command) (rest))
+              (command (and cons rest) command)
+              (stack (s1 s2 ss) ((s1 ys) ss))
+              (s1 s1 s1)
+              (s2 (ys) s2)))
           body)
-    (eval g
-          ((const do (doexpr) (rest))
-           (const doexpr (and car rest) doexpr)
-           (const stack (s1 ss) (x ss))
-           (() s1 (x xs) s1)
-           (() x x x))
+    (eval (g const
+             ((do (command) (rest))
+              (command (and car rest) command)
+              (stack (s1 ss) (x ss))
+              (s1 (x xs) s1)
+              (x x x)))
           body)
-    (eval g
-          ((const do (doexpr) (rest))
-           (const doexpr (and cdr rest) doexpr)
-           (const stack (s1 ss) ((xs) ss))
-           (() s1 (x xs) s1)
-           (() x x x))
+    (eval (g const
+             ((do (command) (rest))
+              (command (and cdr rest) command)
+              (stack (s1 ss) ((xs) ss))
+              (s1 (x xs) s1)
+              (x x x)))
           body)
-    (eval g
-          ((const do (doexpr) (rest))
-           (const doexpr (and set rest) doexpr)
-           (const stack (s1 s2 ss) (s2 ss))
-           (() s1 (xs) s1)
-           (() s2 (ys) (xs)))
+    (eval (g const
+             ((do (command) (rest))
+              (command (and set rest) command)
+              (stack (s1 s2 ss) (s2 ss))
+              (s1 (xs) s1)
+              (s2 (ys) (xs))))
           body)
-    (eval g
-          ((const do (doexpr) (rest))
-           (const doexpr (and push-expr rest) doexpr)
-           (const push-expr (push v) push-expr)
-           (const v (x) v)
-           (const stack (ss) (x ss))
-           (() x x x))
+    (eval (g const
+             ((do (command) (rest))
+              (command (and push-expr rest) command)
+              (push-expr (push v) push-expr)
+              (v (x) v)
+              (stack (ss) (x ss))
+              (x x x)))
           body)
-    (eval g
-          ((const do (doexpr) (rest))
-           (const doexpr (and pop-expr rest) doexpr)
-           (const pop-expr (pop v) pop-expr)
-           (const v (cs) (s1))
-           (const stack (s1 ss) (ss))
-           (() s1 s1 s1))
+    (eval (g const
+             ((do (command) (rest))
+              (command (and pop-expr rest) command)
+              (pop-expr (pop v) pop-expr)
+              (v (cs) (s1))
+              (stack (s1 ss) (ss))
+              (s1 s1 s1)))
           body)
-    (eval g
-          ((const do (doexpr) (then))
-           (const doexpr (if null? then else) doexpr)
-           (const stack (s1 ss) (ss))
-           (() then then then)
-           (() else else else)
-           (() s1 s1 s1))
-          (eval g
-                ((const do (doexpr) (else))
-                 (const doexpr (if null? then else) doexpr)
-                 (const stack (s1 ss) (ss))
-                 (() s1 (x xs) s1)
-                 (() then then then)
-                 (() else else else)
-                 (() x x x))
+    (eval (g const
+             ((do (command) (then))
+              (command (if null? then else) command)
+              (stack (s1 ss) (ss))
+              (then then then)
+              (else else else)
+              (s1 s1 s1)))
+          (eval (g const
+                   ((do (command) (else))
+                    (command (if null? then else) command)
+                    (stack (s1 ss) (ss))
+                    (s1 (x xs) s1)
+                    (then then then)
+                    (else else else)
+                    (x x x)))
                 body))
-    (eval g
-          ((const do (doexpr) (else))
-           (const doexpr (if eq? then else) doexpr)
-           (const stack (s1 s2 ss) (ss))
-           (() then then then)
-           (() else else else)
-           (() s1 s1 s1)
-           (() s2 s2 s2))
-          (eval g
-                ((const do (doexpr) (then))
-                 (const doexpr (if eq? then else) doexpr)
-                 (const stack (s1 s1 ss) (ss))
-                 (() s1 s1 s1)
-                 (() then then then)
-                 (() else else else))
+    (eval (g const
+             ((do (command) (else))
+              (command (if eq? then else) command)
+              (stack (s1 s2 ss) (ss))
+              (then then then)
+              (else else else)
+              (s1 s1 s1)
+              (s2 s2 s2)))
+          (eval (g const
+                   ((do (command) (then))
+                    (command (if eq? then else) command)
+                    (stack (s1 s1 ss) (ss))
+                    (s1 s1 s1)
+                    (then then then)
+                    (else else else)))
                 body))
-    (eval g
-          (((and begin)
-            g
-            (begin x1 x2 x3 xs)
-            (and x1 (begin x2 x3 xs)))
-           (() x1 x1 x1)
-           (() x2 x2 x2)
-           (() x3 x3 x3))
+    (eval (g (and begin)
+             ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+              (x1 x1 x1)
+              (x2 x2 x2)
+              (x3 x3 x3)))
           start)
-    (eva1 g
-          (((and begin) g (begin x1 x2) (and x1 x2)))
+    (eva1 (g (and begin) ((g (begin x1 x2) (and x1 x2))))
           start))))
 
 
 Step:
-(((and begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
+(g (and begin)
+   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
 --------
 (let ((start (and null
                   (begin
@@ -166,13 +160,11 @@ Step:
 
 
 Step:
-(((and begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
+(g (and begin)
+   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
 --------
 (let ((start (and null
                   (and null
@@ -201,13 +193,11 @@ Step:
 
 
 Step:
-(((and begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
+(g (and begin)
+   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
 --------
 (let ((start (and null
                   (and null
@@ -236,13 +226,11 @@ Step:
 
 
 Step:
-(((and begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
+(g (and begin)
+   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
 --------
 (let ((start (and null
                   (and null
@@ -271,7 +259,7 @@ Step:
 
 
 Step:
-(((and begin) g (begin x1 x2) (and x1 x2)))
+(g (and begin) ((g (begin x1 x2) (and x1 x2))))
 --------
 (let ((start (and null
                   (and null
@@ -301,13 +289,11 @@ Step:
 
 
 Step:
-(((and begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
+(g (and begin)
+   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
 --------
 (let ((start (and null
                   (and null
@@ -337,13 +323,11 @@ Step:
 
 
 Step:
-(((and begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
+(g (and begin)
+   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
 --------
 (let ((start (and null
                   (and null
@@ -373,13 +357,11 @@ Step:
 
 
 Step:
-(((and begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
+(g (and begin)
+   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
 --------
 (let ((start (and null
                   (and null
@@ -409,13 +391,11 @@ Step:
 
 
 Step:
-(((and begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
+(g (and begin)
+   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
 --------
 (let ((start (and null
                   (and null
@@ -448,13 +428,11 @@ Step:
 
 
 Step:
-(((and begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
+(g (and begin)
+   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
 --------
 (let ((start (and null
                   (and null
@@ -487,13 +465,11 @@ Step:
 
 
 Step:
-(((and begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
+(g (and begin)
+   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
 --------
 (let ((start (and null
                   (and null
@@ -526,13 +502,11 @@ Step:
 
 
 Step:
-(((and begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
+(g (and begin)
+   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
 --------
 (let ((start (and null
                   (and null
@@ -565,13 +539,11 @@ Step:
 
 
 Step:
-(((and begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
+(g (and begin)
+   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
 --------
 (let ((start (and null
                   (and null
@@ -604,13 +576,11 @@ Step:
 
 
 Step:
-(((and begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
+(g (and begin)
+   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
 --------
 (let ((start (and null
                   (and null
@@ -643,13 +613,11 @@ Step:
 
 
 Step:
-(((and begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
+(g (and begin)
+   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
 --------
 (let ((start (and null
                   (and null
@@ -682,13 +650,11 @@ Step:
 
 
 Step:
-(((and begin)
-  g
-  (begin x1 x2 x3 xs)
-  (and x1 (begin x2 x3 xs)))
- (() x1 x1 x1)
- (() x2 x2 x2)
- (() x3 x3 x3))
+(g (and begin)
+   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
 --------
 (let ((start (and null
                   (and null
@@ -721,7 +687,7 @@ Step:
 
 
 Step:
-(((and begin) g (begin x1 x2) (and x1 x2)))
+(g (and begin) ((g (begin x1 x2) (and x1 x2))))
 --------
 (let ((start (and null
                   (and null
@@ -753,19 +719,7 @@ Step:
 
 
 Step:
-(let ((const (null cons
-                   car
-                   cdr
-                   set
-                   push
-                   pop
-                   if
-                   null?
-                   eq?
-                   and
-                   do
-                   stack))
-      (do ((and null
+(let ((do ((and null
                 (and (push var1)
                      (and (pop e0)
                           (and null
@@ -789,27 +743,27 @@ Step:
                                  (should-not-happen do stack))))))))
       (var1 (2))
       (stack (())))
-  ((const do (doexpr) (rest))
-   (const doexpr (and null rest) doexpr)
-   (const stack (ss) (() ss))))
+  (g (null cons
+           car
+           cdr
+           set
+           push
+           pop
+           if
+           null?
+           eq?
+           and
+           do
+           stack)
+     ((do (command) (rest))
+      (command (and null rest) command)
+      (stack (ss) (() ss)))))
 --------
 body
 
 
 Step:
-(let ((const (null cons
-                   car
-                   cdr
-                   set
-                   push
-                   pop
-                   if
-                   null?
-                   eq?
-                   and
-                   do
-                   stack))
-      (do ((and (push var1)
+(let ((do ((and (push var1)
                 (and (pop e0)
                      (and null
                           (if null?
@@ -832,27 +786,27 @@ Step:
                             (should-not-happen do stack)))))))
       (var1 (2))
       (stack (() ())))
-  ((const do (doexpr) (rest))
-   (const doexpr (and null rest) doexpr)
-   (const stack (ss) (() ss))))
+  (g (null cons
+           car
+           cdr
+           set
+           push
+           pop
+           if
+           null?
+           eq?
+           and
+           do
+           stack)
+     ((do (command) (rest))
+      (command (and null rest) command)
+      (stack (ss) (() ss)))))
 --------
 body
 
 
 Step:
-(let ((const (null cons
-                   car
-                   cdr
-                   set
-                   push
-                   pop
-                   if
-                   null?
-                   eq?
-                   and
-                   do
-                   stack))
-      (do ((and (pop e0)
+(let ((do ((and (pop e0)
                 (and null
                      (if null?
                        (and (push (2))
@@ -873,30 +827,30 @@ Step:
                                                                                      e2)))))))))))))
                        (should-not-happen do stack))))))
       (stack (2 () ())))
-  ((const do (doexpr) (rest))
-   (const doexpr (and push-expr rest) doexpr)
-   (const push-expr (push v) push-expr)
-   (const v (x) v)
-   (const stack (ss) (x ss))
-   (() x x x)))
+  (g (null cons
+           car
+           cdr
+           set
+           push
+           pop
+           if
+           null?
+           eq?
+           and
+           do
+           stack)
+     ((do (command) (rest))
+      (command (and push-expr rest) command)
+      (push-expr (push v) push-expr)
+      (v (x) v)
+      (stack (ss) (x ss))
+      (x x x))))
 --------
 body
 
 
 Step:
-(let ((const (null cons
-                   car
-                   cdr
-                   set
-                   push
-                   pop
-                   if
-                   null?
-                   eq?
-                   and
-                   do
-                   stack))
-      (do ((and null
+(let ((do ((and null
                 (if null?
                   (and (push (2))
                        (and (push ((5 6)))
@@ -916,30 +870,30 @@ Step:
                                                                                 e2)))))))))))))
                   (should-not-happen do stack)))))
       (stack (() ())))
-  ((const do (doexpr) (rest))
-   (const doexpr (and pop-expr rest) doexpr)
-   (const pop-expr (pop v) pop-expr)
-   (const v (cs) (s1))
-   (const stack (s1 ss) (ss))
-   (() s1 s1 s1)))
+  (g (null cons
+           car
+           cdr
+           set
+           push
+           pop
+           if
+           null?
+           eq?
+           and
+           do
+           stack)
+     ((do (command) (rest))
+      (command (and pop-expr rest) command)
+      (pop-expr (pop v) pop-expr)
+      (v (cs) (s1))
+      (stack (s1 ss) (ss))
+      (s1 s1 s1))))
 --------
 body
 
 
 Step:
-(let ((const (null cons
-                   car
-                   cdr
-                   set
-                   push
-                   pop
-                   if
-                   null?
-                   eq?
-                   and
-                   do
-                   stack))
-      (do ((if null?
+(let ((do ((if null?
              (and (push (2))
                   (and (push ((5 6)))
                        (and car
@@ -958,27 +912,27 @@ Step:
                                                                            e2)))))))))))))
              (should-not-happen do stack))))
       (stack (() () ())))
-  ((const do (doexpr) (rest))
-   (const doexpr (and null rest) doexpr)
-   (const stack (ss) (() ss))))
+  (g (null cons
+           car
+           cdr
+           set
+           push
+           pop
+           if
+           null?
+           eq?
+           and
+           do
+           stack)
+     ((do (command) (rest))
+      (command (and null rest) command)
+      (stack (ss) (() ss)))))
 --------
 body
 
 
 Step:
-(let ((const (null cons
-                   car
-                   cdr
-                   set
-                   push
-                   pop
-                   if
-                   null?
-                   eq?
-                   and
-                   do
-                   stack))
-      (do ((and (push (2))
+(let ((do ((and (push (2))
                 (and (push ((5 6)))
                      (and car
                           (and cons
@@ -995,6 +949,52 @@ Step:
                                                                          e1
                                                                          e2)))))))))))))))
       (stack (() ())))
-  ((const do (doexpr) (then))
-   (const doexpr (if null? then else) doexpr)
-   (const stack (s1 ss) (ss))
+  (g (null cons
+           car
+           cdr
+           set
+           push
+           pop
+           if
+           null?
+           eq?
+           and
+           do
+           stack)
+     ((do (command) (then))
+      (command (if null? then else) command)
+      (stack (s1 ss) (ss))
+      (then then then)
+      (else else else)
+      (s1 s1 s1))))
+--------
+(let ((do ((and (push (2))
+                (and (push ((5 6)))
+                     (and car
+                          (and cons
+                               (and (pop e1)
+                                    (and cons
+                                         (and (push e1)
+                                              (and (push e1)
+                                                   (and set
+                                                        (and (pop e2)
+                                                             (and (push e2)
+                                                                  (and (pop e9)
+                                                                       (result
+                                                                         (2)
+                                                                         e1
+                                                                         e2)))))))))))))))
+      (stack (() ())))
+  (eval (g (null cons
+                 car
+                 cdr
+                 set
+                 push
+                 pop
+                 if
+                 null?
+                 eq?
+                 and
+                 do
+                 stack)
+           ((do (command) (else))

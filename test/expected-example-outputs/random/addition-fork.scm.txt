@@ -1,46 +1,47 @@
 Original:
 (let ((body ((s (s 0)) + (s (0 + (s ((s 0) + 0)))))))
-  ((fork (eva1 g (((+ s 0) g ((s x) + 0) (s x))) body)
-         (eva1 g (((+ s 0) g ((0 + 0) + x) (0 + x))) body)
-         (eva1 g (((+ s 0) g (x + (0 + 0)) (x + 0))) body)
-         (eva1 g (((+ s 0) g (s (0 + 0)) (s 0))) body)
-         (eva1 g (((+ s 0) g (0 + (s x)) (s x))) body)
-         (eva1 g
-               (((+ s 0) g (x + (s y)) (s (x + y))))
+  ((fork (eva1 (g (+ s 0) ((g ((s x) + 0) (s x)))) body)
+         (eva1 (g (+ s 0) ((g ((0 + 0) + x) (0 + x))))
+               body)
+         (eva1 (g (+ s 0) ((g (x + (0 + 0)) (x + 0))))
+               body)
+         (eva1 (g (+ s 0) ((g (s (0 + 0)) (s 0)))) body)
+         (eva1 (g (+ s 0) ((g (0 + (s x)) (s x)))) body)
+         (eva1 (g (+ s 0) ((g (x + (s y)) (s (x + y)))))
                body))))
 
 
 Step:
-(((+ s 0) g ((s x) + 0) (s x)))
+(g (+ s 0) ((g ((s x) + 0) (s x))))
 --------
 ((s (s 0)) + (s (0 + (s (s 0)))))
 
 
 Step:
-(((+ s 0) g (x + (s y)) (s (x + y))))
+(g (+ s 0) ((g (x + (s y)) (s (x + y)))))
 --------
 (s ((s (s 0)) + (0 + (s (s 0)))))
 
 
 Step:
-(((+ s 0) g (0 + (s x)) (s x)))
+(g (+ s 0) ((g (0 + (s x)) (s x))))
 --------
 (s ((s (s 0)) + (s (s 0))))
 
 
 Step:
-(((+ s 0) g (x + (s y)) (s (x + y))))
+(g (+ s 0) ((g (x + (s y)) (s (x + y)))))
 --------
 (s (s ((s (s 0)) + (s 0))))
 
 
 Step:
-(((+ s 0) g (x + (s y)) (s (x + y))))
+(g (+ s 0) ((g (x + (s y)) (s (x + y)))))
 --------
 (s (s (s ((s (s 0)) + 0))))
 
 
 Step:
-(((+ s 0) g ((s x) + 0) (s x)))
+(g (+ s 0) ((g ((s x) + 0) (s x))))
 --------
 (s (s (s (s (s 0)))))

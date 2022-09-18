@@ -1,14 +1,15 @@
 Original:
 (let ((body ((body + 2) + 3)))
-  ((eva1 g
-         (((+ - *) (body + 1) (g + c) (g - c))
-          ((+ - *) g (a + b) (a * b)))
+  ((eva1 (g (+ - *)
+            (((body + 1) (g + c) (g - c))
+             (g (a + b) (a * b))))
          body)))
 
 
 Step:
 (let ((body ((body + 2) * 3)))
-  (((+ - *) (body - 1) (g + c) (g - c))
-   ((+ - *) g (a + b) (a * b))))
+  (g (+ - *)
+     (((body - 1) (g + c) (g - c))
+      (g (a + b) (a * b)))))
 --------
 (let ((body ((body + 2) * 3))) body)

@@ -1,999 +1,999 @@
 Original:
-((eval g ((() g (x y z) (x z))) (1 2 3 4)))
+((eval (g () ((g (x y z) (x z)))) (1 2 3 4)))
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
 
 Step:
-((() g (x y z) (x z)))
+(g () ((g (x y z) (x z))))
 --------
 (1 2 3 4)
 
