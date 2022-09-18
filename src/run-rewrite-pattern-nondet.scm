@@ -38,5 +38,5 @@
     (unless (node-equal? main-input replace-pattern-val)
       (let ((new-children
              (list-map/flatten
-              loop (node-children replace-pattern))))
+              loop (node-children replace-pattern-val))))
         (set-node-children! main-input new-children)))))
