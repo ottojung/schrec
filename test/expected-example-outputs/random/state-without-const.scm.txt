@@ -1,0 +1,10 @@
+Original:
+((eva1 g
+       ((() g (x) (x (x))) ((off on) (off) (off) (on)))
+       (body)))
+
+
+Step:
+((() g (x) (x (x))) ((off on) (on) (off) (on)))
+--------
+(body (body))

@@ -96,5 +96,6 @@ run_mode() {
 
 run_mode "first" "$DET"
 run_mode "all" "$NONDET"
+run_mode "random" "$DET"
 
 echo "All outputs match."

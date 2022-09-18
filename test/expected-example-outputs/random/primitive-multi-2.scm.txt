@@ -1,0 +1,16 @@
+Original:
+((eval g
+       ((() g (x y z) (y)) (() x o o) (() z m m))
+       (1 2 3 4)))
+
+
+Step:
+((() g (x y z) (y)) (() x o o) (() z m m))
+--------
+(2 3)
+
+
+Step:
+((() g (x y z) (y)) (() x o o) (() z m m))
+--------
+()
