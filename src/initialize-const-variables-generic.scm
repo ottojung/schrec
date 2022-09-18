@@ -28,12 +28,12 @@
              (not (node-equal? main-input pointer-node)))
         #f ;; \phi is not a function in this case
         (begin
-          (assign free-stack main-input (list pointer-node))
+          (assign free-stack main-input pointer-node)
 
           (for-each
            (lambda (const)
              (unless (node-equal? const main-input)
-               (assign free-stack const (list const))))
+               (assign free-stack const const)))
            constants)
 
           #t))))

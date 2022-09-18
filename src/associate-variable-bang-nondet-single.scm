@@ -14,10 +14,9 @@
 
 %run guile
 
-%var initialize-const-variables/nondet
+%var associate-variable!/nondet/single
 
-%use (associate-variable!/nondet/single) "./associate-variable-bang-nondet-single.scm"
-%use (initialize-const-variables/generic) "./initialize-const-variables-generic.scm"
+%use (associate-variable!/det/nondet) "./associate-variable-bang-nondet.scm"
 
-(define initialize-const-variables/nondet
-  (initialize-const-variables/generic associate-variable!/nondet/single))
+(define (associate-variable!/nondet/single free-stack node val)
+  (associate-variable!/det/nondet free-stack node (list val)))
