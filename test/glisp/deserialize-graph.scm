@@ -17,72 +17,80 @@
 %var deserialize-graph
 
 %use (pretty-print-graph) "./schrec/pretty-print-graph.scm"
-%use (defvar f-car f-cdr f-cons f-null if-eq? if-null? if-true? progn set) "./builtins.scm"
+%use (f-car f-cdr f-cons f-null if-eq? if-null? if-true? progn set) "./builtins.scm"
 %use (bit0 child-ref children-count concat false-node make-n-fresh-nodes monus n-successor n-zero reverse-children separator true-node) "./helpers.scm"
 
-(define (read-number collection-node)
-  (defvar head (f-car collection-node))
-  (set collection-node
-       (f-cdr collection-node))
+(define read-number
+  (lambda (collection-node)
+    (define head (f-car collection-node))
+    (set collection-node
+         (f-cdr collection-node))
 
-  (if-eq? head bit0
-          (n-zero)
-          (n-successor
-           (read-number collection-node))))
+    (if-eq? head bit0
+            (n-zero)
+            (n-successor
+             (read-number collection-node)))))
 
-(define (another-node? collection-node)
-  (defvar head (f-car collection-node))
-  (if-eq? head separator
-          false-node
-          true-node))
+(define another-node?
+  (lambda (collection-node)
+    (define head (f-car collection-node))
+    (if-eq? head separator
+            false-node
+            true-node)))
 
-(define (skip-separator collection-node)
-  (set collection-node (f-cdr collection-node)))
+(define skip-separator
+  (lambda (collection-node)
+    (set collection-node (f-cdr collection-node))))
 
-(define (count-nodes g)
-  (if-null? g (n-zero)
-            (if-eq? (f-car g) separator
-                    (n-successor (count-nodes (f-cdr g)))
-                    (count-nodes (f-cdr g)))))
+(define count-nodes
+  (lambda (g)
+    (if-null? g (n-zero)
+              (if-eq? (f-car g) separator
+                      (n-successor (count-nodes (f-cdr g)))
+                      (count-nodes (f-cdr g))))))
 
-(define (create-fresh-nodes ordered-nodes g)
-  (defvar node-count (count-nodes g))
-  (defvar old-nodes-count (children-count ordered-nodes))
+(define create-fresh-nodes
+  (lambda (ordered-nodes g)
+    (define node-count (count-nodes g))
+    (define old-nodes-count (children-count ordered-nodes))
 
-  ;; NOTE: add 1 because indexing from 1.
-  (defvar new-nodes-count
-    (n-successor (monus node-count old-nodes-count)))
+    ;; NOTE: add 1 because indexing from 1.
+    (define new-nodes-count
+      (n-successor (monus node-count old-nodes-count)))
 
-  (make-n-fresh-nodes new-nodes-count))
+    (make-n-fresh-nodes new-nodes-count)))
 
-(define (deserialize-graph ordered-nodes g)
-  (define (add-to-return current current-children)
-    (defvar children (reverse-children current-children))
-    (set current children))
+(define deserialize-graph
+  (lambda (ordered-nodes g)
+    (define (add-to-return current current-children)
+      (define children (reverse-children current-children))
+      (set current children))
 
-  (defvar all-nodes
-    (concat ordered-nodes
-            (create-fresh-nodes ordered-nodes g)))
+    (define all-nodes
+      (concat ordered-nodes
+              (create-fresh-nodes ordered-nodes g)))
 
-  (define (get-node)
-    (defvar n (read-number g))
-    (defvar v (child-ref all-nodes n))
-    v)
+    (define get-node
+      (lambda ()
+        (define n (read-number g))
+        (define v (child-ref all-nodes n))
+        v))
 
-  (defvar root (get-node))
+    (define root (get-node))
 
-  (define (loop current current-children)
-    (if-true? (another-node? g)
-              (progn
-               (defvar v (get-node))
-               (loop current (f-cons v current-children)))
-              (progn
-               (skip-separator g)
-               (add-to-return current current-children)
-               (if-null? g (f-null)
-                         (loop (get-node) (f-null))))))
+    (define loop
+      (lambda (current current-children)
+        (if-true? (another-node? g)
+                  (progn
+                   (define v (get-node))
+                   (loop current (f-cons v current-children)))
+                  (progn
+                   (skip-separator g)
+                   (add-to-return current current-children)
+                   (if-null? g (f-null)
+                             (loop (get-node) (f-null)))))))
 
-  (loop root (f-null))
+    (loop root (f-null))
 
-  root
-  )
+    root
+    ))

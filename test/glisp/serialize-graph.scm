@@ -17,7 +17,7 @@
 %var serialize-graph
 
 %use (pretty-print-graph) "./schrec/pretty-print-graph.scm"
-%use (defvar f-car f-cdr f-cons f-null if-eq? if-null? if-true? progn set) "./builtins.scm"
+%use (f-car f-cdr f-cons f-null if-eq? if-null? if-true? progn set) "./builtins.scm"
 %use (c-member? concat flatten-children foreach-child index-of make-singleton reverse-children separator) "./helpers.scm"
 %use (order-nodes) "./order-nodes.scm"
 
@@ -25,72 +25,77 @@
 ;; Main logic ;;
 ;;;;;;;;;;;;;;;;
 
-(define (to-binary ordered-nodes x)
-  (if-null? x (f-null)
-            (progn
-             (defvar first (f-car x))
-             (defvar m
-               (if-eq? first separator
-                       (make-singleton separator)
-                       (index-of ordered-nodes first)))
-             (concat
-              m (to-binary ordered-nodes (f-cdr x))))))
+(define to-binary
+  (lambda (ordered-nodes x)
+    (if-null? x (f-null)
+              (progn
+               (define first (f-car x))
+               (define m
+                 (if-eq? first separator
+                         (make-singleton separator)
+                         (index-of ordered-nodes first)))
+               (concat
+                m (to-binary ordered-nodes (f-cdr x)))))))
 
-(define (intersperse-adjlist-with-separators adjlist)
-  (if-null? adjlist
-            (f-null)
-            (f-cons
-             (f-car adjlist)
-             (f-cons
-              (make-singleton separator)
-              (intersperse-adjlist-with-separators
-               (f-cdr adjlist))))))
+(define intersperse-adjlist-with-separators
+  (lambda (adjlist)
+    (if-null? adjlist
+              (f-null)
+              (f-cons
+               (f-car adjlist)
+               (f-cons
+                (make-singleton separator)
+                (intersperse-adjlist-with-separators
+                 (f-cdr adjlist)))))))
 
-(define (graph->adjlist g)
-  (defvar return (f-null))
-  (defvar visited-list (f-null))
+(define graph->adjlist
+  (lambda (g)
+    (define return (f-null))
+    (define visited-list (f-null))
 
-  (define (add-to-return node)
-    (set return (f-cons node return)))
-  (define (add-to-visited node)
-    (set visited-list (f-cons node visited-list)))
+    (define (add-to-return node)
+      (set return (f-cons node return)))
+    (define (add-to-visited node)
+      (set visited-list (f-cons node visited-list)))
 
-  (define (loop g)
-    (defvar consed (f-cons g g))
-    (if-true?
-     (c-member? visited-list g)
-     (f-null)
-     (progn
-      (add-to-return consed)
-      (add-to-visited g)
-      (foreach-child loop g))))
+    (define loop
+      (lambda (g)
+        (define consed (f-cons g g))
+        (if-true?
+         (c-member? visited-list g)
+         (f-null)
+         (progn
+          (add-to-return consed)
+          (add-to-visited g)
+          (foreach-child loop g)))))
 
-  (loop g)
+    (loop g)
 
-  (reverse-children return))
+    (reverse-children return)))
 
-(define (serialize-graph g)
-  (defvar ordered-nodes (order-nodes g))
+(define serialize-graph
+  (lambda (g)
+    (define ordered-nodes (order-nodes g))
 
-  (pretty-print-graph ordered-nodes) (newline)
+    (pretty-print-graph ordered-nodes) (newline)
 
-  (defvar adjlist (graph->adjlist g))
+    (define adjlist (graph->adjlist g))
 
-  (pretty-print-graph adjlist) (newline)
+    (pretty-print-graph adjlist) (newline)
 
-  (defvar conc
-    (intersperse-adjlist-with-separators adjlist))
+    (define conc
+      (intersperse-adjlist-with-separators adjlist))
 
-  (pretty-print-graph conc) (newline)
+    (pretty-print-graph conc) (newline)
 
-  (defvar flat
-    (flatten-children conc))
+    (define flat
+      (flatten-children conc))
 
-  (pretty-print-graph flat) (newline)
+    (pretty-print-graph flat) (newline)
 
-  (defvar bin
-    (to-binary ordered-nodes flat))
+    (define bin
+      (to-binary ordered-nodes flat))
 
-  (pretty-print-graph bin) (newline)
+    (pretty-print-graph bin) (newline)
 
-  bin)
+    bin))

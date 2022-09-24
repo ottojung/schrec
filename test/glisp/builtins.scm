@@ -21,7 +21,6 @@
 %var if-null?
 %var if-eq?
 %var set
-%var defvar
 %var progn
 %var if-true?
 %var eval-node
@@ -79,10 +78,6 @@
 
 (define (set x y)
   (set-node-children! x (node-children y)))
-
-(define-syntax defvar
-  (syntax-rules ()
-    ((_ name value) (define name value))))
 
 (define-syntax progn
   (syntax-rules ()

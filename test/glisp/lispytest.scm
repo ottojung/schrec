@@ -15,36 +15,37 @@
 %run guile
 
 %use (pretty-print-graph) "./schrec/pretty-print-graph.scm"
-%use (defvar f-null set) "./builtins.scm"
+%use (f-null set) "./builtins.scm"
 %use (deserialize-graph) "./deserialize-graph.scm"
 %use (foreach-child) "./helpers.scm"
 %use (input) "./input.scm"
 %use (order-nodes) "./order-nodes.scm"
 %use (serialize-graph) "./serialize-graph.scm"
 
-(define (main)
-  (pretty-print-graph input) (newline)
+(define main
+  (lambda ()
+    (pretty-print-graph input) (newline)
 
-  (define serialized
-    (serialize-graph input))
+    (define serialized
+      (serialize-graph input))
 
-  ;; (defvar ordered
-  ;;   (f-cons (f-null) (f-null)))
+    ;; (define ordered
+    ;;   (f-cons (f-null) (f-null)))
 
-  ;; (defvar ordered
-  ;;   (f-null))
+    ;; (define ordered
+    ;;   (f-null))
 
-  (defvar ordered
-    (order-nodes input))
+    (define ordered
+      (order-nodes input))
 
-  (foreach-child (lambda (x) (set x (f-null))) ordered)
-  (pretty-print-graph ordered) (newline)
+    (foreach-child (lambda (x) (set x (f-null))) ordered)
+    (pretty-print-graph ordered) (newline)
 
-  (define deser
-    (deserialize-graph ordered serialized))
+    (define deser
+      (deserialize-graph ordered serialized))
 
-  (pretty-print-graph deser) (newline)
+    (pretty-print-graph deser) (newline)
 
-  (values))
+    (values)))
 
 (main)
