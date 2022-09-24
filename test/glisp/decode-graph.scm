@@ -16,7 +16,7 @@
 
 %var decode-graph
 
-%use (f-car f-cdr f-cons f-null if-eq? if-null? progn set) "./builtins.scm"
+%use (1f f-car f-cdr f-cons f-null progn set) "./builtins.scm"
 %use (child-ref children-count concat false-node make-n-fresh-nodes make-singleton monus n-successor n-zero n-zero? reverse-children separator true-node) "./helpers.scm"
 
 (define read-number
@@ -24,18 +24,17 @@
     (define head (f-car tape))
     (set tape (f-cdr tape))
 
-    (if-null?
-     (n-zero? (make-singleton head))
-     (n-zero)
-     (n-successor
-      (read-number tape)))))
+    (1f (null? (n-zero? (make-singleton head)))
+        (n-zero)
+        (n-successor
+         (read-number tape)))))
 
 (define separator-next?
   (lambda (tape)
     (define head (f-car tape))
-    (if-eq? head separator
-            true-node
-            false-node)))
+    (1f (eq? head separator)
+        true-node
+        false-node)))
 
 (define skip-separator
   (lambda (tape)
@@ -43,10 +42,10 @@
 
 (define count-nodes
   (lambda (g)
-    (if-null? g (n-zero)
-              (if-eq? (f-car g) separator
-                      (n-successor (count-nodes (f-cdr g)))
-                      (count-nodes (f-cdr g))))))
+    (1f (null? g) (n-zero)
+        (1f (eq? (f-car g) separator)
+            (n-successor (count-nodes (f-cdr g)))
+            (count-nodes (f-cdr g))))))
 
 (define create-fresh-nodes
   (lambda (ordered-nodes g)
@@ -80,15 +79,15 @@
 
     (define loop
       (lambda (current current-children)
-        (if-null? (separator-next? g)
-                  (progn
-                   (skip-separator g)
-                   (add-to-return current current-children)
-                   (if-null? g (f-null)
-                             (loop (read-node) (f-null))))
-                  (progn
-                   (define v (read-node))
-                   (loop current (f-cons v current-children))))))
+        (1f (null? (separator-next? g))
+            (progn
+             (skip-separator g)
+             (add-to-return current current-children)
+             (1f (null? g) g
+                 (loop (read-node) (f-null))))
+            (progn
+             (define v (read-node))
+             (loop current (f-cons v current-children))))))
 
     (loop root (f-null))
 

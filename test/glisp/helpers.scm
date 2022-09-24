@@ -40,7 +40,7 @@
 %var reverse-children
 %var children-count
 
-%use (f-car f-cdr f-cons f-null if-eq? if-null? make-named-node progn) "./builtins.scm"
+%use (1f f-car f-cdr f-cons f-null make-named-node progn) "./builtins.scm"
 
 (define separator (make-named-node '/))
 (define bit0 (make-named-node 'o))
@@ -55,9 +55,9 @@
 
 (define concat
   (lambda (left right)
-    (if-null? left right
-              (f-cons (f-car left)
-                      (concat (f-cdr left) right)))))
+    (1f (null? left) right
+        (f-cons (f-car left)
+                (concat (f-cdr left) right)))))
 
 (define copy-children
   (lambda (x)
@@ -65,45 +65,41 @@
 
 (define flatten
   (lambda (x)
-    (if-null? x (f-null)
-              (concat
-               (f-car x)
-               (flatten (f-cdr x))))))
+    (1f (null? x) x
+        (concat
+         (f-car x)
+         (flatten (f-cdr x))))))
 
 (define intersperse
-  (lambda (separator adjlist)
-    (if-null? adjlist
-              (f-null)
-              (f-cons
-               (f-car adjlist)
-               (f-cons
-                separator
-                (intersperse
-                 separator (f-cdr adjlist)))))))
+  (lambda (separator list)
+    (1f (null? list) list
+        (f-cons
+         (f-car list)
+         (f-cons
+          separator
+          (intersperse
+           separator (f-cdr list)))))))
 
 (define foreach-child
-  (lambda (func collection-node)
-    (if-null?
-     collection-node
-     (f-null)
-     (progn
-      (func (f-car collection-node))
-      (foreach-child func (f-cdr collection-node))))))
+  (lambda (func list)
+    (1f (null? list) list
+        (progn
+         (func (f-car list))
+         (foreach-child func (f-cdr list))))))
 
 ;; Shallow comparison, only 1 level deep.
 (define equal-children?
   (lambda (a b)
-    (if-null? a
-              (if-null? b
-                        true-node
-                        false-node)
-              (if-null? b
-                        false-node
-                        (if-eq? (f-car a)
-                                (f-car b)
-                                (equal-children?
-                                 (f-cdr a) (f-cdr b))
-                                false-node)))))
+    (1f (null? a)
+        (1f (null? b)
+            true-node
+            false-node)
+        (1f (null? b)
+            false-node
+            (1f (eq? (f-car a) (f-car b))
+                (equal-children?
+                 (f-cdr a) (f-cdr b))
+                false-node)))))
 
 (define n-zero
   (lambda ()
@@ -133,66 +129,60 @@
 ;; So that monus(5, 3) is 2, but monus(5, 10) is 0.
 (define monus
   (lambda (a b)
-    (if-null? (n-zero? b)
-              a
-              (if-null? (n-zero? a)
-                        (n-zero)
-                        (monus (n-pred a) (n-pred b))))))
+    (1f (null? (n-zero? b)) a
+        (1f (null? (n-zero? a))
+            (n-zero)
+            (monus (n-pred a) (n-pred b))))))
 
 ;; Starts from 1.
 ;; If element is not found, returns the length of the list + 1.
 (define index-of
-  (lambda (collection-node element)
-    (if-null?
-     collection-node
-     (n-one)
-     (if-eq? element (f-car collection-node)
-             (n-one)
-             (n-successor
-              (index-of (f-cdr collection-node)
-                        element))))))
+  (lambda (list element)
+    (1f (null? list)
+        (n-one)
+        (1f (eq? element (f-car list))
+            (n-one)
+            (n-successor
+             (index-of (f-cdr list)
+                       element))))))
 
 (define child-ref
-  (lambda (collection-node index)
-    (if-null?
-     collection-node
-     (f-null)
-     (if-null?
-      (n-one? index)
-      (f-car collection-node)
-      (child-ref (f-cdr collection-node)
-                 (n-pred index))))))
+  (lambda (list index)
+    (1f (null? list) list
+        (1f (null? (n-one? index))
+            (f-car list)
+            (child-ref (f-cdr list)
+                       (n-pred index))))))
 
 (define make-n-fresh-nodes
   (lambda (n)
-    (if-null? (n-zero? n)
-              (f-null)
-              (f-cons (f-null)
-                      (make-n-fresh-nodes
-                       (n-pred n))))))
+    (1f (null? (n-zero? n))
+        (f-null)
+        (f-cons (f-null)
+                (make-n-fresh-nodes
+                 (n-pred n))))))
 
 (define in-children?
-  (lambda (collection-node item-node)
-    (if-null?
-     collection-node false-node
-     (progn
-      (define first (f-car collection-node))
-      (if-eq?
-       first item-node
-       true-node
-       (in-children?
-        (f-cdr collection-node) item-node))))))
+  (lambda (list item-node)
+    (1f (null? list)
+        false-node
+        (progn
+         (define first (f-car list))
+         (1f (eq? first item-node)
+             true-node
+             (in-children?
+              (f-cdr list) item-node))))))
 
 (define reverse-children
   (lambda (x)
     (define loop
       (lambda (x buf)
-        (if-null? x buf
-                  (loop (f-cdr x)
-                        (f-cons (f-car x) buf)))))
+        (1f (null? x) buf
+            (loop (f-cdr x)
+                  (f-cons (f-car x) buf)))))
     (loop x (f-null))))
 
 (define children-count
   (lambda (x)
-    (if-null? x (n-zero)
-              (n-successor (children-count (f-cdr x))))))
+    (1f (null? x) (n-zero)
+        (n-successor (children-count (f-cdr x))))))

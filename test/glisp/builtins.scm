@@ -18,8 +18,7 @@
 %var f-cons
 %var f-car
 %var f-cdr
-%var if-null?
-%var if-eq?
+%var 1f
 %var set
 %var progn
 %var eval-node
@@ -62,17 +61,17 @@
 
   return)
 
-(define-syntax if-null?
-  (syntax-rules ()
-    ((_ exp then else)
-     (if (null? (node-children exp)) then else))))
-
-(define-syntax if-eq?
-  (syntax-rules ()
-    ((_ a b then else)
-     (if (or (and (eval-multi-node? a)
-                  (eval-multi-node? b))
-             (node-equal? a b))
+(define-syntax 1f
+  (syntax-rules (eq? null?)
+    ((_ (eq? a-exp b-exp) then else)
+     (let ((a a-exp)
+           (b b-exp))
+       (if (or (and (eval-multi-node? a)
+                    (eval-multi-node? b))
+               (node-equal? a b))
+           then else)))
+    ((_ (null? exp) then else)
+     (if (null? (node-children exp))
          then else))))
 
 (define (set x y)

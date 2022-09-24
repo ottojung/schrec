@@ -17,7 +17,7 @@
 %var encode-graph
 
 %use (pretty-print-graph) "./schrec/pretty-print-graph.scm"
-%use (f-car f-cdr f-cons f-null if-eq? if-null? progn set) "./builtins.scm"
+%use (1f f-car f-cdr f-cons f-null progn set) "./builtins.scm"
 %use (concat flatten foreach-child in-children? index-of intersperse make-singleton reverse-children separator) "./helpers.scm"
 %use (order-nodes) "./order-nodes.scm"
 
@@ -27,16 +27,16 @@
 
 (define to-binary
   (lambda (ordered-nodes x)
-    (if-null? x x
-              (progn
-               (define first (f-car x))
-               (define encoded-first
-                 (if-eq? first separator
-                         (make-singleton separator)
-                         (index-of ordered-nodes first)))
-               (concat
-                encoded-first
-                (to-binary ordered-nodes (f-cdr x)))))))
+    (1f (null? x) x
+        (progn
+         (define first (f-car x))
+         (define encoded-first
+           (1f (eq? first separator)
+               (make-singleton separator)
+               (index-of ordered-nodes first)))
+         (concat
+          encoded-first
+          (to-binary ordered-nodes (f-cdr x)))))))
 
 (define graph->adjlist
   (lambda (g)
@@ -53,13 +53,12 @@
     (define loop
       (lambda (g)
         (define consed (f-cons g g))
-        (if-null?
-         (in-children? visited-list g)
-         (f-null)
-         (progn
-          (add-to-return consed)
-          (add-to-visited g)
-          (foreach-child loop g)))))
+        (1f (null? (in-children? visited-list g))
+            (f-null)
+            (progn
+             (add-to-return consed)
+             (add-to-visited g)
+             (foreach-child loop g)))))
 
     (loop g)
 

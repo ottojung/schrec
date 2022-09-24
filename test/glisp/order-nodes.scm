@@ -16,7 +16,7 @@
 
 %var order-nodes
 
-%use (eval-node f-cons f-null if-eq? if-null? progn set) "./builtins.scm"
+%use (1f eval-node f-cons f-null progn set) "./builtins.scm"
 %use (foreach-child in-children? reverse-children) "./helpers.scm"
 
 ;; Always puts eval node first even if it is not present in the `graph'.
@@ -31,15 +31,14 @@
     (define loop
       (lambda (g)
         (define consed (f-cons g g))
-        (if-null?
-         (in-children? visited-list g)
-         (f-null)
-         (if-eq? eval-node g
-                 (progn
-                  (foreach-child loop g))
-                 (progn
-                  (add-to-visited g)
-                  (foreach-child loop g))))))
+        (1f (null? (in-children? visited-list g))
+            (f-null)
+            (1f (eq? eval-node g)
+                (progn
+                 (foreach-child loop g))
+                (progn
+                 (add-to-visited g)
+                 (foreach-child loop g))))))
 
     (loop graph)
 
