@@ -16,31 +16,30 @@
 
 %var decode-graph
 
-%use (pretty-print-graph) "./schrec/pretty-print-graph.scm"
 %use (f-car f-cdr f-cons f-null if-eq? if-null? if-true? progn set) "./builtins.scm"
-%use (bit0 child-ref children-count concat false-node make-n-fresh-nodes monus n-successor n-zero reverse-children separator true-node) "./helpers.scm"
+%use (child-ref children-count concat false-node make-n-fresh-nodes make-singleton monus n-successor n-zero n-zero? reverse-children separator true-node) "./helpers.scm"
 
 (define read-number
-  (lambda (collection-node)
-    (define head (f-car collection-node))
-    (set collection-node
-         (f-cdr collection-node))
+  (lambda (tape)
+    (define head (f-car tape))
+    (set tape (f-cdr tape))
 
-    (if-eq? head bit0
-            (n-zero)
-            (n-successor
-             (read-number collection-node)))))
+    (if-true?
+     (n-zero? (make-singleton head))
+     (n-zero)
+     (n-successor
+      (read-number tape)))))
 
-(define another-node?
-  (lambda (collection-node)
-    (define head (f-car collection-node))
+(define separator-next?
+  (lambda (tape)
+    (define head (f-car tape))
     (if-eq? head separator
-            false-node
-            true-node)))
+            true-node
+            false-node)))
 
 (define skip-separator
-  (lambda (collection-node)
-    (set collection-node (f-cdr collection-node))))
+  (lambda (tape)
+    (set tape (f-cdr tape))))
 
 (define count-nodes
   (lambda (g)
@@ -62,33 +61,34 @@
 
 (define decode-graph
   (lambda (ordered-nodes g)
-    (define (add-to-return current current-children)
-      (define children (reverse-children current-children))
-      (set current children))
+    (define add-to-return
+      (lambda (current current-children)
+        (define children (reverse-children current-children))
+        (set current children)))
 
     (define all-nodes
       (concat ordered-nodes
               (create-fresh-nodes ordered-nodes g)))
 
-    (define get-node
+    (define read-node
       (lambda ()
         (define n (read-number g))
         (define v (child-ref all-nodes n))
         v))
 
-    (define root (get-node))
+    (define root (read-node))
 
     (define loop
       (lambda (current current-children)
-        (if-true? (another-node? g)
-                  (progn
-                   (define v (get-node))
-                   (loop current (f-cons v current-children)))
+        (if-true? (separator-next? g)
                   (progn
                    (skip-separator g)
                    (add-to-return current current-children)
                    (if-null? g (f-null)
-                             (loop (get-node) (f-null)))))))
+                             (loop (read-node) (f-null))))
+                  (progn
+                   (define v (read-node))
+                   (loop current (f-cons v current-children))))))
 
     (loop root (f-null))
 
