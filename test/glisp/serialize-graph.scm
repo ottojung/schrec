@@ -18,7 +18,7 @@
 
 %use (pretty-print-graph) "./schrec/pretty-print-graph.scm"
 %use (f-car f-cdr f-cons f-null if-eq? if-null? if-true? progn set) "./builtins.scm"
-%use (c-member? concat flatten foreach-child index-of make-singleton reverse-children separator) "./helpers.scm"
+%use (c-member? concat flatten foreach-child index-of intersperse make-singleton reverse-children separator) "./helpers.scm"
 %use (order-nodes) "./order-nodes.scm"
 
 ;;;;;;;;;;;;;;;;
@@ -36,17 +36,6 @@
                          (index-of ordered-nodes first)))
                (concat
                 m (to-binary ordered-nodes (f-cdr x)))))))
-
-(define intersperse-adjlist-with-separators
-  (lambda (adjlist)
-    (if-null? adjlist
-              (f-null)
-              (f-cons
-               (f-car adjlist)
-               (f-cons
-                (make-singleton separator)
-                (intersperse-adjlist-with-separators
-                 (f-cdr adjlist)))))))
 
 (define graph->adjlist
   (lambda (g)
@@ -85,13 +74,13 @@
 
     (pretty-print-graph adjlist) (newline)
 
-    (define conc
-      (intersperse-adjlist-with-separators adjlist))
+    (define separated
+      (intersperse (make-singleton separator) adjlist))
 
-    (pretty-print-graph conc) (newline)
+    (pretty-print-graph separated) (newline)
 
     (define flat
-      (flatten conc))
+      (flatten separated))
 
     (pretty-print-graph flat) (newline)
 

@@ -23,6 +23,7 @@
 %var concat
 %var copy-children
 %var flatten
+%var intersperse
 %var foreach-child
 %var equal-children?
 %var n-zero
@@ -69,6 +70,17 @@
               (concat
                (f-car x)
                (flatten (f-cdr x))))))
+
+(define intersperse
+  (lambda (separator adjlist)
+    (if-null? adjlist
+              (f-null)
+              (f-cons
+               (f-car adjlist)
+               (f-cons
+                separator
+                (intersperse
+                 separator (f-cdr adjlist)))))))
 
 (define foreach-child
   (lambda (func collection-node)
