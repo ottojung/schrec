@@ -14,7 +14,7 @@
 
 %run guile
 
-%var deserialize-graph
+%var deencode-graph
 
 %use (pretty-print-graph) "./schrec/pretty-print-graph.scm"
 %use (f-car f-cdr f-cons f-null if-eq? if-null? if-true? progn set) "./builtins.scm"
@@ -60,7 +60,7 @@
 
     (make-n-fresh-nodes new-nodes-count)))
 
-(define deserialize-graph
+(define deencode-graph
   (lambda (ordered-nodes g)
     (define (add-to-return current current-children)
       (define children (reverse-children current-children))

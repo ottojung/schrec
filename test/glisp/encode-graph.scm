@@ -14,7 +14,7 @@
 
 %run guile
 
-%var serialize-graph
+%var encode-graph
 
 %use (pretty-print-graph) "./schrec/pretty-print-graph.scm"
 %use (f-car f-cdr f-cons f-null if-eq? if-null? if-true? progn set) "./builtins.scm"
@@ -64,7 +64,7 @@
 
     (reverse-children return)))
 
-(define serialize-graph
+(define encode-graph
   (lambda (g)
     (define ordered-nodes (order-nodes g))
 

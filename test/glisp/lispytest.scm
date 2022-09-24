@@ -16,18 +16,18 @@
 
 %use (pretty-print-graph) "./schrec/pretty-print-graph.scm"
 %use (f-null set) "./builtins.scm"
-%use (deserialize-graph) "./deserialize-graph.scm"
+%use (deencode-graph) "./deencode-graph.scm"
 %use (foreach-child) "./helpers.scm"
 %use (input) "./input.scm"
 %use (order-nodes) "./order-nodes.scm"
-%use (serialize-graph) "./serialize-graph.scm"
+%use (encode-graph) "./encode-graph.scm"
 
 (define main
   (lambda ()
     (pretty-print-graph input) (newline)
 
     (define serialized
-      (serialize-graph input))
+      (encode-graph input))
 
     ;; (define ordered
     ;;   (f-cons (f-null) (f-null)))
@@ -42,7 +42,7 @@
     (pretty-print-graph ordered) (newline)
 
     (define deser
-      (deserialize-graph ordered serialized))
+      (deencode-graph ordered serialized))
 
     (pretty-print-graph deser) (newline)
 
