@@ -58,11 +58,6 @@
 
 (define decode-graph
   (lambda (ordered-nodes g)
-    (define set-children
-      (lambda (current current-children)
-        (define children (reverse-children current-children))
-        (set current children)))
-
     (define all-nodes
       (concat ordered-nodes
               (make-additional ordered-nodes g)))
@@ -73,20 +68,20 @@
         (define v (child-ref all-nodes n))
         v))
 
-    (define root (read-node))
+    (define read-list
+      (lambda ()
+        (loop (read-node) (f-null))))
 
     (define loop
       (lambda (current current-children)
         (1f (null? (separator-next? g))
             (progn
              (skip-separator g)
-             (set-children current current-children)
-             (1f (null? g) g
-                 (loop (read-node) (f-null))))
+             (set current (reverse-children current-children))
+             (1f (null? g) g (read-list)))
             (progn
              (define v (read-node))
-             (loop current (f-cons v current-children))))))
+             (loop current (f-cons v current-children))))
+        current))
 
-    (loop root (f-null))
-
-    root))
+    (read-list)))
