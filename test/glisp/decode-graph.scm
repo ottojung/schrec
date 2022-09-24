@@ -40,23 +40,21 @@
   (lambda (tape)
     (set tape (f-cdr tape))))
 
-(define count-nodes
+(define make-additional
+  (lambda (ordered-nodes g)
+    (define old-node-count (children-count ordered-nodes))
+    (define new-node-count (count-separators g))
+    (define fresh-count
+      (n-successor (monus new-node-count old-node-count)))
+
+    (make-n-fresh-nodes fresh-count)))
+
+(define count-separators
   (lambda (g)
     (1f (null? g) (n-zero)
         (1f (eq? (f-car g) separator)
-            (n-successor (count-nodes (f-cdr g)))
-            (count-nodes (f-cdr g))))))
-
-(define create-fresh-nodes
-  (lambda (ordered-nodes g)
-    (define node-count (count-nodes g))
-    (define old-nodes-count (children-count ordered-nodes))
-
-    ;; NOTE: add 1 because indexing from 1.
-    (define new-nodes-count
-      (n-successor (monus node-count old-nodes-count)))
-
-    (make-n-fresh-nodes new-nodes-count)))
+            (n-successor (count-separators (f-cdr g)))
+            (count-separators (f-cdr g))))))
 
 (define decode-graph
   (lambda (ordered-nodes g)
@@ -67,7 +65,7 @@
 
     (define all-nodes
       (concat ordered-nodes
-              (create-fresh-nodes ordered-nodes g)))
+              (make-additional ordered-nodes g)))
 
     (define read-node
       (lambda ()
@@ -91,5 +89,4 @@
 
     (loop root (f-null))
 
-    root
-    ))
+    root))
