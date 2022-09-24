@@ -27,15 +27,16 @@
 
 (define to-binary
   (lambda (ordered-nodes x)
-    (if-null? x (f-null)
+    (if-null? x x
               (progn
                (define first (f-car x))
-               (define m
+               (define encoded-first
                  (if-eq? first separator
                          (make-singleton separator)
                          (index-of ordered-nodes first)))
                (concat
-                m (to-binary ordered-nodes (f-cdr x)))))))
+                encoded-first
+                (to-binary ordered-nodes (f-cdr x)))))))
 
 (define graph->adjlist
   (lambda (g)
