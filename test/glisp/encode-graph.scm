@@ -17,8 +17,8 @@
 %var encode-graph
 
 %use (pretty-print-graph) "./schrec/pretty-print-graph.scm"
-%use (f-car f-cdr f-cons f-null if-eq? if-null? if-true? progn set) "./builtins.scm"
-%use (in-children? concat flatten foreach-child index-of intersperse make-singleton reverse-children separator) "./helpers.scm"
+%use (f-car f-cdr f-cons f-null if-eq? if-null? progn set) "./builtins.scm"
+%use (concat flatten foreach-child in-children? index-of intersperse make-singleton reverse-children separator) "./helpers.scm"
 %use (order-nodes) "./order-nodes.scm"
 
 ;;;;;;;;;;;;;;;;
@@ -52,7 +52,7 @@
     (define loop
       (lambda (g)
         (define consed (f-cons g g))
-        (if-true?
+        (if-null?
          (in-children? visited-list g)
          (f-null)
          (progn

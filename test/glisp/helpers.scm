@@ -40,8 +40,7 @@
 %var reverse-children
 %var children-count
 
-%use (pretty-print-graph) "./schrec/pretty-print-graph.scm"
-%use (f-car f-cdr f-cons f-null if-eq? if-null? if-true? make-named-node progn) "./builtins.scm"
+%use (f-car f-cdr f-cons f-null if-eq? if-null? make-named-node progn) "./builtins.scm"
 
 (define separator (make-named-node '/))
 (define bit0 (make-named-node 'o))
@@ -134,9 +133,9 @@
 ;; So that monus(5, 3) is 2, but monus(5, 10) is 0.
 (define monus
   (lambda (a b)
-    (if-true? (n-zero? b)
+    (if-null? (n-zero? b)
               a
-              (if-true? (n-zero? a)
+              (if-null? (n-zero? a)
                         (n-zero)
                         (monus (n-pred a) (n-pred b))))))
 
@@ -158,7 +157,7 @@
     (if-null?
      collection-node
      (f-null)
-     (if-true?
+     (if-null?
       (n-one? index)
       (f-car collection-node)
       (child-ref (f-cdr collection-node)
@@ -166,7 +165,7 @@
 
 (define make-n-fresh-nodes
   (lambda (n)
-    (if-true? (n-zero? n)
+    (if-null? (n-zero? n)
               (f-null)
               (f-cons (f-null)
                       (make-n-fresh-nodes

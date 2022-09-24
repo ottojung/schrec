@@ -16,7 +16,7 @@
 
 %var decode-graph
 
-%use (f-car f-cdr f-cons f-null if-eq? if-null? if-true? progn set) "./builtins.scm"
+%use (f-car f-cdr f-cons f-null if-eq? if-null? progn set) "./builtins.scm"
 %use (child-ref children-count concat false-node make-n-fresh-nodes make-singleton monus n-successor n-zero n-zero? reverse-children separator true-node) "./helpers.scm"
 
 (define read-number
@@ -24,7 +24,7 @@
     (define head (f-car tape))
     (set tape (f-cdr tape))
 
-    (if-true?
+    (if-null?
      (n-zero? (make-singleton head))
      (n-zero)
      (n-successor
@@ -80,7 +80,7 @@
 
     (define loop
       (lambda (current current-children)
-        (if-true? (separator-next? g)
+        (if-null? (separator-next? g)
                   (progn
                    (skip-separator g)
                    (add-to-return current current-children)

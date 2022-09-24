@@ -22,7 +22,6 @@
 %var if-eq?
 %var set
 %var progn
-%var if-true?
 %var eval-node
 %var make-named-node
 
@@ -82,11 +81,6 @@
 (define-syntax progn
   (syntax-rules ()
     ((_ . bodies) (let* () . bodies))))
-
-(define-syntax if-true?
-  (syntax-rules ()
-    ((_ exp then else)
-     (if-null? exp then else))))
 
 ;; NOTE: compiled into equivalent node.
 (define eval-node
