@@ -12,22 +12,20 @@ Original:
                    do
                    stack))
       (do (start))
-      (start (begin null (pop r) (push x) loop))
+      (start (progn null (pop r) (push x) loop))
       (x ((1 2 3 4 5 6)))
-      (loop (begin
-              (pop int)
-              (push int)
-              (if null?
-                (return r)
-                (begin
-                  (push r)
-                  (push int)
-                  car
-                  cons
-                  (pop r)
-                  (push int)
-                  cdr
-                  loop))))
+      (loop (progn (pop int)
+                   (push int)
+                   (if null?
+                     (return r)
+                     (progn (push r)
+                            (push int)
+                            car
+                            cons
+                            (pop r)
+                            (push int)
+                            cdr
+                            loop))))
       (stack (bot)))
   (((eval (g const
              ((do (command) (rest))
@@ -110,180 +108,166 @@ Original:
                     (then then then)
                     (else else else)))
                 body))
-    (eval (g (and begin)
-             ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+    (eval (g (and progn)
+             ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
               (x1 x1 x1)
               (x2 x2 x2)
               (x3 x3 x3)))
           start)
-    (eva1 (g (and begin) ((g (begin x1 x2) (and x1 x2))))
+    (eva1 (g (and progn) ((g (progn x1 x2) (and x1 x2))))
           start))))
 
 
 Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
     (x1 x1 x1)
     (x2 x2 x2)
     (x3 x3 x3)))
 --------
-(let ((loop (begin
-              (pop int)
-              (push int)
-              (if null?
-                (return r)
-                (begin
-                  (push r)
-                  (push int)
-                  car
-                  cons
-                  (pop r)
-                  (push int)
-                  cdr
-                  loop)))))
+(let ((loop (progn (pop int)
+                   (push int)
+                   (if null?
+                     (return r)
+                     (progn (push r)
+                            (push int)
+                            car
+                            cons
+                            (pop r)
+                            (push int)
+                            cdr
+                            loop)))))
   (and null
-       (begin (pop r) (push ((1 2 3 4 5 6))) loop)))
+       (progn (pop r) (push ((1 2 3 4 5 6))) loop)))
 
 
 Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
     (x1 x1 x1)
     (x2 x2 x2)
     (x3 x3 x3)))
 --------
 (let ((loop (and (pop int)
-                 (begin
+                 (progn (push int)
+                        (if null?
+                          (return r)
+                          (progn (push r)
+                                 (push int)
+                                 car
+                                 cons
+                                 (pop r)
+                                 (push int)
+                                 cdr
+                                 loop))))))
+  (progn null (pop r) (push ((1 2 3 4 5 6))) loop))
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (progn (pop int)
                    (push int)
                    (if null?
                      (return r)
-                     (begin
-                       (push r)
-                       (push int)
-                       car
-                       cons
-                       (pop r)
-                       (push int)
-                       cdr
-                       loop))))))
-  (begin null (pop r) (push ((1 2 3 4 5 6))) loop))
+                     (and (push r)
+                          (progn (push int)
+                                 car
+                                 cons
+                                 (pop r)
+                                 (push int)
+                                 cdr
+                                 loop))))))
+  (progn null (pop r) (push ((1 2 3 4 5 6))) loop))
 
 
 Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
     (x1 x1 x1)
     (x2 x2 x2)
     (x3 x3 x3)))
 --------
-(let ((loop (begin
-              (pop int)
-              (push int)
-              (if null?
-                (return r)
-                (and (push r)
-                     (begin
-                       (push int)
-                       car
-                       cons
-                       (pop r)
-                       (push int)
-                       cdr
-                       loop))))))
-  (begin null (pop r) (push ((1 2 3 4 5 6))) loop))
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
-    (x1 x1 x1)
-    (x2 x2 x2)
-    (x3 x3 x3)))
---------
-(let ((loop (begin
-              (pop int)
-              (push int)
-              (if null?
-                (return r)
-                (begin
-                  (push r)
-                  (push int)
-                  car
-                  cons
-                  (pop r)
-                  (push int)
-                  cdr
-                  loop)))))
+(let ((loop (progn (pop int)
+                   (push int)
+                   (if null?
+                     (return r)
+                     (progn (push r)
+                            (push int)
+                            car
+                            cons
+                            (pop r)
+                            (push int)
+                            cdr
+                            loop)))))
   (and null
-       (and (pop r) (begin (push ((1 2 3 4 5 6))) loop))))
+       (and (pop r) (progn (push ((1 2 3 4 5 6))) loop))))
 
 
 Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
     (x1 x1 x1)
     (x2 x2 x2)
     (x3 x3 x3)))
 --------
 (let ((loop (and (pop int)
-                 (begin
-                   (push int)
-                   (if null?
-                     (return r)
-                     (begin
-                       (push r)
-                       (push int)
-                       car
-                       cons
-                       (pop r)
-                       (push int)
-                       cdr
-                       loop))))))
+                 (progn (push int)
+                        (if null?
+                          (return r)
+                          (progn (push r)
+                                 (push int)
+                                 car
+                                 cons
+                                 (pop r)
+                                 (push int)
+                                 cdr
+                                 loop))))))
   (and null
-       (begin (pop r) (push ((1 2 3 4 5 6))) loop)))
+       (progn (pop r) (push ((1 2 3 4 5 6))) loop)))
 
 
 Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
     (x1 x1 x1)
     (x2 x2 x2)
     (x3 x3 x3)))
 --------
-(let ((loop (begin
-              (pop int)
-              (push int)
-              (if null?
-                (return r)
-                (and (push r)
-                     (begin
-                       (push int)
-                       car
-                       cons
-                       (pop r)
-                       (push int)
-                       cdr
-                       loop))))))
+(let ((loop (progn (pop int)
+                   (push int)
+                   (if null?
+                     (return r)
+                     (and (push r)
+                          (progn (push int)
+                                 car
+                                 cons
+                                 (pop r)
+                                 (push int)
+                                 cdr
+                                 loop))))))
   (and null
-       (begin (pop r) (push ((1 2 3 4 5 6))) loop)))
+       (progn (pop r) (push ((1 2 3 4 5 6))) loop)))
 
 
 Step:
-(let ((do ((begin (pop r) (push ((1 2 3 4 5 6))) loop)))
-      (loop (begin
-              (pop int)
-              (push int)
-              (if null?
-                (return r)
-                (begin
-                  (push r)
-                  (push int)
-                  car
-                  cons
-                  (pop r)
-                  (push int)
-                  cdr
-                  loop))))
+(let ((do ((progn (pop r) (push ((1 2 3 4 5 6))) loop)))
+      (loop (progn (pop int)
+                   (push int)
+                   (if null?
+                     (return r)
+                     (progn (push r)
+                            (push int)
+                            car
+                            cons
+                            (pop r)
+                            (push int)
+                            cdr
+                            loop))))
       (stack (() bot)))
   (g (null cons
            car
@@ -305,666 +289,214 @@ body
 
 
 Step:
-(g (and begin) ((g (begin x1 x2) (and x1 x2))))
+(g (and progn) ((g (progn x1 x2) (and x1 x2))))
 --------
 (let ((loop (and (pop int)
                  (and (push int)
                       (if null?
                         (return r)
-                        (begin
-                          (push r)
-                          (push int)
-                          car
-                          cons
-                          (pop r)
-                          (push int)
-                          cdr
-                          loop))))))
-  (begin null (pop r) (push ((1 2 3 4 5 6))) loop))
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
-    (x1 x1 x1)
-    (x2 x2 x2)
-    (x3 x3 x3)))
---------
-(let ((loop (and (pop int)
-                 (begin
-                   (push int)
-                   (if null?
-                     (return r)
-                     (begin
-                       (push r)
-                       (push int)
-                       car
-                       cons
-                       (pop r)
-                       (push int)
-                       cdr
-                       loop))))))
-  (and null
-       (begin (pop r) (push ((1 2 3 4 5 6))) loop)))
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
-    (x1 x1 x1)
-    (x2 x2 x2)
-    (x3 x3 x3)))
---------
-(let ((loop (and (pop int)
-                 (begin
-                   (push int)
-                   (if null?
-                     (return r)
-                     (and (push r)
-                          (begin
-                            (push int)
-                            car
-                            cons
-                            (pop r)
-                            (push int)
-                            cdr
-                            loop)))))))
-  (begin null (pop r) (push ((1 2 3 4 5 6))) loop))
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
-    (x1 x1 x1)
-    (x2 x2 x2)
-    (x3 x3 x3)))
---------
-(let ((loop (begin
-              (pop int)
-              (push int)
-              (if null?
-                (return r)
-                (and (push r)
-                     (begin
-                       (push int)
-                       car
-                       cons
-                       (pop r)
-                       (push int)
-                       cdr
-                       loop))))))
-  (and null
-       (begin (pop r) (push ((1 2 3 4 5 6))) loop)))
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
-    (x1 x1 x1)
-    (x2 x2 x2)
-    (x3 x3 x3)))
---------
-(let ((loop (and (pop int)
-                 (begin
-                   (push int)
-                   (if null?
-                     (return r)
-                     (and (push r)
-                          (begin
-                            (push int)
-                            car
-                            cons
-                            (pop r)
-                            (push int)
-                            cdr
-                            loop)))))))
-  (begin null (pop r) (push ((1 2 3 4 5 6))) loop))
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
-    (x1 x1 x1)
-    (x2 x2 x2)
-    (x3 x3 x3)))
---------
-(let ((loop (begin
-              (pop int)
-              (push int)
-              (if null?
-                (return r)
-                (and (push r)
-                     (and (push int)
-                          (begin car cons (pop r) (push int) cdr loop)))))))
-  (begin null (pop r) (push ((1 2 3 4 5 6))) loop))
-
-
-Step:
-(g (and begin) ((g (begin x1 x2) (and x1 x2))))
---------
-(let ((loop (begin
-              (pop int)
-              (push int)
-              (if null?
-                (return r)
-                (begin
-                  (push r)
-                  (push int)
-                  car
-                  cons
-                  (pop r)
-                  (push int)
-                  cdr
-                  loop)))))
-  (and null
-       (and (pop r) (and (push ((1 2 3 4 5 6))) loop))))
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
-    (x1 x1 x1)
-    (x2 x2 x2)
-    (x3 x3 x3)))
---------
-(let ((loop (and (pop int)
-                 (begin
-                   (push int)
-                   (if null?
-                     (return r)
-                     (begin
-                       (push r)
-                       (push int)
-                       car
-                       cons
-                       (pop r)
-                       (push int)
-                       cdr
-                       loop))))))
-  (and null
-       (and (pop r) (begin (push ((1 2 3 4 5 6))) loop))))
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
-    (x1 x1 x1)
-    (x2 x2 x2)
-    (x3 x3 x3)))
---------
-(let ((loop (begin
-              (pop int)
-              (push int)
-              (if null?
-                (return r)
-                (and (push r)
-                     (begin
-                       (push int)
-                       car
-                       cons
-                       (pop r)
-                       (push int)
-                       cdr
-                       loop))))))
-  (and null
-       (and (pop r) (begin (push ((1 2 3 4 5 6))) loop))))
-
-
-Step:
-(let ((do ((and (pop r) (begin (push ((1 2 3 4 5 6))) loop))))
-      (loop (begin
-              (pop int)
-              (push int)
-              (if null?
-                (return r)
-                (begin
-                  (push r)
-                  (push int)
-                  car
-                  cons
-                  (pop r)
-                  (push int)
-                  cdr
-                  loop))))
-      (stack (() bot)))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
-     ((do (command) (rest))
-      (command (and null rest) command)
-      (stack (ss) (() ss)))))
---------
-body
-
-
-Step:
-(g (and begin) ((g (begin x1 x2) (and x1 x2))))
---------
-(let ((loop (and (pop int)
-                 (and (push int)
-                      (if null?
-                        (return r)
-                        (begin
-                          (push r)
-                          (push int)
-                          car
-                          cons
-                          (pop r)
-                          (push int)
-                          cdr
-                          loop))))))
-  (and null
-       (begin (pop r) (push ((1 2 3 4 5 6))) loop)))
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
-    (x1 x1 x1)
-    (x2 x2 x2)
-    (x3 x3 x3)))
---------
-(let ((loop (and (pop int)
-                 (begin
-                   (push int)
-                   (if null?
-                     (return r)
-                     (begin
-                       (push r)
-                       (push int)
-                       car
-                       cons
-                       (pop r)
-                       (push int)
-                       cdr
-                       loop))))))
-  (and null
-       (and (pop r) (begin (push ((1 2 3 4 5 6))) loop))))
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
-    (x1 x1 x1)
-    (x2 x2 x2)
-    (x3 x3 x3)))
---------
-(let ((loop (and (pop int)
-                 (begin
-                   (push int)
-                   (if null?
-                     (return r)
-                     (and (push r)
-                          (begin
-                            (push int)
-                            car
-                            cons
-                            (pop r)
-                            (push int)
-                            cdr
-                            loop)))))))
-  (and null
-       (begin (pop r) (push ((1 2 3 4 5 6))) loop)))
-
-
-Step:
-(let ((do ((begin (pop r) (push ((1 2 3 4 5 6))) loop)))
-      (loop (and (pop int)
-                 (begin
-                   (push int)
-                   (if null?
-                     (return r)
-                     (begin
-                       (push r)
-                       (push int)
-                       car
-                       cons
-                       (pop r)
-                       (push int)
-                       cdr
-                       loop)))))
-      (stack (() bot)))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
-     ((do (command) (rest))
-      (command (and null rest) command)
-      (stack (ss) (() ss)))))
---------
-body
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
-    (x1 x1 x1)
-    (x2 x2 x2)
-    (x3 x3 x3)))
---------
-(let ((loop (begin
-              (pop int)
-              (push int)
-              (if null?
-                (return r)
-                (and (push r)
-                     (begin
-                       (push int)
-                       car
-                       cons
-                       (pop r)
-                       (push int)
-                       cdr
-                       loop))))))
-  (and null
-       (and (pop r) (begin (push ((1 2 3 4 5 6))) loop))))
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
-    (x1 x1 x1)
-    (x2 x2 x2)
-    (x3 x3 x3)))
---------
-(let ((loop (and (pop int)
-                 (begin
-                   (push int)
-                   (if null?
-                     (return r)
-                     (and (push r)
-                          (begin
-                            (push int)
-                            car
-                            cons
-                            (pop r)
-                            (push int)
-                            cdr
-                            loop)))))))
-  (and null
-       (begin (pop r) (push ((1 2 3 4 5 6))) loop)))
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
-    (x1 x1 x1)
-    (x2 x2 x2)
-    (x3 x3 x3)))
---------
-(let ((loop (begin
-              (pop int)
-              (push int)
-              (if null?
-                (return r)
-                (and (push r)
-                     (and (push int)
-                          (begin car cons (pop r) (push int) cdr loop)))))))
-  (and null
-       (begin (pop r) (push ((1 2 3 4 5 6))) loop)))
-
-
-Step:
-(let ((do ((begin (pop r) (push ((1 2 3 4 5 6))) loop)))
-      (loop (begin
-              (pop int)
-              (push int)
-              (if null?
-                (return r)
-                (and (push r)
-                     (begin
-                       (push int)
-                       car
-                       cons
-                       (pop r)
-                       (push int)
-                       cdr
-                       loop)))))
-      (stack (() bot)))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
-     ((do (command) (rest))
-      (command (and null rest) command)
-      (stack (ss) (() ss)))))
---------
-body
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
-    (x1 x1 x1)
-    (x2 x2 x2)
-    (x3 x3 x3)))
---------
-(let ((loop (begin
-              (pop int)
-              (push int)
-              (if null?
-                (return r)
-                (begin
-                  (push r)
-                  (push int)
-                  car
-                  cons
-                  (pop r)
-                  (push int)
-                  cdr
-                  loop)))))
-  (and null
-       (and (pop r) (begin (push ((1 2 3 4 5 6))) loop))))
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
-    (x1 x1 x1)
-    (x2 x2 x2)
-    (x3 x3 x3)))
---------
-(let ((loop (and (pop int)
-                 (begin
-                   (push int)
-                   (if null?
-                     (return r)
-                     (begin
-                       (push r)
-                       (push int)
-                       car
-                       cons
-                       (pop r)
-                       (push int)
-                       cdr
-                       loop))))))
-  (and null
-       (begin (pop r) (push ((1 2 3 4 5 6))) loop)))
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
-    (x1 x1 x1)
-    (x2 x2 x2)
-    (x3 x3 x3)))
---------
-(let ((loop (begin
-              (pop int)
-              (push int)
-              (if null?
-                (return r)
-                (and (push r)
-                     (begin
-                       (push int)
-                       car
-                       cons
-                       (pop r)
-                       (push int)
-                       cdr
-                       loop))))))
-  (and null
-       (begin (pop r) (push ((1 2 3 4 5 6))) loop)))
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
-    (x1 x1 x1)
-    (x2 x2 x2)
-    (x3 x3 x3)))
---------
-(let ((loop (and (pop int)
-                 (and (push int)
-                      (if null?
-                        (return r)
-                        (begin
-                          (push r)
-                          (push int)
-                          car
-                          cons
-                          (pop r)
-                          (push int)
-                          cdr
-                          loop))))))
-  (and null
-       (begin (pop r) (push ((1 2 3 4 5 6))) loop)))
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
-    (x1 x1 x1)
-    (x2 x2 x2)
-    (x3 x3 x3)))
---------
-(let ((loop (and (pop int)
-                 (and (push int)
-                      (if null?
-                        (return r)
-                        (and (push r)
-                             (begin
+                        (progn (push r)
                                (push int)
                                car
                                cons
                                (pop r)
                                (push int)
                                cdr
-                               loop)))))))
-  (begin null (pop r) (push ((1 2 3 4 5 6))) loop))
+                               loop))))))
+  (progn null (pop r) (push ((1 2 3 4 5 6))) loop))
 
 
 Step:
-(g (and begin) ((g (begin x1 x2) (and x1 x2))))
---------
-(let ((loop (and (pop int)
-                 (and (push int)
-                      (if null?
-                        (return r)
-                        (begin
-                          (push r)
-                          (push int)
-                          car
-                          cons
-                          (pop r)
-                          (push int)
-                          cdr
-                          loop))))))
-  (and null
-       (begin (pop r) (push ((1 2 3 4 5 6))) loop)))
-
-
-Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
     (x1 x1 x1)
     (x2 x2 x2)
     (x3 x3 x3)))
 --------
 (let ((loop (and (pop int)
-                 (begin
-                   (push int)
-                   (if null?
-                     (return r)
-                     (begin
-                       (push r)
-                       (push int)
-                       car
-                       cons
-                       (pop r)
-                       (push int)
-                       cdr
-                       loop))))))
+                 (progn (push int)
+                        (if null?
+                          (return r)
+                          (progn (push r)
+                                 (push int)
+                                 car
+                                 cons
+                                 (pop r)
+                                 (push int)
+                                 cdr
+                                 loop))))))
   (and null
-       (and (pop r) (begin (push ((1 2 3 4 5 6))) loop))))
+       (progn (pop r) (push ((1 2 3 4 5 6))) loop)))
 
 
 Step:
-(g (and begin)
-   ((g (begin x1 x2 x3 xs) (and x1 (begin x2 x3 xs)))
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
     (x1 x1 x1)
     (x2 x2 x2)
     (x3 x3 x3)))
 --------
 (let ((loop (and (pop int)
-                 (begin
+                 (progn (push int)
+                        (if null?
+                          (return r)
+                          (and (push r)
+                               (progn (push int)
+                                      car
+                                      cons
+                                      (pop r)
+                                      (push int)
+                                      cdr
+                                      loop)))))))
+  (progn null (pop r) (push ((1 2 3 4 5 6))) loop))
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (progn (pop int)
                    (push int)
                    (if null?
                      (return r)
                      (and (push r)
-                          (begin
+                          (progn (push int)
+                                 car
+                                 cons
+                                 (pop r)
+                                 (push int)
+                                 cdr
+                                 loop))))))
+  (and null
+       (progn (pop r) (push ((1 2 3 4 5 6))) loop)))
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (and (pop int)
+                 (progn (push int)
+                        (if null?
+                          (return r)
+                          (and (push r)
+                               (progn (push int)
+                                      car
+                                      cons
+                                      (pop r)
+                                      (push int)
+                                      cdr
+                                      loop)))))))
+  (progn null (pop r) (push ((1 2 3 4 5 6))) loop))
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (progn (pop int)
+                   (push int)
+                   (if null?
+                     (return r)
+                     (and (push r)
+                          (and (push int)
+                               (progn car
+                                      cons
+                                      (pop r)
+                                      (push int)
+                                      cdr
+                                      loop)))))))
+  (progn null (pop r) (push ((1 2 3 4 5 6))) loop))
+
+
+Step:
+(g (and progn) ((g (progn x1 x2) (and x1 x2))))
+--------
+(let ((loop (progn (pop int)
+                   (push int)
+                   (if null?
+                     (return r)
+                     (progn (push r)
                             (push int)
                             car
                             cons
                             (pop r)
                             (push int)
                             cdr
-                            loop)))))))
+                            loop)))))
   (and null
-       (begin (pop r) (push ((1 2 3 4 5 6))) loop)))
+       (and (pop r) (and (push ((1 2 3 4 5 6))) loop))))
 
 
 Step:
-(let ((do ((begin (pop r) (push ((1 2 3 4 5 6))) loop)))
-      (loop (and (pop int)
-                 (begin
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (and (pop int)
+                 (progn (push int)
+                        (if null?
+                          (return r)
+                          (progn (push r)
+                                 (push int)
+                                 car
+                                 cons
+                                 (pop r)
+                                 (push int)
+                                 cdr
+                                 loop))))))
+  (and null
+       (and (pop r) (progn (push ((1 2 3 4 5 6))) loop))))
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (progn (pop int)
                    (push int)
                    (if null?
                      (return r)
-                     (begin
-                       (push r)
-                       (push int)
-                       car
-                       cons
-                       (pop r)
-                       (push int)
-                       cdr
-                       loop)))))
+                     (and (push r)
+                          (progn (push int)
+                                 car
+                                 cons
+                                 (pop r)
+                                 (push int)
+                                 cdr
+                                 loop))))))
+  (and null
+       (and (pop r) (progn (push ((1 2 3 4 5 6))) loop))))
+
+
+Step:
+(let ((do ((and (pop r) (progn (push ((1 2 3 4 5 6))) loop))))
+      (loop (progn (pop int)
+                   (push int)
+                   (if null?
+                     (return r)
+                     (progn (push r)
+                            (push int)
+                            car
+                            cons
+                            (pop r)
+                            (push int)
+                            cdr
+                            loop))))
       (stack (() bot)))
   (g (null cons
            car
@@ -986,15 +518,483 @@ body
 
 
 Step:
-(g (and begin) ((g (begin x1 x2) (and x1 x2))))
+(g (and progn) ((g (progn x1 x2) (and x1 x2))))
+--------
+(let ((loop (and (pop int)
+                 (and (push int)
+                      (if null?
+                        (return r)
+                        (progn (push r)
+                               (push int)
+                               car
+                               cons
+                               (pop r)
+                               (push int)
+                               cdr
+                               loop))))))
+  (and null
+       (progn (pop r) (push ((1 2 3 4 5 6))) loop)))
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (and (pop int)
+                 (progn (push int)
+                        (if null?
+                          (return r)
+                          (progn (push r)
+                                 (push int)
+                                 car
+                                 cons
+                                 (pop r)
+                                 (push int)
+                                 cdr
+                                 loop))))))
+  (and null
+       (and (pop r) (progn (push ((1 2 3 4 5 6))) loop))))
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (and (pop int)
+                 (progn (push int)
+                        (if null?
+                          (return r)
+                          (and (push r)
+                               (progn (push int)
+                                      car
+                                      cons
+                                      (pop r)
+                                      (push int)
+                                      cdr
+                                      loop)))))))
+  (and null
+       (progn (pop r) (push ((1 2 3 4 5 6))) loop)))
+
+
+Step:
+(let ((do ((progn (pop r) (push ((1 2 3 4 5 6))) loop)))
+      (loop (and (pop int)
+                 (progn (push int)
+                        (if null?
+                          (return r)
+                          (progn (push r)
+                                 (push int)
+                                 car
+                                 cons
+                                 (pop r)
+                                 (push int)
+                                 cdr
+                                 loop)))))
+      (stack (() bot)))
+  (g (null cons
+           car
+           cdr
+           set
+           push
+           pop
+           if
+           null?
+           eq?
+           and
+           do
+           stack)
+     ((do (command) (rest))
+      (command (and null rest) command)
+      (stack (ss) (() ss)))))
+--------
+body
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (progn (pop int)
+                   (push int)
+                   (if null?
+                     (return r)
+                     (and (push r)
+                          (progn (push int)
+                                 car
+                                 cons
+                                 (pop r)
+                                 (push int)
+                                 cdr
+                                 loop))))))
+  (and null
+       (and (pop r) (progn (push ((1 2 3 4 5 6))) loop))))
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (and (pop int)
+                 (progn (push int)
+                        (if null?
+                          (return r)
+                          (and (push r)
+                               (progn (push int)
+                                      car
+                                      cons
+                                      (pop r)
+                                      (push int)
+                                      cdr
+                                      loop)))))))
+  (and null
+       (progn (pop r) (push ((1 2 3 4 5 6))) loop)))
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (progn (pop int)
+                   (push int)
+                   (if null?
+                     (return r)
+                     (and (push r)
+                          (and (push int)
+                               (progn car
+                                      cons
+                                      (pop r)
+                                      (push int)
+                                      cdr
+                                      loop)))))))
+  (and null
+       (progn (pop r) (push ((1 2 3 4 5 6))) loop)))
+
+
+Step:
+(let ((do ((progn (pop r) (push ((1 2 3 4 5 6))) loop)))
+      (loop (progn (pop int)
+                   (push int)
+                   (if null?
+                     (return r)
+                     (and (push r)
+                          (progn (push int)
+                                 car
+                                 cons
+                                 (pop r)
+                                 (push int)
+                                 cdr
+                                 loop)))))
+      (stack (() bot)))
+  (g (null cons
+           car
+           cdr
+           set
+           push
+           pop
+           if
+           null?
+           eq?
+           and
+           do
+           stack)
+     ((do (command) (rest))
+      (command (and null rest) command)
+      (stack (ss) (() ss)))))
+--------
+body
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (progn (pop int)
+                   (push int)
+                   (if null?
+                     (return r)
+                     (progn (push r)
+                            (push int)
+                            car
+                            cons
+                            (pop r)
+                            (push int)
+                            cdr
+                            loop)))))
+  (and null
+       (and (pop r) (progn (push ((1 2 3 4 5 6))) loop))))
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (and (pop int)
+                 (progn (push int)
+                        (if null?
+                          (return r)
+                          (progn (push r)
+                                 (push int)
+                                 car
+                                 cons
+                                 (pop r)
+                                 (push int)
+                                 cdr
+                                 loop))))))
+  (and null
+       (progn (pop r) (push ((1 2 3 4 5 6))) loop)))
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (progn (pop int)
+                   (push int)
+                   (if null?
+                     (return r)
+                     (and (push r)
+                          (progn (push int)
+                                 car
+                                 cons
+                                 (pop r)
+                                 (push int)
+                                 cdr
+                                 loop))))))
+  (and null
+       (progn (pop r) (push ((1 2 3 4 5 6))) loop)))
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (and (pop int)
+                 (and (push int)
+                      (if null?
+                        (return r)
+                        (progn (push r)
+                               (push int)
+                               car
+                               cons
+                               (pop r)
+                               (push int)
+                               cdr
+                               loop))))))
+  (and null
+       (progn (pop r) (push ((1 2 3 4 5 6))) loop)))
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
 --------
 (let ((loop (and (pop int)
                  (and (push int)
                       (if null?
                         (return r)
                         (and (push r)
-                             (begin
+                             (progn (push int)
+                                    car
+                                    cons
+                                    (pop r)
+                                    (push int)
+                                    cdr
+                                    loop)))))))
+  (progn null (pop r) (push ((1 2 3 4 5 6))) loop))
+
+
+Step:
+(g (and progn) ((g (progn x1 x2) (and x1 x2))))
+--------
+(let ((loop (and (pop int)
+                 (and (push int)
+                      (if null?
+                        (return r)
+                        (progn (push r)
                                (push int)
                                car
                                cons
                                (pop r)
+                               (push int)
+                               cdr
+                               loop))))))
+  (and null
+       (progn (pop r) (push ((1 2 3 4 5 6))) loop)))
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (and (pop int)
+                 (progn (push int)
+                        (if null?
+                          (return r)
+                          (progn (push r)
+                                 (push int)
+                                 car
+                                 cons
+                                 (pop r)
+                                 (push int)
+                                 cdr
+                                 loop))))))
+  (and null
+       (and (pop r) (progn (push ((1 2 3 4 5 6))) loop))))
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (and (pop int)
+                 (progn (push int)
+                        (if null?
+                          (return r)
+                          (and (push r)
+                               (progn (push int)
+                                      car
+                                      cons
+                                      (pop r)
+                                      (push int)
+                                      cdr
+                                      loop)))))))
+  (and null
+       (progn (pop r) (push ((1 2 3 4 5 6))) loop)))
+
+
+Step:
+(let ((do ((progn (pop r) (push ((1 2 3 4 5 6))) loop)))
+      (loop (and (pop int)
+                 (progn (push int)
+                        (if null?
+                          (return r)
+                          (progn (push r)
+                                 (push int)
+                                 car
+                                 cons
+                                 (pop r)
+                                 (push int)
+                                 cdr
+                                 loop)))))
+      (stack (() bot)))
+  (g (null cons
+           car
+           cdr
+           set
+           push
+           pop
+           if
+           null?
+           eq?
+           and
+           do
+           stack)
+     ((do (command) (rest))
+      (command (and null rest) command)
+      (stack (ss) (() ss)))))
+--------
+body
+
+
+Step:
+(g (and progn) ((g (progn x1 x2) (and x1 x2))))
+--------
+(let ((loop (and (pop int)
+                 (and (push int)
+                      (if null?
+                        (return r)
+                        (and (push r)
+                             (progn (push int)
+                                    car
+                                    cons
+                                    (pop r)
+                                    (push int)
+                                    cdr
+                                    loop)))))))
+  (progn null (pop r) (push ((1 2 3 4 5 6))) loop))
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (and (pop int)
+                 (progn (push int)
+                        (if null?
+                          (return r)
+                          (and (push r)
+                               (progn (push int)
+                                      car
+                                      cons
+                                      (pop r)
+                                      (push int)
+                                      cdr
+                                      loop)))))))
+  (and null
+       (progn (pop r) (push ((1 2 3 4 5 6))) loop)))
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+    (x1 x1 x1)
+    (x2 x2 x2)
+    (x3 x3 x3)))
+--------
+(let ((loop (and (pop int)
+                 (progn (push int)
+                        (if null?
+                          (return r)
+                          (and (push r)
+                               (and (push int)
+                                    (progn car
+                                           cons
+                                           (pop r)
+                                           (push int)
+                                           cdr
+                                           loop))))))))
+  (progn null (pop r) (push ((1 2 3 4 5 6))) loop))
+
+
+Step:
+(g (and progn)
+   ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))

@@ -2,7 +2,7 @@
 ;; Evaluator for a stack-based language "gstack".
 ;; Similar to lisp in that it is based on analogs of `cons`, `car` and `cdr`,
 ;; and also the "set" instruction that is like "set-car!" and "set-cdr!".
-;; Also contains a "syntax sugar" for "and" -- the "begin".
+;; Also contains a "syntax sugar" for "and" -- the "progn".
 (let ((const (null cons car cdr set
                    push pop
                    if null? eq? and
@@ -13,12 +13,12 @@
       (r ())
       (start
        (let ((loop
-              (begin
+              (progn
                 (pop int)
                 (push int)
                 (if null?
                     (return r)
-                    (begin
+                    (progn
                       (push r)
                       (push int)
                       car
@@ -27,7 +27,7 @@
                       (push int)
                       cdr
                       loop)))))
-         (begin
+         (progn
            null
            (pop r)
            (push x)
@@ -132,18 +132,18 @@
                   (else else else)))
               body))
 
-  ;; begin
-  (eval (g (and begin)
+  ;; progn
+  (eval (g (and progn)
            ((g
-             (begin x1 x2 x3 xs)
-             (and x1 (begin x2 x3 xs)))
+             (progn x1 x2 x3 xs)
+             (and x1 (progn x2 x3 xs)))
             (x1 x1 x1)
             (x2 x2 x2)
             (x3 x3 x3)))
         start)
-  (eva1 (g (and begin)
+  (eva1 (g (and progn)
            ((g
-             (begin x1 x2)
+             (progn x1 x2)
              (and x1 x2))))
         start)
 
