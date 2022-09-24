@@ -58,7 +58,7 @@
 
 (define decode-graph
   (lambda (ordered-nodes g)
-    (define add-to-return
+    (define set-children
       (lambda (current current-children)
         (define children (reverse-children current-children))
         (set current children)))
@@ -80,7 +80,7 @@
         (1f (null? (separator-next? g))
             (progn
              (skip-separator g)
-             (add-to-return current current-children)
+             (set-children current current-children)
              (1f (null? g) g
                  (loop (read-node) (f-null))))
             (progn
