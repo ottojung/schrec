@@ -13,7 +13,7 @@ test: dist/schrec
 	dist/schrec $(SCHREC_OPTS) example/const-multi.scm
 
 test2: dist/schrec
-	$(CZEMPAK) run test/lispy-lang/lispytest.scm
+	$(CZEMPAK) run test/glisp/lispytest.scm
 
 run: dist/schrec
 	dist/schrec $(SCHREC_OPTS) $(RUN_TARGET)
