@@ -22,7 +22,7 @@
 %use (get-let-body) "./get-let-body.scm"
 %use (make-fresh-namespace) "./make-fresh-namespace.scm"
 %use (make-fresh-regular-node) "./make-fresh-regular-node.scm"
-%use (node-label set-node-children!) "./node.scm"
+%use (node-children node-label set-node-children!) "./node.scm"
 %use (transform-let-bindings) "./transform-let-bindings.scm"
 
 (define (parse-let-expression scope loop lst)
@@ -55,7 +55,8 @@
   (for-each
    (fp (binding-node value)
        (when (pair? value)
-         (set-node-children! binding-node (map loop value))))
+         (let ((ret (loop value)))
+           (set-node-children! binding-node (node-children ret)))))
    binding-nodes)
 
   (let ((result (loop let-body)))
