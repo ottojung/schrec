@@ -16,7 +16,7 @@
 
 %use (pretty-print-graph) "./schrec/pretty-print-graph.scm"
 %use (f-null set) "./builtins.scm"
-%use (deencode-graph) "./deencode-graph.scm"
+%use (decode-graph) "./decode-graph.scm"
 %use (foreach-child) "./helpers.scm"
 %use (input) "./input.scm"
 %use (order-nodes) "./order-nodes.scm"
@@ -42,7 +42,7 @@
     (pretty-print-graph ordered) (newline)
 
     (define deser
-      (deencode-graph ordered serialized))
+      (decode-graph ordered serialized))
 
     (pretty-print-graph deser) (newline)
 
