@@ -7,7 +7,7 @@
                    push pop
                    if null? eq? and
                    do stack))
-      (stack (bot))
+      (stack ())
       (do (start))
       (x ((1 2 3 4 5 6)))
       (r ())

@@ -25,8 +25,7 @@ Original:
                             (pop r)
                             (push int)
                             cdr
-                            loop))))
-      (stack (bot)))
+                            loop)))))
   (((eval (g const
              ((do (command) (rest))
               (command (and null rest) command)
@@ -285,7 +284,7 @@ Step:
                                          (push int)
                                          cdr
                                          loop)))))))
-      (stack (() bot)))
+      (stack (())))
   (g (null cons
            car
            cdr
@@ -319,8 +318,7 @@ Step:
                                          (push int)
                                          cdr
                                          loop)))))))
-      (r (()))
-      (stack (bot)))
+      (r (())))
   (g (null cons
            car
            cdr
@@ -358,7 +356,7 @@ Step:
                                          cdr
                                          loop)))))))
       (r (()))
-      (stack ($2 bot))
+      (stack ($2))
       ($2 (1 2 3 4 5 6))
       (x ($2)))
   (g (null cons
@@ -397,8 +395,7 @@ Step:
                                   cdr
                                   (and (pop int) $1)))))))
       (int ((1 2 3 4 5 6)))
-      (r (()))
-      (stack (bot)))
+      (r (())))
   (g (null cons
            car
            cdr
@@ -461,7 +458,7 @@ Step:
       (r (()))
       (int ($3))
       ($3 (1 2 3 4 5 6))
-      (stack ($3 bot))
+      (stack ($3))
       (x ($3)))
   (g (null cons
            car
@@ -525,7 +522,6 @@ Step:
       (r (()))
       (int ($3))
       ($3 (1 2 3 4 5 6))
-      (stack (bot))
       (x ($3)))
   (g (null cons
            car
@@ -617,7 +613,7 @@ Step:
       (int ($2))
       ($2 (1 2 3 4 5 6))
       (r ($3))
-      (stack ($3 bot))
+      (stack ($3))
       (x ($2)))
   (g (null cons
            car
@@ -658,7 +654,7 @@ Step:
       (r ($2))
       (int ($3))
       ($3 (1 2 3 4 5 6))
-      (stack ($3 $2 bot))
+      (stack ($3 $2))
       (x ($3)))
   (g (null cons
            car
@@ -718,7 +714,7 @@ Step:
       (r ($2))
       (int ($3))
       ($3 (1 2 3 4 5 6))
-      (stack (1 $2 bot))
+      (stack (1 $2))
       (x ($3)))
   (g (null cons
            car
@@ -755,7 +751,7 @@ Step:
                                                (and car (and cons $1)))))))))))
       (r (()))
       (int ((1 2 3 4 5 6)))
-      (stack ((1) bot)))
+      (stack ((1))))
   (g (null cons
            car
            cdr
@@ -791,8 +787,7 @@ Step:
                                                (and cons
                                                     (and (pop r) $1)))))))))))
       (int ((1 2 3 4 5 6)))
-      (r ((1)))
-      (stack (bot)))
+      (r ((1))))
   (g (null cons
            car
            cdr
@@ -832,7 +827,7 @@ Step:
       (int ($2))
       ($2 (1 2 3 4 5 6))
       (r ((1)))
-      (stack ($2 bot))
+      (stack ($2))
       (x ($2)))
   (g (null cons
            car
@@ -872,7 +867,7 @@ Step:
       (int ($1))
       ($1 (1 2 3 4 5 6))
       (r ((1)))
-      (stack ((2 3 4 5 6) bot))
+      (stack ((2 3 4 5 6)))
       (x ($1)))
   (g (null cons
            car
@@ -910,8 +905,7 @@ Step:
                                                     (and (pop int)
                                                          $1)))))))))))
       (int ((2 3 4 5 6)))
-      (r ((1)))
-      (stack (bot)))
+      (r ((1))))
   (g (null cons
            car
            cdr
@@ -951,7 +945,7 @@ Step:
       (r ((1)))
       (int ($2))
       ($2 (2 3 4 5 6))
-      (stack ($2 bot))
+      (stack ($2))
       (x ((1 2 3 4 5 6))))
   (g (null cons
            car
@@ -991,10 +985,16 @@ Step:
                                                          $1)))))))))))
       (r ((1)))
       (int ((2 3 4 5 6)))
-      (stack (bot))
       (x ((1 2 3 4 5 6))))
   (g (null cons
            car
            cdr
            set
            push
+           pop
+           if
+           null?
+           eq?
+           and
+           do
+           stack)
