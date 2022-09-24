@@ -25,7 +25,7 @@
 ;; Main logic ;;
 ;;;;;;;;;;;;;;;;
 
-(define to-binary
+(define flat-adjlist->tape
   (lambda (ordered-nodes x)
     (1f (null? x) x
         (progn
@@ -36,7 +36,8 @@
                (index-of ordered-nodes first)))
          (concat
           encoded-first
-          (to-binary ordered-nodes (f-cdr x)))))))
+          (flat-adjlist->tape
+           ordered-nodes (f-cdr x)))))))
 
 (define graph->adjlist
   (lambda (g)
@@ -85,7 +86,7 @@
     (pretty-print-graph flat) (newline)
 
     (define bin
-      (to-binary ordered-nodes flat))
+      (flat-adjlist->tape ordered-nodes flat))
 
     (pretty-print-graph bin) (newline)
 
