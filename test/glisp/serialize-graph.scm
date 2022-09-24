@@ -53,10 +53,12 @@
     (define return (f-null))
     (define visited-list (f-null))
 
-    (define (add-to-return node)
-      (set return (f-cons node return)))
-    (define (add-to-visited node)
-      (set visited-list (f-cons node visited-list)))
+    (define add-to-return
+      (lambda (node)
+        (set return (f-cons node return))))
+    (define add-to-visited
+      (lambda (node)
+        (set visited-list (f-cons node visited-list))))
 
     (define loop
       (lambda (g)
