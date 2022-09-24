@@ -12,26 +12,26 @@
       (x ((1 2 3 4 5 6)))
       (r ())
       (start
-       (begin
-         null
-         (pop r)
-         (push x)
-         loop))
-      (loop
-       (begin
-         (pop int)
-         (push int)
-         (if null?
-            (return r)
-            (begin
-              (push r)
-              (push int)
-              car
-              cons
-              (pop r)
-              (push int)
-              cdr
-              loop)))))
+       (let ((loop
+              (begin
+                (pop int)
+                (push int)
+                (if null?
+                    (return r)
+                    (begin
+                      (push r)
+                      (push int)
+                      car
+                      cons
+                      (pop r)
+                      (push int)
+                      cdr
+                      loop)))))
+         (begin
+           null
+           (pop r)
+           (push x)
+           loop))))
 
   ;; null (pushes a fresh node with 0 children on the top of the stack)
   (eval (g const
