@@ -22,7 +22,7 @@
 %var make-singleton
 %var concat
 %var copy-children
-%var flatten-children
+%var flatten
 %var foreach-child
 %var equal-children?
 %var n-zero
@@ -63,12 +63,12 @@
   (lambda (x)
     (f-cons (f-car x) (f-cdr x))))
 
-(define flatten-children
+(define flatten
   (lambda (x)
     (if-null? x (f-null)
               (concat
                (f-car x)
-               (flatten-children (f-cdr x))))))
+               (flatten (f-cdr x))))))
 
 (define foreach-child
   (lambda (func collection-node)

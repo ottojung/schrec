@@ -18,7 +18,7 @@
 
 %use (pretty-print-graph) "./schrec/pretty-print-graph.scm"
 %use (f-car f-cdr f-cons f-null if-eq? if-null? if-true? progn set) "./builtins.scm"
-%use (c-member? concat flatten-children foreach-child index-of make-singleton reverse-children separator) "./helpers.scm"
+%use (c-member? concat flatten foreach-child index-of make-singleton reverse-children separator) "./helpers.scm"
 %use (order-nodes) "./order-nodes.scm"
 
 ;;;;;;;;;;;;;;;;
@@ -91,7 +91,7 @@
     (pretty-print-graph conc) (newline)
 
     (define flat
-      (flatten-children conc))
+      (flatten conc))
 
     (pretty-print-graph flat) (newline)
 
