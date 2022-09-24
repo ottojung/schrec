@@ -2,44 +2,36 @@
 ;; Evaluator for a stack-based language "gstack".
 ;; Similar to lisp in that it is based on analogs of `cons`, `car` and `cdr`,
 ;; and also the "set" instruction that is like "set-car!" and "set-cdr!".
+;; Also contains a "syntax sugar" for "and" -- the "begin".
 (let ((const (null cons car cdr set
-              push pop
-              if null? eq? and
-              do stack))
-      (stack ())
-      (var1 (2))
-      (var2 ((5 6)))
+                   push pop
+                   if null? eq? and
+                   do stack))
+      (stack (bot))
       (do (start))
+      (x ((1 2 3 4 5 6)))
+      (r ())
       (start
        (begin
          null
-         null
-         (push var1)
-         (pop e0)
-         null
-
-         ;; null
-         ;; (push var1)
-         ;; (if null? yes no)
-
+         (pop r)
+         (push x)
+         loop))
+      (loop
+       (begin
+         (pop int)
+         (push int)
          (if null?
-             (begin
-               (push var1)
-               (push var2)
-               car
-               cons
-               (pop e1)
-               cons
-               (push e1)
-               (push e1)
-               set
-               (pop e2)
-               (push e2)
-               (pop e9)
-               (result e0 e1 e2))
-             (should-not-happen do stack))
-
-         )))
+            (return r)
+            (begin
+              (push r)
+              (push int)
+              car
+              cons
+              (pop r)
+              (push int)
+              cdr
+              loop)))))
 
   ;; null (pushes a fresh node with 0 children on the top of the stack)
   (eval (g const
@@ -79,9 +71,9 @@
   (eval (g const
            ((do (command) (rest))
             (command (and set rest) command)
-            (stack (s1 s2 ss) (s2 ss))
-            (s1 (xs) s1)
-            (s2 (ys) (xs))))
+            (stack (s1 s2 ss) (s1 ss))
+            (s1 (xs) (ys))
+            (s2 (ys) s2)))
         body)
 
   ;; push
