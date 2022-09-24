@@ -36,7 +36,7 @@
 %var index-of
 %var child-ref
 %var make-n-fresh-nodes
-%var c-member?
+%var in-children?
 %var reverse-children
 %var children-count
 
@@ -172,7 +172,7 @@
                       (make-n-fresh-nodes
                        (n-pred n))))))
 
-(define c-member?
+(define in-children?
   (lambda (collection-node item-node)
     (if-null?
      collection-node false-node
@@ -181,7 +181,7 @@
       (if-eq?
        first item-node
        true-node
-       (c-member?
+       (in-children?
         (f-cdr collection-node) item-node))))))
 
 (define reverse-children
