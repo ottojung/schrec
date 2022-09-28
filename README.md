@@ -8,10 +8,13 @@ An interpreter for the ρ<sub>s</sub> calculus.
 See example programs in `example/`.
 
 To run them, do
+
 ```
  make
 ```
+
 followed by
+
 ```
  dist/schrec example/<NAME-OF-THE-EXAMPLE>.scm
 ```
