@@ -45,10 +45,17 @@
 
   (define counter 0)
 
+  (define useful-refs
+    (filter (fp (ref referenced? . children)
+                (and referenced?
+                     (not (null? children))))
+            all-references))
+
   (define _0
     (for-each
      (lambda (p)
        (define node (car p))
+       (define referenced? (cadr p))
        (define existing (hashmap-ref name->node-map (node-label node) #f))
 
        (define name-info
@@ -65,12 +72,6 @@
        (hashmap-set! name->node-map name-info (node-id node))
        (set-node-display! node name-info))
      all-references))
-
-  (define useful-refs
-    (filter (fp (ref referenced? . children)
-                (and referenced?
-                     (not (null? children))))
-            all-references))
 
   (define body
     (subs tree))
