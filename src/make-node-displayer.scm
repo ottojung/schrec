@@ -23,11 +23,11 @@
 
 (define (make-node-displayer)
   (define counter 0)
-  (define name->node-map (make-hashmap))
+  (define nonexp-counters (make-hashmap))
   (lambda (node)
     (define localid (if (exp-node? node) (node-id node) (node-label node)))
-    (define existing (hashmap-ref name->node-map localid 0))
-    (hashmap-set! name->node-map localid (+ 1 existing))
+    (define existing (hashmap-ref nonexp-counters localid 0))
+    (hashmap-set! nonexp-counters localid (+ 1 existing))
 
     (if (< 0 existing)
         (string->symbol
@@ -38,4 +38,3 @@
               (set! counter (+ 1 counter))
               (string->symbol (string-append "$" (~a counter))))
             (node-label node)))))
-
