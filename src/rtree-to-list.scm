@@ -21,9 +21,9 @@
 %use (~a) "./euphrates/tilda-a.scm"
 %use (exp-node?) "./exp-node-huh.scm"
 %use (keyword-let) "./keyword-let.scm"
-%use (node-id node-label node-namespace node?) "./node.scm"
-%use (rtree-dereference) "./rtree-dereference.scm"
+%use (node-id node-label node-namespace) "./node.scm"
 %use (rtree-references) "./rtree-references.scm"
+%use (rtree-substitute-labels) "./rtree-substitute-labels.scm"
 
 (define (rtree->list tree)
   (define all-references
@@ -34,17 +34,14 @@
 
   (define (get-label node)
     (hashmap-ref node->name-map (node-id node) 'label-not-found))
-  (define (dereference T)
-    (let loop ((x (rtree-dereference T)))
-      (if (list? x)
-          (map loop x)
-          (get-label x))))
+  (define (subs T)
+    (rtree-substitute-labels node->name-map T))
 
   (define (tuple-to-binding ref)
     (define key (car ref))
     (define referenced? (cadr ref))
     (define value (cddr ref))
-    (list (get-label key) (map dereference value)))
+    (list (get-label key) (map subs value)))
 
   (define counter 0)
 
@@ -76,7 +73,7 @@
             all-references))
 
   (define body
-    (dereference tree))
+    (subs tree))
 
   (if (null? useful-refs)
       body
