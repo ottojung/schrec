@@ -19,11 +19,11 @@
 %use (fp) "./euphrates/fp.scm"
 %use (list->hashset) "./euphrates/ihashset.scm"
 %use (rtree-value) "./euphrates/rtree.scm"
-%use (exp-node?) "./exp-node-huh.scm"
 %use (graph->list/with-substitutes) "./graph-to-list-with-substitutes.scm"
 %use (keyword-let) "./keyword-let.scm"
 %use (leaf-node?) "./leaf-node-huh.scm"
 %use (make-node-displayer) "./make-node-displayer.scm"
+%use (named-node?) "./named-node-huh.scm"
 %use (node-children node-display node-id node-namespace set-node-display!) "./node.scm"
 %use (root-namespace) "./root-namespace.scm"
 %use (rtree-references) "./rtree-references.scm"
@@ -35,7 +35,7 @@
   (define potential-ref?
     (fp (node referenced?)
         (or referenced?
-            (not (exp-node? node)))))
+            (named-node? node))))
 
   (define useful-ref?
     (fp (node referenced?)

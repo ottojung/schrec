@@ -18,14 +18,14 @@
 
 %use (hashmap-ref hashmap-set! make-hashmap) "./euphrates/ihashmap.scm"
 %use (~a) "./euphrates/tilda-a.scm"
-%use (exp-node?) "./exp-node-huh.scm"
+%use (named-node?) "./named-node-huh.scm"
 %use (node-id node-label node-namespace) "./node.scm"
 
 (define (make-node-displayer)
   (define counter 0)
   (define nonexp-counters (make-hashmap))
   (lambda (node)
-    (define localid (if (exp-node? node) (node-id node) (node-label node)))
+    (define localid (if (named-node? node) (node-label node) (node-id node)))
     (define existing (hashmap-ref nonexp-counters localid 0))
     (hashmap-set! nonexp-counters localid (+ 1 existing))
 
@@ -33,8 +33,8 @@
         (string->symbol
          (string-append
           (symbol->string (node-label node)) "." (~a (node-namespace node))))
-        (if (exp-node? node)
+        (if (named-node? node)
+            (node-label node)
             (begin
               (set! counter (+ 1 counter))
-              (string->symbol (string-append "$" (~a counter))))
-            (node-label node)))))
+              (string->symbol (string-append "$" (~a counter))))))))
