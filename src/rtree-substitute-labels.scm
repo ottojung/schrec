@@ -16,16 +16,13 @@
 
 %var rtree-substitute-labels
 
-%use (hashmap-ref) "./euphrates/ihashmap.scm"
-%use (node-id) "./node.scm"
+%use (node-display) "./node.scm"
 %use (rtree-dereference) "./rtree-dereference.scm"
 
-(define (rtree-substitute-labels node->name-map T)
+(define (rtree-substitute-labels T)
   (define (get-label node)
-    (hashmap-ref
-     node->name-map
-     (node-id node)
-     'label-not-found))
+    (or (node-display node)
+        'label-not-found))
 
   (let loop ((x (rtree-dereference T)))
     (if (list? x)
