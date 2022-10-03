@@ -356,9 +356,9 @@ Step:
                                          cdr
                                          loop)))))))
       (r (()))
-      (stack ($2))
-      ($2 (1 2 3 4 5 6))
-      (x ($2)))
+      (stack ($1))
+      ($1 (1 2 3 4 5 6))
+      (x ($1)))
   (g (null cons
            car
            cdr
@@ -426,7 +426,7 @@ Step:
     (x3 x3 x3)))
 --------
 (let ((r (()))
-      ($2 (1 2 3 4 5 6))
+      ($1 (1 2 3 4 5 6))
       (loop (and (pop int)
                  (and (push int)
                       (if null?
@@ -439,8 +439,8 @@ Step:
                                               (push int)
                                               cdr
                                               loop))))))))
-      (int ($2)))
-  (and null (and (pop r) (and (push ($2)) loop))))
+      (int ($1)))
+  (and null (and (pop r) (and (push ($1)) loop))))
 
 
 Step:
@@ -456,10 +456,10 @@ Step:
                                   cdr
                                   (and (pop int) (and (push int) $1))))))))
       (r (()))
-      (int ($3))
-      ($3 (1 2 3 4 5 6))
-      (stack ($3))
-      (x ($3)))
+      (int ($2))
+      ($2 (1 2 3 4 5 6))
+      (stack ($2))
+      (x ($2)))
   (g (null cons
            car
            cdr
@@ -490,7 +490,7 @@ Step:
     (x3 x3 x3)))
 --------
 (let ((r (()))
-      ($2 (1 2 3 4 5 6))
+      ($1 (1 2 3 4 5 6))
       (loop (and (pop int)
                  (and (push int)
                       (if null?
@@ -503,8 +503,8 @@ Step:
                                                    (push int)
                                                    cdr
                                                    loop)))))))))
-      (int ($2)))
-  (and null (and (pop r) (and (push ($2)) loop))))
+      (int ($1)))
+  (and null (and (pop r) (and (push ($1)) loop))))
 
 
 Step:
@@ -520,9 +520,9 @@ Step:
                                           (and (push int)
                                                (if null? (return r) $1)))))))))
       (r (()))
-      (int ($3))
-      ($3 (1 2 3 4 5 6))
-      (x ($3)))
+      (int ($2))
+      ($2 (1 2 3 4 5 6))
+      (x ($2)))
   (g (null cons
            car
            cdr
@@ -554,7 +554,7 @@ Step:
     (x3 x3 x3)))
 --------
 (let ((r (()))
-      ($2 (1 2 3 4 5 6))
+      ($1 (1 2 3 4 5 6))
       (loop (and (pop int)
                  (and (push int)
                       (if null?
@@ -567,8 +567,8 @@ Step:
                                                  (progn (push int)
                                                         cdr
                                                         loop))))))))))
-      (int ($2)))
-  (and null (and (pop r) (and (push ($2)) loop))))
+      (int ($1)))
+  (and null (and (pop r) (and (push ($1)) loop))))
 
 
 Step:
@@ -579,7 +579,7 @@ Step:
     (x3 x3 x3)))
 --------
 (let ((r (()))
-      ($2 (1 2 3 4 5 6))
+      ($1 (1 2 3 4 5 6))
       (loop (and (pop int)
                  (and (push int)
                       (if null?
@@ -592,8 +592,8 @@ Step:
                                                  (and (push int)
                                                       (progn cdr
                                                              loop)))))))))))
-      (int ($2)))
-  (and null (and (pop r) (and (push ($2)) loop))))
+      (int ($1)))
+  (and null (and (pop r) (and (push ($1)) loop))))
 
 
 Step:
@@ -682,7 +682,7 @@ Step:
 (g (and progn) ((g (progn x1 x2) (and x1 x2))))
 --------
 (let ((r (()))
-      ($2 (1 2 3 4 5 6))
+      ($1 (1 2 3 4 5 6))
       (loop (and (pop int)
                  (and (push int)
                       (if null?
@@ -694,8 +694,8 @@ Step:
                                             (and (pop r)
                                                  (and (push int)
                                                       (and cdr loop)))))))))))
-      (int ($2)))
-  (and null (and (pop r) (and (push ($2)) loop))))
+      (int ($1)))
+  (and null (and (pop r) (and (push ($1)) loop))))
 
 
 Step:

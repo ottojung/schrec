@@ -46,7 +46,7 @@
   (define potential-refs
     (filter (fp (ref referenced? . children)
                 (or referenced?
-                    (null? children)))
+                    (not (exp-node? ref))))
             all-references))
 
   (define useful-refs

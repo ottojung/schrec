@@ -463,9 +463,9 @@ Step:
                                                  (and (push int)
                                                       (and cdr loop)))))))))))
       (r (()))
-      (stack ($2))
-      ($2 (1 2 3 4 5 6))
-      (x ($2)))
+      (stack ($1))
+      ($1 (1 2 3 4 5 6))
+      (x ($1)))
   (g (null cons
            car
            cdr
@@ -541,10 +541,10 @@ Step:
                                                     (and (push int)
                                                          $1)))))))))))
       (r (()))
-      (int ($3))
-      ($3 (1 2 3 4 5 6))
-      (stack ($3))
-      (x ($3)))
+      (int ($2))
+      ($2 (1 2 3 4 5 6))
+      (stack ($2))
+      (x ($2)))
   (g (null cons
            car
            cdr
@@ -582,9 +582,9 @@ Step:
                                                          (return r)
                                                          $1)))))))))))
       (r (()))
-      (int ($3))
-      ($3 (1 2 3 4 5 6))
-      (x ($3)))
+      (int ($2))
+      ($2 (1 2 3 4 5 6))
+      (x ($2)))
   (g (null cons
            car
            cdr

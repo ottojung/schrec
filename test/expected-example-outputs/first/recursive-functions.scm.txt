@@ -224,16 +224,16 @@ Step:
     (f f f)
     (g g g)))
 --------
-(let (($3 (pi (num (i i)))) ($4 (num (i i i i))))
+(let (($1 (pi (num (i i)))) ($2 (num (i i i i))))
   (results
     (program
       (comp-map
         succ
         (())
-        (() $3)
+        (() $1)
         (num (i i))
-        ((comp succ $3) (num (i)) ((pi (num (i))) $4) $4)
-        $4))))
+        ((comp succ $1) (num (i)) ((pi (num (i))) $2) $2)
+        $2))))
 
 
 Step:
@@ -252,22 +252,22 @@ Step:
     (f f f)
     (g g g)))
 --------
-(let (($3 (pi (num (i i)))) ($6 (num (i i i i))))
+(let (($1 (pi (num (i i)))) ($2 (num (i i i i))))
   (results
     (program
       (comp-map
         succ
         (())
-        (() $3)
+        (() $1)
         (num (i i))
         (comp-map
           succ
           (())
-          (() $3)
+          (() $1)
           (num (i))
-          ((pi (num (i))) $6)
-          $6)
-        $6))))
+          ((pi (num (i))) $2)
+          $2)
+        $2))))
 
 
 Step:
@@ -290,7 +290,7 @@ Step:
     (g g g)
     (x1 x1 x1)))
 --------
-(let (($1 (pi (num (i i)))) ($4 (num (i i i i))))
+(let (($1 (pi (num (i i)))) ($2 (num (i i i i))))
   (results
     (program
       (succ ($1 (num (i i))
@@ -299,9 +299,9 @@ Step:
                   (())
                   (() $1)
                   (num (i))
-                  ((pi (num (i))) $4)
-                  $4)
-                $4)))))
+                  ((pi (num (i))) $2)
+                  $2)
+                $2)))))
 
 
 Step:

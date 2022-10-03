@@ -912,11 +912,11 @@ Step:
       (x x x))))
 --------
 (let ((e2 (qq ()))
-      (var1 (qq $2))
-      ($2 (2))
+      (var1 (qq $1))
+      ($1 (2))
       (var2 (qq (5 6)))
       (e3 (qq ()))
-      (e1 (qq ($2 5 6)))
+      (e1 (qq ($1 5 6)))
       (e4 (qq ()))
       (e5 (qq ()))
       (e6 (qq ())))
@@ -963,8 +963,8 @@ Step:
       (x x x))))
 --------
 (let ((e3 (qq ()))
-      (e1 (qq ($2 5 6)))
-      ($2 (2))
+      (e1 (qq ($1 5 6)))
+      ($1 (2))
       (e4 (qq ()))
       (e2 (qq (2 5 6)))
       (e5 (qq ()))
@@ -974,7 +974,7 @@ Step:
        (and (set! e4 (head e2))
             (and (set! e5 (car e1))
                  (and (set! e6 (car e4))
-                      (ret (vars (qq $2) (qq (5 6)))
+                      (ret (vars (qq $1) (qq (5 6)))
                            (es e1 e2 e3 e4 e5 e6))))))))
 
 
