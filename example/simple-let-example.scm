@@ -5,6 +5,6 @@
   (eva1 (g (m a b)     ;; constants
            ((g           ;; input
              (m x)       ;; match pattern
-             (b m)))) ;; replace pattern
-        (let ((a ()))
+             (x m m)))) ;; replace pattern
+        (let ((a a))
           (m a))))
