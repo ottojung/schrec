@@ -22,6 +22,7 @@
 %use (exp-node?) "./exp-node-huh.scm"
 %use (graph->list/with-substitutes) "./graph-to-list-with-substitutes.scm"
 %use (keyword-let) "./keyword-let.scm"
+%use (leaf-node?) "./leaf-node-huh.scm"
 %use (make-node-displayer) "./make-node-displayer.scm"
 %use (node-children node-display node-id node-namespace set-node-display!) "./node.scm"
 %use (root-namespace) "./root-namespace.scm"
@@ -39,13 +40,13 @@
   (define useful-ref?
     (fp (node referenced?)
         (or (and referenced?
-                 (not (null? (node-children node))))
+                 (not (leaf-node? node)))
             (not (equal? root-namespace (node-namespace node))))))
 
   (define substitute-ref?
     (fp (node referenced?)
         (or referenced?
-            (null? (node-children node))
+            (leaf-node? node)
             (not (equal? root-namespace (node-namespace node))))))
 
   (define get-display
