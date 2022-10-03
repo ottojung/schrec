@@ -19,9 +19,9 @@
 %use (fp) "./euphrates/fp.scm"
 %use (list->hashset) "./euphrates/ihashset.scm"
 %use (rtree-value) "./euphrates/rtree.scm"
+%use (constant-node?) "./constant-node-huh.scm"
 %use (graph->list/with-substitutes) "./graph-to-list-with-substitutes.scm"
 %use (keyword-let) "./keyword-let.scm"
-%use (leaf-node?) "./leaf-node-huh.scm"
 %use (make-node-displayer) "./make-node-displayer.scm"
 %use (named-node?) "./named-node-huh.scm"
 %use (node-children node-display node-id set-node-display!) "./node.scm"
@@ -37,11 +37,9 @@
         (or shared?
             (named-node? node))))
 
-  (define (constant? node)
-    (and (leaf-node? node) (named-node? node)))
   (define useful-ref?
     (fp (node shared?)
-        (or (and shared? (not (constant? node)))
+        (or (and shared? (not (constant-node? node)))
             (not (root-namespace-node? node)))))
 
   (define substitute-ref?
