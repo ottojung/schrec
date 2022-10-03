@@ -37,10 +37,11 @@
         (or shared?
             (named-node? node))))
 
+  (define (constant? node)
+    (and (leaf-node? node) (named-node? node)))
   (define useful-ref?
     (fp (node shared?)
-        (or (and shared?
-                 (not (leaf-node? node)))
+        (or (and shared? (not (constant? node)))
             (not (root-namespace-node? node)))))
 
   (define substitute-ref?

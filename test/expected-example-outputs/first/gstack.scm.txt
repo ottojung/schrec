@@ -659,6 +659,7 @@ Step:
       (int ($2))
       ($2 (1 2 3 4 5 6))
       (r ($3))
+      ($3 ())
       (loop (and (pop int)
                  (and (push int)
                       (if null? (return r) (and (push r) $1)))))
@@ -693,6 +694,7 @@ Step:
                (and cons
                     (and (pop r) (and (push int) (and cdr loop))))))
       (r ($2))
+      ($2 ())
       (int ($3))
       ($3 (1 2 3 4 5 6))
       (loop (and (pop int)
@@ -730,6 +732,7 @@ Step:
       ($1 (and cons
                (and (pop r) (and (push int) (and cdr loop)))))
       (r ($2))
+      ($2 ())
       (int ($3))
       ($3 (1 2 3 4 5 6))
       (loop (and (pop int)
@@ -995,6 +998,3 @@ Step:
       ($1 (and (push r)
                (and (push int)
                     (and car
-                         (and cons
-                              (and (pop r)
-                                   (and (push int) (and cdr loop))))))))
