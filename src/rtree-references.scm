@@ -21,10 +21,8 @@
 (define (rtree-references tree)
   (let loop ((tree tree))
     (if (rtree? tree)
-        (if (or (rtree-ref tree) (null? (rtree-children tree)))
-            (cons
-             (cons (rtree-value tree)
-                   (cons (rtree-ref tree) (rtree-children tree)))
-             (apply append (map loop (rtree-children tree))))
-            (apply append (map loop (rtree-children tree))))
+        (cons
+         (cons (rtree-value tree)
+               (cons (rtree-ref tree) (rtree-children tree)))
+         (apply append (map loop (rtree-children tree))))
         '())))

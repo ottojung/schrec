@@ -16,13 +16,13 @@
 
 %var rtree-substitute-labels
 
-%use (node-display) "./node.scm"
+%use (node-display node-label) "./node.scm"
 %use (rtree-dereference) "./rtree-dereference.scm"
 
 (define (rtree-substitute-labels T)
   (define (get-label node)
     (or (node-display node)
-        'label-not-found))
+        (node-label node)))
 
   (let loop ((x (rtree-dereference T)))
     (if (list? x)

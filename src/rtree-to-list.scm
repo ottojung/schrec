@@ -16,6 +16,7 @@
 
 %var rtree->list
 
+%use (debug) "./euphrates/debug.scm"
 %use (fp) "./euphrates/fp.scm"
 %use (hashmap-ref hashmap-set! make-hashmap) "./euphrates/ihashmap.scm"
 %use (~a) "./euphrates/tilda-a.scm"
@@ -33,7 +34,7 @@
 
   (define (get-label node)
     (or (node-display node)
-        'label-not-found))
+        (node-label node)))
   (define (subs T)
     (rtree-substitute-labels T))
 
@@ -45,11 +46,28 @@
 
   (define counter 0)
 
+  (define potential-refs
+    (filter (fp (ref referenced? . children)
+                (or referenced?
+                    (null? children)))
+            all-references))
+
   (define useful-refs
     (filter (fp (ref referenced? . children)
                 (and referenced?
                      (not (null? children))))
             all-references))
+
+  (define (get-display existing? node)
+    (if existing?
+        (string->symbol
+         (string-append
+          (symbol->string (node-label node)) "." (~a (node-namespace node))))
+        (if (exp-node? node)
+            (begin
+              (set! counter (+ 1 counter))
+              (string->symbol (string-append "$" (~a counter))))
+            (node-label node))))
 
   (define _0
     (for-each
@@ -58,20 +76,19 @@
        (define referenced? (cadr p))
        (define existing (hashmap-ref name->node-map (node-label node) #f))
 
+       ;; (debug "~a:\t(ref: ~a)\t(exi: ~a)"
+       ;;        (node-label node)
+       ;;        (if referenced? 'yes 'no)
+       ;;        (if existing 'yes 'no))
+
        (define name-info
-         (if existing
-             (string->symbol
-              (string-append
-               (symbol->string (node-label node)) "." (~a (node-namespace node))))
-             (if (exp-node? node)
-                 (begin
-                   (set! counter (+ 1 counter))
-                   (string->symbol (string-append "$" (~a counter))))
-                 (node-label node))))
+         (get-display existing node))
 
        (hashmap-set! name->node-map name-info (node-id node))
        (set-node-display! node name-info))
-     all-references))
+     ;; all-references))
+     ;; useful-refs))
+     potential-refs))
 
   (define body
     (subs tree))
