@@ -20,7 +20,7 @@
 %use (exp-node?) "./exp-node-huh.scm"
 %use (keyword-let) "./keyword-let.scm"
 %use (make-node-displayer) "./make-node-displayer.scm"
-%use (node-display node-label set-node-display!) "./node.scm"
+%use (node-children node-display node-label set-node-display!) "./node.scm"
 %use (rtree-references) "./rtree-references.scm"
 %use (rtree-substitute-labels) "./rtree-substitute-labels.scm"
 
@@ -28,28 +28,16 @@
   (define all-references
     (rtree-references tree))
 
-  (define (get-label node)
-    (or (node-display node)
-        (node-label node)))
-  (define (subs T)
-    (rtree-substitute-labels T))
-
-  (define (tuple->binding ref)
-    (define key (car ref))
-    (define referenced? (cadr ref))
-    (define value (cddr ref))
-    (list (get-label key) (map subs value)))
-
   (define potential-refs
-    (filter (fp (ref referenced? . children)
+    (filter (fp (node referenced? . children)
                 (or referenced?
-                    (not (exp-node? ref))))
+                    (not (exp-node? node))))
             all-references))
 
   (define useful-refs
-    (filter (fp (ref referenced? . children)
+    (filter (fp (node referenced? . children)
                 (and referenced?
-                     (not (null? children))))
+                     (not (null? (node-children node)))))
             potential-refs))
 
   (define get-display
@@ -57,14 +45,19 @@
 
   (define _0
     (for-each
-     (lambda (p)
-       (define node (car p))
-       (define referenced? (cadr p))
-       (set-node-display! node (get-display node)))
+     (fp (node referenced? . children)
+         (set-node-display! node (get-display node)))
      potential-refs))
 
+  (define (get-label node)
+    (or (node-display node)
+        (node-label node)))
   (define body
-    (subs tree))
+    (rtree-substitute-labels tree))
+
+  (define tuple->binding
+    (fp (node referenced? . children)
+        (list (get-label node) (map rtree-substitute-labels children))))
 
   (if (null? useful-refs)
       body
