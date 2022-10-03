@@ -18,50 +18,30 @@
 
 %use (fp) "./euphrates/fp.scm"
 %use (hashmap-ref hashmap-set! make-hashmap) "./euphrates/ihashmap.scm"
-%use (raisu) "./euphrates/raisu.scm"
-%use (rtree-children rtree-ref rtree-value rtree?) "./euphrates/rtree.scm"
 %use (~a) "./euphrates/tilda-a.scm"
-%use (branch-node-label) "./branch-node-label.scm"
 %use (exp-node?) "./exp-node-huh.scm"
 %use (keyword-let) "./keyword-let.scm"
-%use (node-id node-label node-namespace) "./node.scm"
+%use (node-id node-label node-namespace node?) "./node.scm"
+%use (rtree-dereference) "./rtree-dereference.scm"
+%use (rtree-references) "./rtree-references.scm"
 
 (define (rtree->list tree)
   (define all-references
-    (let loop ((tree tree))
-      (if (rtree? tree)
-          (if (or (rtree-ref tree) (null? (rtree-children tree)))
-              (cons
-               (cons (rtree-value tree)
-                     (cons (rtree-ref tree) (rtree-children tree)))
-               (apply append (map loop (rtree-children tree))))
-              (apply append (map loop (rtree-children tree))))
-          '())))
-
-  (define (dereference T)
-    (let loop ((T T))
-      (cond
-       ((vector? T)
-        (get-label (rtree-value (vector-ref T 0))))
-       ((rtree? T)
-        (if (or (rtree-ref T)
-                (and (null? (rtree-children T))
-                     (not (equal? branch-node-label (node-label (rtree-value T))))))
-            (get-label (rtree-value T))
-            (map loop (rtree-children T))))
-       (else (raisu 'Unknown-type-in-dereference T)))))
-
-  (define (tuple-to-binding ref)
-    (define key (car ref))
-    (define referenced? (cadr ref))
-    (define value (cddr ref))
-    (list (get-label key) (map dereference value)))
+    (rtree-references tree))
 
   (define node->name-map (make-hashmap))
   (define name->node-map (make-hashmap))
 
   (define (get-label node)
     (hashmap-ref node->name-map (node-id node) 'label-not-found))
+  (define (dereference T)
+    (rtree-dereference get-label T))
+
+  (define (tuple-to-binding ref)
+    (define key (car ref))
+    (define referenced? (cadr ref))
+    (define value (cddr ref))
+    (list (get-label key) (map dereference value)))
 
   (define counter 0)
 
