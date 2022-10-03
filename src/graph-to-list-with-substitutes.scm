@@ -14,14 +14,14 @@
 
 %run guile
 
-%var graph-substitute-labels
+%var graph->list/with-substitutes
 
 %use (hashset-add! hashset-delete! hashset-ref make-hashset) "./euphrates/ihashset.scm"
 %use (raisu) "./euphrates/raisu.scm"
 %use (get-head) "./get-head.scm"
 %use (node-children node-display node-id node-label) "./node.scm"
 
-(define (graph-substitute-labels to-substitute g)
+(define (graph->list/with-substitutes to-substitute g)
   (define (get-label node)
     (or (node-display node)
         (node-label node)))

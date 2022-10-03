@@ -20,7 +20,7 @@
 %use (list->hashset) "./euphrates/ihashset.scm"
 %use (rtree-value) "./euphrates/rtree.scm"
 %use (exp-node?) "./exp-node-huh.scm"
-%use (graph-substitute-labels) "./graph-substitute-labels.scm"
+%use (graph->list/with-substitutes) "./graph-to-list-with-substitutes.scm"
 %use (keyword-let) "./keyword-let.scm"
 %use (make-node-displayer) "./make-node-displayer.scm"
 %use (node-children node-display node-id set-node-display!) "./node.scm"
@@ -61,7 +61,7 @@
      potential-refs))
 
   (define (subs node)
-    (graph-substitute-labels to-substitute node))
+    (graph->list/with-substitutes to-substitute node))
   (define body
     (subs (rtree-value tree)))
 
