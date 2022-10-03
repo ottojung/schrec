@@ -37,7 +37,7 @@
   (define (subs T)
     (rtree-substitute-labels T))
 
-  (define (tuple-to-binding ref)
+  (define (tuple->binding ref)
     (define key (car ref))
     (define referenced? (cadr ref))
     (define value (cddr ref))
@@ -74,4 +74,4 @@
 
   (if (null? useful-refs)
       body
-      (cons keyword-let (cons (map tuple-to-binding useful-refs) (list body)))))
+      (cons keyword-let (cons (map tuple->binding useful-refs) (list body)))))
