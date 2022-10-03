@@ -46,6 +46,8 @@
       /     --trace
       /     --no-trace
       /     --seed <seed>
+      /     --show-original
+      /     --skip-original
       RESULTS : all / first / random
       )
 
@@ -63,6 +65,9 @@
      :default (--no-trace #t)
      :exclusive (--no-trace --trace)
 
+     :default (--show-original #t)
+     :exclusive (--show-original --skip-original)
+
      (when --help
        (define-cli:show-help))
 
@@ -77,8 +82,11 @@
              (graph (list->graph parsed)))
 
         (when --trace
-          (eval-hook (default-eval-hook graph))
-          (display "Original:\n")
+          (eval-hook (default-eval-hook graph)))
+
+        (when --show-original
+          (when --trace
+            (display "Original:\n"))
           (pretty-print-graph graph))
 
         (let ((thread-ids-stream
