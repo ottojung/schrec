@@ -32,6 +32,4 @@
                    (not (equal? branch-node-label (node-label (rtree-value T))))))
           (rtree-value T)
           (map loop (rtree-children T))))
-     ((list? T)
-      (map loop T))
      (else (raisu 'Unknown-type-in-dereference T)))))
