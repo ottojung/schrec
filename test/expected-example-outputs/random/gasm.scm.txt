@@ -933,8 +933,7 @@ Step:
                  (begin
                    (set! e5 (car e1))
                    (set! e6 (car e4))
-                   (ret (vars var1 var2)
-                        (es e1 e2 (qq ($1)) e4 e5 e6))))))
+                   (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6))))))
       (e4 (qq ()))
       (e2 (qq (2 5 6)))
       (e5 (qq ()))
@@ -971,8 +970,7 @@ Step:
                  (and (set! e5 (car e1))
                       (begin
                         (set! e6 (car e4))
-                        (ret (vars var1 var2)
-                             (es e1 e2 (qq ($1)) e4 e5 e6)))))))
+                        (ret (vars var1 var2) (es e1 e2 e3 e4 e5 e6)))))))
       (e4 (qq ()))
       (e2 (qq (2 5 6)))
       (e5 (qq ()))
@@ -998,3 +996,5 @@ Step:
                    new
                    do
                    begin))
+      (in (set! v e))
+      (e (head q))

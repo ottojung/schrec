@@ -47,8 +47,7 @@
   (define substitute-ref?
     (fp (node shared?)
         (or shared?
-            (leaf-node? node)
-            (not (root-namespace-node? node)))))
+            (named-node? node))))
 
   (define get-display
     (make-node-displayer))
