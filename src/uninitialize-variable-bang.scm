@@ -17,7 +17,7 @@
 %var uninitialize-variable!
 
 %use (raisu) "./euphrates/raisu.scm"
-%use (node-binding set-node-binding! set-node-constant?!) "./node.scm"
+%use (node-binding set-node-binding!) "./node.scm"
 
 (define (uninitialize-variable! node)
   ;; (unless (variable-associated?/det node)
@@ -25,5 +25,4 @@
     (raisu 'variable-not-associated node))
 
   (set-node-binding! node #f)
-  (set-node-constant?! node #f)
   )

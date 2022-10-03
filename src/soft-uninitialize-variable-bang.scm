@@ -16,9 +16,8 @@
 
 %var soft-uninitialize-variable!
 
-%use (set-node-binding! set-node-constant?!) "./node.scm"
+%use (set-node-binding!) "./node.scm"
 
 (define (soft-uninitialize-variable! node)
-  (set-node-constant?! node #f)
   (set-node-binding! node #f)
   )

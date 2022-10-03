@@ -17,18 +17,16 @@
 %var variable-get-association-or-nondet
 
 %use (prefixtree-ref-furthest) "./euphrates/prefixtree.scm"
-%use (const-variable?) "./const-variable-huh.scm"
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (node-binding) "./node.scm"
 %use (thread-obj-lst) "./thread-obj.scm"
 
 (define (variable-get-association-or-nondet node default)
-  (if (const-variable? node) (list node)
-      (let* ((match-thread (get-current-match-thread))
-             (lst (thread-obj-lst match-thread))
-             (pt (node-binding node))
-             (ret (and pt (prefixtree-ref-furthest pt lst))))
-        (if (or (equal? ret 'uninitialized-prefixtree-from-associate-variable!/det)
-                (not ret))
-            default
-            ret))))
+  (let* ((match-thread (get-current-match-thread))
+         (lst (thread-obj-lst match-thread))
+         (pt (node-binding node))
+         (ret (and pt (prefixtree-ref-furthest pt lst))))
+    (if (or (equal? ret 'uninitialized-prefixtree-from-associate-variable!/det)
+            (not ret))
+        default
+        ret)))

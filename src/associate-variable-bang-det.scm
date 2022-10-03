@@ -18,15 +18,12 @@
 
 %use (raisu) "./euphrates/raisu.scm"
 %use (stack-push!) "./euphrates/stack.scm"
-%use (const-variable?) "./const-variable-huh.scm"
 %use (set-node-binding!) "./node.scm"
 %use (variable-associated?/det) "./variable-associated-huh-det.scm"
 
 (define (associate-variable!/det free-stack node target-node)
   (if (variable-associated?/det node)
-      (if (const-variable? node)
-          (raisu 'trying-to-associate-a-constant node target-node)
-          (raisu 'already-associated node target-node))
+      (raisu 'already-associated node target-node)
       (begin
         (stack-push! free-stack node)
         (set-node-binding! node target-node))))

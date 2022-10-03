@@ -18,7 +18,6 @@
 
 %use (list-singleton?) "./euphrates/list-singleton-q.scm"
 %use (prefixtree-ref-furthest) "./euphrates/prefixtree.scm"
-%use (const-variable?) "./const-variable-huh.scm"
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (node-binding) "./node.scm"
 %use (thread-obj-lst) "./thread-obj.scm"
@@ -28,14 +27,13 @@
        (null? (cdr L))))
 
 (define (variable-get-association-nondet-singleton node default default-if-not-singleton)
-  (if (const-variable? node) node
-      (let* ((match-thread (get-current-match-thread))
-             (lst (thread-obj-lst match-thread))
-             (pt (node-binding node))
-             (ret (and pt (prefixtree-ref-furthest pt lst))))
-        (if (and ret
-                 (not (equal? ret 'uninitialized-prefixtree-from-associate-variable!/det)))
-            (if (list-singleton? ret)
-                (car ret)
-                default-if-not-singleton)
-            default))))
+  (let* ((match-thread (get-current-match-thread))
+         (lst (thread-obj-lst match-thread))
+         (pt (node-binding node))
+         (ret (and pt (prefixtree-ref-furthest pt lst))))
+    (if (and ret
+             (not (equal? ret 'uninitialized-prefixtree-from-associate-variable!/det)))
+        (if (list-singleton? ret)
+            (car ret)
+            default-if-not-singleton)
+        default)))

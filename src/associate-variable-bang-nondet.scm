@@ -19,7 +19,6 @@
 %use (make-prefixtree prefixtree-set!) "./euphrates/prefixtree.scm"
 %use (raisu) "./euphrates/raisu.scm"
 %use (stack-push!) "./euphrates/stack.scm"
-%use (const-variable?) "./const-variable-huh.scm"
 %use (get-current-match-thread) "./get-current-match-thread.scm"
 %use (node-binding set-node-binding!) "./node.scm"
 %use (thread-obj-lst) "./thread-obj.scm"
@@ -27,9 +26,7 @@
 
 (define (associate-variable!/det/nondet free-stack node vals)
   (if (variable-associated?/nondet node)
-      (if (const-variable? node)
-          (raisu 'trying-to-associate-a-constant node vals)
-          (raisu 'already-associated node vals))
+      (raisu 'already-associated node vals)
       (let* ((match-thread (get-current-match-thread))
              (lst (thread-obj-lst match-thread))
              (pt (or (node-binding node)
