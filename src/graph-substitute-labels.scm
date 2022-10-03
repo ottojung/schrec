@@ -14,17 +14,26 @@
 
 %run guile
 
-%var rtree-substitute-labels
+%var graph-substitute-labels
 
-%use (node-display node-label) "./node.scm"
-%use (rtree-dereference) "./rtree-dereference.scm"
+%use (hashset-add! hashset-delete! hashset-ref make-hashset) "./euphrates/ihashset.scm"
+%use (raisu) "./euphrates/raisu.scm"
+%use (get-head) "./get-head.scm"
+%use (node-children node-display node-id node-label) "./node.scm"
 
-(define (rtree-substitute-labels T)
+(define (graph-substitute-labels to-substitute g)
   (define (get-label node)
     (or (node-display node)
         (node-label node)))
 
-  (let loop ((x (rtree-dereference T)))
-    (if (list? x)
-        (map loop x)
-        (get-label x))))
+  (define S (make-hashset))
+  (let loop ((node g))
+    (if (hashset-ref to-substitute (node-id node))
+        (get-label node)
+        (begin
+          (when (hashset-ref S (node-id node))
+            (raisu 'graph-substitution-failed:loop (get-head 5 node)))
+          (hashset-add! S (node-id node))
+          (let ((result (map loop (node-children node))))
+            (hashset-delete! S (node-id node))
+            result)))))

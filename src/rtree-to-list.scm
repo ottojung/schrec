@@ -17,47 +17,57 @@
 %var rtree->list
 
 %use (fp) "./euphrates/fp.scm"
+%use (list->hashset) "./euphrates/ihashset.scm"
+%use (rtree-value) "./euphrates/rtree.scm"
 %use (exp-node?) "./exp-node-huh.scm"
+%use (graph-substitute-labels) "./graph-substitute-labels.scm"
 %use (keyword-let) "./keyword-let.scm"
 %use (make-node-displayer) "./make-node-displayer.scm"
-%use (node-children node-display node-label set-node-display!) "./node.scm"
+%use (node-children node-display node-id set-node-display!) "./node.scm"
 %use (rtree-references) "./rtree-references.scm"
-%use (rtree-substitute-labels) "./rtree-substitute-labels.scm"
 
 (define (rtree->list tree)
   (define all-references
     (rtree-references tree))
 
   (define potential-refs
-    (filter (fp (node referenced? . children)
+    (filter (fp (node referenced?)
                 (or referenced?
                     (not (exp-node? node))))
             all-references))
 
   (define useful-refs
-    (filter (fp (node referenced? . children)
+    (filter (fp (node referenced?)
                 (and referenced?
                      (not (null? (node-children node)))))
             potential-refs))
+
+  (define substitute-refs
+    (filter (fp (node referenced?)
+                (or referenced?
+                    (null? (node-children node))))
+            potential-refs))
+  (define to-substitute
+    (list->hashset
+     (map (compose node-id car) substitute-refs)))
 
   (define get-display
     (make-node-displayer))
 
   (define _0
     (for-each
-     (fp (node referenced? . children)
+     (fp (node referenced?)
          (set-node-display! node (get-display node)))
      potential-refs))
 
-  (define (get-label node)
-    (or (node-display node)
-        (node-label node)))
+  (define (subs node)
+    (graph-substitute-labels to-substitute node))
   (define body
-    (rtree-substitute-labels tree))
+    (subs (rtree-value tree)))
 
   (define tuple->binding
-    (fp (node referenced? . children)
-        (list (get-label node) (map rtree-substitute-labels children))))
+    (fp (node referenced?)
+        (list (node-display node) (map subs (node-children node)))))
 
   (if (null? useful-refs)
       body

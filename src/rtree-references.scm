@@ -22,7 +22,6 @@
   (let loop ((tree tree))
     (if (rtree? tree)
         (cons
-         (cons (rtree-value tree)
-               (cons (rtree-ref tree) (rtree-children tree)))
+         (list (rtree-value tree) (rtree-ref tree))
          (apply append (map loop (rtree-children tree))))
         '())))
