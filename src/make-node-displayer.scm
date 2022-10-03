@@ -16,13 +16,19 @@
 
 %var make-node-displayer
 
+%use (hashmap-ref hashmap-set! make-hashmap) "./euphrates/ihashmap.scm"
 %use (~a) "./euphrates/tilda-a.scm"
 %use (exp-node?) "./exp-node-huh.scm"
-%use (node-label node-namespace) "./node.scm"
+%use (node-id node-label node-namespace) "./node.scm"
 
 (define (make-node-displayer)
   (define counter 0)
-  (lambda (existing node)
+  (define name->node-map (make-hashmap))
+  (lambda (node)
+    (define localid (if (exp-node? node) (node-id node) (node-label node)))
+    (define existing (hashmap-ref name->node-map localid 0))
+    (hashmap-set! name->node-map localid (+ 1 existing))
+
     (if (< 0 existing)
         (string->symbol
          (string-append

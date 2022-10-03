@@ -17,19 +17,16 @@
 %var rtree->list
 
 %use (fp) "./euphrates/fp.scm"
-%use (hashmap-ref hashmap-set! make-hashmap) "./euphrates/ihashmap.scm"
 %use (exp-node?) "./exp-node-huh.scm"
 %use (keyword-let) "./keyword-let.scm"
 %use (make-node-displayer) "./make-node-displayer.scm"
-%use (node-display node-id node-label set-node-display!) "./node.scm"
+%use (node-display node-label set-node-display!) "./node.scm"
 %use (rtree-references) "./rtree-references.scm"
 %use (rtree-substitute-labels) "./rtree-substitute-labels.scm"
 
 (define (rtree->list tree)
   (define all-references
     (rtree-references tree))
-
-  (define name->node-map (make-hashmap))
 
   (define (get-label node)
     (or (node-display node)
@@ -63,10 +60,7 @@
      (lambda (p)
        (define node (car p))
        (define referenced? (cadr p))
-       (define localid (if (exp-node? node) (node-id node) (node-label node)))
-       (define existing (hashmap-ref name->node-map localid 0))
-       (hashmap-set! name->node-map localid (+ 1 existing))
-       (set-node-display! node (get-display existing node)))
+       (set-node-display! node (get-display node)))
      potential-refs))
 
   (define body
