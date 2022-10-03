@@ -16,7 +16,6 @@
 
 %var rtree->list
 
-%use (debug) "./euphrates/debug.scm"
 %use (fp) "./euphrates/fp.scm"
 %use (hashmap-ref hashmap-set! make-hashmap) "./euphrates/ihashmap.scm"
 %use (~a) "./euphrates/tilda-a.scm"
@@ -56,10 +55,10 @@
     (filter (fp (ref referenced? . children)
                 (and referenced?
                      (not (null? children))))
-            all-references))
+            potential-refs))
 
-  (define (get-display existing? node)
-    (if existing?
+  (define (get-display existing node)
+    (if (< 0 existing)
         (string->symbol
          (string-append
           (symbol->string (node-label node)) "." (~a (node-namespace node))))
@@ -74,20 +73,14 @@
      (lambda (p)
        (define node (car p))
        (define referenced? (cadr p))
-       (define existing (hashmap-ref name->node-map (node-label node) #f))
-
-       ;; (debug "~a:\t(ref: ~a)\t(exi: ~a)"
-       ;;        (node-label node)
-       ;;        (if referenced? 'yes 'no)
-       ;;        (if existing 'yes 'no))
+       (define localid (if (exp-node? node) (node-id node) (node-label node)))
+       (define existing (hashmap-ref name->node-map localid 0))
+       (hashmap-set! name->node-map localid (+ 1 existing))
 
        (define name-info
          (get-display existing node))
 
-       (hashmap-set! name->node-map name-info (node-id node))
        (set-node-display! node name-info))
-     ;; all-references))
-     ;; useful-refs))
      potential-refs))
 
   (define body
