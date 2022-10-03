@@ -35,7 +35,10 @@
   (define (get-label node)
     (hashmap-ref node->name-map (node-id node) 'label-not-found))
   (define (dereference T)
-    (rtree-dereference get-label T))
+    (let loop ((x (rtree-dereference T)))
+      (if (list? x)
+          (map loop x)
+          (get-label x))))
 
   (define (tuple-to-binding ref)
     (define key (car ref))

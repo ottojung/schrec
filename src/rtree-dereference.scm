@@ -21,15 +21,15 @@
 %use (branch-node-label) "./branch-node-label.scm"
 %use (node-label) "./node.scm"
 
-(define (rtree-dereference f T)
+(define (rtree-dereference T)
   (let loop ((T T))
     (cond
      ((vector? T)
-      (f (rtree-value (vector-ref T 0))))
+      (rtree-value (vector-ref T 0)))
      ((rtree? T)
       (if (or (rtree-ref T)
               (and (null? (rtree-children T))
                    (not (equal? branch-node-label (node-label (rtree-value T))))))
-          (f (rtree-value T))
+          (rtree-value T)
           (map loop (rtree-children T))))
      (else (raisu 'Unknown-type-in-dereference T)))))
