@@ -16,12 +16,12 @@
 
 %var eval-like?
 
-%use (node-children node-label node-namespace) "./node.scm"
-%use (root-namespace) "./root-namespace.scm"
+%use (node-children node-label) "./node.scm"
+%use (root-namespace-node?) "./root-namespace-node-huh.scm"
 
 (define (eval-like? name parent)
   (let ((c (node-children parent)))
     (if (null? c) #f
         (let ((h (car c)))
           (and (equal? name (node-label h))
-               (equal? root-namespace (node-namespace h)))))))
+               (root-namespace-node? h))))))

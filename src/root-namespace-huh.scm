@@ -16,5 +16,7 @@
 
 %var root-namespace?
 
+%use (root-namespace) "./root-namespace.scm"
+
 (define (root-namespace? ns)
-  (equal? 0 ns))
+  (equal? root-namespace ns))

@@ -17,9 +17,9 @@
 %var eval-single-node?
 
 %use (keyword-eval-single) "./keyword-eval-single.scm"
-%use (node-label node-namespace) "./node.scm"
-%use (root-namespace) "./root-namespace.scm"
+%use (node-label) "./node.scm"
+%use (root-namespace-node?) "./root-namespace-node-huh.scm"
 
 (define (eval-single-node? n)
   (and (equal? keyword-eval-single (node-label n))
-       (equal? root-namespace (node-namespace n))))
+       (root-namespace-node? n)))

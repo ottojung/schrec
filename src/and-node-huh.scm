@@ -17,9 +17,9 @@
 %var and-node?
 
 %use (keyword-and) "./keyword-and.scm"
-%use (node-label node-namespace) "./node.scm"
-%use (root-namespace) "./root-namespace.scm"
+%use (node-label) "./node.scm"
+%use (root-namespace-node?) "./root-namespace-node-huh.scm"
 
 (define (and-node? node)
-  (and (equal? root-namespace (node-namespace node))
+  (and (root-namespace-node? node)
        (equal? keyword-and (node-label node))))

@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2021, 2022  Otto Jung
+;;;; Copyright (C) 2022  Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -14,12 +14,10 @@
 
 %run guile
 
-%var eval-multi-node?
+%var root-namespace-node?
 
-%use (keyword-eval-multi) "./keyword-eval-multi.scm"
-%use (node-label) "./node.scm"
-%use (root-namespace-node?) "./root-namespace-node-huh.scm"
+%use (node-namespace) "./node.scm"
+%use (root-namespace) "./root-namespace.scm"
 
-(define (eval-multi-node? n)
-  (and (equal? keyword-eval-multi (node-label n))
-       (root-namespace-node? n)))
+(define (root-namespace-node? node)
+  (equal? root-namespace (node-namespace node)))

@@ -24,8 +24,8 @@
 %use (leaf-node?) "./leaf-node-huh.scm"
 %use (make-node-displayer) "./make-node-displayer.scm"
 %use (named-node?) "./named-node-huh.scm"
-%use (node-children node-display node-id node-namespace set-node-display!) "./node.scm"
-%use (root-namespace) "./root-namespace.scm"
+%use (node-children node-display node-id set-node-display!) "./node.scm"
+%use (root-namespace-node?) "./root-namespace-node-huh.scm"
 %use (rtree-references) "./rtree-references.scm"
 
 (define (rtree->list tree)
@@ -41,13 +41,13 @@
     (fp (node referenced?)
         (or (and referenced?
                  (not (leaf-node? node)))
-            (not (equal? root-namespace (node-namespace node))))))
+            (not (root-namespace-node? node)))))
 
   (define substitute-ref?
     (fp (node referenced?)
         (or referenced?
             (leaf-node? node)
-            (not (equal? root-namespace (node-namespace node))))))
+            (not (root-namespace-node? node)))))
 
   (define get-display
     (make-node-displayer))
