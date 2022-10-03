@@ -10,8 +10,7 @@ SUBMODULES = deps/euphrates/.git
 CZEMPAK = CZEMPAK_ROOT=$(PWD)/.czempak-root guile -s ./deps/czempak.scm
 
 test: dist/schrec
-	# dist/schrec $(SCHREC_OPTS) example/const-multi.scm
-	dist/schrec $(SCHREC_OPTS) --trace --results random example/gasm.scm
+	dist/schrec $(SCHREC_OPTS) example/const-multi.scm
 
 test2: dist/schrec
 	$(CZEMPAK) run test/glisp/lispytest.scm
