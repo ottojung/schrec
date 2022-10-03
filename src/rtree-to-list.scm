@@ -30,36 +30,36 @@
   (define all-references
     (rtree-references tree))
 
-  (define potential-refs
-    (filter (fp (node referenced?)
-                (or referenced?
-                    (not (exp-node? node))))
-            all-references))
+  (define potential-ref?
+    (fp (node referenced?)
+        (or referenced?
+            (not (exp-node? node)))))
 
-  (define useful-refs
-    (filter (fp (node referenced?)
-                (and referenced?
-                     (not (null? (node-children node)))))
-            potential-refs))
+  (define useful-ref?
+    (fp (node referenced?)
+        (and referenced?
+             (not (null? (node-children node))))))
 
-  (define substitute-refs
-    (filter (fp (node referenced?)
-                (or referenced?
-                    (null? (node-children node))))
-            potential-refs))
-  (define to-substitute
-    (list->hashset
-     (map (compose node-id car) substitute-refs)))
+  (define substitute-ref?
+    (fp (node referenced?)
+        (or referenced?
+            (null? (node-children node)))))
 
   (define get-display
     (make-node-displayer))
 
+  (define potential-refs
+    (filter potential-ref? all-references))
   (define _0
     (for-each
      (fp (node referenced?)
          (set-node-display! node (get-display node)))
      potential-refs))
 
+  (define to-substitute
+    (list->hashset
+     (map (compose node-id car)
+          (filter substitute-ref? potential-refs))))
   (define (subs node)
     (graph->list/with-substitutes to-substitute node))
   (define body
@@ -68,6 +68,9 @@
   (define tuple->binding
     (fp (node referenced?)
         (list (node-display node) (map subs (node-children node)))))
+
+  (define useful-refs
+    (filter useful-ref? potential-refs))
 
   (if (null? useful-refs)
       body
