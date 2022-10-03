@@ -33,19 +33,19 @@
     (rtree-references tree))
 
   (define potential-ref?
-    (fp (node referenced?)
-        (or referenced?
+    (fp (node shared?)
+        (or shared?
             (named-node? node))))
 
   (define useful-ref?
-    (fp (node referenced?)
-        (or (and referenced?
+    (fp (node shared?)
+        (or (and shared?
                  (not (leaf-node? node)))
             (not (root-namespace-node? node)))))
 
   (define substitute-ref?
-    (fp (node referenced?)
-        (or referenced?
+    (fp (node shared?)
+        (or shared?
             (leaf-node? node)
             (not (root-namespace-node? node)))))
 
@@ -56,7 +56,7 @@
     (filter potential-ref? all-references))
   (define _0
     (for-each
-     (fp (node referenced?)
+     (fp (node shared?)
          (set-node-display! node (get-display node)))
      potential-refs))
 
@@ -70,7 +70,7 @@
     (subs (rtree-value tree)))
 
   (define tuple->binding
-    (fp (node referenced?)
+    (fp (node shared?)
         (list (node-display node) (map subs (node-children node)))))
 
   (define useful-refs
