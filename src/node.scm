@@ -29,24 +29,31 @@
 %use (define-type9) "./euphrates/define-type9.scm"
 %use (make-prefixtree prefixtree-ref-furthest prefixtree-set!) "./euphrates/prefixtree.scm"
 %use (get-current-thread) "./get-current-thread.scm"
+%use (make-nodeinfo nodeinfo-label nodeinfo-namespace) "./nodeinfo.scm"
 %use (thread-obj-lst) "./thread-obj.scm"
 
 (define-type9 <n>
-  (node-ctor id children label namespace binding visited?) node?
+  (node-ctor id children info binding visited?) node?
   ;; semantic part
   (id node-id)
   (children node-children/raw set-node-children/raw!)
 
   ;; meta part
-  (label node-label)
-  (namespace node-namespace)
+  (info node-info)
   (binding node-binding set-node-binding!)
   (visited? node-visited? set-node-visited?!)
   )
 
 (define (make-node id children label namespace)
   (define pt (make-prefixtree children))
-  (node-ctor id pt label namespace #f #f))
+  (define info (make-nodeinfo label namespace))
+  (node-ctor id pt info #f #f))
+
+(define (node-label node)
+  (nodeinfo-label (node-info node)))
+
+(define (node-namespace node)
+  (nodeinfo-namespace (node-info node)))
 
 (define (node-children node)
   (define thread (get-current-thread))
