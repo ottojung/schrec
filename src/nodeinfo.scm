@@ -18,14 +18,17 @@
 %var nodeinfo?
 %var nodeinfo-label
 %var nodeinfo-namespace
+%var nodeinfo-display
+%var set-nodeinfo-display!
 
 %use (define-type9) "./euphrates/define-type9.scm"
 
 (define-type9 nodeinfo
-  (nodeinfo-ctor label namespace) nodeinfo?
+  (nodeinfo-ctor label namespace display) nodeinfo?
   (label nodeinfo-label)
   (namespace nodeinfo-namespace)
+  (display nodeinfo-display set-nodeinfo-display!) ;; label by which this is displayed
   )
 
 (define (make-nodeinfo label namespace)
-  (nodeinfo-ctor label namespace))
+  (nodeinfo-ctor label namespace #f))

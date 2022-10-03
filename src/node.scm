@@ -25,11 +25,13 @@
 %var set-node-binding!
 %var node-visited?
 %var set-node-visited?!
+%var node-display
+%var set-node-display!
 
 %use (define-type9) "./euphrates/define-type9.scm"
 %use (make-prefixtree prefixtree-ref-furthest prefixtree-set!) "./euphrates/prefixtree.scm"
 %use (get-current-thread) "./get-current-thread.scm"
-%use (make-nodeinfo nodeinfo-label nodeinfo-namespace) "./nodeinfo.scm"
+%use (make-nodeinfo nodeinfo-display nodeinfo-label nodeinfo-namespace set-nodeinfo-display!) "./nodeinfo.scm"
 %use (thread-obj-lst) "./thread-obj.scm"
 
 (define-type9 <n>
@@ -54,6 +56,11 @@
 
 (define (node-namespace node)
   (nodeinfo-namespace (node-info node)))
+
+(define (node-display node)
+  (nodeinfo-display (node-info node)))
+(define (set-node-display! node new)
+  (set-nodeinfo-display! (node-info node) new))
 
 (define (node-children node)
   (define thread (get-current-thread))
