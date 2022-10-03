@@ -68,552 +68,624 @@ Original:
 
 
 Step:
-(g (>> <<
-       HALT
-       NEWSTATE
-       MOVE
-       _
-       0
-       1
-       2
-       3
-       4
-       5
-       6
-       7
-       8
-       9
-       q0
-       q1
-       q2
-       q3
-       q4
-       q5
-       q6
-       q7
-       q8
-       q9)
-   (((NEWSTATE) (MOVE >>) (NEWSTATE))
-    ((_ _ _ _ _) (xs x) (xs x h))
-    ((0) (h) (y))
-    ((0 0 1 1 1 1 _ _ _ _) (y ys) (ys _))
-    (x x x)
-    (y y y)))
+(let ((const (>> <<
+                 HALT
+                 NEWSTATE
+                 MOVE
+                 _
+                 0
+                 1
+                 2
+                 3
+                 4
+                 5
+                 6
+                 7
+                 8
+                 9
+                 q0
+                 q1
+                 q2
+                 q3
+                 q4
+                 q5
+                 q6
+                 q7
+                 q8
+                 q9))
+      (action (NEWSTATE))
+      (tape-left (_ _ _ _ _))
+      (head (0))
+      (tape-right (0 0 1 1 1 1 _ _ _ _)))
+  (g const
+     ((action (MOVE >>) (NEWSTATE))
+      (tape-left (xs x) (xs x h))
+      (head (h) (y))
+      (tape-right (y ys) (ys _))
+      (x x x)
+      (y y y))))
 --------
 body
 
 
 Step:
-(g (>> <<
-       HALT
-       NEWSTATE
-       MOVE
-       _
-       0
-       1
-       2
-       3
-       4
-       5
-       6
-       7
-       8
-       9
-       q0
-       q1
-       q2
-       q3
-       q4
-       q5
-       q6
-       q7
-       q8
-       q9)
-   (((MOVE >>) (NEWSTATE) (MOVE >>))
-    ((1) (0) (1))
-    ((q0) (q0) (q0))))
+(let ((const (>> <<
+                 HALT
+                 NEWSTATE
+                 MOVE
+                 _
+                 0
+                 1
+                 2
+                 3
+                 4
+                 5
+                 6
+                 7
+                 8
+                 9
+                 q0
+                 q1
+                 q2
+                 q3
+                 q4
+                 q5
+                 q6
+                 q7
+                 q8
+                 q9))
+      (action (MOVE >>))
+      (head (1))
+      (state (q0)))
+  (g const
+     ((action (NEWSTATE) (MOVE >>))
+      (head (0) (1))
+      (state (q0) (q0)))))
 --------
 body
 
 
 Step:
-(g (>> <<
-       HALT
-       NEWSTATE
-       MOVE
-       _
-       0
-       1
-       2
-       3
-       4
-       5
-       6
-       7
-       8
-       9
-       q0
-       q1
-       q2
-       q3
-       q4
-       q5
-       q6
-       q7
-       q8
-       q9)
-   (((NEWSTATE) (MOVE >>) (NEWSTATE))
-    ((_ _ _ _ _ 1) (xs x) (xs x h))
-    ((0) (h) (y))
-    ((0 1 1 1 1 _ _ _ _ _) (y ys) (ys _))
-    (x x x)
-    (y y y)))
+(let ((const (>> <<
+                 HALT
+                 NEWSTATE
+                 MOVE
+                 _
+                 0
+                 1
+                 2
+                 3
+                 4
+                 5
+                 6
+                 7
+                 8
+                 9
+                 q0
+                 q1
+                 q2
+                 q3
+                 q4
+                 q5
+                 q6
+                 q7
+                 q8
+                 q9))
+      (action (NEWSTATE))
+      (tape-left (_ _ _ _ _ 1))
+      (head (0))
+      (tape-right (0 1 1 1 1 _ _ _ _ _)))
+  (g const
+     ((action (MOVE >>) (NEWSTATE))
+      (tape-left (xs x) (xs x h))
+      (head (h) (y))
+      (tape-right (y ys) (ys _))
+      (x x x)
+      (y y y))))
 --------
 body
 
 
 Step:
-(g (>> <<
-       HALT
-       NEWSTATE
-       MOVE
-       _
-       0
-       1
-       2
-       3
-       4
-       5
-       6
-       7
-       8
-       9
-       q0
-       q1
-       q2
-       q3
-       q4
-       q5
-       q6
-       q7
-       q8
-       q9)
-   (((MOVE >>) (NEWSTATE) (MOVE >>))
-    ((1) (0) (1))
-    ((q0) (q0) (q0))))
+(let ((const (>> <<
+                 HALT
+                 NEWSTATE
+                 MOVE
+                 _
+                 0
+                 1
+                 2
+                 3
+                 4
+                 5
+                 6
+                 7
+                 8
+                 9
+                 q0
+                 q1
+                 q2
+                 q3
+                 q4
+                 q5
+                 q6
+                 q7
+                 q8
+                 q9))
+      (action (MOVE >>))
+      (head (1))
+      (state (q0)))
+  (g const
+     ((action (NEWSTATE) (MOVE >>))
+      (head (0) (1))
+      (state (q0) (q0)))))
 --------
 body
 
 
 Step:
-(g (>> <<
-       HALT
-       NEWSTATE
-       MOVE
-       _
-       0
-       1
-       2
-       3
-       4
-       5
-       6
-       7
-       8
-       9
-       q0
-       q1
-       q2
-       q3
-       q4
-       q5
-       q6
-       q7
-       q8
-       q9)
-   (((NEWSTATE) (MOVE >>) (NEWSTATE))
-    ((_ _ _ _ _ 1 1) (xs x) (xs x h))
-    ((0) (h) (y))
-    ((1 1 1 1 _ _ _ _ _ _) (y ys) (ys _))
-    (x x x)
-    (y y y)))
+(let ((const (>> <<
+                 HALT
+                 NEWSTATE
+                 MOVE
+                 _
+                 0
+                 1
+                 2
+                 3
+                 4
+                 5
+                 6
+                 7
+                 8
+                 9
+                 q0
+                 q1
+                 q2
+                 q3
+                 q4
+                 q5
+                 q6
+                 q7
+                 q8
+                 q9))
+      (action (NEWSTATE))
+      (tape-left (_ _ _ _ _ 1 1))
+      (head (0))
+      (tape-right (1 1 1 1 _ _ _ _ _ _)))
+  (g const
+     ((action (MOVE >>) (NEWSTATE))
+      (tape-left (xs x) (xs x h))
+      (head (h) (y))
+      (tape-right (y ys) (ys _))
+      (x x x)
+      (y y y))))
 --------
 body
 
 
 Step:
-(g (>> <<
-       HALT
-       NEWSTATE
-       MOVE
-       _
-       0
-       1
-       2
-       3
-       4
-       5
-       6
-       7
-       8
-       9
-       q0
-       q1
-       q2
-       q3
-       q4
-       q5
-       q6
-       q7
-       q8
-       q9)
-   (((MOVE >>) (NEWSTATE) (MOVE >>))
-    ((1) (0) (1))
-    ((q0) (q0) (q0))))
+(let ((const (>> <<
+                 HALT
+                 NEWSTATE
+                 MOVE
+                 _
+                 0
+                 1
+                 2
+                 3
+                 4
+                 5
+                 6
+                 7
+                 8
+                 9
+                 q0
+                 q1
+                 q2
+                 q3
+                 q4
+                 q5
+                 q6
+                 q7
+                 q8
+                 q9))
+      (action (MOVE >>))
+      (head (1))
+      (state (q0)))
+  (g const
+     ((action (NEWSTATE) (MOVE >>))
+      (head (0) (1))
+      (state (q0) (q0)))))
 --------
 body
 
 
 Step:
-(g (>> <<
-       HALT
-       NEWSTATE
-       MOVE
-       _
-       0
-       1
-       2
-       3
-       4
-       5
-       6
-       7
-       8
-       9
-       q0
-       q1
-       q2
-       q3
-       q4
-       q5
-       q6
-       q7
-       q8
-       q9)
-   (((NEWSTATE) (MOVE >>) (NEWSTATE))
-    ((_ _ _ _ _ 1 1 1) (xs x) (xs x h))
-    ((1) (h) (y))
-    ((1 1 1 _ _ _ _ _ _ _) (y ys) (ys _))
-    (x x x)
-    (y y y)))
+(let ((const (>> <<
+                 HALT
+                 NEWSTATE
+                 MOVE
+                 _
+                 0
+                 1
+                 2
+                 3
+                 4
+                 5
+                 6
+                 7
+                 8
+                 9
+                 q0
+                 q1
+                 q2
+                 q3
+                 q4
+                 q5
+                 q6
+                 q7
+                 q8
+                 q9))
+      (action (NEWSTATE))
+      (tape-left (_ _ _ _ _ 1 1 1))
+      (head (1))
+      (tape-right (1 1 1 _ _ _ _ _ _ _)))
+  (g const
+     ((action (MOVE >>) (NEWSTATE))
+      (tape-left (xs x) (xs x h))
+      (head (h) (y))
+      (tape-right (y ys) (ys _))
+      (x x x)
+      (y y y))))
 --------
 body
 
 
 Step:
-(g (>> <<
-       HALT
-       NEWSTATE
-       MOVE
-       _
-       0
-       1
-       2
-       3
-       4
-       5
-       6
-       7
-       8
-       9
-       q0
-       q1
-       q2
-       q3
-       q4
-       q5
-       q6
-       q7
-       q8
-       q9)
-   (((MOVE >>) (NEWSTATE) (MOVE >>))
-    ((0) (1) (0))
-    ((q1) (q0) (q1))))
+(let ((const (>> <<
+                 HALT
+                 NEWSTATE
+                 MOVE
+                 _
+                 0
+                 1
+                 2
+                 3
+                 4
+                 5
+                 6
+                 7
+                 8
+                 9
+                 q0
+                 q1
+                 q2
+                 q3
+                 q4
+                 q5
+                 q6
+                 q7
+                 q8
+                 q9))
+      (action (MOVE >>))
+      (head (0))
+      (state (q1)))
+  (g const
+     ((action (NEWSTATE) (MOVE >>))
+      (head (1) (0))
+      (state (q0) (q1)))))
 --------
 body
 
 
 Step:
-(g (>> <<
-       HALT
-       NEWSTATE
-       MOVE
-       _
-       0
-       1
-       2
-       3
-       4
-       5
-       6
-       7
-       8
-       9
-       q0
-       q1
-       q2
-       q3
-       q4
-       q5
-       q6
-       q7
-       q8
-       q9)
-   (((NEWSTATE) (MOVE >>) (NEWSTATE))
-    ((_ _ _ _ _ 1 1 1 0) (xs x) (xs x h))
-    ((1) (h) (y))
-    ((1 1 _ _ _ _ _ _ _ _) (y ys) (ys _))
-    (x x x)
-    (y y y)))
+(let ((const (>> <<
+                 HALT
+                 NEWSTATE
+                 MOVE
+                 _
+                 0
+                 1
+                 2
+                 3
+                 4
+                 5
+                 6
+                 7
+                 8
+                 9
+                 q0
+                 q1
+                 q2
+                 q3
+                 q4
+                 q5
+                 q6
+                 q7
+                 q8
+                 q9))
+      (action (NEWSTATE))
+      (tape-left (_ _ _ _ _ 1 1 1 0))
+      (head (1))
+      (tape-right (1 1 _ _ _ _ _ _ _ _)))
+  (g const
+     ((action (MOVE >>) (NEWSTATE))
+      (tape-left (xs x) (xs x h))
+      (head (h) (y))
+      (tape-right (y ys) (ys _))
+      (x x x)
+      (y y y))))
 --------
 body
 
 
 Step:
-(g (>> <<
-       HALT
-       NEWSTATE
-       MOVE
-       _
-       0
-       1
-       2
-       3
-       4
-       5
-       6
-       7
-       8
-       9
-       q0
-       q1
-       q2
-       q3
-       q4
-       q5
-       q6
-       q7
-       q8
-       q9)
-   (((MOVE >>) (NEWSTATE) (MOVE >>))
-    ((0) (1) (0))
-    ((q1) (q1) (q1))))
+(let ((const (>> <<
+                 HALT
+                 NEWSTATE
+                 MOVE
+                 _
+                 0
+                 1
+                 2
+                 3
+                 4
+                 5
+                 6
+                 7
+                 8
+                 9
+                 q0
+                 q1
+                 q2
+                 q3
+                 q4
+                 q5
+                 q6
+                 q7
+                 q8
+                 q9))
+      (action (MOVE >>))
+      (head (0))
+      (state (q1)))
+  (g const
+     ((action (NEWSTATE) (MOVE >>))
+      (head (1) (0))
+      (state (q1) (q1)))))
 --------
 body
 
 
 Step:
-(g (>> <<
-       HALT
-       NEWSTATE
-       MOVE
-       _
-       0
-       1
-       2
-       3
-       4
-       5
-       6
-       7
-       8
-       9
-       q0
-       q1
-       q2
-       q3
-       q4
-       q5
-       q6
-       q7
-       q8
-       q9)
-   (((NEWSTATE) (MOVE >>) (NEWSTATE))
-    ((_ _ _ _ _ 1 1 1 0 0) (xs x) (xs x h))
-    ((1) (h) (y))
-    ((1 _ _ _ _ _ _ _ _ _) (y ys) (ys _))
-    (x x x)
-    (y y y)))
+(let ((const (>> <<
+                 HALT
+                 NEWSTATE
+                 MOVE
+                 _
+                 0
+                 1
+                 2
+                 3
+                 4
+                 5
+                 6
+                 7
+                 8
+                 9
+                 q0
+                 q1
+                 q2
+                 q3
+                 q4
+                 q5
+                 q6
+                 q7
+                 q8
+                 q9))
+      (action (NEWSTATE))
+      (tape-left (_ _ _ _ _ 1 1 1 0 0))
+      (head (1))
+      (tape-right (1 _ _ _ _ _ _ _ _ _)))
+  (g const
+     ((action (MOVE >>) (NEWSTATE))
+      (tape-left (xs x) (xs x h))
+      (head (h) (y))
+      (tape-right (y ys) (ys _))
+      (x x x)
+      (y y y))))
 --------
 body
 
 
 Step:
-(g (>> <<
-       HALT
-       NEWSTATE
-       MOVE
-       _
-       0
-       1
-       2
-       3
-       4
-       5
-       6
-       7
-       8
-       9
-       q0
-       q1
-       q2
-       q3
-       q4
-       q5
-       q6
-       q7
-       q8
-       q9)
-   (((MOVE >>) (NEWSTATE) (MOVE >>))
-    ((0) (1) (0))
-    ((q1) (q1) (q1))))
+(let ((const (>> <<
+                 HALT
+                 NEWSTATE
+                 MOVE
+                 _
+                 0
+                 1
+                 2
+                 3
+                 4
+                 5
+                 6
+                 7
+                 8
+                 9
+                 q0
+                 q1
+                 q2
+                 q3
+                 q4
+                 q5
+                 q6
+                 q7
+                 q8
+                 q9))
+      (action (MOVE >>))
+      (head (0))
+      (state (q1)))
+  (g const
+     ((action (NEWSTATE) (MOVE >>))
+      (head (1) (0))
+      (state (q1) (q1)))))
 --------
 body
 
 
 Step:
-(g (>> <<
-       HALT
-       NEWSTATE
-       MOVE
-       _
-       0
-       1
-       2
-       3
-       4
-       5
-       6
-       7
-       8
-       9
-       q0
-       q1
-       q2
-       q3
-       q4
-       q5
-       q6
-       q7
-       q8
-       q9)
-   (((NEWSTATE) (MOVE >>) (NEWSTATE))
-    ((_ _ _ _ _ 1 1 1 0 0 0) (xs x) (xs x h))
-    ((1) (h) (y))
-    ((_ _ _ _ _ _ _ _ _ _) (y ys) (ys _))
-    (x x x)
-    (y y y)))
+(let ((const (>> <<
+                 HALT
+                 NEWSTATE
+                 MOVE
+                 _
+                 0
+                 1
+                 2
+                 3
+                 4
+                 5
+                 6
+                 7
+                 8
+                 9
+                 q0
+                 q1
+                 q2
+                 q3
+                 q4
+                 q5
+                 q6
+                 q7
+                 q8
+                 q9))
+      (action (NEWSTATE))
+      (tape-left (_ _ _ _ _ 1 1 1 0 0 0))
+      (head (1))
+      (tape-right (_ _ _ _ _ _ _ _ _ _)))
+  (g const
+     ((action (MOVE >>) (NEWSTATE))
+      (tape-left (xs x) (xs x h))
+      (head (h) (y))
+      (tape-right (y ys) (ys _))
+      (x x x)
+      (y y y))))
 --------
 body
 
 
 Step:
-(g (>> <<
-       HALT
-       NEWSTATE
-       MOVE
-       _
-       0
-       1
-       2
-       3
-       4
-       5
-       6
-       7
-       8
-       9
-       q0
-       q1
-       q2
-       q3
-       q4
-       q5
-       q6
-       q7
-       q8
-       q9)
-   (((MOVE >>) (NEWSTATE) (MOVE >>))
-    ((0) (1) (0))
-    ((q1) (q1) (q1))))
+(let ((const (>> <<
+                 HALT
+                 NEWSTATE
+                 MOVE
+                 _
+                 0
+                 1
+                 2
+                 3
+                 4
+                 5
+                 6
+                 7
+                 8
+                 9
+                 q0
+                 q1
+                 q2
+                 q3
+                 q4
+                 q5
+                 q6
+                 q7
+                 q8
+                 q9))
+      (action (MOVE >>))
+      (head (0))
+      (state (q1)))
+  (g const
+     ((action (NEWSTATE) (MOVE >>))
+      (head (1) (0))
+      (state (q1) (q1)))))
 --------
 body
 
 
 Step:
-(g (>> <<
-       HALT
-       NEWSTATE
-       MOVE
-       _
-       0
-       1
-       2
-       3
-       4
-       5
-       6
-       7
-       8
-       9
-       q0
-       q1
-       q2
-       q3
-       q4
-       q5
-       q6
-       q7
-       q8
-       q9)
-   (((NEWSTATE) (MOVE >>) (NEWSTATE))
-    ((_ _ _ _ _ 1 1 1 0 0 0 0) (xs x) (xs x h))
-    ((_) (h) (y))
-    ((_ _ _ _ _ _ _ _ _ _) (y ys) (ys _))
-    (x x x)
-    (y y y)))
+(let ((const (>> <<
+                 HALT
+                 NEWSTATE
+                 MOVE
+                 _
+                 0
+                 1
+                 2
+                 3
+                 4
+                 5
+                 6
+                 7
+                 8
+                 9
+                 q0
+                 q1
+                 q2
+                 q3
+                 q4
+                 q5
+                 q6
+                 q7
+                 q8
+                 q9))
+      (action (NEWSTATE))
+      (tape-left (_ _ _ _ _ 1 1 1 0 0 0 0))
+      (head (_))
+      (tape-right (_ _ _ _ _ _ _ _ _ _)))
+  (g const
+     ((action (MOVE >>) (NEWSTATE))
+      (tape-left (xs x) (xs x h))
+      (head (h) (y))
+      (tape-right (y ys) (ys _))
+      (x x x)
+      (y y y))))
 --------
 body
 
 
 Step:
-(g (>> <<
-       HALT
-       NEWSTATE
-       MOVE
-       _
-       0
-       1
-       2
-       3
-       4
-       5
-       6
-       7
-       8
-       9
-       q0
-       q1
-       q2
-       q3
-       q4
-       q5
-       q6
-       q7
-       q8
-       q9)
-   (((HALT) (NEWSTATE) (HALT))
-    ((_) (_) (_))
-    ((HALT) (q1) (HALT))))
+(let ((const (>> <<
+                 HALT
+                 NEWSTATE
+                 MOVE
+                 _
+                 0
+                 1
+                 2
+                 3
+                 4
+                 5
+                 6
+                 7
+                 8
+                 9
+                 q0
+                 q1
+                 q2
+                 q3
+                 q4
+                 q5
+                 q6
+                 q7
+                 q8
+                 q9))
+      (action (HALT))
+      (head (_))
+      (state (HALT)))
+  (g const
+     ((action (NEWSTATE) (HALT))
+      (head (_) (_))
+      (state (q1) (HALT)))))
 --------
 body

@@ -23,7 +23,8 @@
 %use (graph->list/with-substitutes) "./graph-to-list-with-substitutes.scm"
 %use (keyword-let) "./keyword-let.scm"
 %use (make-node-displayer) "./make-node-displayer.scm"
-%use (node-children node-display node-id set-node-display!) "./node.scm"
+%use (node-children node-display node-id node-namespace set-node-display!) "./node.scm"
+%use (root-namespace) "./root-namespace.scm"
 %use (rtree-references) "./rtree-references.scm"
 
 (define (rtree->list tree)
@@ -37,13 +38,15 @@
 
   (define useful-ref?
     (fp (node referenced?)
-        (and referenced?
-             (not (null? (node-children node))))))
+        (or (and referenced?
+                 (not (null? (node-children node))))
+            (not (equal? root-namespace (node-namespace node))))))
 
   (define substitute-ref?
     (fp (node referenced?)
         (or referenced?
-            (null? (node-children node)))))
+            (null? (node-children node))
+            (not (equal? root-namespace (node-namespace node))))))
 
   (define get-display
     (make-node-displayer))

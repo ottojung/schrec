@@ -1,27 +1,31 @@
 Original:
-(let ((a (m m)))
+(let ((m ()) (a (m m)))
   ((eva1 (g (m a b) ((g (m x) (x m m)))) (m a))))
 
 
 Step:
-(g (m (m m) b) ((g (m x) (x m m))))
+(let ((m ()) (a (m m)))
+  (g (m a b) ((g (m x) (x m m)))))
 --------
-((m m) m m)
+(let ((a (m m)) (m ())) (a m m))
 
 
 Step:
-(g (m (m m m) b) ((g (m x) (x m m))))
+(let ((m ()) (a (m m m)))
+  (g (m a b) ((g (m x) (x m m)))))
 --------
-(m (m m m))
+(let ((m ()) (a (m m m))) (m a))
 
 
 Step:
-(g (m (m m m) b) ((g (m x) (x m m))))
+(let ((m ()) (a (m m m)))
+  (g (m a b) ((g (m x) (x m m)))))
 --------
-((m m m) m m)
+(let ((a (m m m)) (m ())) (a m m))
 
 
 Step:
-(g (m (m m m) b) ((g (m x) (x m m))))
+(let ((m ()) (a (m m m)))
+  (g (m a b) ((g (m x) (x m m)))))
 --------
-((m m m) m m)
+(let ((a (m m m)) (m ())) (a m m))

@@ -12,8 +12,9 @@ Original:
                   if))
       (body (begin
               (set-car! var1 '9)
-              (if (null? (cdr '(1))) (yes var1) no)))
+              (if (null? var2) (yes var1) no)))
       (var1 (cons (car (cdr '(1 2 3 4))) '(7 8)))
+      (var2 (cdr '(1)))
       (sa (set-car! sab 'y))
       (sab '(x xs))
       (sd (set-cdr! sdb '(ys)))
@@ -55,165 +56,184 @@ Original:
 
 
 Step:
-(g (car cdr
-        cons
-        set-car!
-        set-cdr!
-        begin
-        quote
-        eq?
-        null?
-        true
-        false
-        if)
-   ((g (cdr '(x xs)) '(xs)) (x x x)))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if)))
+  (g const ((g (cdr '(x xs)) '(xs)) (x x x))))
 --------
-(let ((var1 (cons (car '(2 3 4)) '(7 8))))
-  (begin
-    (set-car! var1 '9)
-    (if (null? (cdr '(1))) (yes var1) no)))
+(let ((body (begin
+              (set-car! var1 '9)
+              (if (null? var2) (yes var1) no)))
+      (var1 (cons (car '(2 3 4)) '(7 8)))
+      (var2 (cdr '(1))))
+  body)
 
 
 Step:
-(g (car cdr
-        cons
-        set-car!
-        set-cdr!
-        begin
-        quote
-        eq?
-        null?
-        true
-        false
-        if)
-   ((g (cdr '(x xs)) '(xs)) (x x x)))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if)))
+  (g const ((g (cdr '(x xs)) '(xs)) (x x x))))
 --------
-(let ((var1 (cons (car '(2 3 4)) '(7 8))))
-  (begin
-    (set-car! var1 '9)
-    (if (null? '()) (yes var1) no)))
+(let ((body (begin
+              (set-car! var1 '9)
+              (if (null? var2) (yes var1) no)))
+      (var1 (cons (car '(2 3 4)) '(7 8)))
+      (var2 '()))
+  body)
 
 
 Step:
-(g (car cdr
-        cons
-        set-car!
-        set-cdr!
-        begin
-        quote
-        eq?
-        null?
-        true
-        false
-        if)
-   ((g (car '(x xs)) 'x) (x x x)))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if)))
+  (g const ((g (car '(x xs)) 'x) (x x x))))
 --------
-(let ((var1 (cons '2 '(7 8))))
-  (begin
-    (set-car! var1 '9)
-    (if (null? '()) (yes var1) no)))
+(let ((body (begin
+              (set-car! var1 '9)
+              (if (null? var2) (yes var1) no)))
+      (var1 (cons '2 '(7 8)))
+      (var2 '()))
+  body)
 
 
 Step:
-(g (car cdr
-        cons
-        set-car!
-        set-cdr!
-        begin
-        quote
-        eq?
-        null?
-        true
-        false
-        if)
-   ((g (cons 'x '(ys)) '(x ys)) (x x x)))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if)))
+  (g const ((g (cons 'x '(ys)) '(x ys)) (x x x))))
 --------
-(let ((var1 '(2 7 8)))
-  (begin
-    (set-car! var1 '9)
-    (if (null? '()) (yes var1) no)))
+(let ((body (begin
+              (set-car! var1 '9)
+              (if (null? var2) (yes var1) no)))
+      (var1 '(2 7 8))
+      (var2 '()))
+  body)
 
 
 Step:
-(let ((sa (set-car! sab 'y)) (sab '(x xs)))
-  (g (car cdr
-          cons
-          set-car!
-          set-cdr!
-          begin
-          quote
-          eq?
-          null?
-          true
-          false
-          if)
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (sa (set-car! sab 'y))
+      (sab '(x xs)))
+  (g const
      ((g (begin sa instructions) (begin instructions))
       (sab sab '(y xs))
       (sa sa sa)
       (y y y)
       (x x x))))
 --------
-(begin (if (null? '()) (yes '(9 7 8)) no))
+(let ((body (begin (if (null? var2) (yes var1) no)))
+      (var2 '())
+      (var1 '(9 7 8)))
+  body)
 
 
 Step:
-(g (car cdr
-        cons
-        set-car!
-        set-cdr!
-        begin
-        quote
-        eq?
-        null?
-        true
-        false
-        if)
-   ((g (null? 'x) (begin true)) (x x x)))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if)))
+  (g const ((g (null? 'x) (begin true)) (x x x))))
 --------
-(eval (g (car cdr
-              cons
-              set-car!
-              set-cdr!
-              begin
-              quote
-              eq?
-              null?
-              true
-              false
-              if)
-         ((g (null? z) (begin false)) (z '(x xs)) (x x x)))
-      (begin (if (begin true) (yes '(9 7 8)) no)))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (if (begin true) (yes var1) no)))
+      (var1 '(9 7 8)))
+  (eval (g const
+           ((g (null? z) (begin false)) (z '(x xs)) (x x x)))
+        body))
 
 
 Step:
-(g (car cdr
-        cons
-        set-car!
-        set-cdr!
-        begin
-        quote
-        eq?
-        null?
-        true
-        false
-        if)
-   ((g (if (begin true) x y) (begin x))))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if)))
+  (g const ((g (if (begin true) x y) (begin x)))))
 --------
-(begin (begin (yes '(9 7 8))))
+(let ((body (begin (begin (yes var1))))
+      (var1 '(9 7 8)))
+  body)
 
 
 Step:
-(g (car cdr
-        cons
-        set-car!
-        set-cdr!
-        begin
-        quote
-        eq?
-        null?
-        true
-        false
-        if)
-   ((g (begin (begin xs)) (begin xs))))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if)))
+  (g const ((g (begin (begin xs)) (begin xs)))))
 --------
-(begin (yes '(9 7 8)))
+(let ((body (begin (yes var1))) (var1 '(9 7 8)))
+  body)

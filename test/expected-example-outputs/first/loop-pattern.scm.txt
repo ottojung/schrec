@@ -1,9 +1,13 @@
 Original:
-(let ((pat (a pat)) (body-looped (x body-looped)))
-  ((eva1 (g (0) ((g pat (0)))) (body-looped (x y)))))
+(let ((pat (a pat))
+      (body-looped (x body-looped))
+      (body-not-looped (x y)))
+  ((eva1 (g (0) ((g pat (0))))
+         (body-looped body-not-looped))))
 
 
 Step:
 (let ((pat (a pat))) (g (0) ((g pat (0)))))
 --------
-((0) (x y))
+(let ((body-looped (0)) (body-not-looped (x y)))
+  (body-looped body-not-looped))

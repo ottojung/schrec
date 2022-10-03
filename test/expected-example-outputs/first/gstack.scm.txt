@@ -13,6 +13,7 @@ Original:
                    stack))
       (do (start))
       (start (progn null (pop r) (push x) loop))
+      (r ())
       (x ((1 2 3 4 5 6)))
       (loop (progn (pop int)
                    (push int)
@@ -25,7 +26,8 @@ Original:
                             (pop r)
                             (push int)
                             cdr
-                            loop)))))
+                            loop))))
+      (stack ()))
   (((eval (g const
              ((do (command) (rest))
               (command (and null rest) command)
@@ -124,7 +126,10 @@ Step:
     (x2 x2 x2)
     (x3 x3 x3)))
 --------
-(let ((loop (progn (pop int)
+(let ((start (and null (progn (pop r) (push x) loop)))
+      (r ())
+      (x ((1 2 3 4 5 6)))
+      (loop (progn (pop int)
                    (push int)
                    (if null?
                      (return r)
@@ -136,8 +141,7 @@ Step:
                             (push int)
                             cdr
                             loop)))))
-  (and null
-       (progn (pop r) (push ((1 2 3 4 5 6))) loop)))
+  start)
 
 
 Step:
@@ -147,7 +151,10 @@ Step:
     (x2 x2 x2)
     (x3 x3 x3)))
 --------
-(let ((loop (progn (pop int)
+(let ((start (and null (and (pop r) (progn (push x) loop))))
+      (r ())
+      (x ((1 2 3 4 5 6)))
+      (loop (progn (pop int)
                    (push int)
                    (if null?
                      (return r)
@@ -159,14 +166,16 @@ Step:
                             (push int)
                             cdr
                             loop)))))
-  (and null
-       (and (pop r) (progn (push ((1 2 3 4 5 6))) loop))))
+  start)
 
 
 Step:
 (g (and progn) ((g (progn x1 x2) (and x1 x2))))
 --------
-(let ((loop (progn (pop int)
+(let ((start (and null (and (pop r) (and (push x) loop))))
+      (r ())
+      (x ((1 2 3 4 5 6)))
+      (loop (progn (pop int)
                    (push int)
                    (if null?
                      (return r)
@@ -178,8 +187,7 @@ Step:
                             (push int)
                             cdr
                             loop)))))
-  (and null
-       (and (pop r) (and (push ((1 2 3 4 5 6))) loop))))
+  start)
 
 
 Step:
@@ -189,7 +197,10 @@ Step:
     (x2 x2 x2)
     (x3 x3 x3)))
 --------
-(let ((loop (and (pop int)
+(let ((start (and null (and (pop r) (and (push x) loop))))
+      (r ())
+      (x ((1 2 3 4 5 6)))
+      (loop (and (pop int)
                  (progn (push int)
                         (if null?
                           (return r)
@@ -201,14 +212,16 @@ Step:
                                  (push int)
                                  cdr
                                  loop))))))
-  (and null
-       (and (pop r) (and (push ((1 2 3 4 5 6))) loop))))
+  start)
 
 
 Step:
 (g (and progn) ((g (progn x1 x2) (and x1 x2))))
 --------
-(let ((loop (and (pop int)
+(let ((start (and null (and (pop r) (and (push x) loop))))
+      (r ())
+      (x ((1 2 3 4 5 6)))
+      (loop (and (pop int)
                  (and (push int)
                       (if null?
                         (return r)
@@ -220,8 +233,7 @@ Step:
                                (push int)
                                cdr
                                loop))))))
-  (and null
-       (and (pop r) (and (push ((1 2 3 4 5 6))) loop))))
+  start)
 
 
 Step:
@@ -231,7 +243,10 @@ Step:
     (x2 x2 x2)
     (x3 x3 x3)))
 --------
-(let ((loop (and (pop int)
+(let ((start (and null (and (pop r) (and (push x) loop))))
+      (r ())
+      (x ((1 2 3 4 5 6)))
+      (loop (and (pop int)
                  (and (push int)
                       (if null?
                         (return r)
@@ -243,8 +258,7 @@ Step:
                                     (push int)
                                     cdr
                                     loop)))))))
-  (and null
-       (and (pop r) (and (push ((1 2 3 4 5 6))) loop))))
+  start)
 
 
 Step:
@@ -254,7 +268,10 @@ Step:
     (x2 x2 x2)
     (x3 x3 x3)))
 --------
-(let ((loop (and (pop int)
+(let ((start (and null (and (pop r) (and (push x) loop))))
+      (r ())
+      (x ((1 2 3 4 5 6)))
+      (loop (and (pop int)
                  (and (push int)
                       (if null?
                         (return r)
@@ -266,8 +283,7 @@ Step:
                                          (push int)
                                          cdr
                                          loop))))))))
-  (and null
-       (and (pop r) (and (push ((1 2 3 4 5 6))) loop))))
+  start)
 
 
 Step:
@@ -277,7 +293,10 @@ Step:
     (x2 x2 x2)
     (x3 x3 x3)))
 --------
-(let ((loop (and (pop int)
+(let ((start (and null (and (pop r) (and (push x) loop))))
+      (r ())
+      (x ((1 2 3 4 5 6)))
+      (loop (and (pop int)
                  (and (push int)
                       (if null?
                         (return r)
@@ -289,8 +308,7 @@ Step:
                                               (push int)
                                               cdr
                                               loop)))))))))
-  (and null
-       (and (pop r) (and (push ((1 2 3 4 5 6))) loop))))
+  start)
 
 
 Step:
@@ -300,7 +318,10 @@ Step:
     (x2 x2 x2)
     (x3 x3 x3)))
 --------
-(let ((loop (and (pop int)
+(let ((start (and null (and (pop r) (and (push x) loop))))
+      (r ())
+      (x ((1 2 3 4 5 6)))
+      (loop (and (pop int)
                  (and (push int)
                       (if null?
                         (return r)
@@ -312,8 +333,7 @@ Step:
                                                    (push int)
                                                    cdr
                                                    loop))))))))))
-  (and null
-       (and (pop r) (and (push ((1 2 3 4 5 6))) loop))))
+  start)
 
 
 Step:
@@ -323,7 +343,10 @@ Step:
     (x2 x2 x2)
     (x3 x3 x3)))
 --------
-(let ((loop (and (pop int)
+(let ((start (and null (and (pop r) (and (push x) loop))))
+      (r ())
+      (x ((1 2 3 4 5 6)))
+      (loop (and (pop int)
                  (and (push int)
                       (if null?
                         (return r)
@@ -335,8 +358,7 @@ Step:
                                                  (progn (push int)
                                                         cdr
                                                         loop)))))))))))
-  (and null
-       (and (pop r) (and (push ((1 2 3 4 5 6))) loop))))
+  start)
 
 
 Step:
@@ -346,7 +368,10 @@ Step:
     (x2 x2 x2)
     (x3 x3 x3)))
 --------
-(let ((loop (and (pop int)
+(let ((start (and null (and (pop r) (and (push x) loop))))
+      (r ())
+      (x ((1 2 3 4 5 6)))
+      (loop (and (pop int)
                  (and (push int)
                       (if null?
                         (return r)
@@ -358,14 +383,16 @@ Step:
                                                  (and (push int)
                                                       (progn cdr
                                                              loop))))))))))))
-  (and null
-       (and (pop r) (and (push ((1 2 3 4 5 6))) loop))))
+  start)
 
 
 Step:
 (g (and progn) ((g (progn x1 x2) (and x1 x2))))
 --------
-(let ((loop (and (pop int)
+(let ((start (and null (and (pop r) (and (push x) loop))))
+      (r ())
+      (x ((1 2 3 4 5 6)))
+      (loop (and (pop int)
                  (and (push int)
                       (if null?
                         (return r)
@@ -376,12 +403,25 @@ Step:
                                             (and (pop r)
                                                  (and (push int)
                                                       (and cdr loop))))))))))))
-  (and null
-       (and (pop r) (and (push ((1 2 3 4 5 6))) loop))))
+  start)
 
 
 Step:
-(let ((do ((and (pop r) (and (push ((1 2 3 4 5 6))) loop))))
+(let ((const (null cons
+                   car
+                   cdr
+                   set
+                   push
+                   pop
+                   if
+                   null?
+                   eq?
+                   and
+                   do
+                   stack))
+      (do ((and (pop r) (and (push x) loop))))
+      (r ())
+      (x ((1 2 3 4 5 6)))
       (loop (and (pop int)
                  (and (push int)
                       (if null?
@@ -394,18 +434,7 @@ Step:
                                                  (and (push int)
                                                       (and cdr loop)))))))))))
       (stack (())))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
+  (g const
      ((do (command) (rest))
       (command (and null rest) command)
       (stack (ss) (() ss)))))
@@ -414,7 +443,20 @@ body
 
 
 Step:
-(let ((do ((and (push ((1 2 3 4 5 6))) loop)))
+(let ((const (null cons
+                   car
+                   cdr
+                   set
+                   push
+                   pop
+                   if
+                   null?
+                   eq?
+                   and
+                   do
+                   stack))
+      (do ((and (push x) loop)))
+      (x ((1 2 3 4 5 6)))
       (loop (and (pop int)
                  (and (push int)
                       (if null?
@@ -426,19 +468,9 @@ Step:
                                             (and (pop r)
                                                  (and (push int)
                                                       (and cdr loop)))))))))))
-      (r (())))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
+      (r (()))
+      (stack ()))
+  (g const
      ((do (command) (rest))
       (command (and pop-expr rest) command)
       (pop-expr (pop v) pop-expr)
@@ -450,7 +482,19 @@ body
 
 
 Step:
-(let ((do (loop))
+(let ((const (null cons
+                   car
+                   cdr
+                   set
+                   push
+                   pop
+                   if
+                   null?
+                   eq?
+                   and
+                   do
+                   stack))
+      (do (loop))
       (loop (and (pop int)
                  (and (push int)
                       (if null?
@@ -466,18 +510,7 @@ Step:
       (stack ($1))
       ($1 (1 2 3 4 5 6))
       (x ($1)))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
+  (g const
      ((do (command) (rest))
       (command (and push-expr rest) command)
       (push-expr (push v) push-expr)
@@ -489,7 +522,19 @@ body
 
 
 Step:
-(let ((do ($1))
+(let ((const (null cons
+                   car
+                   cdr
+                   set
+                   push
+                   pop
+                   if
+                   null?
+                   eq?
+                   and
+                   do
+                   stack))
+      (do ($1))
       ($1 (and (push int)
                (if null?
                  (return r)
@@ -499,23 +544,12 @@ Step:
                                 (and cons
                                      (and (pop r)
                                           (and (push int)
-                                               (and cdr
-                                                    (and (pop int)
-                                                         $1)))))))))))
+                                               (and cdr loop))))))))))
       (int ((1 2 3 4 5 6)))
-      (r (())))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
+      (r (()))
+      (loop (and (pop int) $1))
+      (stack ()))
+  (g const
      ((do (command) (rest))
       (command (and pop-expr rest) command)
       (pop-expr (pop v) pop-expr)
@@ -527,7 +561,19 @@ body
 
 
 Step:
-(let ((do ($1))
+(let ((const (null cons
+                   car
+                   cdr
+                   set
+                   push
+                   pop
+                   if
+                   null?
+                   eq?
+                   and
+                   do
+                   stack))
+      (do ($1))
       ($1 (if null?
             (return r)
             (and (push r)
@@ -535,28 +581,14 @@ Step:
                       (and car
                            (and cons
                                 (and (pop r)
-                                     (and (push int)
-                                          (and cdr
-                                               (and (pop int)
-                                                    (and (push int)
-                                                         $1)))))))))))
+                                     (and (push int) (and cdr loop)))))))))
       (r (()))
       (int ($2))
       ($2 (1 2 3 4 5 6))
+      (loop (and (pop int) (and (push int) $1)))
       (stack ($2))
       (x ($2)))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
+  (g const
      ((do (command) (rest))
       (command (and push-expr rest) command)
       (push-expr (push v) push-expr)
@@ -568,35 +600,33 @@ body
 
 
 Step:
-(let ((do ($1))
+(let ((const (null cons
+                   car
+                   cdr
+                   set
+                   push
+                   pop
+                   if
+                   null?
+                   eq?
+                   and
+                   do
+                   stack))
+      (do ($1))
       ($1 (and (push r)
                (and (push int)
                     (and car
                          (and cons
                               (and (pop r)
-                                   (and (push int)
-                                        (and cdr
-                                             (and (pop int)
-                                                  (and (push int)
-                                                       (if null?
-                                                         (return r)
-                                                         $1)))))))))))
+                                   (and (push int) (and cdr loop))))))))
       (r (()))
       (int ($2))
       ($2 (1 2 3 4 5 6))
+      (loop (and (pop int)
+                 (and (push int) (if null? (return r) $1))))
+      (stack ())
       (x ($2)))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
+  (g const
      ((do (command) (else))
       (command (if null? then else) command)
       (stack (s1 ss) (ss))
@@ -609,35 +639,32 @@ body
 
 
 Step:
-(let ((do ($1))
+(let ((const (null cons
+                   car
+                   cdr
+                   set
+                   push
+                   pop
+                   if
+                   null?
+                   eq?
+                   and
+                   do
+                   stack))
+      (do ($1))
       ($1 (and (push int)
                (and car
                     (and cons
-                         (and (pop r)
-                              (and (push int)
-                                   (and cdr
-                                        (and (pop int)
-                                             (and (push int)
-                                                  (if null?
-                                                    (return r)
-                                                    (and (push r) $1)))))))))))
+                         (and (pop r) (and (push int) (and cdr loop)))))))
       (int ($2))
       ($2 (1 2 3 4 5 6))
       (r ($3))
+      (loop (and (pop int)
+                 (and (push int)
+                      (if null? (return r) (and (push r) $1)))))
       (stack ($3))
       (x ($2)))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
+  (g const
      ((do (command) (rest))
       (command (and push-expr rest) command)
       (push-expr (push v) push-expr)
@@ -649,36 +676,33 @@ body
 
 
 Step:
-(let ((do ($1))
+(let ((const (null cons
+                   car
+                   cdr
+                   set
+                   push
+                   pop
+                   if
+                   null?
+                   eq?
+                   and
+                   do
+                   stack))
+      (do ($1))
       ($1 (and car
                (and cons
-                    (and (pop r)
-                         (and (push int)
-                              (and cdr
-                                   (and (pop int)
-                                        (and (push int)
-                                             (if null?
-                                               (return r)
-                                               (and (push r)
-                                                    (and (push int)
-                                                         $1)))))))))))
+                    (and (pop r) (and (push int) (and cdr loop))))))
       (r ($2))
       (int ($3))
       ($3 (1 2 3 4 5 6))
+      (loop (and (pop int)
+                 (and (push int)
+                      (if null?
+                        (return r)
+                        (and (push r) (and (push int) $1))))))
       (stack ($3 $2))
       (x ($3)))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
+  (g const
      ((do (command) (rest))
       (command (and push-expr rest) command)
       (push-expr (push v) push-expr)
@@ -690,35 +714,32 @@ body
 
 
 Step:
-(let ((do ($1))
+(let ((const (null cons
+                   car
+                   cdr
+                   set
+                   push
+                   pop
+                   if
+                   null?
+                   eq?
+                   and
+                   do
+                   stack))
+      (do ($1))
       ($1 (and cons
-               (and (pop r)
-                    (and (push int)
-                         (and cdr
-                              (and (pop int)
-                                   (and (push int)
-                                        (if null?
-                                          (return r)
-                                          (and (push r)
-                                               (and (push int)
-                                                    (and car $1)))))))))))
+               (and (pop r) (and (push int) (and cdr loop)))))
       (r ($2))
       (int ($3))
       ($3 (1 2 3 4 5 6))
+      (loop (and (pop int)
+                 (and (push int)
+                      (if null?
+                        (return r)
+                        (and (push r) (and (push int) (and car $1)))))))
       (stack (1 $2))
       (x ($3)))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
+  (g const
      ((do (command) (rest))
       (command (and car rest) command)
       (stack (s1 ss) (x ss))
@@ -729,32 +750,30 @@ body
 
 
 Step:
-(let ((do ($1))
-      ($1 (and (pop r)
-               (and (push int)
-                    (and cdr
-                         (and (pop int)
-                              (and (push int)
-                                   (if null?
-                                     (return r)
-                                     (and (push r)
-                                          (and (push int)
-                                               (and car (and cons $1)))))))))))
+(let ((const (null cons
+                   car
+                   cdr
+                   set
+                   push
+                   pop
+                   if
+                   null?
+                   eq?
+                   and
+                   do
+                   stack))
+      (do ($1))
+      ($1 (and (pop r) (and (push int) (and cdr loop))))
       (r (()))
       (int ((1 2 3 4 5 6)))
+      (loop (and (pop int)
+                 (and (push int)
+                      (if null?
+                        (return r)
+                        (and (push r)
+                             (and (push int) (and car (and cons $1))))))))
       (stack ((1))))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
+  (g const
      ((do (command) (rest))
       (command (and cons rest) command)
       (stack (s1 s2 ss) ((s1 ys) ss))
@@ -765,32 +784,31 @@ body
 
 
 Step:
-(let ((do ($1))
-      ($1 (and (push int)
-               (and cdr
-                    (and (pop int)
-                         (and (push int)
-                              (if null?
-                                (return r)
-                                (and (push r)
-                                     (and (push int)
-                                          (and car
-                                               (and cons
-                                                    (and (pop r) $1)))))))))))
+(let ((const (null cons
+                   car
+                   cdr
+                   set
+                   push
+                   pop
+                   if
+                   null?
+                   eq?
+                   and
+                   do
+                   stack))
+      (do ($1))
+      ($1 (and (push int) (and cdr loop)))
       (int ((1 2 3 4 5 6)))
-      (r ((1))))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
+      (loop (and (pop int)
+                 (and (push int)
+                      (if null?
+                        (return r)
+                        (and (push r)
+                             (and (push int)
+                                  (and car (and cons (and (pop r) $1)))))))))
+      (r ((1)))
+      (stack ()))
+  (g const
      ((do (command) (rest))
       (command (and pop-expr rest) command)
       (pop-expr (pop v) pop-expr)
@@ -802,36 +820,36 @@ body
 
 
 Step:
-(let ((do ($1))
-      ($1 (and cdr
-               (and (pop int)
-                    (and (push int)
-                         (if null?
-                           (return r)
-                           (and (push r)
-                                (and (push int)
-                                     (and car
-                                          (and cons
-                                               (and (pop r)
-                                                    (and (push int)
-                                                         $1)))))))))))
+(let ((const (null cons
+                   car
+                   cdr
+                   set
+                   push
+                   pop
+                   if
+                   null?
+                   eq?
+                   and
+                   do
+                   stack))
+      (do ($1))
+      ($1 (and cdr loop))
+      (loop (and (pop int)
+                 (and (push int)
+                      (if null?
+                        (return r)
+                        (and (push r)
+                             (and (push int)
+                                  (and car
+                                       (and cons
+                                            (and (pop r)
+                                                 (and (push int) $1))))))))))
       (int ($2))
       ($2 (1 2 3 4 5 6))
       (r ((1)))
       (stack ($2))
       (x ($2)))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
+  (g const
      ((do (command) (rest))
       (command (and push-expr rest) command)
       (push-expr (push v) push-expr)
@@ -843,7 +861,19 @@ body
 
 
 Step:
-(let ((do (loop))
+(let ((const (null cons
+                   car
+                   cdr
+                   set
+                   push
+                   pop
+                   if
+                   null?
+                   eq?
+                   and
+                   do
+                   stack))
+      (do (loop))
       (loop (and (pop int)
                  (and (push int)
                       (if null?
@@ -860,18 +890,7 @@ Step:
       (r ((1)))
       (stack ((2 3 4 5 6)))
       (x ($1)))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
+  (g const
      ((do (command) (rest))
       (command (and cdr rest) command)
       (stack (s1 ss) ((xs) ss))
@@ -882,7 +901,19 @@ body
 
 
 Step:
-(let ((do ($1))
+(let ((const (null cons
+                   car
+                   cdr
+                   set
+                   push
+                   pop
+                   if
+                   null?
+                   eq?
+                   and
+                   do
+                   stack))
+      (do ($1))
       ($1 (and (push int)
                (if null?
                  (return r)
@@ -892,23 +923,12 @@ Step:
                                 (and cons
                                      (and (pop r)
                                           (and (push int)
-                                               (and cdr
-                                                    (and (pop int)
-                                                         $1)))))))))))
+                                               (and cdr loop))))))))))
       (int ((2 3 4 5 6)))
-      (r ((1))))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
+      (r ((1)))
+      (loop (and (pop int) $1))
+      (stack ()))
+  (g const
      ((do (command) (rest))
       (command (and pop-expr rest) command)
       (pop-expr (pop v) pop-expr)
@@ -920,7 +940,19 @@ body
 
 
 Step:
-(let ((do ($1))
+(let ((const (null cons
+                   car
+                   cdr
+                   set
+                   push
+                   pop
+                   if
+                   null?
+                   eq?
+                   and
+                   do
+                   stack))
+      (do ($1))
       ($1 (if null?
             (return r)
             (and (push r)
@@ -928,28 +960,14 @@ Step:
                       (and car
                            (and cons
                                 (and (pop r)
-                                     (and (push int)
-                                          (and cdr
-                                               (and (pop int)
-                                                    (and (push int)
-                                                         $1)))))))))))
+                                     (and (push int) (and cdr loop)))))))))
       (r ((1)))
       (int ($2))
       ($2 (2 3 4 5 6))
+      (loop (and (pop int) (and (push int) $1)))
       (stack ($2))
       (x ((1 2 3 4 5 6))))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
+  (g const
      ((do (command) (rest))
       (command (and push-expr rest) command)
       (push-expr (push v) push-expr)
@@ -961,40 +979,22 @@ body
 
 
 Step:
-(let ((do ($1))
+(let ((const (null cons
+                   car
+                   cdr
+                   set
+                   push
+                   pop
+                   if
+                   null?
+                   eq?
+                   and
+                   do
+                   stack))
+      (do ($1))
       ($1 (and (push r)
                (and (push int)
                     (and car
                          (and cons
                               (and (pop r)
-                                   (and (push int)
-                                        (and cdr
-                                             (and (pop int)
-                                                  (and (push int)
-                                                       (if null?
-                                                         (return r)
-                                                         $1)))))))))))
-      (r ((1)))
-      (int ((2 3 4 5 6)))
-      (x ((1 2 3 4 5 6))))
-  (g (null cons
-           car
-           cdr
-           set
-           push
-           pop
-           if
-           null?
-           eq?
-           and
-           do
-           stack)
-     ((do (command) (else))
-      (command (if null? then else) command)
-      (stack (s1 ss) (ss))
-      (s1 (x xs) s1)
-      (then then then)
-      (else else else)
-      (x x x))))
---------
-body
+                                   (and (push int) (and cdr loop))))))))

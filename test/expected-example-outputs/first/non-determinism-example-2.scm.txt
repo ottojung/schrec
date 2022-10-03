@@ -9,4 +9,4 @@ Original:
 Step:
 (g (x 1 2) ((g (x) (2))))
 --------
-(2)
+(let ((body (2))) body)

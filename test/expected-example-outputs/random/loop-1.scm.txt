@@ -6,4 +6,4 @@ Original:
 Step:
 (g (x 1 2) ((g (x y) (1))))
 --------
-(1)
+(let ((body (1))) body)
