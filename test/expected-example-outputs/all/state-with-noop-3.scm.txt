@@ -1,8 +1,8 @@
 Original:
 (let ((switch (off)))
-  ((eva1 (g (switch off on)
-            ((switch (off) (on)) (switch switch switch)))
-         (body))))
+  (eva1 (g (switch off on)
+           ((switch (off) (on)) (switch switch switch)))
+        (body)))
 
 
 Step:
@@ -10,7 +10,7 @@ Step:
   (g (switch off on)
      ((switch (off) (on)) (switch switch switch))))
 --------
-(body)
+body
 
 
 Step:
@@ -18,4 +18,4 @@ Step:
   (g (switch off on)
      ((switch (off) (on)) (switch switch switch))))
 --------
-(body)
+body

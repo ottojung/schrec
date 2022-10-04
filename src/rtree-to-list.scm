@@ -18,6 +18,7 @@
 
 %use (fp) "./euphrates/fp.scm"
 %use (list->hashset) "./euphrates/ihashset.scm"
+%use (list-singleton?) "./euphrates/list-singleton-q.scm"
 %use (rtree-value) "./euphrates/rtree.scm"
 %use (constant-node?) "./constant-node-huh.scm"
 %use (graph->list/with-substitutes) "./graph-to-list-with-substitutes.scm"
@@ -65,7 +66,10 @@
   (define (subs node)
     (graph->list/with-substitutes to-substitute node))
   (define body
-    (subs (rtree-value tree)))
+    (let ((all (subs (rtree-value tree))))
+      (if (and (pair? all) (list-singleton? all))
+          (car all)
+          all)))
 
   (define tuple->binding
     (fp (node shared?)
@@ -74,6 +78,5 @@
   (define useful-refs
     (filter useful-ref? potential-refs))
 
-  (if (null? useful-refs)
-      body
+  (if (null? useful-refs) body
       (cons keyword-let (cons (map tuple->binding useful-refs) (list body)))))
