@@ -82,11 +82,8 @@
              (graph (list->graph parsed)))
 
         (when --trace
-          (eval-hook (default-eval-hook graph)))
-
-        (when --show-original
-          (when --trace
-            (display "Original:\n"))
+          (eval-hook (default-eval-hook graph))
+          (display "Original:\n")
           (pretty-print-graph graph))
 
         (let ((thread-ids-stream
@@ -100,11 +97,14 @@
                 (else
                  (raisu 'impossible RESULTS)))))
 
-          (let loop ()
+          (let loop ((first? #t))
             (let ((thread (thread-ids-stream)))
-              (when thread
-                (unless --trace
-                  (with-current-thread thread (pretty-print-graph graph)))
-                (loop))))))))))
+              (if thread
+                  (begin
+                    (unless --trace
+                      (with-current-thread thread (pretty-print-graph graph)))
+                    (loop #f))
+                  (when (and first? --show-original (not --trace))
+                    (pretty-print-graph graph)))))))))))
 
 (main)
