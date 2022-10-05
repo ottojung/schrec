@@ -46,8 +46,8 @@
       /     --trace
       /     --no-trace
       /     --seed <seed>
-      /     --show-original
-      /     --skip-original
+      /     --reflexive
+      /     --irreflexive
       RESULTS : all / first / random
       )
 
@@ -65,8 +65,8 @@
      :default (--no-trace #t)
      :exclusive (--no-trace --trace)
 
-     :default (--show-original #t)
-     :exclusive (--show-original --skip-original)
+     :default (--reflexive #t)
+     :exclusive (--reflexive --irreflexive)
 
      (when --help
        (define-cli:show-help))
@@ -104,7 +104,7 @@
                     (unless --trace
                       (with-current-thread thread (pretty-print-graph graph)))
                     (loop #f))
-                  (when (and first? --show-original (not --trace))
+                  (when (and first? --reflexive (not --trace))
                     (pretty-print-graph graph)))))))))))
 
 (main)
