@@ -22,7 +22,7 @@ run: dist/schrec
 build: dist/schrec
 
 dist/schrec: src/schrec/*.scm dist
-	sh scripts/install.sh $(PWD) "$@"
+	sh scripts/install.sh $(PWD)/src "$@"
 
 dist:
 	mkdir -p dist
