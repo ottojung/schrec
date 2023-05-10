@@ -2,18 +2,11 @@
 (cond-expand
  (guile
   (define-module (test-eval-ordering)
-    :use-module ((src euphrates assert-equal) :select (assert=))
-    :use-module ((src euphrates comp) :select (comp))
-    :use-module ((src euphrates debug) :select (debug))
-    :use-module ((src euphrates debugv) :select (debugv))
-    :use-module ((src euphrates range) :select (range))
-    :use-module ((src eval-hook) :select (eval-hook))
-    :use-module ((src find-partially-sorted-eval-likes) :select (find-partially-sorted-eval-likes))
-    :use-module ((src get-head) :select (get-head))
-    :use-module ((src graph-to-list) :select (graph->list))
-    :use-module ((src list-to-graph) :select (list->graph))
-    :use-module ((src node) :select (node-children node-label node? set-node-children!))
-    :use-module ((src run-environment-resultsfirst) :select (run-environment-resultsfirst))
+    :use-module ((euphrates assert-equal) :select (assert=))
+    :use-module ((schrec find-partially-sorted-eval-likes) :select (find-partially-sorted-eval-likes))
+    :use-module ((schrec get-head) :select (get-head))
+    :use-module ((schrec list-to-graph) :select (list->graph))
+    :use-module ((schrec node) :select (node?))
     )))
 
 
