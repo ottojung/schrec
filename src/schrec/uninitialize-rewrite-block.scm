@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (uninitialize-rewrite-block)
+  (define-module (schrec uninitialize-rewrite-block)
     :export (uninitialize-rewrite-block)
     :use-module ((node) :select (node-children))
     :use-module ((soft-uninitialize-const-variable-bang) :select (soft-uninitialize-const-variable!))

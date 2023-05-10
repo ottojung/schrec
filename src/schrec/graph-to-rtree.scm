@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (graph-to-rtree)
+  (define-module (schrec graph-to-rtree)
     :export (graph->rtree)
     :use-module ((euphrates ihashmap) :select (hashmap-ref hashmap-set! make-hashmap))
     :use-module ((euphrates rtree) :select (rtree rtree-ref set-rtree-children! set-rtree-ref!))

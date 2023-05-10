@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (rtree-dereference)
+  (define-module (schrec rtree-dereference)
     :export (rtree-dereference)
     :use-module ((euphrates raisu) :select (raisu))
     :use-module ((euphrates rtree) :select (rtree-children rtree-ref rtree-value rtree?))

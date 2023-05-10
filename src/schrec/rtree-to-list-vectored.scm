@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (rtree-to-list-vectored)
+  (define-module (schrec rtree-to-list-vectored)
     :export (rtree->list/vectored)
     :use-module ((euphrates rtree) :select (rtree-children rtree-ref rtree-value))
     :use-module ((node) :select (node-label node-namespace))

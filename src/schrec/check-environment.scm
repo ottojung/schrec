@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (check-environment)
+  (define-module (schrec check-environment)
     :export (check-environment)
     :use-module ((euphrates list-and-map) :select (list-and-map))
     :use-module ((euphrates list-length-eq) :select (list-length=))

@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (root-namespace)
+  (define-module (schrec root-namespace)
     :export (root-namespace)
     )))
 

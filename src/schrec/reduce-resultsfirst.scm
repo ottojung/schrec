@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (reduce-resultsfirst)
+  (define-module (schrec reduce-resultsfirst)
     :export (reduce/resultsfirst)
     :use-module ((euphrates list-find-first) :select (list-find-first))
     :use-module ((eval-resultsfirst-node) :select (eval/resultsfirst/node))

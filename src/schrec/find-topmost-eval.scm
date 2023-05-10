@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (find-topmost-eval)
+  (define-module (schrec find-topmost-eval)
     :export (find-topmost-eval)
     :use-module ((eval-single-form-huh) :select (eval-single-form?))
     :use-module ((node) :select (node-children node-visited? set-node-visited?!))

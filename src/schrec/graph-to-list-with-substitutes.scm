@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (graph-to-list-with-substitutes)
+  (define-module (schrec graph-to-list-with-substitutes)
     :export (graph->list/with-substitutes)
     :use-module ((euphrates ihashset) :select (hashset-add! hashset-delete! hashset-has? make-hashset))
     :use-module ((euphrates raisu) :select (raisu))

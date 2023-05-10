@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (leaf-node-huh)
+  (define-module (schrec leaf-node-huh)
     :export (leaf-node?)
     :use-module ((node) :select (node-children))
     )))

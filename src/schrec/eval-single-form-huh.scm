@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (eval-single-form-huh)
+  (define-module (schrec eval-single-form-huh)
     :export (eval-single-form?)
     :use-module ((euphrates list-length-eq) :select (list-length=))
     :use-module ((check-environment) :select (check-environment))

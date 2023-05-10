@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (transform-let-bindings)
+  (define-module (schrec transform-let-bindings)
     :export (transform-let-bindings)
     )))
 

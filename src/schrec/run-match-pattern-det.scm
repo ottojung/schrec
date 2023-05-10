@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (run-match-pattern-det)
+  (define-module (schrec run-match-pattern-det)
     :export (run-match-pattern-det)
     :use-module ((euphrates list-and-map) :select (list-and-map))
     :use-module ((associate-variable-bang-det) :select (associate-variable!/det))

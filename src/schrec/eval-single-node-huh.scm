@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (eval-single-node-huh)
+  (define-module (schrec eval-single-node-huh)
     :export (eval-single-node?)
     :use-module ((keyword-eval-single) :select (keyword-eval-single))
     :use-module ((node) :select (node-label))

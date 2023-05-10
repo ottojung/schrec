@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (get-eval-input)
+  (define-module (schrec get-eval-input)
     :export (get-eval-input)
     :use-module ((euphrates list-ref-or) :select (list-ref-or))
     :use-module ((euphrates raisu) :select (raisu))

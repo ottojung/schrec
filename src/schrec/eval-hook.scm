@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (eval-hook)
+  (define-module (schrec eval-hook)
     :export (eval-hook)
     )))
 

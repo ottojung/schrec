@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (check-let-syntax)
+  (define-module (schrec check-let-syntax)
     :export (check-let-syntax)
     :use-module ((euphrates raisu) :select (raisu))
     :use-module ((get-let-bindings) :select (get-let-bindings))

@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (find-bottommost-eval)
+  (define-module (schrec find-bottommost-eval)
     :export (find-bottommost-eval)
     :use-module ((eval-single-form-huh) :select (eval-single-form?))
     :use-module ((get-eval-body) :select (get-eval-body))

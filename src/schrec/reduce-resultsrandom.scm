@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (reduce-resultsrandom)
+  (define-module (schrec reduce-resultsrandom)
     :export (reduce/resultsrandom)
     :use-module ((euphrates list-find-first) :select (list-find-first))
     :use-module ((euphrates list-random-shuffle) :select (list-random-shuffle))

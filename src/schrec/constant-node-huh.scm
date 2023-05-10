@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (constant-node-huh)
+  (define-module (schrec constant-node-huh)
     :export (constant-node?)
     :use-module ((leaf-node-huh) :select (leaf-node?))
     :use-module ((named-node-huh) :select (named-node?))

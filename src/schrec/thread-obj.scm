@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (thread-obj)
+  (define-module (schrec thread-obj)
     :export (thread-obj-ctr thread-obj-lst thread-obj?)
     :use-module ((euphrates define-type9) :select (define-type9))
     )))

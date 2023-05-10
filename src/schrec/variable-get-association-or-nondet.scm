@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (variable-get-association-or-nondet)
+  (define-module (schrec variable-get-association-or-nondet)
     :export (variable-get-association-or-nondet)
     :use-module ((euphrates prefixtree) :select (prefixtree-ref-furthest))
     :use-module ((get-current-match-thread) :select (get-current-match-thread))

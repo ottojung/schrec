@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (eval-resultsfirst-node-loop)
+  (define-module (schrec eval-resultsfirst-node-loop)
     :export (eval/resultsfirst/node/loop)
     :use-module ((eval-det) :select (eval/det))
     :use-module ((eval-multi-form-huh) :select (eval-multi-form?))

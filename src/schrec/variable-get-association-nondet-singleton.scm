@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (variable-get-association-nondet-singleton)
+  (define-module (schrec variable-get-association-nondet-singleton)
     :export (variable-get-association-nondet-singleton)
     :use-module ((euphrates list-singleton-q) :select (list-singleton?))
     :use-module ((euphrates prefixtree) :select (prefixtree-ref-furthest))

@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (eval-like-huh)
+  (define-module (schrec eval-like-huh)
     :export (eval-like?)
     :use-module ((node) :select (node-children node-label))
     :use-module ((root-namespace-node-huh) :select (root-namespace-node?))

@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (match-rewrite-block-nondet)
+  (define-module (schrec match-rewrite-block-nondet)
     :export (match-rewrite-block/nondet)
     :use-module ((get-block-input) :select (get-block-input))
     :use-module ((get-block-mpattern) :select (get-block-mpattern))

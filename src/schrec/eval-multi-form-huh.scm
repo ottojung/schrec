@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (eval-multi-form-huh)
+  (define-module (schrec eval-multi-form-huh)
     :export (eval-multi-form?)
     :use-module ((euphrates list-length-eq) :select (list-length=))
     :use-module ((check-environment) :select (check-environment))

@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (let-expression-huh)
+  (define-module (schrec let-expression-huh)
     :export (let-expression?)
     :use-module ((keyword-let) :select (keyword-let))
     )))

@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (get-block-mpattern)
+  (define-module (schrec get-block-mpattern)
     :export (get-block-mpattern)
     :use-module ((node) :select (node-children))
     )))

@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (make-match-thread-id)
+  (define-module (schrec make-match-thread-id)
     :export (make-match-thread-id)
     :use-module ((get-current-match-thread) :select (get-current-match-thread))
     :use-module ((thread-obj) :select (thread-obj-ctr thread-obj-lst))

@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (node-equal-huh)
+  (define-module (schrec node-equal-huh)
     :export (node-equal?)
     :use-module ((node) :select (node-id))
     )))

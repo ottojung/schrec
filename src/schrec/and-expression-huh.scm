@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (and-expression-huh)
+  (define-module (schrec and-expression-huh)
     :export (and-expression?)
     :use-module ((and-node-huh) :select (and-node?))
     :use-module ((node) :select (node-children))

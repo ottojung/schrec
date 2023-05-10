@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (current-thread-p)
+  (define-module (schrec current-thread-p)
     :export (current-thread/p)
     )))
 

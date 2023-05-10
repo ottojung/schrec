@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (debug-log-bind)
+  (define-module (schrec debug-log-bind)
     :export (debug-log-bind)
     :use-module ((euphrates dprintln) :select (dprintln))
     :use-module ((get-current-match-thread) :select (get-current-match-thread))

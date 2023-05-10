@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (run-rewrite-pattern-nondet)
+  (define-module (schrec run-rewrite-pattern-nondet)
     :export (run-rewrite-pattern-nondet)
     :use-module ((euphrates list-map-flatten) :select (list-map/flatten))
     :use-module ((euphrates raisu) :select (raisu))

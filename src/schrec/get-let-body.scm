@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (get-let-body)
+  (define-module (schrec get-let-body)
     :export (get-let-body)
     :use-module ((euphrates raisu) :select (raisu))
     )))

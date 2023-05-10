@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (pretty-print-graph)
+  (define-module (schrec pretty-print-graph)
     :export (pretty-print-graph)
     :use-module ((graph-to-list) :select (graph->list))
     )))

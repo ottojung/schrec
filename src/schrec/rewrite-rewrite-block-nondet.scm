@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (rewrite-rewrite-block-nondet)
+  (define-module (schrec rewrite-rewrite-block-nondet)
     :export (rewrite-rewrite-block/nondet)
     :use-module ((euphrates raisu) :select (raisu))
     :use-module ((get-block-input) :select (get-block-input))

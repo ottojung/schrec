@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (match-thread-fork)
+  (define-module (schrec match-thread-fork)
     :export (match-thread-fork)
     :use-module ((current-match-thread-p) :select (current-match-thread/p))
     :use-module ((make-match-thread-id) :select (make-match-thread-id))

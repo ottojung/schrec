@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (get-head)
+  (define-module (schrec get-head)
     :export (get-head)
     :use-module ((branch-node-label) :select (branch-node-label))
     :use-module ((node) :select (node-children node-label))

@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (and-node-huh)
+  (define-module (schrec and-node-huh)
     :export (and-node?)
     :use-module ((keyword-and) :select (keyword-and))
     :use-module ((node) :select (node-label))

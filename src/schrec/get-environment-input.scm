@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (get-environment-input)
+  (define-module (schrec get-environment-input)
     :export (get-environment-input)
     :use-module ((node) :select (node-children))
     )))

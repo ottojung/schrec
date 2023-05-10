@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (find-sorted-evals)
+  (define-module (schrec find-sorted-evals)
     :export (find-sorted-evals)
     :use-module ((find-sorted-eval-likes) :select (find-sorted-eval-likes))
     :use-module ((keyword-eval-multi) :select (keyword-eval-multi))

@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (list-to-graph)
+  (define-module (schrec list-to-graph)
     :export (list->graph)
     :use-module ((euphrates lexical-scope) :select (lexical-scope-make lexical-scope-ref lexical-scope-set!))
     :use-module ((check-let-syntax) :select (check-let-syntax))

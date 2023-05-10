@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (run-rewrite-pattern-det)
+  (define-module (schrec run-rewrite-pattern-det)
     :export (run-rewrite-pattern/det)
     :use-module ((make-fresh-branch-node) :select (make-fresh-branch-node))
     :use-module ((node-equal-huh) :select (node-equal?))

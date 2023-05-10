@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (make-fresh-branch-node)
+  (define-module (schrec make-fresh-branch-node)
     :export (make-fresh-branch-node)
     :use-module ((branch-node-label) :select (branch-node-label))
     :use-module ((make-fresh-node) :select (make-fresh-node))

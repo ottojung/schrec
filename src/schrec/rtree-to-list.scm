@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (rtree-to-list)
+  (define-module (schrec rtree-to-list)
     :export (rtree->list)
     :use-module ((euphrates fp) :select (fp))
     :use-module ((euphrates ihashset) :select (list->hashset))

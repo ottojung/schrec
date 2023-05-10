@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (main)
+  (define-module (schrec main)
     :use-module ((euphrates current-program-path-p) :select (current-program-path/p))
     :use-module ((euphrates define-cli) :select (define-cli:show-help with-cli))
     :use-module ((euphrates dprintln) :select (dprintln))

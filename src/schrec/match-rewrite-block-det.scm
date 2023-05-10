@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (match-rewrite-block-det)
+  (define-module (schrec match-rewrite-block-det)
     :export (match-rewrite-block/det)
     :use-module ((get-block-input) :select (get-block-input))
     :use-module ((get-block-mpattern) :select (get-block-mpattern))

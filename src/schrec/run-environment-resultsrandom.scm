@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (run-environment-resultsrandom)
+  (define-module (schrec run-environment-resultsrandom)
     :export (run-environment-resultsrandom)
     :use-module ((euphrates comp) :select (comp))
     :use-module ((euphrates list-random-element) :select (list-random-element))

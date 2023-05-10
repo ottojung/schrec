@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (debug-show-variable-bindings)
+  (define-module (schrec debug-show-variable-bindings)
     :export (debug-show-variable-bindings)
     :use-module ((euphrates dprintln) :select (dprintln))
     :use-module ((euphrates list-deduplicate) :select (list-deduplicate/reverse))

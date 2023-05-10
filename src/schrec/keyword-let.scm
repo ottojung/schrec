@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (keyword-let)
+  (define-module (schrec keyword-let)
     :export (keyword-let)
     )))
 

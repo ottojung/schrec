@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (a-variable-huh)
+  (define-module (schrec a-variable-huh)
     :export (a-variable?)
     :use-module ((node) :select (node-constant?))
     )))

@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (match-blocks-nondet)
+  (define-module (schrec match-blocks-nondet)
     :export (match-blocks/nondet)
     :use-module ((euphrates list-map-flatten) :select (list-map/flatten))
     :use-module ((get-current-match-thread) :select (get-current-match-thread))

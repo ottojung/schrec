@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (make-node-displayer)
+  (define-module (schrec make-node-displayer)
     :export (make-node-displayer)
     :use-module ((euphrates ihashmap) :select (hashmap-ref hashmap-set! make-hashmap))
     :use-module ((euphrates tilda-a) :select (~a))

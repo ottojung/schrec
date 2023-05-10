@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (get-environment-constants)
+  (define-module (schrec get-environment-constants)
     :export (get-environment-constants)
     :use-module ((node) :select (node-children))
     )))

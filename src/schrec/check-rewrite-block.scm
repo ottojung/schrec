@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (check-rewrite-block)
+  (define-module (schrec check-rewrite-block)
     :export (check-rewrite-block)
     :use-module ((euphrates list-length-eq) :select (list-length=))
     :use-module ((node) :select (node-children))

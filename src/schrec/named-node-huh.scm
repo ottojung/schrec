@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (named-node-huh)
+  (define-module (schrec named-node-huh)
     :export (named-node?)
     :use-module ((exp-node-huh) :select (exp-node?))
     )))

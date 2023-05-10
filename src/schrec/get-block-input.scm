@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (get-block-input)
+  (define-module (schrec get-block-input)
     :export (get-block-input)
     :use-module ((node) :select (node-children))
     )))

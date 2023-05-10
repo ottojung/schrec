@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (branch-node-label)
+  (define-module (schrec branch-node-label)
     :export (branch-node-label)
     )))
 

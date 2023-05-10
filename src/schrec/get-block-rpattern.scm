@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (get-block-rpattern)
+  (define-module (schrec get-block-rpattern)
     :export (get-block-rpattern)
     :use-module ((node) :select (node-children))
     )))

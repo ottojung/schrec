@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (run-match-pattern-nondet)
+  (define-module (schrec run-match-pattern-nondet)
     :export (run-match-pattern-nondet)
     :use-module ((euphrates list-and-map) :select (list-and-map))
     :use-module ((euphrates list-drop-n) :select (list-drop-n))

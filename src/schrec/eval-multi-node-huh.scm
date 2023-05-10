@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (eval-multi-node-huh)
+  (define-module (schrec eval-multi-node-huh)
     :export (eval-multi-node?)
     :use-module ((keyword-eval-multi) :select (keyword-eval-multi))
     :use-module ((node) :select (node-label))

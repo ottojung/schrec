@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (check-or-expression-syntax)
+  (define-module (schrec check-or-expression-syntax)
     :export (check-or-expression-syntax)
     :use-module ((euphrates list-length-geq-q) :select (list-length=<?))
     :use-module ((euphrates raisu) :select (raisu))

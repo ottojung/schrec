@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (initialize-const-variables-generic)
+  (define-module (schrec initialize-const-variables-generic)
     :export (initialize-const-variables/generic)
     :use-module ((euphrates comp) :select (comp))
     :use-module ((euphrates list-or-map) :select (list-or-map))

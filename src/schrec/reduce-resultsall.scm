@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (reduce-resultsall)
+  (define-module (schrec reduce-resultsall)
     :export (reduce/resultsall)
     :use-module ((euphrates list-map-flatten) :select (list-map/flatten))
     :use-module ((euphrates stack) :select (stack-empty? stack-make stack-pop! stack-push!))

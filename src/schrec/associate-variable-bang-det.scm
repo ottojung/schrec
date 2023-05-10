@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (associate-variable-bang-det)
+  (define-module (schrec associate-variable-bang-det)
     :export (associate-variable!/det)
     :use-module ((euphrates raisu) :select (raisu))
     :use-module ((euphrates stack) :select (stack-push!))

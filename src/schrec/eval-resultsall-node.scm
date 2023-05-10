@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (eval-resultsall-node)
+  (define-module (schrec eval-resultsall-node)
     :export (eval/resultsall/node)
     :use-module ((eval-multi-form-huh) :select (eval-multi-form?))
     :use-module ((eval-nondet) :select (eval/nondet))

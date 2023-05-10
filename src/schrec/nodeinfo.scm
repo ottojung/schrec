@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (nodeinfo)
+  (define-module (schrec nodeinfo)
     :export (make-nodeinfo nodeinfo? nodeinfo-label nodeinfo-namespace nodeinfo-display set-nodeinfo-display!)
     :use-module ((euphrates define-type9) :select (define-type9))
     )))

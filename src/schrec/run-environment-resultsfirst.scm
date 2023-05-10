@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (run-environment-resultsfirst)
+  (define-module (schrec run-environment-resultsfirst)
     :export (run-environment-resultsfirst)
     :use-module ((euphrates comp) :select (comp))
     :use-module ((euphrates list-and-map) :select (list-and-map))

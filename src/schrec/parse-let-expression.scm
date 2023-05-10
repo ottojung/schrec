@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (parse-let-expression)
+  (define-module (schrec parse-let-expression)
     :export (parse-let-expression)
     :use-module ((euphrates fp) :select (fp))
     :use-module ((euphrates lexical-scope) :select (lexical-scope-set! lexical-scope-stage! lexical-scope-unstage!))

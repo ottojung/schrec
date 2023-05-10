@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (run-environment-resultsall)
+  (define-module (schrec run-environment-resultsall)
     :export (run-environment-resultsall)
     :use-module ((euphrates comp) :select (comp))
     :use-module ((euphrates stack) :select (stack->list stack-make))

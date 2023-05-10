@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (eval-nondet)
+  (define-module (schrec eval-nondet)
     :export (eval/nondet)
     :use-module ((node) :select (node-children node-visited? set-node-visited?!))
     :use-module ((thread-fork) :select (thread-fork))

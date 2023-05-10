@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (eval-det)
+  (define-module (schrec eval-det)
     :export (eval/det)
     :use-module ((euphrates list-or-map) :select (list-or-map))
     :use-module ((check-environment) :select (check-environment))

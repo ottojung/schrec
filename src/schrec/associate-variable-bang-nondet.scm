@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (associate-variable-bang-nondet)
+  (define-module (schrec associate-variable-bang-nondet)
     :export (associate-variable!/det/nondet)
     :use-module ((euphrates prefixtree) :select (make-prefixtree prefixtree-set!))
     :use-module ((euphrates raisu) :select (raisu))

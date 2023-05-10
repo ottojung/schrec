@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (eval-resultsrandom-node)
+  (define-module (schrec eval-resultsrandom-node)
     :export (eval/resultsrandom/node)
     :use-module ((eval-det) :select (eval/det))
     :use-module ((eval-multi-form-huh) :select (eval-multi-form?))

@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (find-partially-sorted-eval-likes)
+  (define-module (schrec find-partially-sorted-eval-likes)
     :export (find-partially-sorted-eval-likes)
     :use-module ((euphrates comp) :select (comp))
     :use-module ((euphrates list-and-map) :select (list-and-map))

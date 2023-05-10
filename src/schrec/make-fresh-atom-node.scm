@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (make-fresh-atom-node)
+  (define-module (schrec make-fresh-atom-node)
     :export (make-fresh-atom-node)
     :use-module ((make-fresh-node) :select (make-fresh-node))
     )))

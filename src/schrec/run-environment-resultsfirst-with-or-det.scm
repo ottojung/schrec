@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (run-environment-resultsfirst-with-or-det)
+  (define-module (schrec run-environment-resultsfirst-with-or-det)
     :export (run-environment-resultsfirst-with-or/det)
     :use-module ((euphrates fn) :select (fn))
     :use-module ((euphrates list-and-map) :select (list-and-map))

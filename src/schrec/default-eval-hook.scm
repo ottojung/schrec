@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (default-eval-hook)
+  (define-module (schrec default-eval-hook)
     :export (default-eval-hook)
     :use-module ((pretty-print-graph) :select (pretty-print-graph))
     )))

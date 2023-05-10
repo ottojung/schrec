@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (find-partially-sorted-evals)
+  (define-module (schrec find-partially-sorted-evals)
     :export (find-partially-sorted-evals)
     :use-module ((find-partially-sorted-eval-likes) :select (find-partially-sorted-eval-likes))
     :use-module ((keyword-eval-multi) :select (keyword-eval-multi))

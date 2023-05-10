@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (keyword-and)
+  (define-module (schrec keyword-and)
     :export (keyword-and)
     )))
 

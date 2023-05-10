@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (graph-to-list)
+  (define-module (schrec graph-to-list)
     :export (graph->list)
     :use-module ((graph-to-rtree) :select (graph->rtree))
     :use-module ((rtree-to-list) :select (rtree->list))

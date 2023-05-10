@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (variable-associated-huh-nondet)
+  (define-module (schrec variable-associated-huh-nondet)
     :export (variable-associated?/nondet)
     :use-module ((variable-get-association-or-nondet) :select (variable-get-association-or-nondet))
     )))

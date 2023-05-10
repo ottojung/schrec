@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (keyword-eval-single)
+  (define-module (schrec keyword-eval-single)
     :export (keyword-eval-single)
     )))
 

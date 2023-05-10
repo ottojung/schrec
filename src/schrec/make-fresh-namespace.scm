@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (make-fresh-namespace)
+  (define-module (schrec make-fresh-namespace)
     :export (make-fresh-namespace)
     )))
 
