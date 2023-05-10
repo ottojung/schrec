@@ -8,7 +8,7 @@ SCHREC_OPTS = --results all
 
 SUBMODULES = deps/euphrates/.git
 
-GUILE = guile -L src
+GUILE = guile -L src -L test
 
 test: dist/schrec
 	dist/schrec $(SCHREC_OPTS) example/const-multi.scm
