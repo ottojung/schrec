@@ -12,14 +12,17 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (graph-to-list-with-substitutes)
+    :export (graph->list/with-substitutes)
+    :use-module ((euphrates ihashset) :select (hashset-add! hashset-delete! hashset-ref make-hashset))
+    :use-module ((euphrates raisu) :select (raisu))
+    :use-module ((get-head) :select (get-head))
+    :use-module ((node) :select (node-children node-display node-id node-label))
+    )))
 
-%var graph->list/with-substitutes
 
-%use (hashset-add! hashset-delete! hashset-ref make-hashset) "./euphrates/ihashset.scm"
-%use (raisu) "./euphrates/raisu.scm"
-%use (get-head) "./get-head.scm"
-%use (node-children node-display node-id node-label) "./node.scm"
 
 (define (graph->list/with-substitutes to-substitute g)
   (define (get-label node)

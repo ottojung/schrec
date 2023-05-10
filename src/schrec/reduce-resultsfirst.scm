@@ -12,14 +12,17 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (reduce-resultsfirst)
+    :export (reduce/resultsfirst)
+    :use-module ((euphrates list-find-first) :select (list-find-first))
+    :use-module ((eval-resultsfirst-node) :select (eval/resultsfirst/node))
+    :use-module ((find-sorted-evals) :select (find-sorted-evals))
+    :use-module ((get-current-thread) :select (get-current-thread))
+    )))
 
-%var reduce/resultsfirst
 
-%use (list-find-first) "./euphrates/list-find-first.scm"
-%use (eval/resultsfirst/node) "./eval-resultsfirst-node.scm"
-%use (find-sorted-evals) "./find-sorted-evals.scm"
-%use (get-current-thread) "./get-current-thread.scm"
 
 (define (reduce/resultsfirst g)
   (lambda _

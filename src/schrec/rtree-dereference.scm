@@ -12,14 +12,17 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (rtree-dereference)
+    :export (rtree-dereference)
+    :use-module ((euphrates raisu) :select (raisu))
+    :use-module ((euphrates rtree) :select (rtree-children rtree-ref rtree-value rtree?))
+    :use-module ((branch-node-label) :select (branch-node-label))
+    :use-module ((node) :select (node-label))
+    )))
 
-%var rtree-dereference
 
-%use (raisu) "./euphrates/raisu.scm"
-%use (rtree-children rtree-ref rtree-value rtree?) "./euphrates/rtree.scm"
-%use (branch-node-label) "./branch-node-label.scm"
-%use (node-label) "./node.scm"
 
 (define (rtree-dereference T)
   (let loop ((T T))

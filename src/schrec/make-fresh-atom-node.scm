@@ -12,11 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (make-fresh-atom-node)
+    :export (make-fresh-atom-node)
+    :use-module ((make-fresh-node) :select (make-fresh-node))
+    )))
 
-%var make-fresh-atom-node
 
-%use (make-fresh-node) "./make-fresh-node.scm"
 
 (define (make-fresh-atom-node atom namespace)
   (make-fresh-node atom namespace '()))

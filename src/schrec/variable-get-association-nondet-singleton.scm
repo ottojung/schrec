@@ -12,15 +12,18 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (variable-get-association-nondet-singleton)
+    :export (variable-get-association-nondet-singleton)
+    :use-module ((euphrates list-singleton-q) :select (list-singleton?))
+    :use-module ((euphrates prefixtree) :select (prefixtree-ref-furthest))
+    :use-module ((get-current-match-thread) :select (get-current-match-thread))
+    :use-module ((node) :select (node-binding))
+    :use-module ((thread-obj) :select (thread-obj-lst))
+    )))
 
-%var variable-get-association-nondet-singleton
 
-%use (list-singleton?) "./euphrates/list-singleton-q.scm"
-%use (prefixtree-ref-furthest) "./euphrates/prefixtree.scm"
-%use (get-current-match-thread) "./get-current-match-thread.scm"
-%use (node-binding) "./node.scm"
-%use (thread-obj-lst) "./thread-obj.scm"
 
 (define (list-singleton? L)
   (and (not (null? L))

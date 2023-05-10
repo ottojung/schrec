@@ -12,12 +12,15 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (initialize-const-variables-det)
+    :export (initialize-const-variables/det)
+    :use-module ((associate-variable-bang-det) :select (associate-variable!/det))
+    :use-module ((initialize-const-variables-generic) :select (initialize-const-variables/generic))
+    )))
 
-%var initialize-const-variables/det
 
-%use (associate-variable!/det) "./associate-variable-bang-det.scm"
-%use (initialize-const-variables/generic) "./initialize-const-variables-generic.scm"
 
 (define initialize-const-variables/det
   (initialize-const-variables/generic associate-variable!/det))

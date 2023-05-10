@@ -12,11 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (root-namespace-huh)
+    :export (root-namespace?)
+    :use-module ((root-namespace) :select (root-namespace))
+    )))
 
-%var root-namespace?
 
-%use (root-namespace) "./root-namespace.scm"
 
 (define (root-namespace? ns)
   (equal? root-namespace ns))

@@ -12,11 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (named-node-huh)
+    :export (named-node?)
+    :use-module ((exp-node-huh) :select (exp-node?))
+    )))
 
-%var named-node?
 
-%use (exp-node?) "./exp-node-huh.scm"
 
 (define (named-node? node)
   (not (exp-node? node)))

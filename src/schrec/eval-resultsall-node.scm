@@ -12,19 +12,22 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (eval-resultsall-node)
+    :export (eval/resultsall/node)
+    :use-module ((eval-multi-form-huh) :select (eval-multi-form?))
+    :use-module ((eval-nondet) :select (eval/nondet))
+    :use-module ((eval-single-form-huh) :select (eval-single-form?))
+    :use-module ((get-current-thread) :select (get-current-thread))
+    :use-module ((get-eval-body) :select (get-eval-body))
+    :use-module ((get-eval-env) :select (get-eval-env))
+    :use-module ((get-eval-input) :select (get-eval-input))
+    :use-module ((run-environment-resultsall) :select (run-environment-resultsall))
+    :use-module ((run-environment-resultsfirst) :select (run-environment-resultsfirst))
+    )))
 
-%var eval/resultsall/node
 
-%use (eval-multi-form?) "./eval-multi-form-huh.scm"
-%use (eval/nondet) "./eval-nondet.scm"
-%use (eval-single-form?) "./eval-single-form-huh.scm"
-%use (get-current-thread) "./get-current-thread.scm"
-%use (get-eval-body) "./get-eval-body.scm"
-%use (get-eval-env) "./get-eval-env.scm"
-%use (get-eval-input) "./get-eval-input.scm"
-%use (run-environment-resultsall) "./run-environment-resultsall.scm"
-%use (run-environment-resultsfirst) "./run-environment-resultsfirst.scm"
 
 (define (single-runner env body pointer-node)
   (if (run-environment-resultsfirst env body pointer-node)

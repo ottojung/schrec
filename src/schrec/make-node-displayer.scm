@@ -12,14 +12,17 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (make-node-displayer)
+    :export (make-node-displayer)
+    :use-module ((euphrates ihashmap) :select (hashmap-ref hashmap-set! make-hashmap))
+    :use-module ((euphrates tilda-a) :select (~a))
+    :use-module ((named-node-huh) :select (named-node?))
+    :use-module ((node) :select (node-id node-label node-namespace))
+    )))
 
-%var make-node-displayer
 
-%use (hashmap-ref hashmap-set! make-hashmap) "./euphrates/ihashmap.scm"
-%use (~a) "./euphrates/tilda-a.scm"
-%use (named-node?) "./named-node-huh.scm"
-%use (node-id node-label node-namespace) "./node.scm"
 
 (define (make-node-displayer)
   (define counter 0)

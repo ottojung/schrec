@@ -12,12 +12,15 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (and-expression-huh)
+    :export (and-expression?)
+    :use-module ((and-node-huh) :select (and-node?))
+    :use-module ((node) :select (node-children))
+    )))
 
-%var and-expression?
 
-%use (and-node?) "./and-node-huh.scm"
-%use (node-children) "./node.scm"
 
 (define (and-expression? node)
   (define children (node-children node))

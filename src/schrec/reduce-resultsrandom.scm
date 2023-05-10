@@ -12,15 +12,18 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (reduce-resultsrandom)
+    :export (reduce/resultsrandom)
+    :use-module ((euphrates list-find-first) :select (list-find-first))
+    :use-module ((euphrates list-random-shuffle) :select (list-random-shuffle))
+    :use-module ((eval-resultsrandom-node) :select (eval/resultsrandom/node))
+    :use-module ((find-partially-sorted-evals) :select (find-partially-sorted-evals))
+    :use-module ((get-current-thread) :select (get-current-thread))
+    )))
 
-%var reduce/resultsrandom
 
-%use (list-find-first) "./euphrates/list-find-first.scm"
-%use (list-random-shuffle) "./euphrates/list-random-shuffle.scm"
-%use (eval/resultsrandom/node) "./eval-resultsrandom-node.scm"
-%use (find-partially-sorted-evals) "./find-partially-sorted-evals.scm"
-%use (get-current-thread) "./get-current-thread.scm"
 
 (define (reduce/resultsrandom graph)
   (define (eval-fun)

@@ -12,11 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (let-expression-huh)
+    :export (let-expression?)
+    :use-module ((keyword-let) :select (keyword-let))
+    )))
 
-%var let-expression?
 
-%use (keyword-let) "./keyword-let.scm"
 
 (define (let-expression? lst)
   (if (pair? lst)

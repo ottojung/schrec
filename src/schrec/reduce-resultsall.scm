@@ -12,16 +12,19 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (reduce-resultsall)
+    :export (reduce/resultsall)
+    :use-module ((euphrates list-map-flatten) :select (list-map/flatten))
+    :use-module ((euphrates stack) :select (stack-empty? stack-make stack-pop! stack-push!))
+    :use-module ((eval-resultsall-node) :select (eval/resultsall/node))
+    :use-module ((find-partially-sorted-evals) :select (find-partially-sorted-evals))
+    :use-module ((get-current-thread) :select (get-current-thread))
+    :use-module ((thread-relative) :select (thread-relative))
+    )))
 
-%var reduce/resultsall
 
-%use (list-map/flatten) "./euphrates/list-map-flatten.scm"
-%use (stack-empty? stack-make stack-pop! stack-push!) "./euphrates/stack.scm"
-%use (eval/resultsall/node) "./eval-resultsall-node.scm"
-%use (find-partially-sorted-evals) "./find-partially-sorted-evals.scm"
-%use (get-current-thread) "./get-current-thread.scm"
-%use (thread-relative) "./thread-relative.scm"
 
 ;; Returns an enumerator of thread IDs that were the finishers
 (define (reduce/resultsall graph)

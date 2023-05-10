@@ -12,12 +12,15 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (get-head)
+    :export (get-head)
+    :use-module ((branch-node-label) :select (branch-node-label))
+    :use-module ((node) :select (node-children node-label))
+    )))
 
-%var get-head
 
-%use (branch-node-label) "./branch-node-label.scm"
-%use (node-children node-label) "./node.scm"
 
 (define (get-head n node)
   (let loop ((n n) (node node))

@@ -12,14 +12,17 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (debug-log-bind)
+    :export (debug-log-bind)
+    :use-module ((euphrates dprintln) :select (dprintln))
+    :use-module ((get-current-match-thread) :select (get-current-match-thread))
+    :use-module ((get-head) :select (get-head))
+    :use-module ((variable-get-association-or-nondet) :select (variable-get-association-or-nondet))
+    )))
 
-%var debug-log-bind
 
-%use (dprintln) "./euphrates/dprintln.scm"
-%use (get-current-match-thread) "./get-current-match-thread.scm"
-%use (get-head) "./get-head.scm"
-%use (variable-get-association-or-nondet) "./variable-get-association-or-nondet.scm"
 
 (define (debug-log-bind current taken result)
   (let* ((cur1 (get-head 4 current))

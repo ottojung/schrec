@@ -12,15 +12,19 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (default-eval-hook)
+    :export (default-eval-hook)
+    :use-module ((pretty-print-graph) :select (pretty-print-graph))
+    )))
 
-%var default-eval-hook
 
-%use (pretty-print-graph) "./pretty-print-graph.scm"
 
-%for (COMPILER "guile")
-(use-modules (ice-9 pretty-print))
-%end
+(cond-expand
+ (guile
+  (use-modules (ice-9 pretty-print))
+  ))
 
 (define (default-eval-hook original-graph)
   (lambda (env body ptr)

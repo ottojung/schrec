@@ -12,8 +12,11 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (branch-node-label)
+    :export (branch-node-label)
+    )))
 
-%var branch-node-label
 
 (define branch-node-label '.EXP)

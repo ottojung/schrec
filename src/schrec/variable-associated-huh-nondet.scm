@@ -12,11 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (variable-associated-huh-nondet)
+    :export (variable-associated?/nondet)
+    :use-module ((variable-get-association-or-nondet) :select (variable-get-association-or-nondet))
+    )))
 
-%var variable-associated?/nondet
 
-%use (variable-get-association-or-nondet) "./variable-get-association-or-nondet.scm"
 
 (define (variable-associated?/nondet node)
   (not (not (variable-get-association-or-nondet node #f))))

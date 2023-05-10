@@ -12,15 +12,18 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (run-match-pattern-det)
+    :export (run-match-pattern-det)
+    :use-module ((euphrates list-and-map) :select (list-and-map))
+    :use-module ((associate-variable-bang-det) :select (associate-variable!/det))
+    :use-module ((node-equal-huh) :select (node-equal?))
+    :use-module ((node) :select (node-children))
+    :use-module ((variable-get-association-or-det) :select (variable-get-association-or-det))
+    )))
 
-%var run-match-pattern-det
 
-%use (list-and-map) "./euphrates/list-and-map.scm"
-%use (associate-variable!/det) "./associate-variable-bang-det.scm"
-%use (node-equal?) "./node-equal-huh.scm"
-%use (node-children) "./node.scm"
-%use (variable-get-association-or-det) "./variable-get-association-or-det.scm"
 
 (define (run-match-pattern-det free-stack match-node input-node)
   (let loop ((match-node match-node) (input-node input-node))

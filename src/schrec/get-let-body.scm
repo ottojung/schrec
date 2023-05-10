@@ -12,11 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (get-let-body)
+    :export (get-let-body)
+    :use-module ((euphrates raisu) :select (raisu))
+    )))
 
-%var get-let-body
 
-%use (raisu) "./euphrates/raisu.scm"
 
 (define (get-let-body let-list)
   (if (null? let-list)

@@ -12,20 +12,23 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (run-environment-resultsfirst-multi)
+    :export (run-environment-resultsfirst/multi)
+    :use-module ((euphrates comp) :select (comp))
+    :use-module ((euphrates stack) :select (stack->list stack-make))
+    :use-module ((eval-hook) :select (eval-hook))
+    :use-module ((get-environment-blocks) :select (get-environment-blocks))
+    :use-module ((get-environment-constants) :select (get-environment-constants))
+    :use-module ((get-environment-input) :select (get-environment-input))
+    :use-module ((match-blocks-nondet) :select (match-blocks/nondet))
+    :use-module ((rewrite-rewrite-block-nondet) :select (rewrite-rewrite-block/nondet))
+    :use-module ((soft-uninitialize-variable-bang) :select (soft-uninitialize-variable!))
+    :use-module ((with-current-match-thread) :select (with-current-match-thread))
+    )))
 
-%var run-environment-resultsfirst/multi
 
-%use (comp) "./euphrates/comp.scm"
-%use (stack->list stack-make) "./euphrates/stack.scm"
-%use (eval-hook) "./eval-hook.scm"
-%use (get-environment-blocks) "./get-environment-blocks.scm"
-%use (get-environment-constants) "./get-environment-constants.scm"
-%use (get-environment-input) "./get-environment-input.scm"
-%use (match-blocks/nondet) "./match-blocks-nondet.scm"
-%use (rewrite-rewrite-block/nondet) "./rewrite-rewrite-block-nondet.scm"
-%use (soft-uninitialize-variable!) "./soft-uninitialize-variable-bang.scm"
-%use (with-current-match-thread) "./with-current-match-thread.scm"
 
 (define (run-environment-resultsfirst/multi env body pointer-node)
   (define blocks (get-environment-blocks env))

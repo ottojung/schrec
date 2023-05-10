@@ -12,24 +12,27 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (main)
+    :use-module ((euphrates current-program-path-p) :select (current-program-path/p))
+    :use-module ((euphrates define-cli) :select (define-cli:show-help with-cli))
+    :use-module ((euphrates dprintln) :select (dprintln))
+    :use-module ((euphrates file-or-directory-exists-q) :select (file-or-directory-exists?))
+    :use-module ((euphrates open-file-port) :select (open-file-port))
+    :use-module ((euphrates raisu) :select (raisu))
+    :use-module ((euphrates read-list) :select (read-list))
+    :use-module ((euphrates with-randomizer-seed) :select (with-randomizer-seed))
+    :use-module ((default-eval-hook) :select (default-eval-hook))
+    :use-module ((eval-hook) :select (eval-hook))
+    :use-module ((list-to-graph) :select (list->graph))
+    :use-module ((pretty-print-graph) :select (pretty-print-graph))
+    :use-module ((reduce-resultsall) :select (reduce/resultsall))
+    :use-module ((reduce-resultsfirst) :select (reduce/resultsfirst))
+    :use-module ((reduce-resultsrandom) :select (reduce/resultsrandom))
+    :use-module ((with-current-thread) :select (with-current-thread))
+    )))
 
-%use (current-program-path/p) "./euphrates/current-program-path-p.scm"
-%use (define-cli:show-help with-cli) "./euphrates/define-cli.scm"
-%use (dprintln) "./euphrates/dprintln.scm"
-%use (file-or-directory-exists?) "./euphrates/file-or-directory-exists-q.scm"
-%use (open-file-port) "./euphrates/open-file-port.scm"
-%use (raisu) "./euphrates/raisu.scm"
-%use (read-list) "./euphrates/read-list.scm"
-%use (with-randomizer-seed) "./euphrates/with-randomizer-seed.scm"
-%use (default-eval-hook) "./default-eval-hook.scm"
-%use (eval-hook) "./eval-hook.scm"
-%use (list->graph) "./list-to-graph.scm"
-%use (pretty-print-graph) "./pretty-print-graph.scm"
-%use (reduce/resultsall) "./reduce-resultsall.scm"
-%use (reduce/resultsfirst) "./reduce-resultsfirst.scm"
-%use (reduce/resultsrandom) "./reduce-resultsrandom.scm"
-%use (with-current-thread) "./with-current-thread.scm"
 
 (define (fatal fmt . args)
   (parameterize ((current-output-port (current-error-port)))

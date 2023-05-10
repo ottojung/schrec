@@ -12,15 +12,18 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (check-environment)
+    :export (check-environment)
+    :use-module ((euphrates list-and-map) :select (list-and-map))
+    :use-module ((euphrates list-length-eq) :select (list-length=))
+    :use-module ((check-rewrite-block) :select (check-rewrite-block))
+    :use-module ((get-environment-blocks) :select (get-environment-blocks))
+    :use-module ((node) :select (node-children))
+    )))
 
-%var check-environment
 
-%use (list-and-map) "./euphrates/list-and-map.scm"
-%use (list-length=) "./euphrates/list-length-eq.scm"
-%use (check-rewrite-block) "./check-rewrite-block.scm"
-%use (get-environment-blocks) "./get-environment-blocks.scm"
-%use (node-children) "./node.scm"
 
 ;; returns #t or success
 (define (check-environment env)

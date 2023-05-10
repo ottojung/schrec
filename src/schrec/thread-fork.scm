@@ -12,12 +12,15 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (thread-fork)
+    :export (thread-fork)
+    :use-module ((current-thread-p) :select (current-thread/p))
+    :use-module ((make-thread-id) :select (make-thread-id))
+    )))
 
-%var thread-fork
 
-%use (current-thread/p) "./current-thread-p.scm"
-%use (make-thread-id) "./make-thread-id.scm"
 
 (define-syntax thread-fork
   (syntax-rules ()

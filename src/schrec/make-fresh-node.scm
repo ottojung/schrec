@@ -12,11 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (make-fresh-node)
+    :export (make-fresh-node)
+    :use-module ((node) :select (make-node))
+    )))
 
-%var make-fresh-node
 
-%use (make-node) "./node.scm"
 
 (define make-fresh-node
   (let ((counter 0))

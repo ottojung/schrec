@@ -12,11 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (associate-variable-bang-nondet-single)
+    :export (associate-variable!/nondet/single)
+    :use-module ((associate-variable-bang-nondet) :select (associate-variable!/det/nondet))
+    )))
 
-%var associate-variable!/nondet/single
 
-%use (associate-variable!/det/nondet) "./associate-variable-bang-nondet.scm"
 
 (define (associate-variable!/nondet/single free-stack node val)
   (associate-variable!/det/nondet free-stack node (list val)))

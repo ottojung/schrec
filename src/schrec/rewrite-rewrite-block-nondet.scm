@@ -12,15 +12,18 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (rewrite-rewrite-block-nondet)
+    :export (rewrite-rewrite-block/nondet)
+    :use-module ((euphrates raisu) :select (raisu))
+    :use-module ((get-block-input) :select (get-block-input))
+    :use-module ((get-block-rpattern) :select (get-block-rpattern))
+    :use-module ((run-rewrite-pattern-nondet) :select (run-rewrite-pattern-nondet))
+    :use-module ((variable-get-association-nondet-singleton) :select (variable-get-association-nondet-singleton))
+    )))
 
-%var rewrite-rewrite-block/nondet
 
-%use (raisu) "./euphrates/raisu.scm"
-%use (get-block-input) "./get-block-input.scm"
-%use (get-block-rpattern) "./get-block-rpattern.scm"
-%use (run-rewrite-pattern-nondet) "./run-rewrite-pattern-nondet.scm"
-%use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
 
 (define (rewrite-rewrite-block/nondet free-stack block)
   (define input-node (get-block-input block))

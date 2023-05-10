@@ -12,11 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (rtree-references)
+    :export (rtree-references)
+    :use-module ((euphrates rtree) :select (rtree-children rtree-ref rtree-value rtree?))
+    )))
 
-%var rtree-references
 
-%use (rtree-children rtree-ref rtree-value rtree?) "./euphrates/rtree.scm"
 
 (define (rtree-references tree)
   (let loop ((tree tree))

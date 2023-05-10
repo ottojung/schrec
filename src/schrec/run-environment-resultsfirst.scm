@@ -12,21 +12,24 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (run-environment-resultsfirst)
+    :export (run-environment-resultsfirst)
+    :use-module ((euphrates comp) :select (comp))
+    :use-module ((euphrates list-and-map) :select (list-and-map))
+    :use-module ((euphrates stack) :select (stack->list stack-make))
+    :use-module ((eval-hook) :select (eval-hook))
+    :use-module ((get-environment-blocks) :select (get-environment-blocks))
+    :use-module ((get-environment-constants) :select (get-environment-constants))
+    :use-module ((get-environment-input) :select (get-environment-input))
+    :use-module ((initialize-const-variables-det) :select (initialize-const-variables/det))
+    :use-module ((match-rewrite-block-det) :select (match-rewrite-block/det))
+    :use-module ((rewrite-rewrite-block-det) :select (rewrite-rewrite-block/det))
+    :use-module ((uninitialize-variable-bang) :select (uninitialize-variable!))
+    )))
 
-%var run-environment-resultsfirst
 
-%use (comp) "./euphrates/comp.scm"
-%use (list-and-map) "./euphrates/list-and-map.scm"
-%use (stack->list stack-make) "./euphrates/stack.scm"
-%use (eval-hook) "./eval-hook.scm"
-%use (get-environment-blocks) "./get-environment-blocks.scm"
-%use (get-environment-constants) "./get-environment-constants.scm"
-%use (get-environment-input) "./get-environment-input.scm"
-%use (initialize-const-variables/det) "./initialize-const-variables-det.scm"
-%use (match-rewrite-block/det) "./match-rewrite-block-det.scm"
-%use (rewrite-rewrite-block/det) "./rewrite-rewrite-block-det.scm"
-%use (uninitialize-variable!) "./uninitialize-variable-bang.scm"
 
 (define (run-environment-resultsfirst env body pointer-node)
   (define blocks (get-environment-blocks env))

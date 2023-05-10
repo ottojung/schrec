@@ -12,11 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (match-thread-relative)
+    :export (match-thread-relative)
+    :use-module ((with-current-match-thread) :select (with-current-match-thread))
+    )))
 
-%var match-thread-relative
 
-%use (with-current-match-thread) "./with-current-match-thread.scm"
 
 (define-syntax match-thread-relative
   (syntax-rules ()

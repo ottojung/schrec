@@ -12,13 +12,16 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (or-node-huh)
+    :export (or-node?)
+    :use-module ((keyword-or) :select (keyword-or))
+    :use-module ((node) :select (node-label))
+    :use-module ((root-namespace-node-huh) :select (root-namespace-node?))
+    )))
 
-%var or-node?
 
-%use (keyword-or) "./keyword-or.scm"
-%use (node-label) "./node.scm"
-%use (root-namespace-node?) "./root-namespace-node-huh.scm"
 
 (define (or-node? node)
   (and (root-namespace-node? node)

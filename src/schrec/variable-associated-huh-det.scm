@@ -12,11 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (variable-associated-huh-det)
+    :export (variable-associated?/det)
+    :use-module ((variable-get-association-or-det) :select (variable-get-association-or-det))
+    )))
 
-%var variable-associated?/det
 
-%use (variable-get-association-or-det) "./variable-get-association-or-det.scm"
 
 (define (variable-associated?/det node)
   (not (not (variable-get-association-or-det node #f))))

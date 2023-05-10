@@ -12,14 +12,17 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (associate-variable-bang-det)
+    :export (associate-variable!/det)
+    :use-module ((euphrates raisu) :select (raisu))
+    :use-module ((euphrates stack) :select (stack-push!))
+    :use-module ((node) :select (set-node-binding!))
+    :use-module ((variable-associated-huh-det) :select (variable-associated?/det))
+    )))
 
-%var associate-variable!/det
 
-%use (raisu) "./euphrates/raisu.scm"
-%use (stack-push!) "./euphrates/stack.scm"
-%use (set-node-binding!) "./node.scm"
-%use (variable-associated?/det) "./variable-associated-huh-det.scm"
 
 (define (associate-variable!/det free-stack node target-node)
   (if (variable-associated?/det node)

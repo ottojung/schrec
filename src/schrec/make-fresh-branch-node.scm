@@ -12,13 +12,16 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (make-fresh-branch-node)
+    :export (make-fresh-branch-node)
+    :use-module ((branch-node-label) :select (branch-node-label))
+    :use-module ((make-fresh-node) :select (make-fresh-node))
+    :use-module ((root-namespace) :select (root-namespace))
+    )))
 
-%var make-fresh-branch-node
 
-%use (branch-node-label) "./branch-node-label.scm"
-%use (make-fresh-node) "./make-fresh-node.scm"
-%use (root-namespace) "./root-namespace.scm"
 
 (define (make-fresh-branch-node children)
   (make-fresh-node branch-node-label root-namespace children))

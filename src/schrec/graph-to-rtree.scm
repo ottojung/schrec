@@ -12,13 +12,16 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (graph-to-rtree)
+    :export (graph->rtree)
+    :use-module ((euphrates ihashmap) :select (hashmap-ref hashmap-set! make-hashmap))
+    :use-module ((euphrates rtree) :select (rtree rtree-ref set-rtree-children! set-rtree-ref!))
+    :use-module ((node) :select (node-children node-id))
+    )))
 
-%var graph->rtree
 
-%use (hashmap-ref hashmap-set! make-hashmap) "./euphrates/ihashmap.scm"
-%use (rtree rtree-ref set-rtree-children! set-rtree-ref!) "./euphrates/rtree.scm"
-%use (node-children node-id) "./node.scm"
 
 (define (graph->rtree g)
   (define H (make-hashmap))

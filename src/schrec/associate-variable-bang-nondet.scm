@@ -12,17 +12,20 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (associate-variable-bang-nondet)
+    :export (associate-variable!/det/nondet)
+    :use-module ((euphrates prefixtree) :select (make-prefixtree prefixtree-set!))
+    :use-module ((euphrates raisu) :select (raisu))
+    :use-module ((euphrates stack) :select (stack-push!))
+    :use-module ((get-current-match-thread) :select (get-current-match-thread))
+    :use-module ((node) :select (node-binding set-node-binding!))
+    :use-module ((thread-obj) :select (thread-obj-lst))
+    :use-module ((variable-associated-huh-nondet) :select (variable-associated?/nondet))
+    )))
 
-%var associate-variable!/det/nondet
 
-%use (make-prefixtree prefixtree-set!) "./euphrates/prefixtree.scm"
-%use (raisu) "./euphrates/raisu.scm"
-%use (stack-push!) "./euphrates/stack.scm"
-%use (get-current-match-thread) "./get-current-match-thread.scm"
-%use (node-binding set-node-binding!) "./node.scm"
-%use (thread-obj-lst) "./thread-obj.scm"
-%use (variable-associated?/nondet) "./variable-associated-huh-nondet.scm"
 
 (define (associate-variable!/det/nondet free-stack node vals)
   (if (variable-associated?/nondet node)

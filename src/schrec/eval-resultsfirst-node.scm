@@ -12,18 +12,21 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (eval-resultsfirst-node)
+    :export (eval/resultsfirst/node)
+    :use-module ((eval-det) :select (eval/det))
+    :use-module ((eval-multi-form-huh) :select (eval-multi-form?))
+    :use-module ((eval-single-form-huh) :select (eval-single-form?))
+    :use-module ((get-eval-body) :select (get-eval-body))
+    :use-module ((get-eval-env) :select (get-eval-env))
+    :use-module ((get-eval-input) :select (get-eval-input))
+    :use-module ((run-environment-resultsfirst-multi) :select (run-environment-resultsfirst/multi))
+    :use-module ((run-environment-resultsfirst) :select (run-environment-resultsfirst))
+    )))
 
-%var eval/resultsfirst/node
 
-%use (eval/det) "./eval-det.scm"
-%use (eval-multi-form?) "./eval-multi-form-huh.scm"
-%use (eval-single-form?) "./eval-single-form-huh.scm"
-%use (get-eval-body) "./get-eval-body.scm"
-%use (get-eval-env) "./get-eval-env.scm"
-%use (get-eval-input) "./get-eval-input.scm"
-%use (run-environment-resultsfirst/multi) "./run-environment-resultsfirst-multi.scm"
-%use (run-environment-resultsfirst) "./run-environment-resultsfirst.scm"
 
 (define (eval/resultsfirst/node eval-node)
   (cond

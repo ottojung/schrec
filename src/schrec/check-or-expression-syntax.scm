@@ -12,14 +12,17 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (check-or-expression-syntax)
+    :export (check-or-expression-syntax)
+    :use-module ((euphrates list-length-geq-q) :select (list-length=<?))
+    :use-module ((euphrates raisu) :select (raisu))
+    :use-module ((node) :select (node-children))
+    :use-module ((or-node-huh) :select (or-node?))
+    )))
 
-%var check-or-expression-syntax
 
-%use (list-length=<?) "./euphrates/list-length-geq-q.scm"
-%use (raisu) "./euphrates/raisu.scm"
-%use (node-children) "./node.scm"
-%use (or-node?) "./or-node-huh.scm"
 
 (define (check-or-expression-syntax node)
   (define children (node-children node))

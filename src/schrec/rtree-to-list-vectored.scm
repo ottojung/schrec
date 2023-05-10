@@ -12,12 +12,15 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (rtree-to-list-vectored)
+    :export (rtree->list/vectored)
+    :use-module ((euphrates rtree) :select (rtree-children rtree-ref rtree-value))
+    :use-module ((node) :select (node-label node-namespace))
+    )))
 
-%var rtree->list/vectored
 
-%use (rtree-children rtree-ref rtree-value) "./euphrates/rtree.scm"
-%use (node-label node-namespace) "./node.scm"
 
 (define (rtree->list/vectored tree)
   (let loop ((tree tree))

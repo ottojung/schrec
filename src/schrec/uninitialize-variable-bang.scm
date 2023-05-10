@@ -12,12 +12,15 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (uninitialize-variable-bang)
+    :export (uninitialize-variable!)
+    :use-module ((euphrates raisu) :select (raisu))
+    :use-module ((node) :select (node-binding set-node-binding!))
+    )))
 
-%var uninitialize-variable!
 
-%use (raisu) "./euphrates/raisu.scm"
-%use (node-binding set-node-binding!) "./node.scm"
 
 (define (uninitialize-variable! node)
   ;; (unless (variable-associated?/det node)

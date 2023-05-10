@@ -12,16 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (nodeinfo)
+    :export (make-nodeinfo nodeinfo? nodeinfo-label nodeinfo-namespace nodeinfo-display set-nodeinfo-display!)
+    :use-module ((euphrates define-type9) :select (define-type9))
+    )))
 
-%var make-nodeinfo
-%var nodeinfo?
-%var nodeinfo-label
-%var nodeinfo-namespace
-%var nodeinfo-display
-%var set-nodeinfo-display!
 
-%use (define-type9) "./euphrates/define-type9.scm"
 
 (define-type9 nodeinfo
   (nodeinfo-ctor label namespace display) nodeinfo?

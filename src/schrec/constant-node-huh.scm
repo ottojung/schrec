@@ -12,12 +12,15 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (constant-node-huh)
+    :export (constant-node?)
+    :use-module ((leaf-node-huh) :select (leaf-node?))
+    :use-module ((named-node-huh) :select (named-node?))
+    )))
 
-%var constant-node?
 
-%use (leaf-node?) "./leaf-node-huh.scm"
-%use (named-node?) "./named-node-huh.scm"
 
 (define (constant-node? node)
   (and (leaf-node? node)

@@ -12,13 +12,16 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (and-node-huh)
+    :export (and-node?)
+    :use-module ((keyword-and) :select (keyword-and))
+    :use-module ((node) :select (node-label))
+    :use-module ((root-namespace-node-huh) :select (root-namespace-node?))
+    )))
 
-%var and-node?
 
-%use (keyword-and) "./keyword-and.scm"
-%use (node-label) "./node.scm"
-%use (root-namespace-node?) "./root-namespace-node-huh.scm"
 
 (define (and-node? node)
   (and (root-namespace-node? node)

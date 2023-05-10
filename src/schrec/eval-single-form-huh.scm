@@ -12,15 +12,18 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (eval-single-form-huh)
+    :export (eval-single-form?)
+    :use-module ((euphrates list-length-eq) :select (list-length=))
+    :use-module ((check-environment) :select (check-environment))
+    :use-module ((eval-single-node-huh) :select (eval-single-node?))
+    :use-module ((get-eval-env) :select (get-eval-env))
+    :use-module ((node) :select (node-children))
+    )))
 
-%var eval-single-form?
 
-%use (list-length=) "./euphrates/list-length-eq.scm"
-%use (check-environment) "./check-environment.scm"
-%use (eval-single-node?) "./eval-single-node-huh.scm"
-%use (get-eval-env) "./get-eval-env.scm"
-%use (node-children) "./node.scm"
 
 (define (eval-single-form? node)
   (define children (node-children node))

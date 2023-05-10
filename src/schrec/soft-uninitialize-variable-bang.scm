@@ -12,11 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (soft-uninitialize-variable-bang)
+    :export (soft-uninitialize-variable!)
+    :use-module ((node) :select (set-node-binding!))
+    )))
 
-%var soft-uninitialize-variable!
 
-%use (set-node-binding!) "./node.scm"
 
 (define (soft-uninitialize-variable! node)
   (set-node-binding! node #f)

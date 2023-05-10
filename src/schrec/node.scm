@@ -12,27 +12,18 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (node)
+    :export (make-node node? node-children set-node-children! node-id node-label node-namespace node-binding set-node-binding! node-visited? set-node-visited?! node-display set-node-display!)
+    :use-module ((euphrates define-type9) :select (define-type9))
+    :use-module ((euphrates prefixtree) :select (make-prefixtree prefixtree-ref-furthest prefixtree-set!))
+    :use-module ((get-current-thread) :select (get-current-thread))
+    :use-module ((nodeinfo) :select (make-nodeinfo nodeinfo-display nodeinfo-label nodeinfo-namespace set-nodeinfo-display!))
+    :use-module ((thread-obj) :select (thread-obj-lst))
+    )))
 
-%var make-node
-%var node?
-%var node-children
-%var set-node-children!
-%var node-id
-%var node-label
-%var node-namespace
-%var node-binding
-%var set-node-binding!
-%var node-visited?
-%var set-node-visited?!
-%var node-display
-%var set-node-display!
 
-%use (define-type9) "./euphrates/define-type9.scm"
-%use (make-prefixtree prefixtree-ref-furthest prefixtree-set!) "./euphrates/prefixtree.scm"
-%use (get-current-thread) "./get-current-thread.scm"
-%use (make-nodeinfo nodeinfo-display nodeinfo-label nodeinfo-namespace set-nodeinfo-display!) "./nodeinfo.scm"
-%use (thread-obj-lst) "./thread-obj.scm"
 
 (define-type9 <n>
   (node-ctor id children info binding visited?) node?

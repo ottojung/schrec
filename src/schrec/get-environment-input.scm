@@ -12,11 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (get-environment-input)
+    :export (get-environment-input)
+    :use-module ((node) :select (node-children))
+    )))
 
-%var get-environment-input
 
-%use (node-children) "./node.scm"
 
 (define (get-environment-input env)
   (define children (node-children env))

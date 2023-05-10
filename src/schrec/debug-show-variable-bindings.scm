@@ -12,19 +12,22 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (debug-show-variable-bindings)
+    :export (debug-show-variable-bindings)
+    :use-module ((euphrates dprintln) :select (dprintln))
+    :use-module ((euphrates list-deduplicate) :select (list-deduplicate/reverse))
+    :use-module ((euphrates list-intersperse) :select (list-intersperse))
+    :use-module ((euphrates stack) :select (stack->list))
+    :use-module ((euphrates tilda-s) :select (~s))
+    :use-module ((get-current-match-thread) :select (get-current-match-thread))
+    :use-module ((get-head) :select (get-head))
+    :use-module ((match-thread-relative) :select (match-thread-relative))
+    :use-module ((variable-get-association-or-nondet) :select (variable-get-association-or-nondet))
+    )))
 
-%var debug-show-variable-bindings
 
-%use (dprintln) "./euphrates/dprintln.scm"
-%use (list-deduplicate/reverse) "./euphrates/list-deduplicate.scm"
-%use (list-intersperse) "./euphrates/list-intersperse.scm"
-%use (stack->list) "./euphrates/stack.scm"
-%use (~s) "./euphrates/tilda-s.scm"
-%use (get-current-match-thread) "./get-current-match-thread.scm"
-%use (get-head) "./get-head.scm"
-%use (match-thread-relative) "./match-thread-relative.scm"
-%use (variable-get-association-or-nondet) "./variable-get-association-or-nondet.scm"
 
 (define (debug-show-variable-bindings free-stack result)
   (define vars

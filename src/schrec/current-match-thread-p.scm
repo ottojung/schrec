@@ -12,8 +12,11 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (current-match-thread-p)
+    :export (current-match-thread/p)
+    )))
 
-%var current-match-thread/p
 
 (define current-match-thread/p (make-parameter #f))

@@ -12,15 +12,18 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (find-partially-sorted-eval-likes)
+    :export (find-partially-sorted-eval-likes)
+    :use-module ((euphrates comp) :select (comp))
+    :use-module ((euphrates list-and-map) :select (list-and-map))
+    :use-module ((euphrates list-or-map) :select (list-or-map))
+    :use-module ((eval-like-huh) :select (eval-like?))
+    :use-module ((node) :select (node-children node-visited? set-node-visited?!))
+    )))
 
-%var find-partially-sorted-eval-likes
 
-%use (comp) "./euphrates/comp.scm"
-%use (list-and-map) "./euphrates/list-and-map.scm"
-%use (list-or-map) "./euphrates/list-or-map.scm"
-%use (eval-like?) "./eval-like-huh.scm"
-%use (node-children node-visited? set-node-visited?!) "./node.scm"
 
 ;; FIXME: This is wrong. There are no "levels".
 ;;        If bottom eval fails, then the top one must run

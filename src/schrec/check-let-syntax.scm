@@ -12,13 +12,16 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (check-let-syntax)
+    :export (check-let-syntax)
+    :use-module ((euphrates raisu) :select (raisu))
+    :use-module ((get-let-bindings) :select (get-let-bindings))
+    :use-module ((get-let-body) :select (get-let-body))
+    )))
 
-%var check-let-syntax
 
-%use (raisu) "./euphrates/raisu.scm"
-%use (get-let-bindings) "./get-let-bindings.scm"
-%use (get-let-body) "./get-let-body.scm"
 
 (define (check-let-syntax lst)
   (unless (list? lst)

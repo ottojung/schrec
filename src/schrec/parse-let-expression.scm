@@ -12,18 +12,21 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (parse-let-expression)
+    :export (parse-let-expression)
+    :use-module ((euphrates fp) :select (fp))
+    :use-module ((euphrates lexical-scope) :select (lexical-scope-set! lexical-scope-stage! lexical-scope-unstage!))
+    :use-module ((get-let-bindings) :select (get-let-bindings))
+    :use-module ((get-let-body) :select (get-let-body))
+    :use-module ((make-fresh-namespace) :select (make-fresh-namespace))
+    :use-module ((make-fresh-regular-node) :select (make-fresh-regular-node))
+    :use-module ((node) :select (node-children node-label set-node-children!))
+    :use-module ((transform-let-bindings) :select (transform-let-bindings))
+    )))
 
-%var parse-let-expression
 
-%use (fp) "./euphrates/fp.scm"
-%use (lexical-scope-set! lexical-scope-stage! lexical-scope-unstage!) "./euphrates/lexical-scope.scm"
-%use (get-let-bindings) "./get-let-bindings.scm"
-%use (get-let-body) "./get-let-body.scm"
-%use (make-fresh-namespace) "./make-fresh-namespace.scm"
-%use (make-fresh-regular-node) "./make-fresh-regular-node.scm"
-%use (node-children node-label set-node-children!) "./node.scm"
-%use (transform-let-bindings) "./transform-let-bindings.scm"
 
 (define (parse-let-expression scope loop lst)
   (define let-bindings-0 (get-let-bindings lst))

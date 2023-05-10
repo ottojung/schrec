@@ -12,12 +12,15 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (check-rewrite-block)
+    :export (check-rewrite-block)
+    :use-module ((euphrates list-length-eq) :select (list-length=))
+    :use-module ((node) :select (node-children))
+    )))
 
-%var check-rewrite-block
 
-%use (list-length=) "./euphrates/list-length-eq.scm"
-%use (node-children) "./node.scm"
 
 (define (check-rewrite-block block)
   (define children (node-children block))

@@ -12,17 +12,20 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (list-to-graph)
+    :export (list->graph)
+    :use-module ((euphrates lexical-scope) :select (lexical-scope-make lexical-scope-ref lexical-scope-set!))
+    :use-module ((check-let-syntax) :select (check-let-syntax))
+    :use-module ((let-expression-huh) :select (let-expression?))
+    :use-module ((make-fresh-atom-node) :select (make-fresh-atom-node))
+    :use-module ((make-fresh-branch-node) :select (make-fresh-branch-node))
+    :use-module ((parse-let-expression) :select (parse-let-expression))
+    :use-module ((root-namespace) :select (root-namespace))
+    )))
 
-%var list->graph
 
-%use (lexical-scope-make lexical-scope-ref lexical-scope-set!) "./euphrates/lexical-scope.scm"
-%use (check-let-syntax) "./check-let-syntax.scm"
-%use (let-expression?) "./let-expression-huh.scm"
-%use (make-fresh-atom-node) "./make-fresh-atom-node.scm"
-%use (make-fresh-branch-node) "./make-fresh-branch-node.scm"
-%use (parse-let-expression) "./parse-let-expression.scm"
-%use (root-namespace) "./root-namespace.scm"
 
 (define (list->graph lst)
   (define scope (lexical-scope-make root-namespace))

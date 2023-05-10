@@ -12,14 +12,17 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (match-rewrite-block-nondet)
+    :export (match-rewrite-block/nondet)
+    :use-module ((get-block-input) :select (get-block-input))
+    :use-module ((get-block-mpattern) :select (get-block-mpattern))
+    :use-module ((run-match-pattern-nondet) :select (run-match-pattern-nondet))
+    :use-module ((variable-get-association-nondet-singleton) :select (variable-get-association-nondet-singleton))
+    )))
 
-%var match-rewrite-block/nondet
 
-%use (get-block-input) "./get-block-input.scm"
-%use (get-block-mpattern) "./get-block-mpattern.scm"
-%use (run-match-pattern-nondet) "./run-match-pattern-nondet.scm"
-%use (variable-get-association-nondet-singleton) "./variable-get-association-nondet-singleton.scm"
 
 (define (match-rewrite-block/nondet free-stack block)
   (define input-node (get-block-input block))

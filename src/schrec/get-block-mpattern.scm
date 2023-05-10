@@ -12,11 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (get-block-mpattern)
+    :export (get-block-mpattern)
+    :use-module ((node) :select (node-children))
+    )))
 
-%var get-block-mpattern
 
-%use (node-children) "./node.scm"
 
 (define (get-block-mpattern block)
   (define children (node-children block))

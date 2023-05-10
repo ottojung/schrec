@@ -12,13 +12,16 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (find-partially-sorted-evals)
+    :export (find-partially-sorted-evals)
+    :use-module ((find-partially-sorted-eval-likes) :select (find-partially-sorted-eval-likes))
+    :use-module ((keyword-eval-multi) :select (keyword-eval-multi))
+    :use-module ((keyword-eval-single) :select (keyword-eval-single))
+    )))
 
-%var find-partially-sorted-evals
 
-%use (find-partially-sorted-eval-likes) "./find-partially-sorted-eval-likes.scm"
-%use (keyword-eval-multi) "./keyword-eval-multi.scm"
-%use (keyword-eval-single) "./keyword-eval-single.scm"
 
 (define (find-partially-sorted-evals root)
   (find-partially-sorted-eval-likes

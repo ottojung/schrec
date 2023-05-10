@@ -12,13 +12,16 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (eval-multi-node-huh)
+    :export (eval-multi-node?)
+    :use-module ((keyword-eval-multi) :select (keyword-eval-multi))
+    :use-module ((node) :select (node-label))
+    :use-module ((root-namespace-node-huh) :select (root-namespace-node?))
+    )))
 
-%var eval-multi-node?
 
-%use (keyword-eval-multi) "./keyword-eval-multi.scm"
-%use (node-label) "./node.scm"
-%use (root-namespace-node?) "./root-namespace-node-huh.scm"
 
 (define (eval-multi-node? n)
   (and (equal? keyword-eval-multi (node-label n))

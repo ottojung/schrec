@@ -12,12 +12,15 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (graph-to-list)
+    :export (graph->list)
+    :use-module ((graph-to-rtree) :select (graph->rtree))
+    :use-module ((rtree-to-list) :select (rtree->list))
+    )))
 
-%var graph->list
 
-%use (graph->rtree) "./graph-to-rtree.scm"
-%use (rtree->list) "./rtree-to-list.scm"
 
 (define graph->list
   (compose rtree->list graph->rtree))

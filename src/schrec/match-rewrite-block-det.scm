@@ -12,14 +12,17 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (match-rewrite-block-det)
+    :export (match-rewrite-block/det)
+    :use-module ((get-block-input) :select (get-block-input))
+    :use-module ((get-block-mpattern) :select (get-block-mpattern))
+    :use-module ((run-match-pattern-det) :select (run-match-pattern-det))
+    :use-module ((variable-get-association-or-det) :select (variable-get-association-or-det))
+    )))
 
-%var match-rewrite-block/det
 
-%use (get-block-input) "./get-block-input.scm"
-%use (get-block-mpattern) "./get-block-mpattern.scm"
-%use (run-match-pattern-det) "./run-match-pattern-det.scm"
-%use (variable-get-association-or-det) "./variable-get-association-or-det.scm"
 
 (define (match-rewrite-block/det free-stack block)
   (define input-node (get-block-input block))

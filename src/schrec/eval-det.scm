@@ -12,13 +12,16 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (eval-det)
+    :export (eval/det)
+    :use-module ((euphrates list-or-map) :select (list-or-map))
+    :use-module ((check-environment) :select (check-environment))
+    :use-module ((node) :select (node-children node-visited? set-node-visited?!))
+    )))
 
-%var eval/det
 
-%use (list-or-map) "./euphrates/list-or-map.scm"
-%use (check-environment) "./check-environment.scm"
-%use (node-children node-visited? set-node-visited?!) "./node.scm"
 
 (define (eval/det func env body)
   (and (check-environment env)

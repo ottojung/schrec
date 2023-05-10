@@ -12,22 +12,25 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (rtree-to-list)
+    :export (rtree->list)
+    :use-module ((euphrates fp) :select (fp))
+    :use-module ((euphrates ihashset) :select (list->hashset))
+    :use-module ((euphrates list-singleton-q) :select (list-singleton?))
+    :use-module ((euphrates rtree) :select (rtree-value))
+    :use-module ((constant-node-huh) :select (constant-node?))
+    :use-module ((graph-to-list-with-substitutes) :select (graph->list/with-substitutes))
+    :use-module ((keyword-let) :select (keyword-let))
+    :use-module ((make-node-displayer) :select (make-node-displayer))
+    :use-module ((named-node-huh) :select (named-node?))
+    :use-module ((node) :select (node-children node-display node-id set-node-display!))
+    :use-module ((root-namespace-node-huh) :select (root-namespace-node?))
+    :use-module ((rtree-references) :select (rtree-references))
+    )))
 
-%var rtree->list
 
-%use (fp) "./euphrates/fp.scm"
-%use (list->hashset) "./euphrates/ihashset.scm"
-%use (list-singleton?) "./euphrates/list-singleton-q.scm"
-%use (rtree-value) "./euphrates/rtree.scm"
-%use (constant-node?) "./constant-node-huh.scm"
-%use (graph->list/with-substitutes) "./graph-to-list-with-substitutes.scm"
-%use (keyword-let) "./keyword-let.scm"
-%use (make-node-displayer) "./make-node-displayer.scm"
-%use (named-node?) "./named-node-huh.scm"
-%use (node-children node-display node-id set-node-display!) "./node.scm"
-%use (root-namespace-node?) "./root-namespace-node-huh.scm"
-%use (rtree-references) "./rtree-references.scm"
 
 (define (rtree->list tree)
   (define all-references

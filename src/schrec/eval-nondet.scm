@@ -12,12 +12,15 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (eval-nondet)
+    :export (eval/nondet)
+    :use-module ((node) :select (node-children node-visited? set-node-visited?!))
+    :use-module ((thread-fork) :select (thread-fork))
+    )))
 
-%var eval/nondet
 
-%use (node-children node-visited? set-node-visited?!) "./node.scm"
-%use (thread-fork) "./thread-fork.scm"
 
 ;; returns a list of new thread ids
 (define (eval/nondet func env body)

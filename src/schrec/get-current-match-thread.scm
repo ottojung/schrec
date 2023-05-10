@@ -12,12 +12,15 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (get-current-match-thread)
+    :export (get-current-match-thread)
+    :use-module ((current-match-thread-p) :select (current-match-thread/p))
+    :use-module ((thread-obj) :select (thread-obj-ctr))
+    )))
 
-%var get-current-match-thread
 
-%use (current-match-thread/p) "./current-match-thread-p.scm"
-%use (thread-obj-ctr) "./thread-obj.scm"
 
 (define root-match-thread
   (thread-obj-ctr '()))

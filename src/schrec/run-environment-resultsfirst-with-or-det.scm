@@ -12,23 +12,26 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (run-environment-resultsfirst-with-or-det)
+    :export (run-environment-resultsfirst-with-or/det)
+    :use-module ((euphrates fn) :select (fn))
+    :use-module ((euphrates list-and-map) :select (list-and-map))
+    :use-module ((euphrates list-or-map) :select (list-or-map))
+    :use-module ((euphrates stack) :select (stack-make))
+    :use-module ((and-expression-huh) :select (and-expression?))
+    :use-module ((check-and-expression-syntax) :select (check-and-expression-syntax))
+    :use-module ((check-or-expression-syntax) :select (check-or-expression-syntax))
+    :use-module ((initialize-rewrite-block) :select (initialize-rewrite-block))
+    :use-module ((match-rewrite-block-det) :select (match-rewrite-block/det))
+    :use-module ((node) :select (node-children))
+    :use-module ((or-expression-huh) :select (or-expression?))
+    :use-module ((rewrite-rewrite-block-det) :select (rewrite-rewrite-block/det))
+    :use-module ((uninitialize-rewrite-block) :select (uninitialize-rewrite-block))
+    )))
 
-%var run-environment-resultsfirst-with-or/det
 
-%use (fn) "./euphrates/fn.scm"
-%use (list-and-map) "./euphrates/list-and-map.scm"
-%use (list-or-map) "./euphrates/list-or-map.scm"
-%use (stack-make) "./euphrates/stack.scm"
-%use (and-expression?) "./and-expression-huh.scm"
-%use (check-and-expression-syntax) "./check-and-expression-syntax.scm"
-%use (check-or-expression-syntax) "./check-or-expression-syntax.scm"
-%use (initialize-rewrite-block) "./initialize-rewrite-block.scm"
-%use (match-rewrite-block/det) "./match-rewrite-block-det.scm"
-%use (node-children) "./node.scm"
-%use (or-expression?) "./or-expression-huh.scm"
-%use (rewrite-rewrite-block/det) "./rewrite-rewrite-block-det.scm"
-%use (uninitialize-rewrite-block) "./uninitialize-rewrite-block.scm"
 
 (define (run-environment-resultsfirst-with-or/det env main-input)
   (define free-stack (stack-make))

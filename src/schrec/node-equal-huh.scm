@@ -12,11 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (node-equal-huh)
+    :export (node-equal?)
+    :use-module ((node) :select (node-id))
+    )))
 
-%var node-equal?
 
-%use (node-id) "./node.scm"
 
 (define (node-equal? a b)
   ;; TODO: can get away with just (eq? a b) ???

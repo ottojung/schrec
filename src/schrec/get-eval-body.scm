@@ -12,13 +12,16 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (get-eval-body)
+    :export (get-eval-body)
+    :use-module ((euphrates list-ref-or) :select (list-ref-or))
+    :use-module ((euphrates raisu) :select (raisu))
+    :use-module ((node) :select (node-children))
+    )))
 
-%var get-eval-body
 
-%use (list-ref-or) "./euphrates/list-ref-or.scm"
-%use (raisu) "./euphrates/raisu.scm"
-%use (node-children) "./node.scm"
 
 (define (get-eval-body graph)
   (define children (node-children graph))

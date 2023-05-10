@@ -12,13 +12,16 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (find-sorted-evals)
+    :export (find-sorted-evals)
+    :use-module ((find-sorted-eval-likes) :select (find-sorted-eval-likes))
+    :use-module ((keyword-eval-multi) :select (keyword-eval-multi))
+    :use-module ((keyword-eval-single) :select (keyword-eval-single))
+    )))
 
-%var find-sorted-evals
 
-%use (find-sorted-eval-likes) "./find-sorted-eval-likes.scm"
-%use (keyword-eval-multi) "./keyword-eval-multi.scm"
-%use (keyword-eval-single) "./keyword-eval-single.scm"
 
 ;; returns all eval nodes in a bottommost-to-topmost order
 (define (find-sorted-evals graph)

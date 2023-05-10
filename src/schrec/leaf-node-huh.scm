@@ -12,11 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (leaf-node-huh)
+    :export (leaf-node?)
+    :use-module ((node) :select (node-children))
+    )))
 
-%var leaf-node?
 
-%use (node-children) "./node.scm"
 
 (define (leaf-node? node)
   (null? (node-children node)))

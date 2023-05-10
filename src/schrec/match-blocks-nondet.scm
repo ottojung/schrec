@@ -12,15 +12,18 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (match-blocks-nondet)
+    :export (match-blocks/nondet)
+    :use-module ((euphrates list-map-flatten) :select (list-map/flatten))
+    :use-module ((get-current-match-thread) :select (get-current-match-thread))
+    :use-module ((initialize-const-variables-nondet) :select (initialize-const-variables/nondet))
+    :use-module ((match-rewrite-block-nondet) :select (match-rewrite-block/nondet))
+    :use-module ((match-thread-relative) :select (match-thread-relative))
+    )))
 
-%var match-blocks/nondet
 
-%use (list-map/flatten) "./euphrates/list-map-flatten.scm"
-%use (get-current-match-thread) "./get-current-match-thread.scm"
-%use (initialize-const-variables/nondet) "./initialize-const-variables-nondet.scm"
-%use (match-rewrite-block/nondet) "./match-rewrite-block-nondet.scm"
-%use (match-thread-relative) "./match-thread-relative.scm"
 
 ;; returns a list of `match-thread's
 (define (match-blocks/nondet free-stack constants main-input pointer-node blocks)

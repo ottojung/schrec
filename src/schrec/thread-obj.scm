@@ -12,13 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (thread-obj)
+    :export (thread-obj-ctr thread-obj-lst thread-obj?)
+    :use-module ((euphrates define-type9) :select (define-type9))
+    )))
 
-%var thread-obj-ctr
-%var thread-obj-lst
-%var thread-obj?
 
-%use (define-type9) "./euphrates/define-type9.scm"
 
 (define-type9 <th>
   (thread-obj-ctr lst) thread-obj?

@@ -12,12 +12,15 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (initialize-rewrite-block)
+    :export (initialize-rewrite-block)
+    :use-module ((node) :select (node-children))
+    :use-module ((soft-initialize-const-variable-bang) :select (soft-initialize-const-variable!))
+    )))
 
-%var initialize-rewrite-block
 
-%use (node-children) "./node.scm"
-%use (soft-initialize-const-variable!) "./soft-initialize-const-variable-bang.scm"
 
 (define (initialize-rewrite-block free-stack block)
   (define children (node-children block))

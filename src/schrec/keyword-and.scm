@@ -12,8 +12,11 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (keyword-and)
+    :export (keyword-and)
+    )))
 
-%var keyword-and
 
 (define keyword-and 'and)

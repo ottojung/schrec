@@ -12,12 +12,15 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (eval-like-huh)
+    :export (eval-like?)
+    :use-module ((node) :select (node-children node-label))
+    :use-module ((root-namespace-node-huh) :select (root-namespace-node?))
+    )))
 
-%var eval-like?
 
-%use (node-children node-label) "./node.scm"
-%use (root-namespace-node?) "./root-namespace-node-huh.scm"
 
 (define (eval-like? name parent)
   (let ((c (node-children parent)))

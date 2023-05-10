@@ -12,8 +12,11 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (eval-hook)
+    :export (eval-hook)
+    )))
 
-%var eval-hook
 
 (define eval-hook (make-parameter #f))

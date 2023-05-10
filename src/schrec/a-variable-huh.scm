@@ -12,11 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (a-variable-huh)
+    :export (a-variable?)
+    :use-module ((node) :select (node-constant?))
+    )))
 
-%var a-variable?
 
-%use (node-constant?) "./node.scm"
 
 (define (a-variable? node)
   (define type (node-constant? node))

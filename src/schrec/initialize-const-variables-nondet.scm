@@ -12,12 +12,15 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (initialize-const-variables-nondet)
+    :export (initialize-const-variables/nondet)
+    :use-module ((associate-variable-bang-nondet-single) :select (associate-variable!/nondet/single))
+    :use-module ((initialize-const-variables-generic) :select (initialize-const-variables/generic))
+    )))
 
-%var initialize-const-variables/nondet
 
-%use (associate-variable!/nondet/single) "./associate-variable-bang-nondet-single.scm"
-%use (initialize-const-variables/generic) "./initialize-const-variables-generic.scm"
 
 (define initialize-const-variables/nondet
   (initialize-const-variables/generic associate-variable!/nondet/single))

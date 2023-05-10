@@ -12,15 +12,19 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (pretty-print-graph)
+    :export (pretty-print-graph)
+    :use-module ((graph-to-list) :select (graph->list))
+    )))
 
-%var pretty-print-graph
 
-%use (graph->list) "./graph-to-list.scm"
 
-%for (COMPILER "guile")
-(use-modules (ice-9 pretty-print))
-%end
+(cond-expand
+ (guile
+  (use-modules (ice-9 pretty-print))
+  ))
 
 (define (pretty-print-graph g)
   (pretty-print (graph->list g)))

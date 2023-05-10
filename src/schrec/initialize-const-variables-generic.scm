@@ -12,13 +12,16 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (initialize-const-variables-generic)
+    :export (initialize-const-variables/generic)
+    :use-module ((euphrates comp) :select (comp))
+    :use-module ((euphrates list-or-map) :select (list-or-map))
+    :use-module ((node-equal-huh) :select (node-equal?))
+    )))
 
-%var initialize-const-variables/generic
 
-%use (comp) "./euphrates/comp.scm"
-%use (list-or-map) "./euphrates/list-or-map.scm"
-%use (node-equal?) "./node-equal-huh.scm"
 
 (define (initialize-const-variables/generic assign)
   (lambda (free-stack constants main-input pointer-node)

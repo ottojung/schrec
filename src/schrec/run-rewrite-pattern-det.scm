@@ -12,14 +12,17 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (run-rewrite-pattern-det)
+    :export (run-rewrite-pattern/det)
+    :use-module ((make-fresh-branch-node) :select (make-fresh-branch-node))
+    :use-module ((node-equal-huh) :select (node-equal?))
+    :use-module ((node) :select (node-children set-node-children!))
+    :use-module ((variable-get-association-or-det) :select (variable-get-association-or-det))
+    )))
 
-%var run-rewrite-pattern/det
 
-%use (make-fresh-branch-node) "./make-fresh-branch-node.scm"
-%use (node-equal?) "./node-equal-huh.scm"
-%use (node-children set-node-children!) "./node.scm"
-%use (variable-get-association-or-det) "./variable-get-association-or-det.scm"
 
 (define (run-rewrite-pattern/det replace-pattern main-input)
   (define (loop P)
