@@ -16,7 +16,7 @@
  (guile
   (define-module (glisp builtins)
     :export (f-null f-cons f-car f-cdr #{1f}# set progn eval-node make-named-node)
-    :use-module ((schrec euphrates raisu) :select (raisu))
+    :use-module ((euphrates raisu) :select (raisu))
     :use-module ((schrec eval-multi-node-huh) :select (eval-multi-node?))
     :use-module ((schrec make-fresh-atom-node) :select (make-fresh-atom-node))
     :use-module ((schrec make-fresh-branch-node) :select (make-fresh-branch-node))

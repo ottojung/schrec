@@ -15,13 +15,13 @@
 (cond-expand
  (guile
   (define-module (glisp lispytest)
+    :use-module ((glisp builtins) :select (f-null set))
+    :use-module ((glisp decode-graph) :select (decode-graph))
+    :use-module ((glisp encode-graph) :select (encode-graph))
+    :use-module ((glisp helpers) :select (foreach-child))
+    :use-module ((glisp input) :select (input))
+    :use-module ((glisp order-nodes) :select (order-nodes))
     :use-module ((schrec pretty-print-graph) :select (pretty-print-graph))
-    :use-module ((builtins) :select (f-null set))
-    :use-module ((decode-graph) :select (decode-graph))
-    :use-module ((helpers) :select (foreach-child))
-    :use-module ((input) :select (input))
-    :use-module ((order-nodes) :select (order-nodes))
-    :use-module ((encode-graph) :select (encode-graph))
     )))
 
 

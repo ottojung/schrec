@@ -16,8 +16,9 @@
  (guile
   (define-module (glisp decode-graph)
     :export (decode-graph)
-    :use-module ((builtins) :select (1f f-car f-cdr f-cons f-null progn set))
-    :use-module ((helpers) :select (child-ref children-count concat false-node make-n-fresh-nodes make-singleton monus n-successor n-zero n-zero? reverse-children separator true-node))
+    :use-module ((euphrates read-list) :select (read-list))
+    :use-module ((glisp builtins) :select (1f f-car f-cdr f-cons f-null progn set))
+    :use-module ((glisp helpers) :select (child-ref children-count concat false-node make-n-fresh-nodes make-singleton monus n-successor n-zero n-zero? reverse-children separator true-node))
     )))
 
 

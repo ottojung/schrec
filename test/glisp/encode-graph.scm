@@ -16,10 +16,10 @@
  (guile
   (define-module (glisp encode-graph)
     :export (encode-graph)
+    :use-module ((glisp builtins) :select (1f f-car f-cdr f-cons f-null progn set))
+    :use-module ((glisp helpers) :select (concat flatten foreach-child in-children? index-of intersperse make-singleton reverse-children separator))
+    :use-module ((glisp order-nodes) :select (order-nodes))
     :use-module ((schrec pretty-print-graph) :select (pretty-print-graph))
-    :use-module ((builtins) :select (1f f-car f-cdr f-cons f-null progn set))
-    :use-module ((helpers) :select (concat flatten foreach-child in-children? index-of intersperse make-singleton reverse-children separator))
-    :use-module ((order-nodes) :select (order-nodes))
     )))
 
 

@@ -16,8 +16,8 @@
  (guile
   (define-module (glisp order-nodes)
     :export (order-nodes)
-    :use-module ((builtins) :select (1f eval-node f-cons f-null progn set))
-    :use-module ((helpers) :select (foreach-child in-children? reverse-children))
+    :use-module ((glisp builtins) :select (1f eval-node f-cons f-null progn set))
+    :use-module ((glisp helpers) :select (foreach-child in-children? reverse-children))
     )))
 
 

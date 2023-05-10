@@ -16,7 +16,7 @@
  (guile
   (define-module (glisp helpers)
     :export (separator bit0 bit1 true-node false-node make-singleton concat copy-children flatten intersperse foreach-child equal-children? n-zero n-successor n-pred n-zero? n-one n-one? monus index-of child-ref make-n-fresh-nodes in-children? reverse-children children-count)
-    :use-module ((builtins) :select (1f f-car f-cdr f-cons f-null make-named-node progn))
+    :use-module ((glisp builtins) :select (1f f-car f-cdr f-cons f-null make-named-node progn))
     )))
 
 
