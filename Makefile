@@ -8,13 +8,13 @@ SCHREC_OPTS = --results all
 
 SUBMODULES = deps/euphrates/.git
 
-CZEMPAK = CZEMPAK_ROOT=$(PWD)/.czempak-root guile -s ./deps/czempak.scm
+GUILE = guile -L src
 
 test: dist/schrec
 	dist/schrec $(SCHREC_OPTS) example/const-multi.scm
 
 test2: dist/schrec
-	$(CZEMPAK) run test/glisp/lispytest.scm
+	$(GUILE) test/glisp/lispytest.scm
 
 run: dist/schrec
 	dist/schrec $(SCHREC_OPTS) $(RUN_TARGET)
@@ -47,7 +47,7 @@ test-all: dist/schrec
 	@ for FILE in test/test*.sh ; do $(MAKE) test-sh "TESTFILE=$$FILE" ; done
 
 test-scm:
-	$(CZEMPAK) run $(TESTFILE)
+	$(GUILE) $(TESTFILE)
 test-sh:
 	sh $(TESTFILE)
 
