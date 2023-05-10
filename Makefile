@@ -1,6 +1,7 @@
 
 PREFIX = $(HOME)/.local
 PREFIX_BIN = $(PREFIX)/bin
+PREFIX_SHARE = $(PREFIX)/share
 
 RUN_TARGET =
 SCHREC_OPTS = --results all
@@ -21,15 +22,19 @@ run: dist/schrec
 build: dist/schrec
 
 dist/schrec: src/schrec/*.scm dist
-	sh scripts/install.sh "$PWD" "$@"
+	sh scripts/install.sh $(PWD) "$@"
 
 dist:
 	mkdir -p dist
 
 install: $(PREFIX_BIN)/schrec
 
-$(PREFIX_BIN)/schrec: dist/schrec $(PREFIX_BIN)
-	sh scripts/install.sh "$PWD" "$@"
+$(PREFIX_BIN)/schrec: dist/schrec $(PREFIX_BIN) $(PREFIX_SHARE)/schrec
+	cp -L -r $(PWD)/src $(PREFIX_SHARE)/schrec/src
+	sh scripts/install.sh $(PREFIX_SHARE)/schrec/src "$@"
+
+$(PREFIX_SHARE)/schrec:
+	mkdir -p "$@"
 
 $(PREFIX_BIN):
 	mkdir -p "$@"
