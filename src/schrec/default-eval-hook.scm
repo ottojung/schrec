@@ -20,12 +20,6 @@
     )))
 
 
-
-(cond-expand
- (guile
-  (use-modules (ice-9 pretty-print))
-  ))
-
 (define (default-eval-hook original-graph)
   (lambda (env body ptr)
     (display "\n\nStep:\n")
