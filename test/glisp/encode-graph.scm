@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (encode-graph)
+  (define-module (glisp encode-graph)
     :export (encode-graph)
     :use-module ((schrec pretty-print-graph) :select (pretty-print-graph))
     :use-module ((builtins) :select (1f f-car f-cdr f-cons f-null progn set))

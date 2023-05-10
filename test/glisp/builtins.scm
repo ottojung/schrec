@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (builtins)
+  (define-module (glisp builtins)
     :export (f-null f-cons f-car f-cdr #{1f}# set progn eval-node make-named-node)
     :use-module ((schrec euphrates raisu) :select (raisu))
     :use-module ((schrec eval-multi-node-huh) :select (eval-multi-node?))

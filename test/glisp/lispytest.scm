@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (lispytest)
+  (define-module (glisp lispytest)
     :use-module ((schrec pretty-print-graph) :select (pretty-print-graph))
     :use-module ((builtins) :select (f-null set))
     :use-module ((decode-graph) :select (decode-graph))

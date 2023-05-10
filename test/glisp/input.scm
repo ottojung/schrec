@@ -14,7 +14,7 @@
 
 (cond-expand
  (guile
-  (define-module (input)
+  (define-module (glisp input)
     :export (input)
     :use-module ((schrec list-to-graph) :select (list->graph))
     )))
