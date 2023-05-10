@@ -16,7 +16,7 @@
  (guile
   (define-module (graph-to-list-with-substitutes)
     :export (graph->list/with-substitutes)
-    :use-module ((euphrates ihashset) :select (hashset-add! hashset-delete! hashset-ref make-hashset))
+    :use-module ((euphrates ihashset) :select (hashset-add! hashset-delete! hashset-has? make-hashset))
     :use-module ((euphrates raisu) :select (raisu))
     :use-module ((get-head) :select (get-head))
     :use-module ((node) :select (node-children node-display node-id node-label))
@@ -31,10 +31,10 @@
 
   (define S (make-hashset))
   (let loop ((node g))
-    (if (hashset-ref to-substitute (node-id node))
+    (if (hashset-has? to-substitute (node-id node))
         (get-label node)
         (begin
-          (when (hashset-ref S (node-id node))
+          (when (hashset-has? S (node-id node))
             (raisu 'graph-substitution-failed:loop (get-head 5 node)))
           (hashset-add! S (node-id node))
           (let ((result (map loop (node-children node))))
