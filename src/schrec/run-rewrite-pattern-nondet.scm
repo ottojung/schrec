@@ -18,11 +18,11 @@
     :export (run-rewrite-pattern-nondet)
     :use-module ((euphrates list-map-flatten) :select (list-map/flatten))
     :use-module ((euphrates raisu) :select (raisu))
-    :use-module ((make-fresh-branch-node) :select (make-fresh-branch-node))
-    :use-module ((node-equal-huh) :select (node-equal?))
-    :use-module ((node) :select (node-children set-node-children!))
-    :use-module ((variable-get-association-nondet-singleton) :select (variable-get-association-nondet-singleton))
-    :use-module ((variable-get-association-or-nondet) :select (variable-get-association-or-nondet))
+    :use-module ((schrec make-fresh-branch-node) :select (make-fresh-branch-node))
+    :use-module ((schrec node-equal-huh) :select (node-equal?))
+    :use-module ((schrec node) :select (node-children set-node-children!))
+    :use-module ((schrec variable-get-association-nondet-singleton) :select (variable-get-association-nondet-singleton))
+    :use-module ((schrec variable-get-association-or-nondet) :select (variable-get-association-or-nondet))
     )))
 
 

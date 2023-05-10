@@ -17,8 +17,8 @@
   (define-module (schrec check-let-syntax)
     :export (check-let-syntax)
     :use-module ((euphrates raisu) :select (raisu))
-    :use-module ((get-let-bindings) :select (get-let-bindings))
-    :use-module ((get-let-body) :select (get-let-body))
+    :use-module ((schrec get-let-bindings) :select (get-let-bindings))
+    :use-module ((schrec get-let-body) :select (get-let-body))
     )))
 
 

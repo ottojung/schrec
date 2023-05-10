@@ -16,8 +16,8 @@
  (guile
   (define-module (schrec initialize-const-variables-nondet)
     :export (initialize-const-variables/nondet)
-    :use-module ((associate-variable-bang-nondet-single) :select (associate-variable!/nondet/single))
-    :use-module ((initialize-const-variables-generic) :select (initialize-const-variables/generic))
+    :use-module ((schrec associate-variable-bang-nondet-single) :select (associate-variable!/nondet/single))
+    :use-module ((schrec initialize-const-variables-generic) :select (initialize-const-variables/generic))
     )))
 
 

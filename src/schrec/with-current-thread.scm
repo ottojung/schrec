@@ -16,7 +16,7 @@
  (guile
   (define-module (schrec with-current-thread)
     :export (with-current-thread)
-    :use-module ((current-thread-p) :select (current-thread/p))
+    :use-module ((schrec current-thread-p) :select (current-thread/p))
     )))
 
 

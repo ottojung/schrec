@@ -16,8 +16,8 @@
  (guile
   (define-module (schrec thread-fork)
     :export (thread-fork)
-    :use-module ((current-thread-p) :select (current-thread/p))
-    :use-module ((make-thread-id) :select (make-thread-id))
+    :use-module ((schrec current-thread-p) :select (current-thread/p))
+    :use-module ((schrec make-thread-id) :select (make-thread-id))
     )))
 
 

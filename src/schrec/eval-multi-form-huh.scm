@@ -17,10 +17,10 @@
   (define-module (schrec eval-multi-form-huh)
     :export (eval-multi-form?)
     :use-module ((euphrates list-length-eq) :select (list-length=))
-    :use-module ((check-environment) :select (check-environment))
-    :use-module ((eval-multi-node-huh) :select (eval-multi-node?))
-    :use-module ((get-eval-env) :select (get-eval-env))
-    :use-module ((node) :select (node-children))
+    :use-module ((schrec check-environment) :select (check-environment))
+    :use-module ((schrec eval-multi-node-huh) :select (eval-multi-node?))
+    :use-module ((schrec get-eval-env) :select (get-eval-env))
+    :use-module ((schrec node) :select (node-children))
     )))
 
 

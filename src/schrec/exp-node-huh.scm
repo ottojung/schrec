@@ -16,8 +16,8 @@
  (guile
   (define-module (schrec exp-node-huh)
     :export (exp-node?)
-    :use-module ((branch-node-label) :select (branch-node-label))
-    :use-module ((node) :select (node-label node?))
+    :use-module ((schrec branch-node-label) :select (branch-node-label))
+    :use-module ((schrec node) :select (node-label node?))
     )))
 
 

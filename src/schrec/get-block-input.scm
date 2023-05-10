@@ -16,7 +16,7 @@
  (guile
   (define-module (schrec get-block-input)
     :export (get-block-input)
-    :use-module ((node) :select (node-children))
+    :use-module ((schrec node) :select (node-children))
     )))
 
 

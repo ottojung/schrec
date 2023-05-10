@@ -16,8 +16,8 @@
  (guile
   (define-module (schrec initialize-const-variables-det)
     :export (initialize-const-variables/det)
-    :use-module ((associate-variable-bang-det) :select (associate-variable!/det))
-    :use-module ((initialize-const-variables-generic) :select (initialize-const-variables/generic))
+    :use-module ((schrec associate-variable-bang-det) :select (associate-variable!/det))
+    :use-module ((schrec initialize-const-variables-generic) :select (initialize-const-variables/generic))
     )))
 
 

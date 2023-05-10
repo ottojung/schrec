@@ -17,10 +17,10 @@
   (define-module (schrec rewrite-rewrite-block-nondet)
     :export (rewrite-rewrite-block/nondet)
     :use-module ((euphrates raisu) :select (raisu))
-    :use-module ((get-block-input) :select (get-block-input))
-    :use-module ((get-block-rpattern) :select (get-block-rpattern))
-    :use-module ((run-rewrite-pattern-nondet) :select (run-rewrite-pattern-nondet))
-    :use-module ((variable-get-association-nondet-singleton) :select (variable-get-association-nondet-singleton))
+    :use-module ((schrec get-block-input) :select (get-block-input))
+    :use-module ((schrec get-block-rpattern) :select (get-block-rpattern))
+    :use-module ((schrec run-rewrite-pattern-nondet) :select (run-rewrite-pattern-nondet))
+    :use-module ((schrec variable-get-association-nondet-singleton) :select (variable-get-association-nondet-singleton))
     )))
 
 

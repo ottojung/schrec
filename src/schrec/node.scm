@@ -18,9 +18,9 @@
     :export (make-node node? node-children set-node-children! node-id node-label node-namespace node-binding set-node-binding! node-visited? set-node-visited?! node-display set-node-display!)
     :use-module ((euphrates define-type9) :select (define-type9))
     :use-module ((euphrates prefixtree) :select (make-prefixtree prefixtree-ref-furthest prefixtree-set!))
-    :use-module ((get-current-thread) :select (get-current-thread))
-    :use-module ((nodeinfo) :select (make-nodeinfo nodeinfo-display nodeinfo-label nodeinfo-namespace set-nodeinfo-display!))
-    :use-module ((thread-obj) :select (thread-obj-lst))
+    :use-module ((schrec get-current-thread) :select (get-current-thread))
+    :use-module ((schrec nodeinfo) :select (make-nodeinfo nodeinfo-display nodeinfo-label nodeinfo-namespace set-nodeinfo-display!))
+    :use-module ((schrec thread-obj) :select (thread-obj-lst))
     )))
 
 

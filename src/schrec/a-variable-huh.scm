@@ -16,7 +16,6 @@
  (guile
   (define-module (schrec a-variable-huh)
     :export (a-variable?)
-    :use-module ((node) :select (node-constant?))
     )))
 
 

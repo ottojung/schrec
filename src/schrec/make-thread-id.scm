@@ -16,8 +16,8 @@
  (guile
   (define-module (schrec make-thread-id)
     :export (make-thread-id)
-    :use-module ((get-current-thread) :select (get-current-thread))
-    :use-module ((thread-obj) :select (thread-obj-ctr thread-obj-lst))
+    :use-module ((schrec get-current-thread) :select (get-current-thread))
+    :use-module ((schrec thread-obj) :select (thread-obj-ctr thread-obj-lst))
     )))
 
 

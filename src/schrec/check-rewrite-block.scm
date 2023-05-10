@@ -17,7 +17,7 @@
   (define-module (schrec check-rewrite-block)
     :export (check-rewrite-block)
     :use-module ((euphrates list-length-eq) :select (list-length=))
-    :use-module ((node) :select (node-children))
+    :use-module ((schrec node) :select (node-children))
     )))
 
 

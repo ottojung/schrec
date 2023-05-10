@@ -16,9 +16,9 @@
  (guile
   (define-module (schrec make-fresh-branch-node)
     :export (make-fresh-branch-node)
-    :use-module ((branch-node-label) :select (branch-node-label))
-    :use-module ((make-fresh-node) :select (make-fresh-node))
-    :use-module ((root-namespace) :select (root-namespace))
+    :use-module ((schrec branch-node-label) :select (branch-node-label))
+    :use-module ((schrec make-fresh-node) :select (make-fresh-node))
+    :use-module ((schrec root-namespace) :select (root-namespace))
     )))
 
 

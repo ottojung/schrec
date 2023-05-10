@@ -18,7 +18,7 @@
     :export (initialize-const-variables/generic)
     :use-module ((euphrates comp) :select (comp))
     :use-module ((euphrates list-or-map) :select (list-or-map))
-    :use-module ((node-equal-huh) :select (node-equal?))
+    :use-module ((schrec node-equal-huh) :select (node-equal?))
     )))
 
 

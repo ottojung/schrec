@@ -16,7 +16,7 @@
  (guile
   (define-module (schrec variable-associated-huh-det)
     :export (variable-associated?/det)
-    :use-module ((variable-get-association-or-det) :select (variable-get-association-or-det))
+    :use-module ((schrec variable-get-association-or-det) :select (variable-get-association-or-det))
     )))
 
 

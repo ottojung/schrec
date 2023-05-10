@@ -16,9 +16,9 @@
  (guile
   (define-module (schrec find-bottommost-eval)
     :export (find-bottommost-eval)
-    :use-module ((eval-single-form-huh) :select (eval-single-form?))
-    :use-module ((get-eval-body) :select (get-eval-body))
-    :use-module ((node) :select (node-children node-visited? set-node-visited?!))
+    :use-module ((schrec eval-single-form-huh) :select (eval-single-form?))
+    :use-module ((schrec get-eval-body) :select (get-eval-body))
+    :use-module ((schrec node) :select (node-children node-visited? set-node-visited?!))
     )))
 
 

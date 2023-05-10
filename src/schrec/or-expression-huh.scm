@@ -16,8 +16,8 @@
  (guile
   (define-module (schrec or-expression-huh)
     :export (or-expression?)
-    :use-module ((node) :select (node-children))
-    :use-module ((or-node-huh) :select (or-node?))
+    :use-module ((schrec node) :select (node-children))
+    :use-module ((schrec or-node-huh) :select (or-node?))
     )))
 
 

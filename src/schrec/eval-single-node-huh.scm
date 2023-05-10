@@ -16,9 +16,9 @@
  (guile
   (define-module (schrec eval-single-node-huh)
     :export (eval-single-node?)
-    :use-module ((keyword-eval-single) :select (keyword-eval-single))
-    :use-module ((node) :select (node-label))
-    :use-module ((root-namespace-node-huh) :select (root-namespace-node?))
+    :use-module ((schrec keyword-eval-single) :select (keyword-eval-single))
+    :use-module ((schrec node) :select (node-label))
+    :use-module ((schrec root-namespace-node-huh) :select (root-namespace-node?))
     )))
 
 

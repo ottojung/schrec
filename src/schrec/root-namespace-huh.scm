@@ -16,7 +16,7 @@
  (guile
   (define-module (schrec root-namespace-huh)
     :export (root-namespace?)
-    :use-module ((root-namespace) :select (root-namespace))
+    :use-module ((schrec root-namespace) :select (root-namespace))
     )))
 
 

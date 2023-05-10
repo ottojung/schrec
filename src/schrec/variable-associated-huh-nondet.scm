@@ -16,7 +16,7 @@
  (guile
   (define-module (schrec variable-associated-huh-nondet)
     :export (variable-associated?/nondet)
-    :use-module ((variable-get-association-or-nondet) :select (variable-get-association-or-nondet))
+    :use-module ((schrec variable-get-association-or-nondet) :select (variable-get-association-or-nondet))
     )))
 
 

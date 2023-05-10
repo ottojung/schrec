@@ -16,10 +16,10 @@
  (guile
   (define-module (schrec match-rewrite-block-nondet)
     :export (match-rewrite-block/nondet)
-    :use-module ((get-block-input) :select (get-block-input))
-    :use-module ((get-block-mpattern) :select (get-block-mpattern))
-    :use-module ((run-match-pattern-nondet) :select (run-match-pattern-nondet))
-    :use-module ((variable-get-association-nondet-singleton) :select (variable-get-association-nondet-singleton))
+    :use-module ((schrec get-block-input) :select (get-block-input))
+    :use-module ((schrec get-block-mpattern) :select (get-block-mpattern))
+    :use-module ((schrec run-match-pattern-nondet) :select (run-match-pattern-nondet))
+    :use-module ((schrec variable-get-association-nondet-singleton) :select (variable-get-association-nondet-singleton))
     )))
 
 

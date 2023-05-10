@@ -16,8 +16,8 @@
  (guile
   (define-module (schrec get-current-match-thread)
     :export (get-current-match-thread)
-    :use-module ((current-match-thread-p) :select (current-match-thread/p))
-    :use-module ((thread-obj) :select (thread-obj-ctr))
+    :use-module ((schrec current-match-thread-p) :select (current-match-thread/p))
+    :use-module ((schrec thread-obj) :select (thread-obj-ctr))
     )))
 
 

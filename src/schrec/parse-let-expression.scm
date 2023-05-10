@@ -18,12 +18,12 @@
     :export (parse-let-expression)
     :use-module ((euphrates fp) :select (fp))
     :use-module ((euphrates lexical-scope) :select (lexical-scope-set! lexical-scope-stage! lexical-scope-unstage!))
-    :use-module ((get-let-bindings) :select (get-let-bindings))
-    :use-module ((get-let-body) :select (get-let-body))
-    :use-module ((make-fresh-namespace) :select (make-fresh-namespace))
-    :use-module ((make-fresh-regular-node) :select (make-fresh-regular-node))
-    :use-module ((node) :select (node-children node-label set-node-children!))
-    :use-module ((transform-let-bindings) :select (transform-let-bindings))
+    :use-module ((schrec get-let-bindings) :select (get-let-bindings))
+    :use-module ((schrec get-let-body) :select (get-let-body))
+    :use-module ((schrec make-fresh-namespace) :select (make-fresh-namespace))
+    :use-module ((schrec make-fresh-regular-node) :select (make-fresh-regular-node))
+    :use-module ((schrec node) :select (node-children node-label set-node-children!))
+    :use-module ((schrec transform-let-bindings) :select (transform-let-bindings))
     )))
 
 

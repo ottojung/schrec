@@ -16,7 +16,7 @@
  (guile
   (define-module (schrec match-thread-relative)
     :export (match-thread-relative)
-    :use-module ((with-current-match-thread) :select (with-current-match-thread))
+    :use-module ((schrec with-current-match-thread) :select (with-current-match-thread))
     )))
 
 

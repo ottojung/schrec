@@ -16,7 +16,7 @@
  (guile
   (define-module (schrec associate-variable-bang-nondet-single)
     :export (associate-variable!/nondet/single)
-    :use-module ((associate-variable-bang-nondet) :select (associate-variable!/det/nondet))
+    :use-module ((schrec associate-variable-bang-nondet) :select (associate-variable!/det/nondet))
     )))
 
 

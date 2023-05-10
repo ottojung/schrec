@@ -16,9 +16,9 @@
  (guile
   (define-module (schrec graph-to-rtree)
     :export (graph->rtree)
-    :use-module ((euphrates ihashmap) :select (hashmap-ref hashmap-set! make-hashmap))
+    :use-module ((euphrates hashmap) :select (hashmap-ref hashmap-set! make-hashmap))
     :use-module ((euphrates rtree) :select (rtree rtree-ref set-rtree-children! set-rtree-ref!))
-    :use-module ((node) :select (node-children node-id))
+    :use-module ((schrec node) :select (node-children node-id))
     )))
 
 

@@ -16,10 +16,10 @@
  (guile
   (define-module (schrec run-rewrite-pattern-det)
     :export (run-rewrite-pattern/det)
-    :use-module ((make-fresh-branch-node) :select (make-fresh-branch-node))
-    :use-module ((node-equal-huh) :select (node-equal?))
-    :use-module ((node) :select (node-children set-node-children!))
-    :use-module ((variable-get-association-or-det) :select (variable-get-association-or-det))
+    :use-module ((schrec make-fresh-branch-node) :select (make-fresh-branch-node))
+    :use-module ((schrec node-equal-huh) :select (node-equal?))
+    :use-module ((schrec node) :select (node-children set-node-children!))
+    :use-module ((schrec variable-get-association-or-det) :select (variable-get-association-or-det))
     )))
 
 

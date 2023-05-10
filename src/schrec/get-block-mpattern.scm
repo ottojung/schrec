@@ -16,7 +16,7 @@
  (guile
   (define-module (schrec get-block-mpattern)
     :export (get-block-mpattern)
-    :use-module ((node) :select (node-children))
+    :use-module ((schrec node) :select (node-children))
     )))
 
 

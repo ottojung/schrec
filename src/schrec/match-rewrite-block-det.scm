@@ -16,10 +16,10 @@
  (guile
   (define-module (schrec match-rewrite-block-det)
     :export (match-rewrite-block/det)
-    :use-module ((get-block-input) :select (get-block-input))
-    :use-module ((get-block-mpattern) :select (get-block-mpattern))
-    :use-module ((run-match-pattern-det) :select (run-match-pattern-det))
-    :use-module ((variable-get-association-or-det) :select (variable-get-association-or-det))
+    :use-module ((schrec get-block-input) :select (get-block-input))
+    :use-module ((schrec get-block-mpattern) :select (get-block-mpattern))
+    :use-module ((schrec run-match-pattern-det) :select (run-match-pattern-det))
+    :use-module ((schrec variable-get-association-or-det) :select (variable-get-association-or-det))
     )))
 
 

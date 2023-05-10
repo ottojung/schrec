@@ -16,9 +16,9 @@
  (guile
   (define-module (schrec find-sorted-evals)
     :export (find-sorted-evals)
-    :use-module ((find-sorted-eval-likes) :select (find-sorted-eval-likes))
-    :use-module ((keyword-eval-multi) :select (keyword-eval-multi))
-    :use-module ((keyword-eval-single) :select (keyword-eval-single))
+    :use-module ((schrec find-sorted-eval-likes) :select (find-sorted-eval-likes))
+    :use-module ((schrec keyword-eval-multi) :select (keyword-eval-multi))
+    :use-module ((schrec keyword-eval-single) :select (keyword-eval-single))
     )))
 
 

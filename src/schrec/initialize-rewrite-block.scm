@@ -16,8 +16,7 @@
  (guile
   (define-module (schrec initialize-rewrite-block)
     :export (initialize-rewrite-block)
-    :use-module ((node) :select (node-children))
-    :use-module ((soft-initialize-const-variable-bang) :select (soft-initialize-const-variable!))
+    :use-module ((schrec node) :select (node-children))
     )))
 
 

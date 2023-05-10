@@ -16,7 +16,7 @@
  (guile
   (define-module (schrec leaf-node-huh)
     :export (leaf-node?)
-    :use-module ((node) :select (node-children))
+    :use-module ((schrec node) :select (node-children))
     )))
 
 

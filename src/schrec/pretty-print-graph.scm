@@ -16,7 +16,7 @@
  (guile
   (define-module (schrec pretty-print-graph)
     :export (pretty-print-graph)
-    :use-module ((graph-to-list) :select (graph->list))
+    :use-module ((schrec graph-to-list) :select (graph->list))
     )))
 
 

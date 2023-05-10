@@ -17,9 +17,9 @@
   (define-module (schrec debug-log-bind)
     :export (debug-log-bind)
     :use-module ((euphrates dprintln) :select (dprintln))
-    :use-module ((get-current-match-thread) :select (get-current-match-thread))
-    :use-module ((get-head) :select (get-head))
-    :use-module ((variable-get-association-or-nondet) :select (variable-get-association-or-nondet))
+    :use-module ((schrec get-current-match-thread) :select (get-current-match-thread))
+    :use-module ((schrec get-head) :select (get-head))
+    :use-module ((schrec variable-get-association-or-nondet) :select (variable-get-association-or-nondet))
     )))
 
 

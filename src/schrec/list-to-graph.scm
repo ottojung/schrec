@@ -17,12 +17,12 @@
   (define-module (schrec list-to-graph)
     :export (list->graph)
     :use-module ((euphrates lexical-scope) :select (lexical-scope-make lexical-scope-ref lexical-scope-set!))
-    :use-module ((check-let-syntax) :select (check-let-syntax))
-    :use-module ((let-expression-huh) :select (let-expression?))
-    :use-module ((make-fresh-atom-node) :select (make-fresh-atom-node))
-    :use-module ((make-fresh-branch-node) :select (make-fresh-branch-node))
-    :use-module ((parse-let-expression) :select (parse-let-expression))
-    :use-module ((root-namespace) :select (root-namespace))
+    :use-module ((schrec check-let-syntax) :select (check-let-syntax))
+    :use-module ((schrec let-expression-huh) :select (let-expression?))
+    :use-module ((schrec make-fresh-atom-node) :select (make-fresh-atom-node))
+    :use-module ((schrec make-fresh-branch-node) :select (make-fresh-branch-node))
+    :use-module ((schrec parse-let-expression) :select (parse-let-expression))
+    :use-module ((schrec root-namespace) :select (root-namespace))
     )))
 
 

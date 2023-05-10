@@ -18,8 +18,8 @@
     :export (find-sorted-eval-likes)
     :use-module ((euphrates comp) :select (comp))
     :use-module ((euphrates list-or-map) :select (list-or-map))
-    :use-module ((eval-like-huh) :select (eval-like?))
-    :use-module ((node) :select (node-children node-visited? set-node-visited?!))
+    :use-module ((schrec eval-like-huh) :select (eval-like?))
+    :use-module ((schrec node) :select (node-children node-visited? set-node-visited?!))
     )))
 
 

@@ -18,9 +18,9 @@
     :export (reduce/resultsrandom)
     :use-module ((euphrates list-find-first) :select (list-find-first))
     :use-module ((euphrates list-random-shuffle) :select (list-random-shuffle))
-    :use-module ((eval-resultsrandom-node) :select (eval/resultsrandom/node))
-    :use-module ((find-partially-sorted-evals) :select (find-partially-sorted-evals))
-    :use-module ((get-current-thread) :select (get-current-thread))
+    :use-module ((schrec eval-resultsrandom-node) :select (eval/resultsrandom/node))
+    :use-module ((schrec find-partially-sorted-evals) :select (find-partially-sorted-evals))
+    :use-module ((schrec get-current-thread) :select (get-current-thread))
     )))
 
 

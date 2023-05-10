@@ -16,10 +16,10 @@
  (guile
   (define-module (schrec make-node-displayer)
     :export (make-node-displayer)
-    :use-module ((euphrates ihashmap) :select (hashmap-ref hashmap-set! make-hashmap))
+    :use-module ((euphrates hashmap) :select (hashmap-ref hashmap-set! make-hashmap))
     :use-module ((euphrates tilda-a) :select (~a))
-    :use-module ((named-node-huh) :select (named-node?))
-    :use-module ((node) :select (node-id node-label node-namespace))
+    :use-module ((schrec named-node-huh) :select (named-node?))
+    :use-module ((schrec node) :select (node-id node-label node-namespace))
     )))
 
 

@@ -16,7 +16,7 @@
  (guile
   (define-module (schrec soft-uninitialize-variable-bang)
     :export (soft-uninitialize-variable!)
-    :use-module ((node) :select (set-node-binding!))
+    :use-module ((schrec node) :select (set-node-binding!))
     )))
 
 

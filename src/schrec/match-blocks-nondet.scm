@@ -17,10 +17,10 @@
   (define-module (schrec match-blocks-nondet)
     :export (match-blocks/nondet)
     :use-module ((euphrates list-map-flatten) :select (list-map/flatten))
-    :use-module ((get-current-match-thread) :select (get-current-match-thread))
-    :use-module ((initialize-const-variables-nondet) :select (initialize-const-variables/nondet))
-    :use-module ((match-rewrite-block-nondet) :select (match-rewrite-block/nondet))
-    :use-module ((match-thread-relative) :select (match-thread-relative))
+    :use-module ((schrec get-current-match-thread) :select (get-current-match-thread))
+    :use-module ((schrec initialize-const-variables-nondet) :select (initialize-const-variables/nondet))
+    :use-module ((schrec match-rewrite-block-nondet) :select (match-rewrite-block/nondet))
+    :use-module ((schrec match-thread-relative) :select (match-thread-relative))
     )))
 
 

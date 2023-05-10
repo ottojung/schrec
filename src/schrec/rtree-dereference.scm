@@ -18,8 +18,8 @@
     :export (rtree-dereference)
     :use-module ((euphrates raisu) :select (raisu))
     :use-module ((euphrates rtree) :select (rtree-children rtree-ref rtree-value rtree?))
-    :use-module ((branch-node-label) :select (branch-node-label))
-    :use-module ((node) :select (node-label))
+    :use-module ((schrec branch-node-label) :select (branch-node-label))
+    :use-module ((schrec node) :select (node-label))
     )))
 
 

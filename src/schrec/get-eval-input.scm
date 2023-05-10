@@ -18,7 +18,7 @@
     :export (get-eval-input)
     :use-module ((euphrates list-ref-or) :select (list-ref-or))
     :use-module ((euphrates raisu) :select (raisu))
-    :use-module ((node) :select (node-children))
+    :use-module ((schrec node) :select (node-children))
     )))
 
 

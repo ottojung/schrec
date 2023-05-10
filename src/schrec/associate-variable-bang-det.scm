@@ -18,8 +18,8 @@
     :export (associate-variable!/det)
     :use-module ((euphrates raisu) :select (raisu))
     :use-module ((euphrates stack) :select (stack-push!))
-    :use-module ((node) :select (set-node-binding!))
-    :use-module ((variable-associated-huh-det) :select (variable-associated?/det))
+    :use-module ((schrec node) :select (set-node-binding!))
+    :use-module ((schrec variable-associated-huh-det) :select (variable-associated?/det))
     )))
 
 

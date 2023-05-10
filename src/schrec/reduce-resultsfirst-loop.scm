@@ -17,8 +17,8 @@
   (define-module (schrec reduce-resultsfirst-loop)
     :export (reduce/resultsfirst/loop)
     :use-module ((euphrates list-find-first) :select (list-find-first))
-    :use-module ((eval-resultsfirst-node-loop) :select (eval/resultsfirst/node/loop))
-    :use-module ((find-sorted-evals) :select (find-sorted-evals))
+    :use-module ((schrec eval-resultsfirst-node-loop) :select (eval/resultsfirst/node/loop))
+    :use-module ((schrec find-sorted-evals) :select (find-sorted-evals))
     )))
 
 

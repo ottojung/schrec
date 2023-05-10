@@ -17,7 +17,7 @@
   (define-module (schrec uninitialize-variable-bang)
     :export (uninitialize-variable!)
     :use-module ((euphrates raisu) :select (raisu))
-    :use-module ((node) :select (node-binding set-node-binding!))
+    :use-module ((schrec node) :select (node-binding set-node-binding!))
     )))
 
 

@@ -18,8 +18,8 @@
     :export (check-or-expression-syntax)
     :use-module ((euphrates list-length-geq-q) :select (list-length=<?))
     :use-module ((euphrates raisu) :select (raisu))
-    :use-module ((node) :select (node-children))
-    :use-module ((or-node-huh) :select (or-node?))
+    :use-module ((schrec node) :select (node-children))
+    :use-module ((schrec or-node-huh) :select (or-node?))
     )))
 
 

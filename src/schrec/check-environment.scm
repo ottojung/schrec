@@ -18,9 +18,9 @@
     :export (check-environment)
     :use-module ((euphrates list-and-map) :select (list-and-map))
     :use-module ((euphrates list-length-eq) :select (list-length=))
-    :use-module ((check-rewrite-block) :select (check-rewrite-block))
-    :use-module ((get-environment-blocks) :select (get-environment-blocks))
-    :use-module ((node) :select (node-children))
+    :use-module ((schrec check-rewrite-block) :select (check-rewrite-block))
+    :use-module ((schrec get-environment-blocks) :select (get-environment-blocks))
+    :use-module ((schrec node) :select (node-children))
     )))
 
 

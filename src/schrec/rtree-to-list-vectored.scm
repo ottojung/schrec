@@ -17,7 +17,7 @@
   (define-module (schrec rtree-to-list-vectored)
     :export (rtree->list/vectored)
     :use-module ((euphrates rtree) :select (rtree-children rtree-ref rtree-value))
-    :use-module ((node) :select (node-label node-namespace))
+    :use-module ((schrec node) :select (node-label node-namespace))
     )))
 
 

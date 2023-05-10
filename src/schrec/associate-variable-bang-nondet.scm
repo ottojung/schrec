@@ -19,10 +19,10 @@
     :use-module ((euphrates prefixtree) :select (make-prefixtree prefixtree-set!))
     :use-module ((euphrates raisu) :select (raisu))
     :use-module ((euphrates stack) :select (stack-push!))
-    :use-module ((get-current-match-thread) :select (get-current-match-thread))
-    :use-module ((node) :select (node-binding set-node-binding!))
-    :use-module ((thread-obj) :select (thread-obj-lst))
-    :use-module ((variable-associated-huh-nondet) :select (variable-associated?/nondet))
+    :use-module ((schrec get-current-match-thread) :select (get-current-match-thread))
+    :use-module ((schrec node) :select (node-binding set-node-binding!))
+    :use-module ((schrec thread-obj) :select (thread-obj-lst))
+    :use-module ((schrec variable-associated-huh-nondet) :select (variable-associated?/nondet))
     )))
 
 

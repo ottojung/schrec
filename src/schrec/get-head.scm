@@ -16,8 +16,8 @@
  (guile
   (define-module (schrec get-head)
     :export (get-head)
-    :use-module ((branch-node-label) :select (branch-node-label))
-    :use-module ((node) :select (node-children node-label))
+    :use-module ((schrec branch-node-label) :select (branch-node-label))
+    :use-module ((schrec node) :select (node-children node-label))
     )))
 
 

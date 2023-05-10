@@ -17,8 +17,8 @@
   (define-module (schrec eval-det)
     :export (eval/det)
     :use-module ((euphrates list-or-map) :select (list-or-map))
-    :use-module ((check-environment) :select (check-environment))
-    :use-module ((node) :select (node-children node-visited? set-node-visited?!))
+    :use-module ((schrec check-environment) :select (check-environment))
+    :use-module ((schrec node) :select (node-children node-visited? set-node-visited?!))
     )))
 
 

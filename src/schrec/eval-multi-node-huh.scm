@@ -16,9 +16,9 @@
  (guile
   (define-module (schrec eval-multi-node-huh)
     :export (eval-multi-node?)
-    :use-module ((keyword-eval-multi) :select (keyword-eval-multi))
-    :use-module ((node) :select (node-label))
-    :use-module ((root-namespace-node-huh) :select (root-namespace-node?))
+    :use-module ((schrec keyword-eval-multi) :select (keyword-eval-multi))
+    :use-module ((schrec node) :select (node-label))
+    :use-module ((schrec root-namespace-node-huh) :select (root-namespace-node?))
     )))
 
 

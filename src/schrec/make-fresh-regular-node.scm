@@ -16,7 +16,7 @@
  (guile
   (define-module (schrec make-fresh-regular-node)
     :export (make-fresh-regular-node)
-    :use-module ((make-fresh-node) :select (make-fresh-node))
+    :use-module ((schrec make-fresh-node) :select (make-fresh-node))
     )))
 
 

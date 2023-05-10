@@ -18,9 +18,9 @@
     :export (variable-get-association-nondet-singleton)
     :use-module ((euphrates list-singleton-q) :select (list-singleton?))
     :use-module ((euphrates prefixtree) :select (prefixtree-ref-furthest))
-    :use-module ((get-current-match-thread) :select (get-current-match-thread))
-    :use-module ((node) :select (node-binding))
-    :use-module ((thread-obj) :select (thread-obj-lst))
+    :use-module ((schrec get-current-match-thread) :select (get-current-match-thread))
+    :use-module ((schrec node) :select (node-binding))
+    :use-module ((schrec thread-obj) :select (thread-obj-lst))
     )))
 
 

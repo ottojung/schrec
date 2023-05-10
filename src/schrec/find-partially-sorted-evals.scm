@@ -16,9 +16,9 @@
  (guile
   (define-module (schrec find-partially-sorted-evals)
     :export (find-partially-sorted-evals)
-    :use-module ((find-partially-sorted-eval-likes) :select (find-partially-sorted-eval-likes))
-    :use-module ((keyword-eval-multi) :select (keyword-eval-multi))
-    :use-module ((keyword-eval-single) :select (keyword-eval-single))
+    :use-module ((schrec find-partially-sorted-eval-likes) :select (find-partially-sorted-eval-likes))
+    :use-module ((schrec keyword-eval-multi) :select (keyword-eval-multi))
+    :use-module ((schrec keyword-eval-single) :select (keyword-eval-single))
     )))
 
 

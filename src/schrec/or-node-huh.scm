@@ -16,9 +16,9 @@
  (guile
   (define-module (schrec or-node-huh)
     :export (or-node?)
-    :use-module ((keyword-or) :select (keyword-or))
-    :use-module ((node) :select (node-label))
-    :use-module ((root-namespace-node-huh) :select (root-namespace-node?))
+    :use-module ((schrec keyword-or) :select (keyword-or))
+    :use-module ((schrec node) :select (node-label))
+    :use-module ((schrec root-namespace-node-huh) :select (root-namespace-node?))
     )))
 
 

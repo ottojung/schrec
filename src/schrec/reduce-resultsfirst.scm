@@ -17,9 +17,9 @@
   (define-module (schrec reduce-resultsfirst)
     :export (reduce/resultsfirst)
     :use-module ((euphrates list-find-first) :select (list-find-first))
-    :use-module ((eval-resultsfirst-node) :select (eval/resultsfirst/node))
-    :use-module ((find-sorted-evals) :select (find-sorted-evals))
-    :use-module ((get-current-thread) :select (get-current-thread))
+    :use-module ((schrec eval-resultsfirst-node) :select (eval/resultsfirst/node))
+    :use-module ((schrec find-sorted-evals) :select (find-sorted-evals))
+    :use-module ((schrec get-current-thread) :select (get-current-thread))
     )))
 
 

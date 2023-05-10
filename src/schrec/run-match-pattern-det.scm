@@ -17,10 +17,10 @@
   (define-module (schrec run-match-pattern-det)
     :export (run-match-pattern-det)
     :use-module ((euphrates list-and-map) :select (list-and-map))
-    :use-module ((associate-variable-bang-det) :select (associate-variable!/det))
-    :use-module ((node-equal-huh) :select (node-equal?))
-    :use-module ((node) :select (node-children))
-    :use-module ((variable-get-association-or-det) :select (variable-get-association-or-det))
+    :use-module ((schrec associate-variable-bang-det) :select (associate-variable!/det))
+    :use-module ((schrec node-equal-huh) :select (node-equal?))
+    :use-module ((schrec node) :select (node-children))
+    :use-module ((schrec variable-get-association-or-det) :select (variable-get-association-or-det))
     )))
 
 

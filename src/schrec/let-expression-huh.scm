@@ -16,7 +16,7 @@
  (guile
   (define-module (schrec let-expression-huh)
     :export (let-expression?)
-    :use-module ((keyword-let) :select (keyword-let))
+    :use-module ((schrec keyword-let) :select (keyword-let))
     )))
 
 

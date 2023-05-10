@@ -16,9 +16,9 @@
  (guile
   (define-module (schrec and-node-huh)
     :export (and-node?)
-    :use-module ((keyword-and) :select (keyword-and))
-    :use-module ((node) :select (node-label))
-    :use-module ((root-namespace-node-huh) :select (root-namespace-node?))
+    :use-module ((schrec keyword-and) :select (keyword-and))
+    :use-module ((schrec node) :select (node-label))
+    :use-module ((schrec root-namespace-node-huh) :select (root-namespace-node?))
     )))
 
 

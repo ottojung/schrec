@@ -17,9 +17,9 @@
   (define-module (schrec variable-get-association-or-nondet)
     :export (variable-get-association-or-nondet)
     :use-module ((euphrates prefixtree) :select (prefixtree-ref-furthest))
-    :use-module ((get-current-match-thread) :select (get-current-match-thread))
-    :use-module ((node) :select (node-binding))
-    :use-module ((thread-obj) :select (thread-obj-lst))
+    :use-module ((schrec get-current-match-thread) :select (get-current-match-thread))
+    :use-module ((schrec node) :select (node-binding))
+    :use-module ((schrec thread-obj) :select (thread-obj-lst))
     )))
 
 

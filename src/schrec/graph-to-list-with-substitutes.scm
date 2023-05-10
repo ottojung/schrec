@@ -16,10 +16,10 @@
  (guile
   (define-module (schrec graph-to-list-with-substitutes)
     :export (graph->list/with-substitutes)
-    :use-module ((euphrates ihashset) :select (hashset-add! hashset-delete! hashset-has? make-hashset))
+    :use-module ((euphrates hashset) :select (hashset-add! hashset-delete! hashset-has? make-hashset))
     :use-module ((euphrates raisu) :select (raisu))
-    :use-module ((get-head) :select (get-head))
-    :use-module ((node) :select (node-children node-display node-id node-label))
+    :use-module ((schrec get-head) :select (get-head))
+    :use-module ((schrec node) :select (node-children node-display node-id node-label))
     )))
 
 
