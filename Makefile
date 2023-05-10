@@ -21,7 +21,7 @@ run: dist/schrec
 build: dist/schrec
 
 dist/schrec: src/*.scm dist
-	$(CZEMPAK) install $(PWD)/src/main.scm $(PWD)/dist/schrec
+	sh scripts/install.sh "$PWD" "$@"
 
 dist:
 	mkdir -p dist
@@ -29,7 +29,7 @@ dist:
 install: $(PREFIX_BIN)/schrec
 
 $(PREFIX_BIN)/schrec: dist/schrec $(PREFIX_BIN)
-	cp $(PWD)/dist/schrec $(PREFIX_BIN)/
+	sh scripts/install.sh "$PWD" "$@"
 
 $(PREFIX_BIN):
 	mkdir -p "$@"
