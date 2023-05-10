@@ -21,7 +21,7 @@ run: dist/schrec
 
 build: dist/schrec
 
-dist/schrec: src/schrec/*.scm dist
+dist/schrec: src/schrec/*.scm dist $(SUBMODULES)
 	sh scripts/install.sh $(PWD)/src "$@"
 
 dist:
