@@ -55,7 +55,6 @@ deps/euphrates/.git:
 	git submodule update --init
 
 clean:
-	git clean -dfx
-	git submodule foreach "$(MAKE) clean"
+	rm -rf dist/
 
 .PHONY: test clean build install all examples
