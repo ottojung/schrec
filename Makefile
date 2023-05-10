@@ -29,6 +29,10 @@ dist:
 
 install: $(PREFIX_BIN)/schrec
 
+uninstall:
+	rm -f $(PREFIX_BIN)/schrec
+	rm -rf $(PREFIX_SHARE)/shrec
+
 $(PREFIX_BIN)/schrec: dist/schrec $(PREFIX_BIN) $(PREFIX_SHARE)/schrec
 	cp -L -r $(PWD)/src $(PREFIX_SHARE)/schrec/src
 	sh scripts/install.sh $(PREFIX_SHARE)/schrec/src "$@"
@@ -57,4 +61,4 @@ deps/euphrates/.git:
 clean:
 	rm -rf dist/
 
-.PHONY: test clean build install all examples
+.PHONY: test clean build install uninstall all examples
