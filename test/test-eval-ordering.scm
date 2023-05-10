@@ -1,18 +1,21 @@
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (test-eval-ordering)
+    :use-module ((src euphrates assert-equal) :select (assert=))
+    :use-module ((src euphrates comp) :select (comp))
+    :use-module ((src euphrates debug) :select (debug))
+    :use-module ((src euphrates debugv) :select (debugv))
+    :use-module ((src euphrates range) :select (range))
+    :use-module ((src eval-hook) :select (eval-hook))
+    :use-module ((src find-partially-sorted-eval-likes) :select (find-partially-sorted-eval-likes))
+    :use-module ((src get-head) :select (get-head))
+    :use-module ((src graph-to-list) :select (graph->list))
+    :use-module ((src list-to-graph) :select (list->graph))
+    :use-module ((src node) :select (node-children node-label node? set-node-children!))
+    :use-module ((src run-environment-resultsfirst) :select (run-environment-resultsfirst))
+    )))
 
-%use (assert=) "./src/euphrates/assert-equal.scm"
-%use (comp) "./src/euphrates/comp.scm"
-%use (debug) "./src/euphrates/debug.scm"
-%use (debugv) "./src/euphrates/debugv.scm"
-%use (range) "./src/euphrates/range.scm"
-%use (eval-hook) "./src/eval-hook.scm"
-%use (find-partially-sorted-eval-likes) "./src/find-partially-sorted-eval-likes.scm"
-%use (get-head) "./src/get-head.scm"
-%use (graph->list) "./src/graph-to-list.scm"
-%use (list->graph) "./src/list-to-graph.scm"
-%use (node-children node-label node? set-node-children!) "./src/node.scm"
-%use (run-environment-resultsfirst) "./src/run-environment-resultsfirst.scm"
 
 (use-modules (ice-9 pretty-print))
 
@@ -23,10 +26,10 @@
         (x x (eval-type-1 e1 b1))
         (y y (eval-type-2 e6 (eval-type-1 e7 b7)))
         (eval-type-2 e2
-            (d e (eval-type-1 e3
-                     (f g
-                        (k l (eval-type-2 e4 (i o)))))
-               (p x (y n (eval-type-2 e5 z)))))))
+             (d e (eval-type-1 e3
+                       (f g
+                      (k l (eval-type-2 e4 (i o)))))
+            (p x (y n (eval-type-2 e5 z)))))))
   (define graph
     (list->graph instance))
 
@@ -40,7 +43,7 @@
        ((node? x)
         ;; x)
         (cadr (get-head 2 x)))
-        ;; (list->vector (get-head 2 x)))
+       ;; (list->vector (get-head 2 x)))
        ((pair? x) (map loop x))
        (else x))))
 

@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2022  Otto Jung
+;;;; Copyright (C) 2022, 2023 Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -12,20 +12,23 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (input)
+    :export (input)
+    :use-module ((schrec list-to-graph) :select (list->graph))
+    )))
 
-%var input
 
-%use (list->graph) "./schrec/list-to-graph.scm"
 
 (define example
   '(let ((a (m m))
          (m (a)))
      a))
 
-     ;; (eval g (((m a b) g (m x) (b m)))
-     ;;       (let ((a ()))
-     ;;         (m a)))))
+;; (eval g (((m a b) g (m x) (b m)))
+;;       (let ((a ()))
+;;         (m a)))))
 
 ;; (define example
 ;;   '(a (b c eval d) e))

@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2022  Otto Jung
+;;;; Copyright (C) 2022, 2023 Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -12,24 +12,19 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (builtins)
+    :export (f-null f-cons f-car f-cdr #{1f}# set progn eval-node make-named-node)
+    :use-module ((schrec euphrates raisu) :select (raisu))
+    :use-module ((schrec eval-multi-node-huh) :select (eval-multi-node?))
+    :use-module ((schrec make-fresh-atom-node) :select (make-fresh-atom-node))
+    :use-module ((schrec make-fresh-branch-node) :select (make-fresh-branch-node))
+    :use-module ((schrec node-equal-huh) :select (node-equal?))
+    :use-module ((schrec node) :select (node-children set-node-children!))
+    )))
 
-%var f-null
-%var f-cons
-%var f-car
-%var f-cdr
-%var 1f
-%var set
-%var progn
-%var eval-node
-%var make-named-node
 
-%use (raisu) "./schrec/euphrates/raisu.scm"
-%use (eval-multi-node?) "./schrec/eval-multi-node-huh.scm"
-%use (make-fresh-atom-node) "./schrec/make-fresh-atom-node.scm"
-%use (make-fresh-branch-node) "./schrec/make-fresh-branch-node.scm"
-%use (node-equal?) "./schrec/node-equal-huh.scm"
-%use (node-children set-node-children!) "./schrec/node.scm"
 
 ;;;;;;;;;;;;;;
 ;; Builtins ;;

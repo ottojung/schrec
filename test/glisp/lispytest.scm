@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2022  Otto Jung
+;;;; Copyright (C) 2022, 2023 Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -12,15 +12,18 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (lispytest)
+    :use-module ((schrec pretty-print-graph) :select (pretty-print-graph))
+    :use-module ((builtins) :select (f-null set))
+    :use-module ((decode-graph) :select (decode-graph))
+    :use-module ((helpers) :select (foreach-child))
+    :use-module ((input) :select (input))
+    :use-module ((order-nodes) :select (order-nodes))
+    :use-module ((encode-graph) :select (encode-graph))
+    )))
 
-%use (pretty-print-graph) "./schrec/pretty-print-graph.scm"
-%use (f-null set) "./builtins.scm"
-%use (decode-graph) "./decode-graph.scm"
-%use (foreach-child) "./helpers.scm"
-%use (input) "./input.scm"
-%use (order-nodes) "./order-nodes.scm"
-%use (encode-graph) "./encode-graph.scm"
 
 (define main
   (lambda ()

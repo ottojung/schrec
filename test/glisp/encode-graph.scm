@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2022  Otto Jung
+;;;; Copyright (C) 2022, 2023 Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -12,14 +12,17 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (encode-graph)
+    :export (encode-graph)
+    :use-module ((schrec pretty-print-graph) :select (pretty-print-graph))
+    :use-module ((builtins) :select (1f f-car f-cdr f-cons f-null progn set))
+    :use-module ((helpers) :select (concat flatten foreach-child in-children? index-of intersperse make-singleton reverse-children separator))
+    :use-module ((order-nodes) :select (order-nodes))
+    )))
 
-%var encode-graph
 
-%use (pretty-print-graph) "./schrec/pretty-print-graph.scm"
-%use (1f f-car f-cdr f-cons f-null progn set) "./builtins.scm"
-%use (concat flatten foreach-child in-children? index-of intersperse make-singleton reverse-children separator) "./helpers.scm"
-%use (order-nodes) "./order-nodes.scm"
 
 ;;;;;;;;;;;;;;;;
 ;; Main logic ;;

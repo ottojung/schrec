@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2022  Otto Jung
+;;;; Copyright (C) 2022, 2023 Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -12,35 +12,14 @@
 ;;;; You should have received a copy of the GNU General Public License
 ;;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%run guile
+(cond-expand
+ (guile
+  (define-module (helpers)
+    :export (separator bit0 bit1 true-node false-node make-singleton concat copy-children flatten intersperse foreach-child equal-children? n-zero n-successor n-pred n-zero? n-one n-one? monus index-of child-ref make-n-fresh-nodes in-children? reverse-children children-count)
+    :use-module ((builtins) :select (1f f-car f-cdr f-cons f-null make-named-node progn))
+    )))
 
-%var separator
-%var bit0
-%var bit1
-%var true-node
-%var false-node
-%var make-singleton
-%var concat
-%var copy-children
-%var flatten
-%var intersperse
-%var foreach-child
-%var equal-children?
-%var n-zero
-%var n-successor
-%var n-pred
-%var n-zero?
-%var n-one
-%var n-one?
-%var monus
-%var index-of
-%var child-ref
-%var make-n-fresh-nodes
-%var in-children?
-%var reverse-children
-%var children-count
 
-%use (1f f-car f-cdr f-cons f-null make-named-node progn) "./builtins.scm"
 
 (define separator (make-named-node '/))
 (define bit0 (make-named-node 'o))
