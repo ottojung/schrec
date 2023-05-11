@@ -24,6 +24,7 @@
     :use-module ((euphrates read-list) :select (read-list))
     :use-module ((euphrates with-randomizer-seed) :select (with-randomizer-seed))
     :use-module ((schrec alpharename-list) :select (alpharename-list))
+    :use-module ((schrec betaconvert-list) :select (betaconvert-list))
     :use-module ((schrec default-eval-hook) :select (default-eval-hook))
     :use-module ((schrec eval-hook) :select (eval-hook))
     :use-module ((schrec list-to-graph) :select (list->graph))
@@ -47,6 +48,7 @@
       MAIN : --help
       /      OPT* <filename>
       /      alpharename <filename>
+      /      betaconvert <filename>
       OPT : --results RESULTS
       /     --trace
       /     --no-trace
@@ -90,6 +92,12 @@
                (renamed (alpharename-list parsed)))
           (use-modules (ice-9 pretty-print))
           (pretty-print renamed)))
+       (betaconvert
+        (let* ((file-port (open-file-port <filename> "r"))
+               (parsed (read-list file-port))
+               (do (close-port file-port))
+               (converted (betaconvert-list parsed)))
+          (pretty-print-graph converted)))
 
        (else
         (let* ((file-port (open-file-port <filename> "r"))

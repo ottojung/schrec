@@ -14,16 +14,17 @@
 
 (cond-expand
  (guile
-  (define-module (schrec unique-id-to-name)
-    :export (unique-id->name)
+  (define-module (schrec unique-id-to-namespace)
+    :export (unique-id->namespace)
     :use-module ((euphrates string-split-3) :select (string-split-3))
     :use-module ((euphrates tilda-a) :select (~a))
+    :use-module ((schrec root-namespace) :select (root-namespace))
     )))
 
 
-(define (unique-id->name uid)
+(define (unique-id->namespace uid)
   (define-values (name sep namespace)
     (string-split-3 "." (~a uid)))
   (if (string-null? sep)
-      uid
-      (string->symbol name)))
+      root-namespace
+      (string->symbol namespace)))
