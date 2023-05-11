@@ -18,6 +18,7 @@
     :export (unique-id->name)
     :use-module ((euphrates string-split-3) :select (string-split-3))
     :use-module ((euphrates tilda-a) :select (~a))
+    :use-module ((euphrates un-tilda-s) :select (un~s))
     )))
 
 
@@ -26,4 +27,4 @@
     (string-split-3 "." (~a uid)))
   (if (string-null? sep)
       uid
-      (string->symbol name)))
+      (un~s name)))

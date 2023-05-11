@@ -18,6 +18,7 @@
     :export (unique-id->namespace)
     :use-module ((euphrates string-split-3) :select (string-split-3))
     :use-module ((euphrates tilda-a) :select (~a))
+    :use-module ((euphrates un-tilda-s) :select (un~s))
     :use-module ((schrec root-namespace) :select (root-namespace))
     )))
 
@@ -27,4 +28,4 @@
     (string-split-3 "." (~a uid)))
   (if (string-null? sep)
       root-namespace
-      (string->symbol namespace)))
+      (un~s namespace)))
