@@ -14,22 +14,11 @@
 
 (cond-expand
  (guile
-  (define-module (schrec make-let-form)
-    :export (make-let-form)
-    :use-module ((schrec flattenme) :select (make-flattenme))
-    :use-module ((schrec keyword-let) :select (keyword-let))
+  (define-module (schrec flattenme)
+    :export (make-flattenme flattenme? flattenme-lst)
+    :use-module ((euphrates define-type9) :select (define-type9))
     )))
 
-
-(define (make-let-form bindings single? body)
-  (if (null? bindings)
-      (if single?
-          (car body)
-          (make-flattenme body))
-      (cons
-       keyword-let
-       (cons
-        bindings
-        (if single?
-            body
-            (list body))))))
+(define-type9 <flattenme>
+  (make-flattenme lst) flattenme?
+  (lst flattenme-lst))
