@@ -10,12 +10,6 @@ SUBMODULES = deps/euphrates/.git
 
 GUILE = guile -L src -L test
 
-test: dist/schrec
-	dist/schrec $(SCHREC_OPTS) example/const-multi.scm
-
-test2: dist/schrec
-	$(GUILE) test/glisp/lispytest.scm
-
 run: dist/schrec
 	dist/schrec $(SCHREC_OPTS) $(RUN_TARGET)
 
