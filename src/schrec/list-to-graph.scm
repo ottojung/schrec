@@ -16,28 +16,13 @@
  (guile
   (define-module (schrec list-to-graph)
     :export (list->graph)
-    :use-module ((euphrates lexical-scope) :select (lexical-scope-make lexical-scope-ref lexical-scope-set!))
-    :use-module ((schrec check-let-syntax) :select (check-let-syntax))
-    :use-module ((schrec let-expression-huh) :select (let-expression?))
-    :use-module ((schrec make-fresh-atom-node) :select (make-fresh-atom-node))
-    :use-module ((schrec make-fresh-branch-node) :select (make-fresh-branch-node))
-    :use-module ((schrec parse-let-expression) :select (parse-let-expression))
-    :use-module ((schrec root-namespace) :select (root-namespace))
+    :use-module ((schrec alpharename-list) :select (alpharename-list))
+    :use-module ((schrec betaconvert-list) :select (betaconvert-list))
     )))
 
 
 
 (define (list->graph lst)
-  (define scope (lexical-scope-make root-namespace))
-  (let loop ((lst lst))
-    (if (pair? lst)
-        (if (let-expression? lst)
-            (begin
-              (check-let-syntax lst)
-              (parse-let-expression scope loop lst))
-            (make-fresh-branch-node (map loop lst)))
-        (let ((existing (lexical-scope-ref scope lst #f)))
-          (or existing
-              (let ((new (make-fresh-atom-node lst root-namespace)))
-                (lexical-scope-set! scope root-namespace lst new)
-                new))))))
+  (define renamed (alpharename-list lst))
+  (define result (betaconvert-list renamed))
+  result)
