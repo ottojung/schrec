@@ -23,6 +23,7 @@
     :use-module ((euphrates raisu) :select (raisu))
     :use-module ((euphrates read-list) :select (read-list))
     :use-module ((euphrates with-randomizer-seed) :select (with-randomizer-seed))
+    :use-module ((schrec alpharename-list) :select (alpharename-list))
     :use-module ((schrec default-eval-hook) :select (default-eval-hook))
     :use-module ((schrec eval-hook) :select (eval-hook))
     :use-module ((schrec list-to-graph) :select (list->graph))
@@ -45,6 +46,7 @@
      (MAIN
       MAIN : --help
       /      OPT* <filename>
+      /      alpharename <filename>
       OPT : --results RESULTS
       /     --trace
       /     --no-trace
@@ -79,35 +81,46 @@
 
      (with-randomizer-seed
       <seed>
-      (let* ((file-port (open-file-port <filename> "r"))
-             (parsed (read-list file-port))
-             (do (close-port file-port))
-             (graph (list->graph parsed)))
 
-        (when --trace
-          (eval-hook (default-eval-hook graph))
-          (display "Original:\n")
-          (pretty-print-graph graph))
+      (cond
+       (alpharename
+        (let* ((file-port (open-file-port <filename> "r"))
+               (parsed (read-list file-port))
+               (do (close-port file-port))
+               (renamed (alpharename-list parsed)))
+          (use-modules (ice-9 pretty-print))
+          (pretty-print renamed)))
 
-        (let ((thread-ids-stream
-               (cond
-                (all
-                 (reduce/resultsall graph))
-                (first
-                 (reduce/resultsfirst graph))
-                (random
-                 (reduce/resultsrandom graph))
-                (else
-                 (raisu 'impossible RESULTS)))))
+       (else
+        (let* ((file-port (open-file-port <filename> "r"))
+               (parsed (read-list file-port))
+               (do (close-port file-port))
+               (graph (list->graph parsed)))
 
-          (let loop ((first? #t))
-            (let ((thread (thread-ids-stream)))
-              (if thread
-                  (begin
-                    (unless --trace
-                      (with-current-thread thread (pretty-print-graph graph)))
-                    (loop #f))
-                  (when (and first? --reflexive (not --trace))
-                    (pretty-print-graph graph)))))))))))
+          (when --trace
+            (eval-hook (default-eval-hook graph))
+            (display "Original:\n")
+            (pretty-print-graph graph))
+
+          (let ((thread-ids-stream
+                 (cond
+                  (all
+                   (reduce/resultsall graph))
+                  (first
+                   (reduce/resultsfirst graph))
+                  (random
+                   (reduce/resultsrandom graph))
+                  (else
+                   (raisu 'impossible RESULTS)))))
+
+            (let loop ((first? #t))
+              (let ((thread (thread-ids-stream)))
+                (if thread
+                    (begin
+                      (unless --trace
+                        (with-current-thread thread (pretty-print-graph graph)))
+                      (loop #f))
+                    (when (and first? --reflexive (not --trace))
+                      (pretty-print-graph graph)))))))))))))
 
 (main)
