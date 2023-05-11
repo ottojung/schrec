@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2021, 2022, 2023 Otto Jung
+;;;; Copyright (C) 2023 Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -14,16 +14,18 @@
 
 (cond-expand
  (guile
-  (define-module (schrec get-let-body)
-    :export (get-let-body)
-    :use-module ((euphrates list-singleton-q) :select (list-singleton?))
-    :use-module ((schrec get-let-bodies) :select (get-let-bodies))
+  (define-module (schrec get-let-bodies)
+    :export (get-let-bodies)
+    :use-module ((euphrates raisu) :select (raisu))
     )))
 
 
 
-(define (get-let-body let-list)
-  (define bodies (get-let-bodies let-list))
-  (if (list-singleton? bodies)
-      (car bodies)
-      bodies))
+(define (get-let-bodies let-list)
+  (if (null? let-list)
+      (raisu 'not-a-let-list let-list)
+      (if (null? (cdr let-list))
+          (raisu 'let-does-not-have-bindings let-list)
+          (if (null? (cddr let-list))
+              (raisu 'let-does-not-have-a-body let-list)
+              (cddr let-list)))))
