@@ -55,4 +55,4 @@ deps/euphrates/.git:
 clean:
 	rm -rf dist/
 
-.PHONY: test clean build install uninstall all examples
+.PHONY: test test-all test-scm test-sh clean build install uninstall all examples
