@@ -3,7 +3,7 @@ PREFIX = $(HOME)/.local
 PREFIX_BIN = $(PREFIX)/bin
 PREFIX_SHARE = $(PREFIX)/share
 
-RUN_TARGET =
+RUN_TARGET = example/const-multi.scm
 SCHREC_OPTS = --results all
 
 SUBMODULES = deps/euphrates/.git
