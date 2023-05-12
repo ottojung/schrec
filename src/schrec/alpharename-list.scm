@@ -19,7 +19,7 @@
     :use-module ((euphrates lexical-scope) :select (lexical-scope-make lexical-scope-ref lexical-scope-set!))
     :use-module ((schrec alpharename-let-expression) :select (alpharename-let-expression))
     :use-module ((schrec check-let-syntax) :select (check-let-syntax))
-    :use-module ((schrec flattenme-mapflatten) :select (flattenme-mapflatten))
+    :use-module ((schrec flattenme-mapflat) :select (flattenme-mapflat))
     :use-module ((schrec let-expression-huh) :select (let-expression?))
     :use-module ((schrec make-unique-id) :select (make-unique-id))
     :use-module ((schrec root-namespace) :select (root-namespace))
@@ -34,7 +34,7 @@
             (begin
               (check-let-syntax lst)
               (alpharename-let-expression scope loop lst))
-            (flattenme-mapflatten loop lst))
+            (flattenme-mapflat loop lst))
 
         (let ((existing (lexical-scope-ref scope lst #f)))
           (or existing
@@ -42,4 +42,4 @@
                 (lexical-scope-set! scope root-namespace lst new)
                 new)))))
 
-  (flattenme-mapflatten loop list-of-roots))
+  (flattenme-mapflat loop list-of-roots))

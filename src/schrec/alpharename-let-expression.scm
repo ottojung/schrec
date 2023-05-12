@@ -19,7 +19,7 @@
     :use-module ((euphrates fp) :select (fp))
     :use-module ((euphrates lexical-scope) :select (lexical-scope-set! lexical-scope-stage! lexical-scope-unstage!))
     :use-module ((euphrates raisu) :select (raisu))
-    :use-module ((schrec flattenme-mapflatten) :select (flattenme-mapflatten))
+    :use-module ((schrec flattenme-mapflat) :select (flattenme-mapflat))
     :use-module ((schrec flattenme) :select (flattenme?))
     :use-module ((schrec get-let-bindings) :select (get-let-bindings))
     :use-module ((schrec get-let-bodies) :select (get-let-bodies))
@@ -75,7 +75,7 @@
         binding-nodes)))
 
     (define new-bodies
-      (flattenme-mapflatten loop let-bodies))
+      (flattenme-mapflat loop let-bodies))
     (define result (make-let-form new-bindings new-bodies))
 
     (lexical-scope-unstage! scope)

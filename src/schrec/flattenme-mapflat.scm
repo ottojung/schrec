@@ -14,12 +14,12 @@
 
 (cond-expand
  (guile
-  (define-module (schrec flattenme-mapflatten)
-    :export (flattenme-mapflatten)
+  (define-module (schrec flattenme-mapflat)
+    :export (flattenme-mapflat)
     :use-module ((schrec flattenme) :select (flattenme-lst flattenme?))
     )))
 
-(define (flattenme-mapflatten fun lst)
+(define (flattenme-mapflat fun lst)
   (apply
    append
    (map

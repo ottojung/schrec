@@ -19,7 +19,7 @@
     :use-module ((euphrates hashmap) :select (hashmap-ref hashmap-set! make-hashmap))
     :use-module ((schrec betaconvert-let-expression) :select (betaconvert-let-expression))
     :use-module ((schrec check-let-syntax) :select (check-let-syntax))
-    :use-module ((schrec flattenme-mapflatten) :select (flattenme-mapflatten))
+    :use-module ((schrec flattenme-mapflat) :select (flattenme-mapflat))
     :use-module ((schrec let-expression-huh) :select (let-expression?))
     :use-module ((schrec make-fresh-atom-node) :select (make-fresh-atom-node))
     :use-module ((schrec make-fresh-branch-node) :select (make-fresh-branch-node))
@@ -38,7 +38,7 @@
               (check-let-syntax lst)
               (betaconvert-let-expression valuation loop lst))
             (make-fresh-branch-node
-             (flattenme-mapflatten loop lst)))
+             (flattenme-mapflat loop lst)))
         (let ((existing (hashmap-ref valuation lst #f)))
           (or existing
               (let ((new (make-fresh-atom-node lst root-namespace))
@@ -47,7 +47,7 @@
                 new)))))
 
   (define roots
-    (flattenme-mapflatten loop list-of-roots))
+    (flattenme-mapflat loop list-of-roots))
 
   ;; A workaround for evaluation of all the roots
   ;; is to add an additional root at the top that
