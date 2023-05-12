@@ -91,6 +91,7 @@
      :exclusive (last module)
 
      :synonym (version --version -v)
+     :synonym (--help help -h)
 
      (define unjoin-mode
        (cond
