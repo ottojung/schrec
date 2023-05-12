@@ -1,4 +1,3 @@
-#! /bin/sh
 
 set -e
 
@@ -112,11 +111,3 @@ run_all() {
 		run_one "$MODE" "$TRACE" "$FILE"
 	done
 }
-
-run_all "first"  "yestrace" "$DET"
-run_all "first"  "notrace"  "$NOHAGUP"
-run_all "all"    "yestrace" "$NONDET"
-run_all "random" "yestrace" "$DET"
-run_all "random" "notrace"  "$NOHAGUP"
-
-echo "All outputs match."
