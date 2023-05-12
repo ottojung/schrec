@@ -36,6 +36,7 @@
     :use-module ((schrec reduce-resultsrandom) :select (reduce/resultsrandom))
     :use-module ((schrec rooting-unjoin) :select (rooting-unjoin))
     :use-module ((schrec show-license) :select (show-license))
+    :use-module ((schrec show-warranty) :select (show-warranty))
     :use-module ((schrec with-current-thread) :select (with-current-thread))
     )))
 
@@ -54,6 +55,7 @@
       /      betaconvert <filename>
       /      version
       /      license
+      /      warranty
       /      OPT* <filename>
       OPT : --results RESULTS
       /     --trace
@@ -104,14 +106,15 @@
 
      (when --help
        (define-cli:show-help))
-
      (when version
        (display "0.9.9")
        (newline)
        (exit 0))
-
      (when license
        (show-license)
+       (exit 0))
+     (when warranty
+       (show-warranty)
        (exit 0))
 
      (unless (file-or-directory-exists? <filename>)
