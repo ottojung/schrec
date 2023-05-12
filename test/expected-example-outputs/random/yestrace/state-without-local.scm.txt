@@ -8,4 +8,4 @@ Step:
 (let ((switch (on)))
   (g (switch off on) ((switch (off) (on)))))
 --------
-body
+(body)

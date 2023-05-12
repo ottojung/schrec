@@ -10,7 +10,7 @@ Step:
   (g (switch off on)
      ((switch (off) (on)) (switch r r))))
 --------
-body
+(body)
 
 
 Step:
@@ -18,4 +18,4 @@ Step:
   (g (switch off on)
      ((switch (off) (on)) (switch r r))))
 --------
-body
+(body)

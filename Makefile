@@ -38,11 +38,11 @@ $(PREFIX_BIN):
 	mkdir -p "$@"
 
 examples: dist/schrec
-	@ for FILE in example/* ; do $(MAKE) run "RUN_TARGET=$$FILE" ; done
+	@ set -e ; for FILE in example/* ; do $(MAKE) run "RUN_TARGET=$$FILE" ; done
 
 test-all: dist/schrec
-	@ for FILE in test/test*.scm ; do $(MAKE) test-scm "TESTFILE=$$FILE" ; done
-	@ for FILE in test/test*.sh ; do $(MAKE) test-sh "TESTFILE=$$FILE" ; done
+	@ set -e ; for FILE in test/test*.scm ; do $(MAKE) test-scm "TESTFILE=$$FILE" ; done
+	@ set -e ; for FILE in test/test*.sh ; do $(MAKE) test-sh "TESTFILE=$$FILE" ; done
 
 test-scm:
 	$(GUILE) $(TESTFILE)

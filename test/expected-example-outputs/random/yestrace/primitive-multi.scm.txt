@@ -5,13 +5,13 @@ Original:
 Step:
 (g () ((g (x y z) (x z))))
 --------
-4
+(4)
 
 
 Step:
 (g () ((g (x y z) (x z))))
 --------
-4
+(4)
 
 
 Step:
