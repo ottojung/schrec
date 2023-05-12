@@ -107,9 +107,9 @@
                  (rooted (list-last (node-children graph))))
 
             (when --trace
-              (eval-hook (default-eval-hook graph))
+              (eval-hook (default-eval-hook rooted))
               (display "Original:\n")
-              (pretty-print-graph graph))
+              (pretty-print-graph rooted))
 
             (let ((thread-ids-stream
                    (cond
