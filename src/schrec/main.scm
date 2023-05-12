@@ -58,7 +58,9 @@
       /     --seed <seed>
       /     --reflexive
       /     --irreflexive
+      /     --root-at ROOTAT
       RESULTS : all / first / random
+      ROOTAT : last / module
       )
 
      :default (all #t)
@@ -67,6 +69,9 @@
      :help (all "Non-deterministic mode, returns all possible values.")
      :help (first "Deterministic mode, returns only the first (left-most) value.")
      :help (random "Random deterministic mode, returns a random value.")
+     :help (--root-at "Where to put the root of the graph")
+     :help (last "Root is the tip of the last expression in the <filename>")
+     :help (module "Root is a new node that joins all expressions in <filename>")
 
      :help (alpharename "Renames all let variables so that no two names are the same. Also removes alias bindings (by executing them, basically)")
      :help (betaconvert "Replaces variable names by their values. This turns trees into graphs")
@@ -80,6 +85,15 @@
 
      :default (--reflexive #t)
      :exclusive (--reflexive --irreflexive)
+
+     :default (last #t)
+     :exclusive (last module)
+
+     (define unjoin-mode
+       (cond
+        (last 'last)
+        (module 'module)
+        (else (fatal "Uknown --root-at value"))))
 
      (when --help
        (define-cli:show-help))
@@ -104,7 +118,7 @@
 
          (else
           (let* ((graph (list->graph parsed))
-                 (rooted (rooting-unjoin graph)))
+                 (rooted (rooting-unjoin unjoin-mode graph)))
 
             (when --trace
               (eval-hook (default-eval-hook rooted))

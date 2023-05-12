@@ -17,6 +17,7 @@
   (define-module (schrec rooting-unjoin)
     :export (rooting-unjoin)
     :use-module ((euphrates list-last) :select (list-last))
+    :use-module ((euphrates raisu) :select (raisu))
     :use-module ((schrec node) :select (node-children))
     )))
 
@@ -24,5 +25,11 @@
 ;; is to add an additional root at the top that
 ;; joins them all. And then remove
 ;; it when done evaluating.
-(define (rooting-unjoin graph)
-  (list-last (node-children graph)))
+(define (rooting-unjoin mode graph)
+  (case mode
+    ((last)
+     (list-last (node-children graph)))
+    ((module)
+     graph)
+    (else
+     (raisu 'unknown-rooting-unjoin-mode mode))))
