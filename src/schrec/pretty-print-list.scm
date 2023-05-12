@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2022, 2023 Otto Jung
+;;;; Copyright (C) 2023 Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -14,12 +14,15 @@
 
 (cond-expand
  (guile
-  (define-module (schrec pretty-print-graph)
-    :export (pretty-print-graph)
-    :use-module ((schrec graph-to-list) :select (graph->list))
-    :use-module ((schrec pretty-print-list) :select (pretty-print-list))
+  (define-module (schrec pretty-print-list)
+    :export (pretty-print-list)
     )))
 
 
-(define pretty-print-graph
-  (compose pretty-print-list graph->list))
+(cond-expand
+ (guile
+  (use-modules (ice-9 pretty-print))
+  ))
+
+(define (pretty-print-list lst)
+  (pretty-print lst))

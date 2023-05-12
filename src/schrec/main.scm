@@ -29,6 +29,7 @@
     :use-module ((schrec eval-hook) :select (eval-hook))
     :use-module ((schrec list-to-graph) :select (list->graph))
     :use-module ((schrec pretty-print-graph) :select (pretty-print-graph))
+    :use-module ((schrec pretty-print-list) :select (pretty-print-list))
     :use-module ((schrec reduce-resultsall) :select (reduce/resultsall))
     :use-module ((schrec reduce-resultsfirst) :select (reduce/resultsfirst))
     :use-module ((schrec reduce-resultsrandom) :select (reduce/resultsrandom))
@@ -65,6 +66,9 @@
      :help (first "Deterministic mode, returns only the first (left-most) value.")
      :help (random "Random deterministic mode, returns a random value.")
 
+     :help (alpharename "Renames all let variables so that no two names are the same. Also removes alias bindings (by executing them, basically)")
+     :help (betaconvert "Replaces variable names by their values. This turns trees into graphs")
+
      :help (<seed> "A seed for the random number generator.")
      :type (<seed> 'number)
      :default (<seed> 777)
@@ -84,51 +88,45 @@
      (with-randomizer-seed
       <seed>
 
-      (cond
-       (alpharename
-        (let* ((file-port (open-file-port <filename> "r"))
-               (parsed (read-list file-port))
-               (do (close-port file-port))
-               (renamed (alpharename-list parsed)))
-          (use-modules (ice-9 pretty-print))
-          (pretty-print renamed)))
-       (betaconvert
-        (let* ((file-port (open-file-port <filename> "r"))
-               (parsed (read-list file-port))
-               (do (close-port file-port))
-               (converted (betaconvert-list parsed)))
-          (pretty-print-graph converted)))
+      (let* ((file-port (open-file-port <filename> "r"))
+             (parsed (read-list file-port)))
+        (close-port file-port)
 
-       (else
-        (let* ((file-port (open-file-port <filename> "r"))
-               (parsed (read-list file-port))
-               (do (close-port file-port))
-               (graph (list->graph parsed)))
+        (cond
+         (alpharename
+          (let ((renamed (alpharename-list parsed)))
+            (pretty-print-list renamed)))
+         (betaconvert
+          (let ((converted (betaconvert-list parsed)))
+            (pretty-print-graph converted)))
 
-          (when --trace
-            (eval-hook (default-eval-hook graph))
-            (display "Original:\n")
-            (pretty-print-graph graph))
+         (else
+          (let ((graph (list->graph parsed)))
 
-          (let ((thread-ids-stream
-                 (cond
-                  (all
-                   (reduce/resultsall graph))
-                  (first
-                   (reduce/resultsfirst graph))
-                  (random
-                   (reduce/resultsrandom graph))
-                  (else
-                   (raisu 'impossible RESULTS)))))
+            (when --trace
+              (eval-hook (default-eval-hook graph))
+              (display "Original:\n")
+              (pretty-print-graph graph))
 
-            (let loop ((first? #t))
-              (let ((thread (thread-ids-stream)))
-                (if thread
-                    (begin
-                      (unless --trace
-                        (with-current-thread thread (pretty-print-graph graph)))
-                      (loop #f))
-                    (when (and first? --reflexive (not --trace))
-                      (pretty-print-graph graph)))))))))))))
+            (let ((thread-ids-stream
+                   (cond
+                    (all
+                     (reduce/resultsall graph))
+                    (first
+                     (reduce/resultsfirst graph))
+                    (random
+                     (reduce/resultsrandom graph))
+                    (else
+                     (raisu 'impossible RESULTS)))))
+
+              (let loop ((first? #t))
+                (let ((thread (thread-ids-stream)))
+                  (if thread
+                      (begin
+                        (unless --trace
+                          (with-current-thread thread (pretty-print-graph graph)))
+                        (loop #f))
+                      (when (and first? --reflexive (not --trace))
+                        (pretty-print-graph graph))))))))))))))
 
 (main)
