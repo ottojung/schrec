@@ -19,7 +19,7 @@
     :use-module ((euphrates hashmap) :select (hashmap-ref hashmap-set! make-hashmap))
     :use-module ((schrec betaconvert-let-expression) :select (betaconvert-let-expression))
     :use-module ((schrec check-let-syntax) :select (check-let-syntax))
-    :use-module ((schrec flattenme-flatten) :select (flattenme-flatten))
+    :use-module ((schrec flattenme-mapflatten) :select (flattenme-mapflatten))
     :use-module ((schrec let-expression-huh) :select (let-expression?))
     :use-module ((schrec make-fresh-atom-node) :select (make-fresh-atom-node))
     :use-module ((schrec make-fresh-branch-node) :select (make-fresh-branch-node))
@@ -37,8 +37,7 @@
               (check-let-syntax lst)
               (betaconvert-let-expression valuation loop lst))
             (make-fresh-branch-node
-             (flattenme-flatten
-              (map loop lst))))
+             (flattenme-mapflatten loop lst)))
         (let ((existing (hashmap-ref valuation lst #f)))
           (or existing
               (let ((new (make-fresh-atom-node lst root-namespace))
@@ -50,8 +49,7 @@
   ;; It should be removed afterwards.
 
   (define roots
-    (flattenme-flatten
-     (map loop list-of-roots)))
+    (flattenme-mapflatten loop list-of-roots))
 
   (define root-node
     (make-fresh-branch-node roots))

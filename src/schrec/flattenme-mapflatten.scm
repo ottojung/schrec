@@ -14,17 +14,18 @@
 
 (cond-expand
  (guile
-  (define-module (schrec flattenme-flatten)
-    :export (flattenme-flatten)
+  (define-module (schrec flattenme-mapflatten)
+    :export (flattenme-mapflatten)
     :use-module ((schrec flattenme) :select (flattenme-lst flattenme?))
     )))
 
-(define (flattenme-flatten lst)
+(define (flattenme-mapflatten fun lst)
   (apply
    append
    (map
     (lambda (x)
-      (if (flattenme? x)
-          (flattenme-lst x)
-          (list x)))
+      (define y (fun x))
+      (if (flattenme? y)
+          (flattenme-lst y)
+          (list y)))
     lst)))
