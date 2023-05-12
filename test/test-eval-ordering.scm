@@ -15,14 +15,14 @@
 ;; test eval ordering
 (let ()
   (define instance
-    '(a b c
-        (x x (eval-type-1 e1 b1))
-        (y y (eval-type-2 e6 (eval-type-1 e7 b7)))
-        (eval-type-2 e2
+    '((a b c
+         (x x (eval-type-1 e1 b1))
+         (y y (eval-type-2 e6 (eval-type-1 e7 b7)))
+         (eval-type-2 e2
              (d e (eval-type-1 e3
                        (f g
-                      (k l (eval-type-2 e4 (i o)))))
-            (p x (y n (eval-type-2 e5 z)))))))
+                       (k l (eval-type-2 e4 (i o)))))
+            (p x (y n (eval-type-2 e5 z))))))))
   (define graph
     (list->graph instance))
 
