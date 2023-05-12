@@ -100,7 +100,7 @@
             (for-each pretty-print-list renamed)))
          (betaconvert
           (let ((converted (betaconvert-list parsed)))
-            (pretty-print-graph converted)))
+            (for-each pretty-print-graph (node-children converted))))
 
          (else
           (let* ((graph (list->graph parsed))
