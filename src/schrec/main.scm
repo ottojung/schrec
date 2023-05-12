@@ -49,9 +49,10 @@
     (with-cli
      (MAIN
       MAIN : --help
-      /      OPT* <filename>
       /      alpharename <filename>
       /      betaconvert <filename>
+      /      version
+      /      OPT* <filename>
       OPT : --results RESULTS
       /     --trace
       /     --no-trace
@@ -89,6 +90,8 @@
      :default (last #t)
      :exclusive (last module)
 
+     :synonym (version --version -v)
+
      (define unjoin-mode
        (cond
         (last 'last)
@@ -97,6 +100,11 @@
 
      (when --help
        (define-cli:show-help))
+
+     (when version
+       (display "0.9.9")
+       (newline)
+       (exit 0))
 
      (unless (file-or-directory-exists? <filename>)
        (fatal "Given file does not exist: ~a" <filename>))
