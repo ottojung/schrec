@@ -111,3 +111,19 @@ run_all() {
 		run_one "$MODE" "$TRACE" "$FILE"
 	done
 }
+
+run_converts() {
+	TYPE="$1"
+
+	mkdir -p "dist/test/$TYPE-cases"
+	ls "test/$TYPE-cases" | while IFS= read -r FILE
+	do
+		test -z "$FILE" && continue
+		CMD="$SCHREC $TYPE test/$TYPE-cases/$FILE"
+		echo "> $CMD"
+		$CMD | head -n 1000 > "dist/test/$TYPE-cases/$FILE.txt"
+
+		diff "test/expected-$TYPE-outputs/$FILE.txt" \
+			 "dist/test/$TYPE-cases/$FILE.txt"
+	done
+}
