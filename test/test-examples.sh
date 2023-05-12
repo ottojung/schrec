@@ -4,7 +4,7 @@ set -e
 
 SCHREC="dist/schrec"
 
-DET="
+NOHAGUP="
 addition-fork.scm
 addition-serial.scm
 block-order-dependent-1.scm
@@ -24,10 +24,8 @@ loop-pattern.scm
 non-determinism-example-1.scm
 non-determinism-example-2.scm
 primitive-multi-2.scm
-primitive-multi.scm
 primitive.scm
 recursive-functions.scm
-shuffle-multi.scm
 simple-let-example.scm
 simple-non-confluent.scm
 state.scm
@@ -39,6 +37,12 @@ state-without-const.scm
 state-without-local.scm
 stupid-synthetic-example.scm
 turing-machine.scm
+"
+
+DET="
+$NOHAGUP
+primitive-multi.scm
+shuffle-multi.scm
 "
 
 NONDET="
@@ -77,25 +81,42 @@ stupid-synthetic-example.scm
 turing-machine.scm
 "
 
-run_mode() {
+run_one() {
 	MODE="$1"
-	LIST="$2"
+	TRACE="$2"
+	FILE="$3"
 
-	mkdir -p "dist/test/examples/$MODE"
+	if test "$TRACE" = "yestrace"
+	then TRACEFLAG="--trace"
+	else TRACEFLAG='--no-trace'
+	fi
+
+	test -z "$FILE" && return 0
+	CMD="$SCHREC --results $MODE $TRACEFLAG example/$FILE"
+	echo "> $CMD"
+	$CMD | head -n 1000 > "dist/test/examples/$MODE/$TRACE/$FILE.txt"
+
+	diff "test/expected-example-outputs/$MODE/$TRACE/$FILE.txt" \
+	     "dist/test/examples/$MODE/$TRACE/$FILE.txt"
+}
+
+run_all() {
+	MODE="$1"
+	TRACE="$2"
+	LIST="$3"
+
+	mkdir -p "dist/test/examples/$MODE/$TRACE"
+
 	echo "$LIST" | while IFS= read -r FILE
 	do
-		test -z "$FILE" && continue
-		CMD="$SCHREC --trace --results $MODE example/$FILE"
-		echo "> $CMD"
-		$CMD | head -n 1000 > "dist/test/examples/$MODE/$FILE.txt"
-
-		diff "test/expected-example-outputs/$MODE/$FILE.txt" \
-		     "dist/test/examples/$MODE/$FILE.txt"
+		run_one "$MODE" "$TRACE" "$FILE"
 	done
 }
 
-run_mode "first" "$DET"
-run_mode "all" "$NONDET"
-run_mode "random" "$DET"
+run_all "first"  "yestrace" "$DET"
+run_all "first"  "notrace"  "$NOHAGUP"
+run_all "all"    "yestrace" "$NONDET"
+run_all "random" "yestrace" "$DET"
+run_all "random" "notrace"  "$NOHAGUP"
 
 echo "All outputs match."
