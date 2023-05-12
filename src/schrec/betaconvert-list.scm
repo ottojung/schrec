@@ -44,4 +44,13 @@
                 (hashmap-set! valuation key new)
                 new)))))
 
-  (list-last (map loop list-of-roots)))
+  ;; Adding a join-root at the top.
+  ;; It should be removed afterwards.
+
+  (define roots
+    (map loop list-of-roots))
+
+  (define new-node
+    (make-fresh-branch-node roots))
+
+  new-node)
