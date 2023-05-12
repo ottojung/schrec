@@ -19,7 +19,9 @@
     :use-module ((euphrates fp) :select (fp))
     :use-module ((euphrates hashmap) :select (hashmap-set!))
     :use-module ((euphrates list-singleton-q) :select (list-singleton?))
-    :use-module ((schrec flattenme) :select (make-flattenme))
+    :use-module ((euphrates raisu) :select (raisu))
+    :use-module ((schrec flattenme-flatten) :select (flattenme-flatten))
+    :use-module ((schrec flattenme) :select (flattenme? make-flattenme))
     :use-module ((schrec get-let-bindings) :select (get-let-bindings))
     :use-module ((schrec get-let-bodies) :select (get-let-bodies))
     :use-module ((schrec make-fresh-regular-node) :select (make-fresh-regular-node))
@@ -60,11 +62,13 @@
    (fp (binding-node value)
        (when (pair? value)
          (let ((ret (loop value)))
+           (when (flattenme? ret)
+             (raisu 'expected-single-value-for-a-binding binding-node ret))
            (set-node-children! binding-node (node-children ret)))))
    binding-nodes)
 
   ;; TODO: everything is flattenme
-  (let* ((recur (map loop let-bodies))
+  (let* ((recur (flattenme-flatten (map loop let-bodies)))
          (single? (list-singleton? let-bodies))
          (node (if single?
                    (car recur)

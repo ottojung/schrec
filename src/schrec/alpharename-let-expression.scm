@@ -18,6 +18,7 @@
     :export (alpharename-let-expression)
     :use-module ((euphrates fp) :select (fp))
     :use-module ((euphrates lexical-scope) :select (lexical-scope-set! lexical-scope-stage! lexical-scope-unstage!))
+    :use-module ((schrec flattenme-flatten) :select (flattenme-flatten))
     :use-module ((schrec get-let-bindings) :select (get-let-bindings))
     :use-module ((schrec get-let-bodies) :select (get-let-bodies))
     :use-module ((schrec make-fresh-namespace) :select (make-fresh-namespace))
@@ -63,10 +64,14 @@
        (map
         (fp (name value)
             (and (or (null? value) (pair? value))
-                 (list name (loop value))))
+                 (list
+                  name
+                  (flattenme-flatten
+                   (map loop value)))))
         binding-nodes)))
 
-    (define new-bodies (map loop let-bodies))
+    (define new-bodies
+      (flattenme-flatten (map loop let-bodies)))
     (define result (make-let-form new-bindings new-bodies))
 
     (lexical-scope-unstage! scope)
