@@ -51,12 +51,14 @@
     (with-cli
      (MAIN
       MAIN : --help
-      /      alpharename <filename>
-      /      betaconvert <filename>
+      /      alpharename BREAK? <filename>
+      /      betaconvert BREAK? <filename>
       /      version
       /      license
       /      warranty
-      /      OPT* <filename>
+      /      RUN? OPT* BREAK? <filename>
+      RUN : run
+      BREAK : --
       OPT : --results RESULTS
       /     --trace
       /     --no-trace
