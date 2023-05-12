@@ -21,15 +21,11 @@
     )))
 
 
-(define (make-let-form bindings single? body)
+(define (make-let-form bindings bodies)
   (if (null? bindings)
-      (if single?
-          (car body)
-          (make-flattenme body))
-      (cons
-       keyword-let
-       (cons
-        bindings
-        (if single?
-            body
-            (list body))))))
+      (make-flattenme bodies)
+      (cons keyword-let
+            (cons bindings
+                  (if (or (null? bodies) (pair? bodies))
+                      bodies
+                      (list bodies))))))

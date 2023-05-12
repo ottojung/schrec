@@ -18,7 +18,6 @@
     :export (rtree->list)
     :use-module ((euphrates fp) :select (fp))
     :use-module ((euphrates hashset) :select (list->hashset))
-    :use-module ((euphrates list-singleton-q) :select (list-singleton?))
     :use-module ((euphrates rtree) :select (rtree-value))
     :use-module ((schrec constant-node-huh) :select (constant-node?))
     :use-module ((schrec flattenme) :select (flattenme-lst flattenme?))
@@ -69,10 +68,9 @@
           (filter substitute-ref? potential-refs))))
   (define (subs node)
     (graph->list/with-substitutes to-substitute node))
+
   (define body
     (subs (rtree-value tree)))
-  (define single?
-    (and (pair? body) (list-singleton? body)))
 
   (define tuple->binding
     (fp (node shared?)
@@ -81,12 +79,12 @@
   (define useful-refs
     (filter useful-ref? potential-refs))
 
+  (define bindings
+    (map tuple->binding useful-refs))
+
   (define ret
-    (make-let-form
-     (map tuple->binding useful-refs)
-     single?
-     body))
+    (make-let-form bindings (list body)))
 
   (if (flattenme? ret)
-      (flattenme-lst ret)
+      (car (flattenme-lst ret))
       ret))

@@ -18,7 +18,6 @@
     :export (alpharename-let-expression)
     :use-module ((euphrates fp) :select (fp))
     :use-module ((euphrates lexical-scope) :select (lexical-scope-set! lexical-scope-stage! lexical-scope-unstage!))
-    :use-module ((euphrates list-singleton-q) :select (list-singleton?))
     :use-module ((schrec get-let-bindings) :select (get-let-bindings))
     :use-module ((schrec get-let-bodies) :select (get-let-bodies))
     :use-module ((schrec make-fresh-namespace) :select (make-fresh-namespace))
@@ -33,7 +32,7 @@
 (define (alpharename-let-expression scope loop lst)
   (define let-bindings-0 (get-let-bindings lst))
   (define let-bindings (transform-let-bindings let-bindings-0))
-  (define let-body (get-let-bodies lst))
+  (define let-bodies (get-let-bodies lst))
   (define namespace (make-fresh-namespace))
 
   (define binding-nodes
@@ -67,12 +66,8 @@
                  (list name (loop value))))
         binding-nodes)))
 
-    (define new-body (loop let-body))
-    (define single?
-      (or (not (null? new-bindings))
-          (list-singleton? new-body)))
-
-    (define result (make-let-form new-bindings single? new-body))
+    (define new-bodies (map loop let-bodies))
+    (define result (make-let-form new-bindings new-bodies))
 
     (lexical-scope-unstage! scope)
 

@@ -17,9 +17,9 @@
   (define-module (schrec betaconvert-list)
     :export (betaconvert-list)
     :use-module ((euphrates hashmap) :select (hashmap-ref hashmap-set! make-hashmap))
-    :use-module ((euphrates list-last) :select (list-last))
     :use-module ((schrec betaconvert-let-expression) :select (betaconvert-let-expression))
     :use-module ((schrec check-let-syntax) :select (check-let-syntax))
+    :use-module ((schrec flattenme) :select (flattenme-lst flattenme?))
     :use-module ((schrec let-expression-huh) :select (let-expression?))
     :use-module ((schrec make-fresh-atom-node) :select (make-fresh-atom-node))
     :use-module ((schrec make-fresh-branch-node) :select (make-fresh-branch-node))
@@ -30,13 +30,24 @@
 
 (define (betaconvert-list list-of-roots)
   (define valuation (make-hashmap))
+  (define (flatten lst)
+    (apply
+     append
+     (map
+      (lambda (x)
+        (if (flattenme? x)
+            (flattenme-lst x)
+            (list x)))
+      lst)))
+
   (define (loop lst)
     (if (pair? lst)
         (if (let-expression? lst)
             (begin
               (check-let-syntax lst)
               (betaconvert-let-expression valuation loop lst))
-            (make-fresh-branch-node (map loop lst)))
+            (make-fresh-branch-node
+             (flatten (map loop lst))))
         (let ((existing (hashmap-ref valuation lst #f)))
           (or existing
               (let ((new (make-fresh-atom-node lst root-namespace))
@@ -48,9 +59,9 @@
   ;; It should be removed afterwards.
 
   (define roots
-    (map loop list-of-roots))
+    (flatten (map loop list-of-roots)))
 
-  (define new-node
+  (define root-node
     (make-fresh-branch-node roots))
 
-  new-node)
+  root-node)

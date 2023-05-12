@@ -18,8 +18,10 @@
     :export (betaconvert-let-expression)
     :use-module ((euphrates fp) :select (fp))
     :use-module ((euphrates hashmap) :select (hashmap-set!))
+    :use-module ((euphrates list-singleton-q) :select (list-singleton?))
+    :use-module ((schrec flattenme) :select (make-flattenme))
     :use-module ((schrec get-let-bindings) :select (get-let-bindings))
-    :use-module ((schrec get-let-body) :select (get-let-body))
+    :use-module ((schrec get-let-bodies) :select (get-let-bodies))
     :use-module ((schrec make-fresh-regular-node) :select (make-fresh-regular-node))
     :use-module ((schrec make-unique-id) :select (make-unique-id))
     :use-module ((schrec node) :select (node-children node-label node-namespace set-node-children!))
@@ -33,7 +35,7 @@
 (define (betaconvert-let-expression valuation loop lst)
   (define let-bindings-0 (get-let-bindings lst))
   (define let-bindings (transform-let-bindings let-bindings-0))
-  (define let-body (get-let-body lst))
+  (define let-bodies (get-let-bodies lst))
 
   (define binding-nodes
     (map
@@ -61,4 +63,10 @@
            (set-node-children! binding-node (node-children ret)))))
    binding-nodes)
 
-  (loop let-body))
+  ;; TODO: everything is flattenme
+  (let* ((recur (map loop let-bodies))
+         (single? (list-singleton? let-bodies))
+         (node (if single?
+                   (car recur)
+                   (make-flattenme recur))))
+    node))

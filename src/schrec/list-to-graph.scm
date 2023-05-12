@@ -22,7 +22,5 @@
 
 
 
-(define (list->graph lst)
-  (define renamed (alpharename-list lst))
-  (define result (betaconvert-list renamed))
-  result)
+(define list->graph
+  (compose betaconvert-list alpharename-list))

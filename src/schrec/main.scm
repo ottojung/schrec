@@ -19,6 +19,7 @@
     :use-module ((euphrates define-cli) :select (define-cli:show-help with-cli))
     :use-module ((euphrates dprintln) :select (dprintln))
     :use-module ((euphrates file-or-directory-exists-q) :select (file-or-directory-exists?))
+    :use-module ((euphrates list-last) :select (list-last))
     :use-module ((euphrates open-file-port) :select (open-file-port))
     :use-module ((euphrates raisu) :select (raisu))
     :use-module ((euphrates read-list) :select (read-list))
@@ -28,6 +29,7 @@
     :use-module ((schrec default-eval-hook) :select (default-eval-hook))
     :use-module ((schrec eval-hook) :select (eval-hook))
     :use-module ((schrec list-to-graph) :select (list->graph))
+    :use-module ((schrec node) :select (node-children))
     :use-module ((schrec pretty-print-graph) :select (pretty-print-graph))
     :use-module ((schrec pretty-print-list) :select (pretty-print-list))
     :use-module ((schrec reduce-resultsall) :select (reduce/resultsall))
@@ -101,7 +103,8 @@
             (pretty-print-graph converted)))
 
          (else
-          (let ((graph (list->graph parsed)))
+          (let* ((graph (list->graph parsed))
+                 (rooted (list-last (node-children graph))))
 
             (when --trace
               (eval-hook (default-eval-hook graph))
@@ -124,9 +127,9 @@
                   (if thread
                       (begin
                         (unless --trace
-                          (with-current-thread thread (pretty-print-graph graph)))
+                          (with-current-thread thread (pretty-print-graph rooted)))
                         (loop #f))
                       (when (and first? --reflexive (not --trace))
-                        (pretty-print-graph graph))))))))))))))
+                        (pretty-print-graph rooted))))))))))))))
 
 (main)
