@@ -109,7 +109,7 @@
      (when --help
        (define-cli:show-help))
      (when version
-       (display "0.9.9")
+       (display "1.0.0")
        (newline)
        (exit 0))
      (when license
