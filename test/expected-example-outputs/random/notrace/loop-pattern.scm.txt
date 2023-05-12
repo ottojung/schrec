@@ -1,0 +1,5 @@
+(let ((pat (a pat))
+      (body-looped (0))
+      (body-not-looped (x y)))
+  (eva1 (g (0) ((g pat (0))))
+        (body-looped body-not-looped)))
