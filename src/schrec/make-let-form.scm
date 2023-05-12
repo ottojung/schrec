@@ -16,6 +16,7 @@
  (guile
   (define-module (schrec make-let-form)
     :export (make-let-form)
+    :use-module ((euphrates list-singleton-q) :select (list-singleton?))
     :use-module ((schrec flattenme) :select (make-flattenme))
     :use-module ((schrec keyword-let) :select (keyword-let))
     )))
@@ -23,7 +24,9 @@
 
 (define (make-let-form bindings bodies)
   (if (null? bindings)
-      (make-flattenme bodies)
+      (if (list-singleton? bodies)
+          (car bodies)
+          (make-flattenme bodies))
       (cons keyword-let
             (cons bindings
                   (if (or (null? bodies) (pair? bodies))
