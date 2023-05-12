@@ -70,7 +70,7 @@
                   name
                   (let ((r (loop value)))
                     (when (flattenme? r)
-                      (raisu 'expected-single-value-for-a-binding binding-node ret))
+                      (raisu 'expected-single-value-for-a-binding name r))
                     r))))
         binding-nodes)))
 
