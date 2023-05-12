@@ -17,6 +17,7 @@
   (define-module (schrec betaconvert-list)
     :export (betaconvert-list)
     :use-module ((euphrates hashmap) :select (hashmap-ref hashmap-set! make-hashmap))
+    :use-module ((euphrates list-last) :select (list-last))
     :use-module ((schrec betaconvert-let-expression) :select (betaconvert-let-expression))
     :use-module ((schrec check-let-syntax) :select (check-let-syntax))
     :use-module ((schrec let-expression-huh) :select (let-expression?))
@@ -27,9 +28,9 @@
     )))
 
 
-(define (betaconvert-list lst)
+(define (betaconvert-list list-of-roots)
   (define valuation (make-hashmap))
-  (let loop ((lst lst))
+  (define (loop lst)
     (if (pair? lst)
         (if (let-expression? lst)
             (begin
@@ -41,4 +42,6 @@
               (let ((new (make-fresh-atom-node lst root-namespace))
                     (key (make-unique-id lst root-namespace)))
                 (hashmap-set! valuation key new)
-                new))))))
+                new)))))
+
+  (list-last (map loop list-of-roots)))

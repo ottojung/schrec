@@ -95,7 +95,7 @@
         (cond
          (alpharename
           (let ((renamed (alpharename-list parsed)))
-            (pretty-print-list renamed)))
+            (for-each pretty-print-list renamed)))
          (betaconvert
           (let ((converted (betaconvert-list parsed)))
             (pretty-print-graph converted)))
