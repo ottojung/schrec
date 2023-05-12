@@ -25,6 +25,7 @@
     :use-module ((schrec make-fresh-branch-node) :select (make-fresh-branch-node))
     :use-module ((schrec make-unique-id) :select (make-unique-id))
     :use-module ((schrec root-namespace) :select (root-namespace))
+    :use-module ((schrec rooting-join) :select (rooting-join))
     )))
 
 
@@ -45,13 +46,11 @@
                 (hashmap-set! valuation key new)
                 new)))))
 
-  ;; Adding a join-root at the top.
-  ;; It should be removed afterwards.
-
   (define roots
     (flattenme-mapflatten loop list-of-roots))
 
-  (define root-node
-    (make-fresh-branch-node roots))
-
-  root-node)
+  ;; A workaround for evaluation of all the roots
+  ;; is to add an additional root at the top that
+  ;; joins them all. And then remove
+  ;; it when done evaluating.
+  (rooting-join roots))

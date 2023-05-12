@@ -19,7 +19,6 @@
     :use-module ((euphrates define-cli) :select (define-cli:show-help with-cli))
     :use-module ((euphrates dprintln) :select (dprintln))
     :use-module ((euphrates file-or-directory-exists-q) :select (file-or-directory-exists?))
-    :use-module ((euphrates list-last) :select (list-last))
     :use-module ((euphrates open-file-port) :select (open-file-port))
     :use-module ((euphrates raisu) :select (raisu))
     :use-module ((euphrates read-list) :select (read-list))
@@ -35,6 +34,7 @@
     :use-module ((schrec reduce-resultsall) :select (reduce/resultsall))
     :use-module ((schrec reduce-resultsfirst) :select (reduce/resultsfirst))
     :use-module ((schrec reduce-resultsrandom) :select (reduce/resultsrandom))
+    :use-module ((schrec rooting-unjoin) :select (rooting-unjoin))
     :use-module ((schrec with-current-thread) :select (with-current-thread))
     )))
 
@@ -104,7 +104,7 @@
 
          (else
           (let* ((graph (list->graph parsed))
-                 (rooted (list-last (node-children graph))))
+                 (rooted (rooting-unjoin graph)))
 
             (when --trace
               (eval-hook (default-eval-hook rooted))
