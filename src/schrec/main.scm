@@ -51,11 +51,11 @@
     (with-cli
      (MAIN
       MAIN : --help
-      /      alpharename BREAK? <filename>
-      /      betaconvert BREAK? <filename>
       /      version
       /      license
       /      warranty
+      /      alpharename BREAK? <filename>
+      /      betaconvert BREAK? <filename>
       /      RUN? OPT* BREAK? <filename>
       RUN : run
       BREAK : --
