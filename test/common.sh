@@ -3,7 +3,7 @@ set -e
 
 SCHREC="dist/schrec"
 
-NOHAGUP="
+FAST="
 addition-fork.scm
 addition-serial.scm
 block-order-dependent-1.scm
@@ -13,9 +13,6 @@ children-mismatch-multi.scm
 const-multi.scm
 const.scm
 eval-in-pattern.scm
-gasm.scm
-gstack.scm
-lambda.scm
 lisp-list-functions.scm
 loop-1.scm
 loop-2.scm
@@ -24,7 +21,6 @@ non-determinism-example-1.scm
 non-determinism-example-2.scm
 primitive-multi-2.scm
 primitive.scm
-recursive-functions.scm
 simple-let-example.scm
 simple-non-confluent.scm
 state.scm
@@ -36,6 +32,14 @@ state-without-const.scm
 state-without-local.scm
 stupid-synthetic-example.scm
 turing-machine.scm
+"
+
+NOHAGUP="
+$FAST
+gasm.scm
+gstack.scm
+lambda.scm
+recursive-functions.scm
 "
 
 DET="

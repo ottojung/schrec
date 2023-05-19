@@ -1,0 +1,560 @@
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
+(let ((const (car cdr
+                  cons
+                  set-car!
+                  set-cdr!
+                  begin
+                  quote
+                  eq?
+                  null?
+                  true
+                  false
+                  if))
+      (body (begin (yes var1)))
+      (var1 '(9 7 8)))
+  (eval (g const ((g (begin 'x) 'x) (x x x))) body))
