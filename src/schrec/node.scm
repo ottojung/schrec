@@ -15,9 +15,10 @@
 (cond-expand
  (guile
   (define-module (schrec node)
-    :export (make-node node? node-children set-node-children! node-id node-label node-namespace node-binding set-node-binding! node-visited? set-node-visited?! node-display set-node-display!)
+    :export (make-node node? node-children set-node-children! node-id node-label node-specialty node-special? node-namespace node-binding set-node-binding! node-visited? set-node-visited?! node-display set-node-display!)
     :use-module ((euphrates define-type9) :select (define-type9))
     :use-module ((euphrates prefixtree) :select (make-prefixtree prefixtree-ref-furthest prefixtree-set!))
+    :use-module ((schrec extension) :select (extension-name))
     :use-module ((schrec get-current-thread) :select (get-current-thread))
     :use-module ((schrec nodeinfo) :select (make-nodeinfo nodeinfo-display nodeinfo-label nodeinfo-namespace set-nodeinfo-display!))
     :use-module ((schrec thread-obj) :select (thread-obj-lst))
@@ -38,13 +39,24 @@
   (visited? node-visited? set-node-visited?!)
   )
 
-(define (make-node id children label namespace)
+(define (make-node/generic id children label namespace specialty)
   (define pt (make-prefixtree children))
   (define info (make-nodeinfo label namespace))
-  (define specialty #f)
   (define binding #f)
   (define visited? #f)
   (node-ctor id pt info specialty binding visited?))
+
+(define (make-node id children label namespace)
+  (define specialty #f)
+  (make-node/generic id children label namespace specialty))
+
+(define (make-special-node id namespace specialty)
+  (define label (extension-name specialty))
+  (define children '())
+  (make-node/generic id children label namespace specialty))
+
+(define (node-special? node)
+  (node-specialty node))
 
 (define (node-label node)
   (nodeinfo-label (node-info node)))

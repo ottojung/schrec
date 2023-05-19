@@ -15,7 +15,7 @@
 (cond-expand
  (guile
   (define-module (schrec extension)
-    :export (make-extension extension? extension-name extension-check extension-run/det extension-run/nondet extension-run/random)
+    :export (make-extension extension? extension-name extension-check extension-run/det extension-run/nondet extension-run/random extension-check-fn extension-run/det-fn extension-run/nondet-fn extension-run/random-fn)
     :use-module ((euphrates define-type9) :select (define-type9))
     )))
 
@@ -31,11 +31,11 @@
 (define (extension-check ext g)
   ((extension-check-fn ext) g))
 
-(define (extension-run/det ext env body g)
-  ((extension-run/det-fn ext) env body g))
+(define (extension-run/det ext g)
+  ((extension-run/det-fn ext) g))
 
-(define (extension-run/nondet ext env body g)
-  ((extension-run/nondet-fn ext) env body g))
+(define (extension-run/nondet ext g)
+  ((extension-run/nondet-fn ext) g))
 
-(define (extension-run/random ext env body g)
-  ((extension-run/random-fn ext) env body g))
+(define (extension-run/random ext g)
+  ((extension-run/random-fn ext) g))
