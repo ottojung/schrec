@@ -18,15 +18,13 @@
     :export (eval-single-form?)
     :use-module ((euphrates list-length-eq) :select (list-length=))
     :use-module ((schrec check-environment) :select (check-environment))
-    :use-module ((schrec eval-single-node-huh) :select (eval-single-node?))
     :use-module ((schrec get-eval-env) :select (get-eval-env))
     :use-module ((schrec node) :select (node-children))
     )))
 
 
 
-(define (eval-single-form? node)
+(define (eval-single-form? self node)
   (define children (node-children node))
   (and (list-length= 3 children)
-       (eval-single-node? (car children))
        (check-environment (get-eval-env node))))

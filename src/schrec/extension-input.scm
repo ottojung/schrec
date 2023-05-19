@@ -15,11 +15,13 @@
 (cond-expand
  (guile
   (define-module (schrec extension-input)
-    :export (make-extension-input extension-input? extension-input-selfpath)
+    :export (make-extension-input extension-input? extension-input-selfpath extension-input-selfname extension-input-uniqueid)
     :use-module ((euphrates define-type9) :select (define-type9))
     )))
 
 (define-type9 <extension-input>
-  (make-extension-input selfpath) extension-input?
+  (make-extension-input selfpath selfname uniqueid) extension-input?
   (selfpath extension-input-selfpath)
+  (selfname extension-input-selfname)
+  (uniqueid extension-input-uniqueid)
   )

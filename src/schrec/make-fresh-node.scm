@@ -16,13 +16,17 @@
  (guile
   (define-module (schrec make-fresh-node)
     :export (make-fresh-node)
-    :use-module ((schrec node) :select (make-node))
+    :use-module ((schrec node) :select (make-node make-special-node))
     )))
 
 
 
 (define make-fresh-node
   (let ((counter 0))
-    (lambda (label namespace children)
-      (set! counter (+ 1 counter))
-      (make-node counter children label namespace))))
+    (case-lambda
+     (lambda (label namespace children)
+       (set! counter (+ 1 counter))
+       (make-node counter children label namespace))
+     (lambda (label namespace children specialty)
+       (set! counter (+ 1 counter))
+       (make-special-node counter namespace specialty)))))

@@ -19,15 +19,11 @@
     :use-module ((euphrates dynamic-load) :select (dynamic-load))
     :use-module ((euphrates file-or-directory-exists-q) :select (file-or-directory-exists?))
     :use-module ((euphrates raisu) :select (raisu))
-    :use-module ((schrec extension-input) :select (make-extension-input))
-    :use-module ((schrec load-extension) :select (load-extension))
     )))
 
 (define (load-extension-file filepath)
   (unless (file-or-directory-exists? filepath)
     (raisu 'extension-file-does-not-exist filepath))
 
-  (let* ((manifest-fn (dynamic-load filepath))
-         (input (make-extension-input filepath))
-         (manifest (manifest-fn input)))
-    (load-extension manifest)))
+  (let* ((manifest-fn (dynamic-load filepath)))
+    (load-extension/generic filepath manifest-fn)))

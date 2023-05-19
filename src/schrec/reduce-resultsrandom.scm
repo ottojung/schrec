@@ -19,7 +19,7 @@
     :use-module ((euphrates list-find-first) :select (list-find-first))
     :use-module ((euphrates list-random-shuffle) :select (list-random-shuffle))
     :use-module ((schrec eval-resultsrandom-node) :select (eval/resultsrandom/node))
-    :use-module ((schrec find-partially-sorted-evals) :select (find-partially-sorted-evals))
+    :use-module ((schrec find-partially-sorted-eval-likes) :select (find-partially-sorted-eval-likes))
     :use-module ((schrec get-current-thread) :select (get-current-thread))
     )))
 
@@ -29,7 +29,7 @@
   (define (eval-fun)
     ;; These `evals' are grouped such that
     ;;   in each group every element can be run first
-    (define evals (find-partially-sorted-evals graph))
+    (define evals (find-partially-sorted-eval-likes graph))
 
     (let loop ((evals evals))
       (if (null? evals) #f

@@ -21,8 +21,10 @@
     :use-module ((schrec check-let-syntax) :select (check-let-syntax))
     :use-module ((schrec flattenme-mapflat) :select (flattenme-mapflat))
     :use-module ((schrec let-expression-huh) :select (let-expression?))
+    :use-module ((schrec loaded-extensions-p) :select (loaded-extensions/p))
     :use-module ((schrec make-fresh-atom-node) :select (make-fresh-atom-node))
     :use-module ((schrec make-fresh-branch-node) :select (make-fresh-branch-node))
+    :use-module ((schrec make-fresh-node) :select (make-fresh-node))
     :use-module ((schrec make-unique-id) :select (make-unique-id))
     :use-module ((schrec root-namespace) :select (root-namespace))
     :use-module ((schrec rooting-join) :select (rooting-join))
@@ -30,7 +32,9 @@
 
 
 (define (betaconvert-list list-of-roots)
+  (define extensions (loaded-extensions/p))
   (define valuation (make-hashmap))
+
   (define (loop lst)
     (if (pair? lst)
         (if (let-expression? lst)
@@ -41,8 +45,12 @@
              (flattenme-mapflat loop lst)))
         (let ((existing (hashmap-ref valuation lst #f)))
           (or existing
-              (let ((new (make-fresh-atom-node lst root-namespace))
-                    (key (make-unique-id lst root-namespace)))
+              (let* ((specialty (hashmap-ref extensions lst #f))
+                     (new
+                      (if specialty
+                          (make-fresh-node lst root-namespace '() specialty)
+                          (make-fresh-atom-node lst root-namespace)))
+                     (key (make-unique-id lst root-namespace)))
                 (hashmap-set! valuation key new)
                 new)))))
 

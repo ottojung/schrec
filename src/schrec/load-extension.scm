@@ -16,35 +16,9 @@
  (guile
   (define-module (schrec load-extension)
     :export (load-extension)
-    :use-module ((euphrates assq-or) :select (assq-or))
-    :use-module ((euphrates hashmap) :select (hashmap-set! hashmap?))
-    :use-module ((euphrates raisu) :select (raisu))
-    :use-module ((schrec extension) :select (make-extension))
-    :use-module ((schrec loaded-extensions-p) :select (loaded-extensions/p))
+    :use-module ((schrec load-extension-generic) :select (load-extension/generic))
     )))
 
-(define (load-extension manifest)
-  (define existing (loaded-extensions/p))
-  (define (get name)
-    (assq-or
-     name manifest
-     (raisu 'extension-manifest-missing-a-field
-            name manifest)))
-
-  (unless (hashmap? existing)
-    (raisu 'expected-extensions-list-to-be-an-instatiated-stack
-           existing
-           manifest))
-
-  (let* ((name (get 'name))
-         (ext
-          (make-extension
-           name
-           (get 'check-fn)
-           (get 'run/det-fn)
-           (get 'run/nondet-fn)
-           (get 'run/random-fn))))
-
-    (hashmap-set! existing name ext)
-
-    #f))
+(define (load-extension selfname manifest-fn)
+  (define filepath #f)
+  (load-extension/generic filepath selfname manifest-fn))

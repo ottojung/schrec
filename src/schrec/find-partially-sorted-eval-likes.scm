@@ -18,9 +18,7 @@
     :export (find-partially-sorted-eval-likes)
     :use-module ((euphrates comp) :select (comp))
     :use-module ((euphrates list-and-map) :select (list-and-map))
-    :use-module ((euphrates list-or-map) :select (list-or-map))
-    :use-module ((schrec eval-like-huh) :select (eval-like?))
-    :use-module ((schrec node) :select (node-children node-visited? set-node-visited?!))
+    :use-module ((schrec node) :select (node-children node-special? node-visited? set-node-visited?!))
     )))
 
 
@@ -28,17 +26,15 @@
 ;; FIXME: This is wrong. There are no "levels".
 ;;        If bottom eval fails, then the top one must run
 ;;        instead, on the same reduction step.
-(define (find-partially-sorted-eval-likes names root)
+(define (find-partially-sorted-eval-likes root)
   (define sequences '())
   (let loop ((parents '()) (graph root))
     (unless (node-visited? graph)
       (set-node-visited?! graph #t)
-      (let* ((like? (list-or-map
-                     (lambda (name) (eval-like? name graph))
-                     names))
+      (let* ((childs (node-children graph))
+             (like? (and (not (null? childs)) (node-special? (car childs))))
              (new-parents (if like? (cons graph parents) parents)))
-        (for-each (comp (loop new-parents))
-                  (node-children graph))
+        (for-each (comp (loop new-parents)) childs)
         (set-node-visited?! graph #f)
         (when like?
           (set! sequences (cons (cons graph parents) sequences))))))

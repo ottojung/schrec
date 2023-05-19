@@ -19,7 +19,7 @@
     :use-module ((euphrates list-map-flatten) :select (list-map/flatten))
     :use-module ((euphrates stack) :select (stack-empty? stack-make stack-pop! stack-push!))
     :use-module ((schrec eval-resultsall-node) :select (eval/resultsall/node))
-    :use-module ((schrec find-partially-sorted-evals) :select (find-partially-sorted-evals))
+    :use-module ((schrec find-partially-sorted-eval-likes) :select (find-partially-sorted-eval-likes))
     :use-module ((schrec get-current-thread) :select (get-current-thread))
     :use-module ((schrec thread-relative) :select (thread-relative))
     )))
@@ -35,7 +35,7 @@
   (define (eval-fun)
     ;; These `evals' are grouped such that
     ;;   in each group every element can be run first
-    (define evals (find-partially-sorted-evals graph))
+    (define evals (find-partially-sorted-eval-likes graph))
 
     (let loop ((evals evals))
       (if (null? evals)

@@ -15,7 +15,7 @@
 (cond-expand
  (guile
   (define-module (schrec node)
-    :export (make-node node? node-children set-node-children! node-id node-label node-specialty node-special? node-namespace node-binding set-node-binding! node-visited? set-node-visited?! node-display set-node-display!)
+    :export (make-node make-special-node node? node-children set-node-children! node-id node-label node-specialty node-special? node-namespace node-binding set-node-binding! node-visited? set-node-visited?! node-display set-node-display!)
     :use-module ((euphrates define-type9) :select (define-type9))
     :use-module ((euphrates prefixtree) :select (make-prefixtree prefixtree-ref-furthest prefixtree-set!))
     :use-module ((schrec extension) :select (extension-name))

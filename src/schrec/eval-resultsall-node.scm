@@ -16,36 +16,14 @@
  (guile
   (define-module (schrec eval-resultsall-node)
     :export (eval/resultsall/node)
-    :use-module ((schrec eval-multi-form-huh) :select (eval-multi-form?))
-    :use-module ((schrec eval-nondet) :select (eval/nondet))
-    :use-module ((schrec eval-single-form-huh) :select (eval-single-form?))
-    :use-module ((schrec get-current-thread) :select (get-current-thread))
-    :use-module ((schrec get-eval-body) :select (get-eval-body))
-    :use-module ((schrec get-eval-env) :select (get-eval-env))
-    :use-module ((schrec get-eval-input) :select (get-eval-input))
-    :use-module ((schrec run-environment-resultsall) :select (run-environment-resultsall))
-    :use-module ((schrec run-environment-resultsfirst) :select (run-environment-resultsfirst))
+    :use-module ((schrec extension) :select (extension-check extension-run/nondet))
+    :use-module ((schrec node) :select (node-children node-specialty))
     )))
 
 
-
-(define (single-runner env body pointer-node)
-  (if (run-environment-resultsfirst env body pointer-node)
-      (list (get-current-thread))
-      '()))
-
-(define multi-runner run-environment-resultsall)
-
 (define (eval/resultsall/node eval-node)
-  (cond
-   ((eval-single-form? eval-node)
-    (let ((env (get-eval-env eval-node))
-          (body (get-eval-body eval-node))
-          (main-input (get-eval-input eval-node)))
-      (eval/nondet single-runner env body)))
-   ((eval-multi-form? eval-node)
-    (let ((env (get-eval-env eval-node))
-          (body (get-eval-body eval-node))
-          (main-input (get-eval-input eval-node)))
-      (eval/nondet multi-runner env body)))
-   (else '())))
+  (define childs (node-children eval-node))
+  (define self (car childs))
+  (define specialty (node-specialty self))
+  (and (extension-check specialty self eval-node)
+       (extension-run/nondet specialty eval-node)))

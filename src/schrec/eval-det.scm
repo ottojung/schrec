@@ -24,7 +24,7 @@
 
 
 (define (eval/det func env body)
-  (and (check-environment env)
+  (and (check-environment env) ;; FIXME: this is a redundant check
        (let ((result
               (let loop ((g body))
                 (if (node-visited? g) #f

@@ -17,25 +17,23 @@
   (define-module (schrec find-sorted-eval-likes)
     :export (find-sorted-eval-likes)
     :use-module ((euphrates comp) :select (comp))
-    :use-module ((euphrates list-or-map) :select (list-or-map))
-    :use-module ((schrec eval-like-huh) :select (eval-like?))
-    :use-module ((schrec node) :select (node-children node-visited? set-node-visited?!))
+    :use-module ((schrec node) :select (node-children node-special? node-visited? set-node-visited?!))
     )))
 
 
 
 ;; returns all eval nodes in a bottommost-to-topmost order
-(define (find-sorted-eval-likes names graph)
+(define (find-sorted-eval-likes graph)
   (reverse
    (let loop ((parent #f) (graph graph))
      (if (node-visited? graph) '()
          (begin
            (set-node-visited?! graph #t)
            (let* ((recur (map (comp (loop graph)) (node-children graph)))
+                  (childs (and parent (node-children parent)))
+                  (like? (and parent (not (null? childs)) (node-special? (car childs))))
                   (ret (apply append recur)))
              (set-node-visited?! graph #f)
-             (if (and parent (list-or-map
-                              (lambda (name) (eval-like? name parent))
-                              names))
+             (if like?
                  (cons parent ret)
                  ret)))))))

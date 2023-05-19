@@ -18,7 +18,7 @@
     :export (reduce/resultsfirst/loop)
     :use-module ((euphrates list-find-first) :select (list-find-first))
     :use-module ((schrec eval-resultsfirst-node-loop) :select (eval/resultsfirst/node/loop))
-    :use-module ((schrec find-sorted-evals) :select (find-sorted-evals))
+    :use-module ((schrec find-sorted-eval-likes) :select (find-sorted-eval-likes))
     )))
 
 
@@ -26,6 +26,6 @@
 ;; NOTE: not semantically correct either
 (define (reduce/resultsfirst/loop graph)
   (let oloop ()
-    (define evals (find-sorted-evals graph))
+    (define evals (find-sorted-eval-likes graph))
     (when (list-find-first eval/resultsfirst/node/loop #f evals)
       (oloop))))
