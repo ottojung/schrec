@@ -21,7 +21,7 @@
     :use-module ((schrec check-let-syntax) :select (check-let-syntax))
     :use-module ((schrec flattenme-mapflat) :select (flattenme-mapflat))
     :use-module ((schrec let-expression-huh) :select (let-expression?))
-    :use-module ((schrec loaded-extensions-p) :select (loaded-extensions/p))
+    :use-module ((schrec loaded-specialtys-p) :select (loaded-specialtys/p))
     :use-module ((schrec make-fresh-atom-node) :select (make-fresh-atom-node))
     :use-module ((schrec make-fresh-branch-node) :select (make-fresh-branch-node))
     :use-module ((schrec make-fresh-node) :select (make-fresh-node))
@@ -32,7 +32,7 @@
 
 
 (define (betaconvert-list list-of-roots)
-  (define extensions (loaded-extensions/p))
+  (define specialtys (loaded-specialtys/p))
   (define valuation (make-hashmap))
 
   (define (loop lst)
@@ -45,7 +45,7 @@
              (flattenme-mapflat loop lst)))
         (let ((existing (hashmap-ref valuation lst #f)))
           (or existing
-              (let* ((specialty (hashmap-ref extensions lst #f))
+              (let* ((specialty (hashmap-ref specialtys lst #f))
                      (new
                       (if specialty
                           (make-fresh-node lst root-namespace '() specialty)

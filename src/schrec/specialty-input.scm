@@ -14,11 +14,14 @@
 
 (cond-expand
  (guile
-  (define-module (schrec load-extension)
-    :export (load-extension)
-    :use-module ((schrec load-extension-generic) :select (load-extension/generic))
+  (define-module (schrec specialty-input)
+    :export (make-specialty-input specialty-input? specialty-input-selfpath specialty-input-selfname specialty-input-uniqueid)
+    :use-module ((euphrates define-type9) :select (define-type9))
     )))
 
-(define (load-extension selfname manifest-fn)
-  (define filepath #f)
-  (load-extension/generic filepath selfname manifest-fn))
+(define-type9 <specialty-input>
+  (make-specialty-input selfpath selfname uniqueid) specialty-input?
+  (selfpath specialty-input-selfpath)
+  (selfname specialty-input-selfname)
+  (uniqueid specialty-input-uniqueid)
+  )

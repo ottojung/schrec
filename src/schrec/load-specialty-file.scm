@@ -14,10 +14,16 @@
 
 (cond-expand
  (guile
-  (define-module (schrec loaded-extensions-p)
-    :export (loaded-extensions/p)
-    :use-module ((euphrates hashmap) :select (make-hashmap))
+  (define-module (schrec load-specialty-file)
+    :export (load-specialty-file)
+    :use-module ((euphrates dynamic-load) :select (dynamic-load))
+    :use-module ((euphrates file-or-directory-exists-q) :select (file-or-directory-exists?))
+    :use-module ((euphrates raisu) :select (raisu))
     )))
 
-(define loaded-extensions/p
-  (make-parameter (make-hashmap)))
+(define (load-specialty-file filepath)
+  (unless (file-or-directory-exists? filepath)
+    (raisu 'specialty-file-does-not-exist filepath))
+
+  (let* ((manifest-fn (dynamic-load filepath)))
+    (load-specialty/generic filepath manifest-fn)))

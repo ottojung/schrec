@@ -16,7 +16,7 @@
  (guile
   (define-module (schrec eval-resultsall-node)
     :export (eval/resultsall/node)
-    :use-module ((schrec extension) :select (extension-check extension-run/nondet))
+    :use-module ((schrec specialty) :select (specialty-check specialty-run/nondet))
     :use-module ((schrec node) :select (node-children node-specialty))
     )))
 
@@ -25,5 +25,5 @@
   (define childs (node-children eval-node))
   (define self (car childs))
   (define specialty (node-specialty self))
-  (and (extension-check specialty self eval-node)
-       (extension-run/nondet specialty eval-node)))
+  (and (specialty-check specialty self eval-node)
+       (specialty-run/nondet specialty eval-node)))

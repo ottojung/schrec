@@ -14,8 +14,8 @@
 
 (cond-expand
  (guile
-  (define-module (schrec eval-single-extension)
-    :export (eval/single-extension)
+  (define-module (schrec eval-single-specialty)
+    :export (eval/single-specialty)
     :use-module ((schrec eval-det) :select (eval/det))
     :use-module ((schrec eval-nondet) :select (eval/nondet))
     :use-module ((schrec eval-single-form-huh) :select (eval-single-form?))
@@ -46,7 +46,7 @@
   (define body (get-eval-body eval-node))
   (eval/det run-environment-resultsfirst env body))
 
-(define eval/single-extension
+(define eval/single-specialty
   (lambda (input)
     `((manifestversion . 1)
       (name . ,keyword-eval-single)

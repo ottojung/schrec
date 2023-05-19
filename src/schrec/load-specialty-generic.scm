@@ -14,48 +14,48 @@
 
 (cond-expand
  (guile
-  (define-module (schrec load-extension-generic)
-    :export (load-extension/generic)
+  (define-module (schrec load-specialty-generic)
+    :export (load-specialty/generic)
     :use-module ((euphrates assq-or) :select (assq-or))
     :use-module ((euphrates hashmap) :select (hashmap-set! hashmap?))
     :use-module ((euphrates raisu) :select (raisu))
-    :use-module ((schrec extension-input) :select (make-extension-input))
-    :use-module ((schrec extension) :select (make-extension))
-    :use-module ((schrec loaded-extensions-p) :select (loaded-extensions/p))
+    :use-module ((schrec specialty-input) :select (make-specialty-input))
+    :use-module ((schrec specialty) :select (make-specialty))
+    :use-module ((schrec loaded-specialtys-p) :select (loaded-specialtys/p))
     )))
 
-(define get-new-extension-id
+(define get-new-specialty-id
   (let ((counter 0))
     (lambda _
       (set! counter (+ 1 counter))
       counter)))
 
-(define (load-extension/generic filepath selfname manifest-fn)
-  (define uniqueid (get-new-extension-id))
-  (define input (make-extension-input filepath selfname uniqueid))
+(define (load-specialty/generic filepath selfname manifest-fn)
+  (define uniqueid (get-new-specialty-id))
+  (define input (make-specialty-input filepath selfname uniqueid))
   (define manifest (manifest-fn input))
-  (define existing (loaded-extensions/p))
+  (define existing (loaded-specialtys/p))
 
   (define (get key)
     (assq-or
      key manifest
-     (raisu 'extension-manifest-missing-a-field
+     (raisu 'specialty-manifest-missing-a-field
             key manifest)))
 
   (define name (or selfname (get 'name)))
 
   (unless (hashmap? existing)
-    (raisu 'expected-extensions-list-to-be-an-instatiated-hashmap
+    (raisu 'expected-specialtys-list-to-be-an-instatiated-hashmap
            existing
            manifest))
 
   (let ((version (get 'manifestversion))
         (expected 1))
     (unless (equal? version expected)
-      (raisu 'extension-version-mismatch version expected)))
+      (raisu 'specialty-version-mismatch version expected)))
 
   (let ((ext
-         (make-extension
+         (make-specialty
           uniqueid
           name
           (get 'check-fn)
