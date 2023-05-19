@@ -26,13 +26,14 @@
 
 
 (define-type9 <n>
-  (node-ctor id children info binding visited?) node?
+  (node-ctor id children info specialty binding visited?) node?
   ;; semantic part
   (id node-id)
   (children node-children/raw set-node-children/raw!)
 
   ;; meta part
   (info node-info)
+  (specialty node-specialty)
   (binding node-binding set-node-binding!)
   (visited? node-visited? set-node-visited?!)
   )
@@ -40,7 +41,10 @@
 (define (make-node id children label namespace)
   (define pt (make-prefixtree children))
   (define info (make-nodeinfo label namespace))
-  (node-ctor id pt info #f #f))
+  (define specialty #f)
+  (define binding #f)
+  (define visited? #f)
+  (node-ctor id pt info specialty binding visited?))
 
 (define (node-label node)
   (nodeinfo-label (node-info node)))
