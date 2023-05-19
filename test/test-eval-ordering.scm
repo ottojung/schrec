@@ -3,9 +3,11 @@
  (guile
   (define-module (test-eval-ordering)
     :use-module ((euphrates assert-equal) :select (assert=))
+    :use-module ((schrec eval-specialty) :select (eval-specialty))
     :use-module ((schrec find-partially-sorted-eval-likes) :select (find-partially-sorted-eval-likes))
     :use-module ((schrec get-head) :select (get-head))
     :use-module ((schrec list-to-graph) :select (list->graph))
+    :use-module ((schrec load-specialty) :select (load-specialty))
     :use-module ((schrec node) :select (node?))
     )))
 
@@ -23,12 +25,20 @@
                        (f g
                        (k l (eval-type-2 e4 (i o)))))
             (p x (y n (eval-type-2 e5 z))))))))
+
+  (define eval-likes
+    `(eval-type-1 eval-type-2))
+
+  (for-each
+   (lambda (name)
+     (load-specialty name eval-specialty))
+   eval-likes)
+
   (define graph
     (list->graph instance))
 
   (define found
-    (find-partially-sorted-eval-likes
-     `(eval-type-1 eval-type-2) graph))
+    (find-partially-sorted-eval-likes graph))
 
   (define mapped
     (let loop ((x found))
