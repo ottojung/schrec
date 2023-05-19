@@ -37,6 +37,9 @@
     (raisu 'let-is-missing-a-body lst))
 
   (let ((bindings (get-let-bindings lst)))
+    (unless (list? bindings)
+      (raisu 'let-bindings-must-be-a-list bindings lst))
+
     (for-each
      (lambda (binding)
        (unless (list? binding)
