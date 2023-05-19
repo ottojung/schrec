@@ -38,10 +38,7 @@ $(PREFIX_SHARE)/schrec:
 $(PREFIX_BIN):
 	mkdir -p "$@"
 
-examples: dist/schrec
-	@ set -e ; for FILE in example/* ; do $(MAKE) run "RUN_TARGET=$$FILE" ; done
-
-test-all: dist/schrec
+test: dist/schrec
 	@ set -e ; for FILE in test/test*.scm ; do $(MAKE) test-scm "TESTFILE=$$FILE" ; done
 	@ set -e ; for FILE in test/test*.sh ; do $(MAKE) test-sh "TESTFILE=$$FILE" ; done
 
@@ -56,4 +53,4 @@ deps/euphrates/.git:
 clean:
 	rm -rf dist/
 
-.PHONY: test test-all test-scm test-sh clean build install uninstall all examples
+.PHONY: test test-scm test-sh clean build install uninstall all
