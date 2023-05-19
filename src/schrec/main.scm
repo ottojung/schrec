@@ -24,8 +24,9 @@
     :use-module ((schrec alpharename-list) :select (alpharename-list))
     :use-module ((schrec betaconvert-list) :select (betaconvert-list))
     :use-module ((schrec default-eval-hook) :select (default-eval-hook))
-    :use-module ((schrec eval-specialty) :select (eval-specialty))
     :use-module ((schrec eval-hook) :select (eval-hook))
+    :use-module ((schrec eval-single-specialty) :select (eval/single-specialty))
+    :use-module ((schrec eval-specialty) :select (eval-specialty))
     :use-module ((schrec list-to-graph) :select (list->graph))
     :use-module ((schrec load-specialty) :select (load-specialty))
     :use-module ((schrec node) :select (node-children))
@@ -127,7 +128,7 @@
       <seed>
 
       (load-specialty #f eval-specialty)
-      (load-specialty #f eval-single-specialty)
+      (load-specialty #f eval/single-specialty)
 
       (let* ((parsed (readparse-list <filename>)))
         (cond

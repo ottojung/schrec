@@ -22,6 +22,7 @@
     :use-module ((schrec get-eval-body) :select (get-eval-body))
     :use-module ((schrec get-eval-env) :select (get-eval-env))
     :use-module ((schrec keyword-eval-multi) :select (keyword-eval-multi))
+    :use-module ((schrec run-environment-resultsall) :select (run-environment-resultsall))
     :use-module ((schrec run-environment-resultsfirst-multi) :select (run-environment-resultsfirst/multi))
     :use-module ((schrec run-environment-resultsrandom) :select (run-environment-resultsrandom))
     )))
@@ -34,7 +35,7 @@
 (define (run/nondet-fn eval-node)
   (define env (get-eval-env eval-node))
   (define body (get-eval-body eval-node))
-  (eval/nondet multi-runner env body))
+  (eval/nondet run-environment-resultsall env body))
 
 (define (run/random-fn eval-node)
   (define env (get-eval-env eval-node))

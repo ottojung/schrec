@@ -25,5 +25,6 @@
   (define childs (node-children eval-node))
   (define self (car childs))
   (define specialty (node-specialty self))
-  (and (specialty-check specialty self eval-node)
-       (specialty-run/nondet specialty eval-node)))
+  (if (specialty-check specialty self eval-node)
+      (specialty-run/nondet specialty eval-node)
+      '()))

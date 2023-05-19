@@ -24,9 +24,9 @@
 (define make-fresh-node
   (let ((counter 0))
     (case-lambda
-     (lambda (label namespace children)
+     ((label namespace children)
        (set! counter (+ 1 counter))
        (make-node counter children label namespace))
-     (lambda (label namespace children specialty)
+     ((label namespace children specialty)
        (set! counter (+ 1 counter))
        (make-special-node counter namespace specialty)))))
