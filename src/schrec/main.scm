@@ -19,9 +19,7 @@
     :use-module ((euphrates define-cli) :select (define-cli:show-help with-cli))
     :use-module ((euphrates dprintln) :select (dprintln))
     :use-module ((euphrates file-or-directory-exists-q) :select (file-or-directory-exists?))
-    :use-module ((euphrates open-file-port) :select (open-file-port))
     :use-module ((euphrates raisu) :select (raisu))
-    :use-module ((euphrates read-list) :select (read-list))
     :use-module ((euphrates with-randomizer-seed) :select (with-randomizer-seed))
     :use-module ((schrec alpharename-list) :select (alpharename-list))
     :use-module ((schrec betaconvert-list) :select (betaconvert-list))
@@ -31,6 +29,7 @@
     :use-module ((schrec node) :select (node-children))
     :use-module ((schrec pretty-print-graph) :select (pretty-print-graph))
     :use-module ((schrec pretty-print-list) :select (pretty-print-list))
+    :use-module ((schrec readparse-list) :select (readparse-list))
     :use-module ((schrec reduce-resultsall) :select (reduce/resultsall))
     :use-module ((schrec reduce-resultsfirst) :select (reduce/resultsfirst))
     :use-module ((schrec reduce-resultsrandom) :select (reduce/resultsrandom))
@@ -125,10 +124,7 @@
      (with-randomizer-seed
       <seed>
 
-      (let* ((file-port (open-file-port <filename> "r"))
-             (parsed (read-list file-port)))
-        (close-port file-port)
-
+      (let* ((parsed (readparse-list <filename>)))
         (cond
          (alpharename
           (let ((renamed (alpharename-list parsed)))
