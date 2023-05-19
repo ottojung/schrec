@@ -14,6 +14,7 @@ run: dist/schrec
 	dist/schrec $(SCHREC_OPTS) $(RUN_TARGET)
 
 build: dist/schrec
+	@ dist/schrec version >/dev/null
 
 dist/schrec: src/schrec/*.scm dist $(SUBMODULES)
 	sh scripts/install.sh $(PWD)/src "$@"
