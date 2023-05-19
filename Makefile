@@ -29,7 +29,7 @@ uninstall:
 	rm -rf $(PREFIX_SHARE)/shrec
 
 $(PREFIX_BIN)/schrec: dist/schrec $(PREFIX_BIN) $(PREFIX_SHARE)/schrec
-	cp -L -r $(PWD)/src $(PREFIX_SHARE)/schrec/src
+	cp -T -L -r $(PWD)/src $(PREFIX_SHARE)/schrec/src
 	sh scripts/install.sh $(PREFIX_SHARE)/schrec/src "$@"
 
 $(PREFIX_SHARE)/schrec:
