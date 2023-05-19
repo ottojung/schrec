@@ -136,7 +136,7 @@
 
       (load-specialty #f eval-specialty)
       (load-specialty #f eval/single-specialty)
-      (for-each (comp (load-specialty-file #f)) <specialfile...>)
+      (for-each (comp (load-specialty-file #f)) (or <specialfile...> '()))
 
       (let* ((parsed (readparse-list <filename>)))
         (cond
