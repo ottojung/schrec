@@ -29,10 +29,11 @@
   (define eval-likes
     `(eval-type-1 eval-type-2))
 
-  (for-each
-   (lambda (name)
-     (load-specialty name eval-specialty))
-   eval-likes)
+  (define load-result
+    (for-each
+     (lambda (name)
+       (load-specialty name eval-specialty))
+     eval-likes))
 
   (define graph
     (list->graph instance))
