@@ -16,7 +16,8 @@
  (guile
   (define-module (schrec loaded-extensions-p)
     :export (loaded-extensions/p)
+    :use-module ((euphrates stack) :select (stack-make))
     )))
 
 (define loaded-extensions/p
-  (make-parameter #f))
+  (make-parameter (stack-make)))
