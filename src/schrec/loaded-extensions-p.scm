@@ -16,8 +16,8 @@
  (guile
   (define-module (schrec loaded-extensions-p)
     :export (loaded-extensions/p)
-    :use-module ((euphrates stack) :select (stack-make))
+    :use-module ((euphrates hashmap) :select (make-hashmap))
     )))
 
 (define loaded-extensions/p
-  (make-parameter (stack-make)))
+  (make-parameter (make-hashmap)))
