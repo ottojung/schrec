@@ -15,11 +15,14 @@
 (cond-expand
  (guile
   (define-module (schrec main)
+    :use-module ((euphrates comp) :select (comp))
     :use-module ((euphrates current-program-path-p) :select (current-program-path/p))
     :use-module ((euphrates define-cli) :select (define-cli:show-help with-cli))
     :use-module ((euphrates dprintln) :select (dprintln))
     :use-module ((euphrates file-or-directory-exists-q) :select (file-or-directory-exists?))
     :use-module ((euphrates raisu) :select (raisu))
+    :use-module ((euphrates stringf) :select (stringf))
+    :use-module ((euphrates tilda-a) :select (~a))
     :use-module ((euphrates with-randomizer-seed) :select (with-randomizer-seed))
     :use-module ((schrec alpharename-list) :select (alpharename-list))
     :use-module ((schrec betaconvert-list) :select (betaconvert-list))
@@ -28,6 +31,7 @@
     :use-module ((schrec eval-single-specialty) :select (eval/single-specialty))
     :use-module ((schrec eval-specialty) :select (eval-specialty))
     :use-module ((schrec list-to-graph) :select (list->graph))
+    :use-module ((schrec load-specialty-file) :select (load-specialty-file))
     :use-module ((schrec load-specialty) :select (load-specialty))
     :use-module ((schrec node) :select (node-children))
     :use-module ((schrec pretty-print-graph) :select (pretty-print-graph))
@@ -68,6 +72,7 @@
       /     --reflexive
       /     --irreflexive
       /     --root-at ROOTAT
+      /     --load-specialty <specialfile...>
       RESULTS : all / first / random
       ROOTAT : last / module
       )
@@ -88,6 +93,8 @@
      :help (<seed> "A seed for the random number generator.")
      :type (<seed> 'number)
      :default (<seed> 777)
+
+     :help (--load-specialty (stringf "Add new special ability defined in ~s. It is like a plugin." (~a (quote <specialfile...>))))
 
      :default (--no-trace #t)
      :exclusive (--no-trace --trace)
@@ -129,6 +136,7 @@
 
       (load-specialty #f eval-specialty)
       (load-specialty #f eval/single-specialty)
+      (for-each (comp (load-specialty-file #f)) <specialfile...>)
 
       (let* ((parsed (readparse-list <filename>)))
         (cond
