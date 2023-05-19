@@ -1,0 +1,119 @@
+(let ((const (null cons
+                   car
+                   cdr
+                   set
+                   push
+                   pop
+                   if
+                   null?
+                   eq?
+                   and
+                   do
+                   stack))
+      (do ($1))
+      ($1 (return r))
+      (r ((6 5 4 3 2 1)))
+      (stack ())
+      (x ((1 2 3 4 5 6)))
+      (start (and null (and (pop r) (and (push x) loop))))
+      (loop (and (pop int)
+                 (and (push int)
+                      (if null?
+                        $1
+                        (and (push r)
+                             (and (push int)
+                                  (and car
+                                       (and cons
+                                            (and (pop r)
+                                                 (and (push int)
+                                                      (and cdr loop)))))))))))
+      (int (())))
+  ((eval (g const
+            ((do (command) (rest))
+             (command (and null rest) command)
+             (stack (ss) (() ss))))
+         body)
+   (eval (g const
+            ((do (command) (rest))
+             (command (and cons rest) command)
+             (stack (s1 s2 ss) ((s1 ys) ss))
+             (s1 s1 s1)
+             (s2 (ys) s2)))
+         body)
+   (eval (g const
+            ((do (command) (rest))
+             (command (and car rest) command)
+             (stack (s1 ss) (x ss))
+             (s1 (x xs) s1)
+             (x x x)))
+         body)
+   (eval (g const
+            ((do (command) (rest))
+             (command (and cdr rest) command)
+             (stack (s1 ss) ((xs) ss))
+             (s1 (x xs) s1)
+             (x x x)))
+         body)
+   (eval (g const
+            ((do (command) (rest))
+             (command (and set rest) command)
+             (stack (s1 s2 ss) (s1 ss))
+             (s1 (xs) (ys))
+             (s2 (ys) s2)))
+         body)
+   (eval (g const
+            ((do (command) (rest))
+             (command (and push-expr rest) command)
+             (push-expr (push v) push-expr)
+             (v (x) v)
+             (stack (ss) (x ss))
+             (x x x)))
+         body)
+   (eval (g const
+            ((do (command) (rest))
+             (command (and pop-expr rest) command)
+             (pop-expr (pop v) pop-expr)
+             (v (cs) (s1))
+             (stack (s1 ss) (ss))
+             (s1 s1 s1)))
+         body)
+   (eval (g const
+            ((do (command) (then))
+             (command (if null? then else) command)
+             (stack (s1 ss) (ss))
+             (then then then)
+             (else else else)
+             (s1 s1 s1)))
+         (eval (g const
+                  ((do (command) (else))
+                   (command (if null? then else) command)
+                   (stack (s1 ss) (ss))
+                   (s1 (x xs) s1)
+                   (then then then)
+                   (else else else)
+                   (x x x)))
+               body))
+   (eval (g const
+            ((do (command) (else))
+             (command (if eq? then else) command)
+             (stack (s1 s2 ss) (ss))
+             (then then then)
+             (else else else)
+             (s1 s1 s1)
+             (s2 s2 s2)))
+         (eval (g const
+                  ((do (command) (then))
+                   (command (if eq? then else) command)
+                   (stack (s1 s1 ss) (ss))
+                   (s1 s1 s1)
+                   (then then then)
+                   (else else else)))
+               body))
+   (eval (g (and progn)
+            ((g (progn x1 x2 x3 xs) (and x1 (progn x2 x3 xs)))
+             (x1 x1 x1)
+             (x2 x2 x2)
+             (x3 x3 x3)))
+         start)
+   (eva1 (g (and progn) ((g (progn x1 x2) (and x1 x2))))
+         start)))

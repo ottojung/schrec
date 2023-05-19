@@ -58,34 +58,60 @@ shuffle-multi.scm
 "
 
 run_one() {
-	MODE="$1"
-	TRACE="$2"
-	FILE="$3"
+	FILE="$1"
+	MODE="$2"
+	TRACE="$3"
+	ROOTAT="$4"
 
-	if test "$TRACE" = "yestrace"
-	then TRACEFLAG="--trace"
-	else TRACEFLAG='--no-trace'
-	fi
+	case "$TRACE" in
+		yestrace)
+			TRACEFLAG='--trace'
+			;;
+		notrace)
+			TRACEFLAG='--no-trace'
+			;;
+		*)
+			echo "BAD TRACE VALUE $TRACE" 1>&2
+			exit 1
+			;;
+	esac
+
+	case "$ROOTAT" in
+		rootatlast)
+			ROOTATOPTION='--root-at last'
+			;;
+		rootatmodule)
+			ROOTATOPTION='--root-at module'
+			;;
+		*)
+			echo "BAD ROOTAT VALUE $ROOTAT" 1>&2
+			exit 1
+			;;
+	esac
+
+	QALIFIER="$MODE-$TRACE-$ROOTAT"
 
 	test -z "$FILE" && return 0
-	CMD="$SCHREC --results $MODE $TRACEFLAG example/$FILE"
+	CMD="$SCHREC --results $MODE $TRACEFLAG $ROOTATOPTION example/$FILE"
 	echo "> $CMD"
-	$CMD | head -n 1000 > "dist/test/examples/$MODE/$TRACE/$FILE.txt"
+	$CMD | head -n 1000 > "dist/test/examples/$QALIFIER/$FILE.txt"
 
-	diff "test/expected-example-outputs/$MODE/$TRACE/$FILE.txt" \
-	     "dist/test/examples/$MODE/$TRACE/$FILE.txt"
+	diff "test/expected-example-outputs/$QALIFIER/$FILE.txt" \
+	     "dist/test/examples/$QALIFIER/$FILE.txt"
 }
 
 run_all() {
-	MODE="$1"
-	TRACE="$2"
-	LIST="$3"
+	LIST="$1"
+	MODE="$2"
+	TRACE="$3"
+	ROOTAT="$4"
 
-	mkdir -p "dist/test/examples/$MODE/$TRACE"
+	QALIFIER="$MODE-$TRACE-$ROOTAT"
+	mkdir -p "dist/test/examples/$QALIFIER"
 
 	echo "$LIST" | while IFS= read -r FILE
 	do
-		run_one "$MODE" "$TRACE" "$FILE"
+		run_one "$FILE" "$MODE" "$TRACE" "$ROOTAT"
 	done
 }
 
