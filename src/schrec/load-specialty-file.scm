@@ -21,9 +21,9 @@
     :use-module ((euphrates raisu) :select (raisu))
     )))
 
-(define (load-specialty-file filepath)
+(define (load-specialty-file selfname filepath)
   (unless (file-or-directory-exists? filepath)
     (raisu 'specialty-file-does-not-exist filepath))
 
   (let* ((manifest-fn (dynamic-load filepath)))
-    (load-specialty/generic filepath manifest-fn)))
+    (load-specialty/generic filepath selfname manifest-fn)))
