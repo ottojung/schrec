@@ -19,6 +19,7 @@
     :use-module ((euphrates dynamic-load) :select (dynamic-load))
     :use-module ((euphrates file-or-directory-exists-q) :select (file-or-directory-exists?))
     :use-module ((euphrates raisu) :select (raisu))
+    :use-module ((schrec load-specialty-generic) :select (load-specialty/generic))
     )))
 
 (define (load-specialty-file selfname filepath)
