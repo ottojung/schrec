@@ -15,7 +15,6 @@
 (cond-expand
  (guile
   (define-module (schrec main)
-    :use-module ((euphrates comp) :select (comp))
     :use-module ((euphrates current-program-path-p) :select (current-program-path/p))
     :use-module ((euphrates define-cli) :select (define-cli:show-help with-cli))
     :use-module ((euphrates dprintln) :select (dprintln))
@@ -134,9 +133,9 @@
      (with-randomizer-seed
       <seed>
 
-      (load-specialty #f eval-specialty)
-      (load-specialty #f eval/single-specialty)
-      (for-each (comp (load-specialty-file #f)) (or <specialfile...> '()))
+      (load-specialty eval-specialty)
+      (load-specialty eval/single-specialty)
+      (for-each load-specialty-file (or <specialfile...> '()))
 
       (let* ((parsed (readparse-list <filename>)))
         (cond

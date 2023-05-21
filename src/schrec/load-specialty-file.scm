@@ -22,9 +22,9 @@
     :use-module ((schrec load-specialty-generic) :select (load-specialty/generic))
     )))
 
-(define (load-specialty-file selfname filepath)
+(define (load-specialty-file filepath)
   (unless (file-or-directory-exists? filepath)
     (raisu 'specialty-file-does-not-exist filepath))
 
   (let* ((manifest-fn (dynamic-load filepath)))
-    (load-specialty/generic filepath selfname manifest-fn)))
+    (load-specialty/generic filepath manifest-fn)))

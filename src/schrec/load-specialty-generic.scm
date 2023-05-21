@@ -19,9 +19,9 @@
     :use-module ((euphrates assq-or) :select (assq-or))
     :use-module ((euphrates hashmap) :select (hashmap-set! hashmap?))
     :use-module ((euphrates raisu) :select (raisu))
+    :use-module ((schrec loaded-specialtys-p) :select (loaded-specialtys/p))
     :use-module ((schrec specialty-input) :select (make-specialty-input))
     :use-module ((schrec specialty) :select (make-specialty))
-    :use-module ((schrec loaded-specialtys-p) :select (loaded-specialtys/p))
     )))
 
 (define get-new-specialty-id
@@ -30,9 +30,9 @@
       (set! counter (+ 1 counter))
       counter)))
 
-(define (load-specialty/generic filepath selfname manifest-fn)
+(define (load-specialty/generic filepath manifest-fn)
   (define uniqueid (get-new-specialty-id))
-  (define input (make-specialty-input filepath selfname uniqueid))
+  (define input (make-specialty-input filepath uniqueid))
   (define manifest (manifest-fn input))
   (define existing (loaded-specialtys/p))
 
@@ -42,7 +42,7 @@
      (raisu 'specialty-manifest-missing-a-field
             key manifest)))
 
-  (define name (or selfname (get 'name)))
+  (define name (get 'name))
 
   (unless (hashmap? existing)
     (raisu 'expected-specialtys-list-to-be-an-instatiated-hashmap

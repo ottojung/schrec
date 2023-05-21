@@ -20,8 +20,7 @@
     )))
 
 (define-type9 <specialty-input>
-  (make-specialty-input selfpath selfname uniqueid) specialty-input?
+  (make-specialty-input selfpath uniqueid) specialty-input?
   (selfpath specialty-input-selfpath)
-  (selfname specialty-input-selfname)
   (uniqueid specialty-input-uniqueid)
   )

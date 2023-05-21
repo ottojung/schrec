@@ -19,6 +19,6 @@
     :use-module ((schrec load-specialty-generic) :select (load-specialty/generic))
     )))
 
-(define (load-specialty selfname manifest-fn)
+(define (load-specialty manifest-fn)
   (define filepath #f)
-  (load-specialty/generic filepath selfname manifest-fn))
+  (load-specialty/generic filepath manifest-fn))

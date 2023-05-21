@@ -3,6 +3,8 @@
  (guile
   (define-module (test-eval-ordering)
     :use-module ((euphrates assert-equal) :select (assert=))
+    :use-module ((euphrates assq-set-value) :select (assq-set-value))
+    :use-module ((glisp input) :select (input))
     :use-module ((schrec eval-specialty) :select (eval-specialty))
     :use-module ((schrec find-partially-sorted-eval-likes) :select (find-partially-sorted-eval-likes))
     :use-module ((schrec get-head) :select (get-head))
@@ -32,7 +34,9 @@
   (define load-result
     (for-each
      (lambda (name)
-       (load-specialty name eval-specialty))
+       (load-specialty
+        (lambda (input)
+          (assq-set-value 'name name (eval-specialty input)))))
      eval-likes))
 
   (define graph
