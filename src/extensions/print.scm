@@ -15,18 +15,24 @@
 (cond-expand
  (guile
   (define-module (extensions print)
+    :use-module ((schrec pretty-print-graph) :select (pretty-print-graph))
     )))
 
-(define (print-handler env body g)
-  (display "HELLO!")
-  (newline)
+(define (print-handler g)
+  (pretty-print-graph g)
   #f)
 
-(define (print-check-fn g)
+(define (print-handler/multi g)
+  (pretty-print-graph g)
+  (list))
+
+(define (print-check-fn self g)
   #t)
 
 (lambda (input)
   `((manifestversion . 1)
     (name . print)
     (check-fn . ,print-check-fn)
-    (run/det-fn . ,print-handler)))
+    (run/det-fn . ,print-handler)
+    (run/nondet-fn . ,print-handler/multi)
+    (run/random-fn . ,print-handler)))
