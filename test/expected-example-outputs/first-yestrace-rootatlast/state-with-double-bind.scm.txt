@@ -11,3 +11,7 @@ Step:
      ((g (x) (x (x))) (switch (off) (on)) (g r r))))
 --------
 (body (body))
+(let ((switch (on)))
+  (eva1 (g (switch off on)
+           ((g (x) (x (x))) (switch (off) (on)) (g r r)))
+        (body (body))))

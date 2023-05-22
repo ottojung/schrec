@@ -7,3 +7,5 @@ Step:
 (g (i z b) ((g (i x) (b u x i))))
 --------
 (b () (a k) i)
+((s (eva1 (g (i z b) ((g (i x) (b u x i))))
+          (b () (a k) i))))

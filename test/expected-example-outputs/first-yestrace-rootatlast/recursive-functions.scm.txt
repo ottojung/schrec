@@ -463,3 +463,25 @@ Step:
 --------
 (let ((body (results (program (num (i i i i i i))))))
   body)
+(let ((const (zero succ
+                   pi
+                   comp
+                   comp-map
+                   rec
+                   μ
+                   search-μ
+                   num
+                   i
+                   hello))
+      (body (results (program (num (i i i i i i))))))
+  (eval (o const
+           ((o (rr args sm)
+               (g (num (x2 xs)) (rr args (num (x2 xs))) args))
+            (rr (rec f g) rr)
+            (sm (num nl) sm)
+            (nl (x1 x2 xs) nl)
+            (x1 x1 x1)
+            (x2 x2 x2)
+            (f f f)
+            (g g g)))
+        body))

@@ -8,3 +8,6 @@ Step:
 (g (x 1 2) ((g (x) (2))))
 --------
 (let ((body (2))) body)
+(let ((body (2)))
+  ((fork (eva1 (g (x 1 2) ((g (x) (1)))) body)
+         (eva1 (g (x 1 2) ((g (x) (2)))) body))))

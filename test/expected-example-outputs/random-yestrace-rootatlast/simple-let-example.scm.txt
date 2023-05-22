@@ -15,3 +15,5 @@ Step:
   (g (m a b) ((g (m x) (x m m)))))
 --------
 (let ((a (m m m)) (m ())) (a m m))
+(let ((m ()) (a (m m m)))
+  (eva1 (g (m a b) ((g (m x) (x m m)))) (a m m)))
