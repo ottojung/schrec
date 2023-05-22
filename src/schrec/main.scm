@@ -170,10 +170,10 @@
                 (let ((thread (thread-ids-stream)))
                   (if thread
                       (begin
-                        (unless --trace
-                          (with-current-thread thread (pretty-print-graph rooted)))
+                        (with-current-thread
+                         thread (pretty-print-graph rooted))
                         (loop #f))
-                      (when (and first? --reflexive (not --trace))
+                      (when (and first? --reflexive)
                         (pretty-print-graph rooted))))))))))))))
 
 (main)
