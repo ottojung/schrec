@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2021, 2022, 2023 Otto Jung
+;;;; Copyright (C) 2023 Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -14,12 +14,10 @@
 
 (cond-expand
  (guile
-  (define-module (schrec make-fresh-atom-node)
-    :export (make-fresh-atom-node)
-    :use-module ((schrec make-fresh-node) :select (make-fresh-node))
+  (define-module (schrec name-table-p)
+    :export (name-table/p)
+    :use-module ((euphrates hashmap) :select (make-hashmap))
     )))
 
-
-
-(define (make-fresh-atom-node atom namespace)
-  (make-fresh-node atom namespace '()))
+(define name-table/p
+  (make-parameter (make-hashmap)))

@@ -20,6 +20,9 @@
     :use-module ((euphrates hashmap) :select (hashmap-set! hashmap?))
     :use-module ((euphrates raisu) :select (raisu))
     :use-module ((schrec loaded-specialtys-p) :select (loaded-specialtys/p))
+    :use-module ((schrec make-fresh-node) :select (make-fresh-node))
+    :use-module ((schrec name-table) :select (name-table-add!))
+    :use-module ((schrec root-namespace) :select (root-namespace))
     :use-module ((schrec specialty-input) :select (make-specialty-input))
     :use-module ((schrec specialty) :select (make-specialty))
     )))
@@ -54,15 +57,19 @@
     (unless (equal? version expected)
       (raisu 'specialty-version-mismatch version expected)))
 
-  (let ((ext
-         (make-specialty
-          uniqueid
-          name
-          (get 'check-fn)
-          (get 'run/det-fn)
-          (get 'run/nondet-fn)
-          (get 'run/random-fn))))
+  (let ()
+    (define ext
+      (make-specialty
+       uniqueid
+       name
+       (get 'check-fn)
+       (get 'run/det-fn)
+       (get 'run/nondet-fn)
+       (get 'run/random-fn)))
 
+    (define node
+      (make-fresh-node name root-namespace '() ext))
+    (name-table-add! node)
     (hashmap-set! existing name ext)
 
     #f))

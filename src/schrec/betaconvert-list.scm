@@ -16,43 +16,30 @@
  (guile
   (define-module (schrec betaconvert-list)
     :export (betaconvert-list)
-    :use-module ((euphrates hashmap) :select (hashmap-ref hashmap-set! make-hashmap))
     :use-module ((schrec betaconvert-let-expression) :select (betaconvert-let-expression))
     :use-module ((schrec check-let-syntax) :select (check-let-syntax))
     :use-module ((schrec flattenme-mapflat) :select (flattenme-mapflat))
     :use-module ((schrec let-expression-huh) :select (let-expression?))
-    :use-module ((schrec loaded-specialtys-p) :select (loaded-specialtys/p))
-    :use-module ((schrec make-fresh-atom-node) :select (make-fresh-atom-node))
+    :use-module ((schrec make-atom-node) :select (make-atom-node))
     :use-module ((schrec make-fresh-branch-node) :select (make-fresh-branch-node))
-    :use-module ((schrec make-fresh-node) :select (make-fresh-node))
-    :use-module ((schrec make-unique-id) :select (make-unique-id))
-    :use-module ((schrec root-namespace) :select (root-namespace))
     :use-module ((schrec rooting-join) :select (rooting-join))
+    :use-module ((schrec unique-id-to-name) :select (unique-id->name))
+    :use-module ((schrec unique-id-to-namespace) :select (unique-id->namespace))
     )))
 
 
 (define (betaconvert-list list-of-roots)
-  (define specialtys (loaded-specialtys/p))
-  (define valuation (make-hashmap))
-
   (define (loop lst)
     (if (pair? lst)
         (if (let-expression? lst)
             (begin
               (check-let-syntax lst)
-              (betaconvert-let-expression valuation loop lst))
+              (betaconvert-let-expression loop lst))
             (make-fresh-branch-node
              (flattenme-mapflat loop lst)))
-        (let ((existing (hashmap-ref valuation lst #f)))
-          (or existing
-              (let* ((specialty (hashmap-ref specialtys lst #f))
-                     (new
-                      (if specialty
-                          (make-fresh-node lst root-namespace '() specialty)
-                          (make-fresh-atom-node lst root-namespace)))
-                     (key (make-unique-id lst root-namespace)))
-                (hashmap-set! valuation key new)
-                new)))))
+        (let* ((namespace (unique-id->namespace lst))
+               (label (unique-id->name lst)))
+          (make-atom-node label namespace))))
 
   (define roots
     (flattenme-mapflat loop list-of-roots))
