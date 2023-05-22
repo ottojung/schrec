@@ -16,9 +16,9 @@
  (guile
   (define-module (extensions add)
     :use-module ((schrec get-current-thread) :select (get-current-thread))
-    :use-module ((schrec make-fresh-atom-node) :select (make-fresh-atom-node))
+    :use-module ((schrec make-atom-node) :select (make-atom-node))
     :use-module ((schrec node) :select (node-children node-label set-node-children!))
-    :use-module ((schrec temporary-namespace) :select (temporary-namespace))
+    :use-module ((schrec root-namespace) :select (root-namespace))
     )))
 
 (define (add-handler g)
@@ -27,7 +27,7 @@
   (define bn (list-ref cs 2))
   (define a (node-label an))
   (define b (node-label bn))
-  (define c (make-fresh-atom-node (+ a b) temporary-namespace))
+  (define c (make-atom-node (+ a b) root-namespace))
   (set-node-children! g (list c))
   g)
 
