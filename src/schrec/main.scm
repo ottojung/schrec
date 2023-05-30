@@ -29,6 +29,7 @@
     :use-module ((schrec eval-hook) :select (eval-hook))
     :use-module ((schrec eval-single-specialty) :select (eval/single-specialty))
     :use-module ((schrec eval-specialty) :select (eval-specialty))
+    :use-module ((schrec keyword-eval-multi) :select (keyword-eval-multi))
     :use-module ((schrec list-to-graph) :select (list->graph))
     :use-module ((schrec load-specialty-file) :select (load-specialty-file))
     :use-module ((schrec load-specialty) :select (load-specialty))
@@ -72,6 +73,7 @@
       /     --irreflexive
       /     --root-at ROOTAT
       /     --load-specialty <specialfile...>
+      /     --eval-name <eval-name>
       RESULTS : all / first / random
       ROOTAT : last / module
       )
@@ -92,6 +94,9 @@
      :help (<seed> "A seed for the random number generator.")
      :type (<seed> 'number)
      :default (<seed> 777)
+
+     :help (<eval-name> "Name of the eval node")
+     :default (<eval-name> (symbol->string keyword-eval-multi))
 
      :help (--load-specialty (stringf "Add new special ability defined in ~s. It is like a plugin." (~a (quote <specialfile...>))))
 
@@ -133,7 +138,7 @@
      (with-randomizer-seed
       <seed>
 
-      (load-specialty eval-specialty)
+      (load-specialty (eval-specialty <eval-name>))
       (load-specialty eval/single-specialty)
       (for-each load-specialty-file (or <specialfile...> '()))
 
