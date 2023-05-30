@@ -26,5 +26,7 @@
   (unless (file-or-directory-exists? filepath)
     (raisu 'specialty-file-does-not-exist filepath))
 
-  (let* ((manifest-fn (dynamic-load filepath)))
+  (let ((manifest-fn (dynamic-load filepath)))
+    (unless (procedure? manifest-fn)
+      (raisu 'expected-a-procedure-specialty manifest-fn))
     (load-specialty/generic filepath manifest-fn)))
