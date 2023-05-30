@@ -17,7 +17,6 @@
   (define-module (schrec main)
     :use-module ((euphrates current-program-path-p) :select (current-program-path/p))
     :use-module ((euphrates define-cli) :select (define-cli:show-help with-cli))
-    :use-module ((euphrates dprintln) :select (dprintln))
     :use-module ((euphrates file-or-directory-exists-q) :select (file-or-directory-exists?))
     :use-module ((euphrates raisu) :select (raisu))
     :use-module ((euphrates stringf) :select (stringf))
@@ -28,6 +27,7 @@
     :use-module ((schrec default-eval-hook) :select (default-eval-hook))
     :use-module ((schrec eval-hook) :select (eval-hook))
     :use-module ((schrec eval-specialty) :select (eval-specialty))
+    :use-module ((schrec fatal) :select (fatal))
     :use-module ((schrec keyword-eval-multi) :select (keyword-eval-multi))
     :use-module ((schrec list-to-graph) :select (list->graph))
     :use-module ((schrec load-specialty-file) :select (load-specialty-file))
@@ -45,11 +45,6 @@
     :use-module ((schrec with-current-thread) :select (with-current-thread))
     )))
 
-
-(define (fatal fmt . args)
-  (parameterize ((current-output-port (current-error-port)))
-    (apply dprintln (cons fmt args)))
-  (exit 1))
 
 (define (main)
   (with-cli
