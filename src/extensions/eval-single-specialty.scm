@@ -14,15 +14,15 @@
 
 (cond-expand
  (guile
-  (define-module (schrec eval-single-specialty)
+  (define-module (extensions eval-single-specialty)
     :export (eval/single-specialty)
+    :use-module ((extensions eval-single-form-huh) :select (eval-single-form?))
+    :use-module ((extensions keyword-eval-single) :select (keyword-eval-single))
     :use-module ((schrec eval-det) :select (eval/det))
     :use-module ((schrec eval-nondet) :select (eval/nondet))
-    :use-module ((schrec eval-single-form-huh) :select (eval-single-form?))
     :use-module ((schrec get-current-thread) :select (get-current-thread))
     :use-module ((schrec get-eval-body) :select (get-eval-body))
     :use-module ((schrec get-eval-env) :select (get-eval-env))
-    :use-module ((schrec keyword-eval-single) :select (keyword-eval-single))
     :use-module ((schrec run-environment-resultsfirst) :select (run-environment-resultsfirst))
     )))
 
@@ -54,3 +54,5 @@
       (run/det-fn . ,run/det-fn)
       (run/nondet-fn . ,run/nondet-fn)
       (run/random-fn . ,run/random-fn))))
+
+eval/single-specialty

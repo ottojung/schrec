@@ -1,4 +1,4 @@
-;;;; Copyright (C) 2021, 2022, 2023 Otto Jung
+;;;; Copyright (C) 2022, 2023 Otto Jung
 ;;;;
 ;;;; This program is free software: you can redistribute it and/or modify
 ;;;; it under the terms of the GNU General Public License as published by
@@ -14,9 +14,17 @@
 
 (cond-expand
  (guile
-  (define-module (schrec keyword-eval-single)
-    :export (keyword-eval-single)
+  (define-module (extensions eval-single-form-huh)
+    :export (eval-single-form?)
+    :use-module ((euphrates list-length-eq) :select (list-length=))
+    :use-module ((schrec check-environment) :select (check-environment))
+    :use-module ((schrec get-eval-env) :select (get-eval-env))
+    :use-module ((schrec node) :select (node-children))
     )))
 
 
-(define keyword-eval-single 'eva1)
+
+(define (eval-single-form? self node)
+  (define children (node-children node))
+  (and (list-length= 3 children)
+       (check-environment (get-eval-env node))))

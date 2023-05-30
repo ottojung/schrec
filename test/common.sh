@@ -90,9 +90,10 @@ run_one() {
 	esac
 
 	QALIFIER="$MODE-$TRACE-$ROOTAT"
+	LOAD="--load-specialty $PWD/src/extensions/eval-single-specialty.scm"
 
 	test -z "$FILE" && return 0
-	CMD="$SCHREC --results $MODE $TRACEFLAG $ROOTATOPTION example/$FILE"
+	CMD="$SCHREC $LOAD --results $MODE $TRACEFLAG $ROOTATOPTION example/$FILE"
 	echo "> $CMD"
 	$CMD | head -n 1000 > "dist/test/examples/$QALIFIER/$FILE.txt"
 

@@ -27,7 +27,6 @@
     :use-module ((schrec betaconvert-list) :select (betaconvert-list))
     :use-module ((schrec default-eval-hook) :select (default-eval-hook))
     :use-module ((schrec eval-hook) :select (eval-hook))
-    :use-module ((schrec eval-single-specialty) :select (eval/single-specialty))
     :use-module ((schrec eval-specialty) :select (eval-specialty))
     :use-module ((schrec keyword-eval-multi) :select (keyword-eval-multi))
     :use-module ((schrec list-to-graph) :select (list->graph))
@@ -139,7 +138,6 @@
       <seed>
 
       (load-specialty (eval-specialty <eval-name>))
-      (load-specialty eval/single-specialty)
       (for-each load-specialty-file (or <specialfile...> '()))
 
       (let* ((parsed (readparse-list <filename>)))
