@@ -121,7 +121,7 @@
      (when --help
        (define-cli:show-help))
      (when version
-       (display "1.0.0")
+       (display "3.0.0")
        (newline)
        (exit 0))
      (when license
