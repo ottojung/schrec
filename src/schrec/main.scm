@@ -77,21 +77,21 @@
    :help (all "Non-deterministic mode, returns all possible values.")
    :help (first "Deterministic mode, returns only the first (left-most) value.")
    :help (random "Random deterministic mode, returns a random value.")
-   :help (--root-at "Where to put the root of the graph")
-   :help (last "Root is the tip of the last expression in the <filename>")
-   :help (module "Root is a new node that joins all expressions in <filename>")
+   :help (--root-at "Where to put the root of the graph.")
+   :help (last (stringf "Root is the tip of the last expression in the ~s." (quote <filename>)))
+   :help (module (stringf "Root is a new node that joins all expressions in ~s." (quote <filename>)))
 
-   :help (alpharename "Renames all let variables so that no two names are the same. Also removes alias bindings (by executing them, basically)")
-   :help (betaconvert "Replaces variable names by their values. This turns trees into graphs")
+   :help (alpharename "Renames all let variables so that no two names are the same. Also removes alias bindings (by executing them, basically).")
+   :help (betaconvert "Replaces variable names by their values. This turns trees into graphs.")
 
    :help (<seed> "A seed for the random number generator.")
    :type (<seed> 'number)
    :default (<seed> 777)
 
-   :help (<eval-name> "Name of the eval node")
+   :help (<eval-name> "Name of the eval node.")
    :default (<eval-name> (symbol->string keyword-eval-multi))
 
-   :help (--load-specialty (stringf "Add new special ability defined in ~s. It is like a plugin." (~a (quote <specialfile...>))))
+   :help (--load-specialty (stringf "Add new special ability defined in ~s. This is like a plugin loading." (quote <specialfile...>)))
 
    :default (--no-trace #t)
    :exclusive (--no-trace --trace)
