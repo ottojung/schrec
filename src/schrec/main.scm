@@ -52,95 +52,85 @@
   (exit 1))
 
 (define (main)
-  (parameterize ((current-program-path/p "schrec"))
-    (with-cli
-     (MAIN
-      MAIN : --help
-      /      version
-      /      license
-      /      warranty
-      /      alpharename BREAK? <filename>
-      /      betaconvert BREAK? <filename>
-      /      RUN? OPT* BREAK? <filename>
-      RUN : run
-      BREAK : --
-      OPT : --results RESULTS
-      /     --trace
-      /     --no-trace
-      /     --seed <seed>
-      /     --reflexive
-      /     --irreflexive
-      /     --root-at ROOTAT
-      /     --load-specialty <specialfile...>
-      /     --eval-name <eval-name>
-      RESULTS : all / first / random
-      ROOTAT : last / module
-      )
+  (with-cli
+   (MAIN
+    MAIN : --help
+    /      version
+    /      license
+    /      warranty
+    /      alpharename BREAK? <filename>
+    /      betaconvert BREAK? <filename>
+    /      RUN? OPT* BREAK? <filename>
+    RUN : run
+    BREAK : --
+    OPT : --results RESULTS
+    /     --trace
+    /     --no-trace
+    /     --seed <seed>
+    /     --reflexive
+    /     --irreflexive
+    /     --root-at ROOTAT
+    /     --load-specialty <specialfile...>
+    /     --eval-name <eval-name>
+    RESULTS : all / first / random
+    ROOTAT : last / module
+    )
 
-     :default (all #t)
-     :exclusive (all first random)
+   :default (all #t)
+   :exclusive (all first random)
 
-     :help (all "Non-deterministic mode, returns all possible values.")
-     :help (first "Deterministic mode, returns only the first (left-most) value.")
-     :help (random "Random deterministic mode, returns a random value.")
-     :help (--root-at "Where to put the root of the graph")
-     :help (last "Root is the tip of the last expression in the <filename>")
-     :help (module "Root is a new node that joins all expressions in <filename>")
+   :help (all "Non-deterministic mode, returns all possible values.")
+   :help (first "Deterministic mode, returns only the first (left-most) value.")
+   :help (random "Random deterministic mode, returns a random value.")
+   :help (--root-at "Where to put the root of the graph")
+   :help (last "Root is the tip of the last expression in the <filename>")
+   :help (module "Root is a new node that joins all expressions in <filename>")
 
-     :help (alpharename "Renames all let variables so that no two names are the same. Also removes alias bindings (by executing them, basically)")
-     :help (betaconvert "Replaces variable names by their values. This turns trees into graphs")
+   :help (alpharename "Renames all let variables so that no two names are the same. Also removes alias bindings (by executing them, basically)")
+   :help (betaconvert "Replaces variable names by their values. This turns trees into graphs")
 
-     :help (<seed> "A seed for the random number generator.")
-     :type (<seed> 'number)
-     :default (<seed> 777)
+   :help (<seed> "A seed for the random number generator.")
+   :type (<seed> 'number)
+   :default (<seed> 777)
 
-     :help (<eval-name> "Name of the eval node")
-     :default (<eval-name> (symbol->string keyword-eval-multi))
+   :help (<eval-name> "Name of the eval node")
+   :default (<eval-name> (symbol->string keyword-eval-multi))
 
-     :help (--load-specialty (stringf "Add new special ability defined in ~s. It is like a plugin." (~a (quote <specialfile...>))))
+   :help (--load-specialty (stringf "Add new special ability defined in ~s. It is like a plugin." (~a (quote <specialfile...>))))
 
-     :default (--no-trace #t)
-     :exclusive (--no-trace --trace)
+   :default (--no-trace #t)
+   :exclusive (--no-trace --trace)
 
-     :default (--reflexive #t)
-     :exclusive (--reflexive --irreflexive)
+   :default (--reflexive #t)
+   :exclusive (--reflexive --irreflexive)
 
-     :default (last #t)
-     :exclusive (last module)
+   :default (last #t)
+   :exclusive (last module)
 
-     :synonym (version --version -v)
-     :synonym (--help help -h)
-     :synonym (license copying)
+   :synonym (version --version -v)
+   :synonym (--help help -h)
+   :synonym (license copying)
 
-     (define unjoin-mode
-       (cond
-        (last 'last)
-        (module 'module)
-        (else (fatal "Uknown --root-at value"))))
-
-     (when --help
-       (define-cli:show-help))
-     (when version
-       (display "3.0.0")
-       (newline)
-       (exit 0))
-     (when license
-       (show-license)
-       (exit 0))
-     (when warranty
-       (show-warranty)
-       (exit 0))
-
+   (cond
+    (--help
+     (define-cli:show-help))
+    (version
+     (display "3.0.0")
+     (newline))
+    (license
+     (show-license))
+    (warranty
+     (show-warranty))
+    (else
      (unless (file-or-directory-exists? <filename>)
        (fatal "Given file does not exist: ~a" <filename>))
 
+     (load-specialty (eval-specialty <eval-name>))
+     (for-each load-specialty-file (or <specialfile...> '()))
+
      (with-randomizer-seed
       <seed>
-
-      (load-specialty (eval-specialty <eval-name>))
-      (for-each load-specialty-file (or <specialfile...> '()))
-
-      (let* ((parsed (readparse-list <filename>)))
+      (let ((parsed (readparse-list <filename>)))
         (cond
          (alpharename
           (let ((renamed (alpharename-list parsed)))
@@ -150,33 +140,41 @@
             (for-each pretty-print-graph (node-children converted))))
 
          (else
-          (let* ((graph (list->graph parsed))
-                 (rooted (rooting-unjoin unjoin-mode graph)))
+          (let ()
+            (define unjoin-mode
+              (cond
+               (last 'last)
+               (module 'module)
+               (else (fatal "Uknown --root-at value"))))
 
-            (when --trace
-              (eval-hook (default-eval-hook rooted))
-              (display "Original:\n")
-              (pretty-print-graph rooted))
+            (define graph (list->graph parsed))
+            (define rooted (rooting-unjoin unjoin-mode graph))
+            (define trace-set
+              (when --trace
+                (eval-hook (default-eval-hook rooted))
+                (display "Original:\n")
+                (pretty-print-graph rooted)))
 
-            (let ((thread-ids-stream
-                   (cond
-                    (all
-                     (reduce/resultsall graph))
-                    (first
-                     (reduce/resultsfirst graph))
-                    (random
-                     (reduce/resultsrandom graph))
-                    (else
-                     (raisu 'impossible RESULTS)))))
+            (define thread-ids-stream
+              (cond
+               (all
+                (reduce/resultsall graph))
+               (first
+                (reduce/resultsfirst graph))
+               (random
+                (reduce/resultsrandom graph))
+               (else
+                (raisu 'impossible-results))))
 
-              (let loop ((first? #t))
-                (let ((thread (thread-ids-stream)))
-                  (if thread
-                      (begin
-                        (with-current-thread
-                         thread (pretty-print-graph rooted))
-                        (loop #f))
-                      (when (and first? --reflexive)
-                        (pretty-print-graph rooted))))))))))))))
+            (let loop ((first? #t))
+              (let ((thread (thread-ids-stream)))
+                (if thread
+                    (begin
+                      (with-current-thread
+                       thread (pretty-print-graph rooted))
+                      (loop #f))
+                    (when (and first? --reflexive)
+                      (pretty-print-graph rooted))))))))))))))
 
-(main)
+(parameterize ((current-program-path/p "schrec"))
+  (main))
